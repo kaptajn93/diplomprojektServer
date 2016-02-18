@@ -1,18 +1,23 @@
 var path = require('path');
 var webpack = require('webpack');
+const merge = require('webpack-merge');
 
-module.exports = {
+const TARGET = process.env.npm_lifecycle_event;
+
+const PATHS = {
+  app: path.join(__dirname, 'src'),
+  build: path.join(__dirname, 'public')
+};
+
+const common = {
   entry: [
     'babel-polyfill',
-    './src/app.jsx',
-    'webpack-dev-server/client?http://localhost:8080'
+    'webpack-dev-server/client?http://localhost:8080',
+    PATHS.app
   ],
   output: {
-      publicPath: '/public',
-      filename: 'public/lib/bundle.js'
-  },
-  devServer: {
-    contentBase: "./public"
+      path: PATHS.build,
+      filename: 'bundle.js'
   },
   devtool: 'source-map',
   module: {
@@ -35,8 +40,16 @@ module.exports = {
         plugins: ['transform-runtime'],
         presets: ['es2015', 'stage-0', 'react'],
       }
-    }
-  ]
+    }]
   },
   debug: true
 };
+
+// Default configuration
+if(TARGET === 'start' || !TARGET) {
+  module.exports = merge(common, {});
+}
+
+if(TARGET === 'build') {
+  module.exports = merge(common, {});
+}
