@@ -27,6 +27,7 @@ const common = {
       // Skip any files outside of your project's `src` directory
       include: [
         path.resolve(__dirname, "src"),
+        path.resolve(__dirname, "src/assets"),
       ],
       exclude: [
         path.resolve(__dirname, "node_modules"),

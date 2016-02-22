@@ -1,21 +1,14 @@
 import React from 'react'
 import FilterLink from '../containers/FilterLink'
 
+var coloformText = {
+    color: '#888888',
+    textAlign:'center'
+}
+
 const Footer = () => (
-  <p>
-    Show:
-    {" "}
-    <FilterLink filter="SHOW_ALL">
-      All
-    </FilterLink>
-    {", "}
-    <FilterLink filter="SHOW_ACTIVE">
-      HestActive
-    </FilterLink>
-    {", "}
-    <FilterLink filter="SHOW_COMPLETED">
-      Completed
-    </FilterLink>
+  <p style={coloformText}>
+    Created by <a href='http://betterideas.dk/'>better<strong>ideas</strong></a>
   </p>
 )
 
