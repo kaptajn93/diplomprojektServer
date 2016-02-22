@@ -11,6 +11,11 @@ import App from './components/App'
 import Dashboard from './pages/Dashboard'
 import CourseModule from './pages/CourseModule'
 
+import Colors from 'material-ui/lib/styles/colors';
+import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
+import Spacing from 'material-ui/lib/styles/spacing';
+import zIndex from 'material-ui/lib/styles/zIndex';
+
 // Needed for onTouchTap
 // Can go away when react 1.0 release
 // Check this repo:
@@ -18,6 +23,10 @@ import CourseModule from './pages/CourseModule'
 injectTapEventPlugin();
 
 let store = createStore(todoApp)
+
+document.body.style.margin = "0px";
+document.body.style.padding = "0px";
+document.body.style.background = "#FAFAFA"
 
 ReactDOM.render(
   <Provider store={store}>
