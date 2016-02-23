@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Bounded Contexts\CourseModule\Core\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="WebActivatorEx">

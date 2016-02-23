@@ -37,3 +37,5 @@ C:\projects\BetterWays\BetterWays.Server\BetterWays.Api.Tests\bin\Debug\Newtonso
 C:\projects\BetterWays\BetterWays.Server\BetterWays.Api.Tests\bin\Debug\System.Net.Http.Formatting.xml
 C:\projects\BetterWays\BetterWays.Server\BetterWays.Api.Tests\obj\Debug\BetterWays.Api.Tests.dll
 C:\projects\BetterWays\BetterWays.Server\BetterWays.Api.Tests\obj\Debug\BetterWays.Api.Tests.pdb
+C:\projects\BetterWays\BetterWays.Server\BetterWays.Api.Tests\bin\Debug\Microsoft.Azure.Documents.Client.dll
+C:\projects\BetterWays\BetterWays.Server\BetterWays.Api.Tests\bin\Debug\Microsoft.Azure.Documents.Client.xml
