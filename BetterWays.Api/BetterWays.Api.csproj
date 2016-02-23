@@ -47,17 +47,20 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Swashbuckle.Core">
-      <HintPath>..\packages\Swashbuckle.Core.5.0.0\lib\net40\Swashbuckle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IdentityModel.Tokens.Jwt">
-      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http">
-      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.3.1\lib\net40\Swashbuckle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
       <Private>True</Private>
@@ -68,10 +71,6 @@
     </Reference>
     <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest">
-      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
@@ -90,18 +89,15 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Bounded Contexts\CourseModule\Core\Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="WebActivatorEx">
-      <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Http">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
@@ -118,13 +114,28 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bounded Contexts\CourseModule\Application\CourseModuleApplicationService.cs" />
-    <Compile Include="Bounded Contexts\CourseModule\Bootstrap.cs" />
-    <Compile Include="Bounded Contexts\CourseModule\Core\Repositories\ICourseModuleRepository.cs" />
-    <Compile Include="Bounded Contexts\CourseModule\Infrastructure\CourseModuleRepositoryDocumentDb.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\CourseModuleApplicationService.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Bootstrap.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingCourse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModule.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleResource.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleResourceReference.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleResourceRevisionHistory.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\ResourseRevisionHistoryReference.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingCourseRepository.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingModuleResourceRepository.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingModuleResourceRevisionHistoryRepository.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Bounded Contexts\CourseModule\Infrastructure\Controllers\ValuesController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\CoachingCourseService.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ValuesController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingCourseRepositoryDocumentDB.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleResourceRepositoryDocumentDb.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleResourceRevisionHistoryRepositoryDocumentDB.cs" />
+    <Compile Include="Bounded Contexts\Shared\Domain\AggrgateRoot.cs" />
+    <Compile Include="Bounded Contexts\Shared\Domain\Entity.cs" />
+    <Compile Include="Bounded Contexts\Shared\Domain\ValueObject.cs" />
+    <Compile Include="Bounded Contexts\Shared\Infrastructure\DocumentDBRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
