@@ -68,6 +68,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App\Application\" />
+    <Folder Include="App\Core\" />
+    <Folder Include="App\Infrastructure\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
