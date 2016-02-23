@@ -14,9 +14,10 @@ import CardText from 'material-ui/lib/card/card-text';
 import Paper from 'material-ui/lib/paper';
 
 import CourseModuleInfo from '../components/CourseModuleInfo';
+const {Grid, Row, Col} = require('react-flexgrid');
 
 var pageContainerStyle = {
-  margin:'32px 64px'
+  margin:'32px 20px'
 }
 
 var courseContainerStyle = {
@@ -48,11 +49,6 @@ var iconStyle = {
   color : 'black'
 }
 
-const style = {
-  margin: '30px 50px'
-};
-
-
 const CourseModule = React.createClass({
 
   render: function() {
@@ -76,8 +72,9 @@ const CourseModule = React.createClass({
 
     return (
       <div style={pageContainerStyle}>
-        <div className="row">
-          <div className="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+        <Row>
+          <Col xs={0} sm={0} md={2} lg={2}/>
+          <Col xs={12} sm={12} md={8} lg={8}>
             <Paper style={courseContainerStyle}>
               <div style={paddingStyle}>
                 <h4 style={moduleNumStyle}>Modul 1/12</h4>
@@ -87,7 +84,7 @@ const CourseModule = React.createClass({
                 <Tab style={styles.tab[0]}
                   icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">wb_incandescent</FontIcon>}
                   label="VIDEN">
-                  <div style={marginStyle} >
+                  <div style={paddingStyle} >
                     <CourseModuleInfo />
                   </div>
                 </Tab>
@@ -102,8 +99,9 @@ const CourseModule = React.createClass({
               </Tabs>
             </Paper>
 
-          </div>
-        </div>
+          </Col>
+          <Col xs={0} sm={0} md={2} lg={2}/>
+        </Row>
       </div>
     )
   }
