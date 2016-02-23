@@ -1,5 +1,13 @@
 import axios from 'axios'
 
+export const TEST_API = 'TEST_API'
+/*export function testApi(id) {
+  return {
+    type: TEST_API,
+    id
+  }
+}*/
+
 export const REQUEST_API_VALUE = 'REQUEST_API_VALUE'
 function requestApiValue(id) {
   return {
@@ -13,7 +21,7 @@ function receiveApiValue(id, json) {
   return {
     type: RECEIVE_API_VALUE,
     id,
-    posts: json//json.data.children.map(child => child.data),
+    posts: json,//json.data.children.map(child => child.data),
     receivedAt: Date.now()
   }
 }
@@ -32,22 +40,15 @@ export function fetchApiValue(id) {
 
     // First dispatch: the app state is updated to inform
     // that the API call is starting.
-
     dispatch(requestApiValue(id))
 
-    // The function called by the thunk middleware can return a value,
-    // that is passed on as the return value of the dispatch method.
-
-    // In this case, we return a promise to wait for.
-    // This is not required by thunk middleware, but it is convenient for us.
-
-    return axios.get('http://betterways-api.azurewebsites.net/api/Values/${id}')
+    // Secondly invoke the remote API and return a promise
+    return axios.get('http://betterways-api.azurewebsites.net/api/Values/' + id)
       .then(response => response.data)
       .then(json =>
 
-        // We can dispatch many times!
-        // Here, we update the app state with the results of the API call.
-
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
         dispatch(receiveApiValue(id, json))
       )
       .catch(response => {

@@ -20,10 +20,3 @@ export const toggleTodo = (id) => {
     id
   }
 }
-
-export function testApi(id) {
-  return {
-    type: 'TEST_API',
-    id
-  }
-}
