@@ -38,6 +38,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.5.3\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -88,9 +92,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\Application\" />
-    <Folder Include="App\Core\" />
-    <Folder Include="App\Infrastructure\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -116,9 +117,13 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bounded Contexts\CourseModule\Application\CourseModuleApplicationService.cs" />
+    <Compile Include="Bounded Contexts\CourseModule\Bootstrap.cs" />
+    <Compile Include="Bounded Contexts\CourseModule\Core\Repositories\ICourseModuleRepository.cs" />
+    <Compile Include="Bounded Contexts\CourseModule\Infrastructure\CourseModuleRepositoryDocumentDb.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Bounded Contexts\CourseModule\Infrastructure\Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

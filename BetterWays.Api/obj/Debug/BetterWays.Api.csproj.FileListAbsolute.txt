@@ -39,3 +39,5 @@ C:\projects\BetterWays\BetterWays.Server\BetterWays.Api\bin\System.Web.Http.xml
 C:\projects\BetterWays\BetterWays.Server\BetterWays.Api\bin\System.Web.Http.WebHost.xml
 C:\projects\BetterWays\BetterWays.Server\BetterWays.Api\obj\Debug\BetterWays.Api.dll
 C:\projects\BetterWays\BetterWays.Server\BetterWays.Api\obj\Debug\BetterWays.Api.pdb
+C:\projects\BetterWays\BetterWays.Server\BetterWays.Api\bin\Microsoft.Azure.Documents.Client.dll
+C:\projects\BetterWays\BetterWays.Server\BetterWays.Api\bin\Microsoft.Azure.Documents.Client.xml
