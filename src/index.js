@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger';
 
 import todoApp from './reducers'
 import App from './components/App'
@@ -22,7 +24,21 @@ import zIndex from 'material-ui/lib/styles/zIndex';
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-let store = createStore(todoApp)
+const loggerMiddleware = createLogger();
+
+let store = createStore(
+  todoApp,
+  applyMiddleware(
+    thunkMiddleware,
+    loggerMiddleware
+  ));
+
+/*
+store.dispatch(selectSubreddit('reactjs'))
+store.dispatch(fetchPosts('reactjs')).then(() =>
+  console.log(store.getState())
+)
+*/
 
 document.body.style.margin = "0px";
 document.body.style.padding = "0px";

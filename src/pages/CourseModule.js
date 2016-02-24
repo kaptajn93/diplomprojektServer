@@ -108,36 +108,3 @@ const CourseModule = React.createClass({
 });
 
 export default CourseModule
-
-
-  /*<Card>
-    <CardHeader
-      title="Modul 1/12"
-      subtitle="Fyret. Hvad nu?"
-      actAsExpander={false}
-      showExpandableButton={false}
-    />
-    <CardText expandable={false}>
-      <Tabs>
-        <Tab
-          icon={<FontIcon className="material-icons">wb_incandescent</FontIcon>}
-          label="VIDEN">
-          <div>
-            <CourseModuleInfo />
-          </div>
-        </Tab>
-        <Tab
-          icon={<FontIcon className="material-icons">colorize</FontIcon>}
-          label="EKSPERIMENT"
-        />
-        <Tab
-          icon={<FontIcon className="material-icons">cloud</FontIcon>}
-          label="REFLEKTION"
-        />
-      </Tabs>
-    </CardText>
-    <CardActions expandable={true}>
-      <FlatButton label="Forrige"/>
-      <FlatButton label="Næste"/>
-    </CardActions>
-  </Card>*/
