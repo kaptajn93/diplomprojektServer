@@ -63,3 +63,4 @@ C:\Users\bobbe\Documents\Projects\betterWays\server\BetterWays.Api\obj\Debug\Bet
 C:\Users\bobbe\Documents\Projects\betterWays\server\BetterWays.Api\obj\Debug\BetterWays.Api.pdb
 C:\Users\bobbe\Documents\Projects\betterWays\server\BetterWays.Api\bin\Newtonsoft.Json.dll
 C:\Users\bobbe\Documents\Projects\betterWays\server\BetterWays.Api\bin\Newtonsoft.Json.xml
+C:\Users\bobbe\Documents\Projects\betterWays\server\BetterWays.Api\obj\Debug\BetterWays.Api.csprojResolveAssemblyReference.cache
