@@ -10,7 +10,7 @@ import Paper from 'material-ui/lib/paper';
 const {Grid, Row, Col} = require('react-flexgrid');
 
 var logoStyle = {
-  height : '24px',
+  height : '26px',
   marginTop: '12px'
 }
 

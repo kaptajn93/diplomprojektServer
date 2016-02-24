@@ -10,8 +10,8 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="18.433643mm"
-   height="10.172674mm"
-   viewBox="0 0 65.316059 36.044908"
+   height="9.4584007mm"
+   viewBox="0 0 65.316059 33.514018"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="7.9195959"
-     inkscape:cx="15.198016"
-     inkscape:cy="40.234996"
+     inkscape:zoom="22.4"
+     inkscape:cx="36.31837"
+     inkscape:cy="36.83604"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -40,7 +40,7 @@
      inkscape:snap-smooth-nodes="false"
      inkscape:snap-nodes="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1137"
+     inkscape:window-height="1017"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -49,87 +49,87 @@
      fit-margin-right="0"
      fit-margin-bottom="0">
     <sodipodi:guide
-       position="4.0379487,28.437808"
+       position="4.0379487,28.437807"
        orientation="5.07813,0"
        id="guide4150" />
     <sodipodi:guide
-       position="4.0379487,23.359678"
+       position="4.0379487,23.359677"
        orientation="0,18.64648"
        id="guide4152" />
     <sodipodi:guide
-       position="22.684429,23.359678"
+       position="22.684429,23.359677"
        orientation="23.35937,5.375"
        id="guide4154" />
     <sodipodi:guide
-       position="28.05943,0.00030701129"
+       position="28.05943,0.00030727233"
        orientation="0,6.21094"
        id="guide4156" />
     <sodipodi:guide
-       position="34.27037,0.00030701129"
+       position="34.27037,0.00030727233"
        orientation="-17.55859,4.7461"
        id="guide4158" />
     <sodipodi:guide
-       position="39.016469,17.558897"
+       position="39.016469,17.558896"
        orientation="0,0.11718"
        id="guide4160" />
     <sodipodi:guide
-       position="39.133649,17.558897"
+       position="39.133649,17.558896"
        orientation="17.55859,4.78516"
        id="guide4162" />
     <sodipodi:guide
-       position="43.918811,0.00030701129"
+       position="43.918811,0.00030727233"
        orientation="0,6.21094"
        id="guide4164" />
     <sodipodi:guide
-       position="50.129752,0.00030701129"
+       position="50.129752,0.00030727233"
        orientation="-28.4375,6.52343"
        id="guide4166" />
     <sodipodi:guide
-       position="56.653182,28.437808"
+       position="56.653182,28.437807"
        orientation="0,-6.67968"
        id="guide4168" />
     <sodipodi:guide
-       position="49.973502,28.437808"
+       position="49.973502,28.437807"
        orientation="18.4375,-3.4375"
        id="guide4170" />
     <sodipodi:guide
-       position="46.536001,10.000306"
+       position="46.536001,10.000305"
        orientation="0,-0.11719"
        id="guide4172" />
     <sodipodi:guide
-       position="46.418811,10.000306"
+       position="46.418811,10.000305"
        orientation="-18.4375,-4.84375"
        id="guide4174" />
     <sodipodi:guide
-       position="41.575061,28.437808"
+       position="41.575061,28.437807"
        orientation="0,-4.98047"
        id="guide4176" />
     <sodipodi:guide
-       position="36.594589,28.437808"
+       position="36.594589,28.437807"
        orientation="18.47656,-4.82422"
        id="guide4178" />
     <sodipodi:guide
-       position="31.77037,9.9612473"
+       position="31.77037,9.9612468"
        orientation="-0.01953,-0.11719"
        id="guide4180" />
     <sodipodi:guide
-       position="31.65318,9.9807773"
+       position="31.65318,9.9807768"
        orientation="-18.45703,-3.4375"
        id="guide4182" />
     <sodipodi:guide
-       position="28.21568,28.437808"
+       position="28.21568,28.437807"
        orientation="0,-3.66796"
        id="guide4184" />
     <sodipodi:guide
-       position="24.54772,28.437808"
+       position="24.54772,28.437807"
        orientation="0,-3.03125"
        id="guide4186" />
     <sodipodi:guide
-       position="21.516469,28.437808"
+       position="21.516469,28.437807"
        orientation="0,-17.47852"
        id="guide4188" />
     <sodipodi:guide
-       position="4.0379487,28.437808"
+       position="4.0379487,28.437807"
        orientation="0,0"
        id="guide4190" />
   </sodipodi:namedview>
@@ -149,12 +149,12 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-192.83705,-262.03157)">
+     transform="translate(-192.83705,-264.56246)">
     <g
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        id="text4136">
       <path
-         d="m 244.22882,262.03157 -4.85577,26.0446 -0.11719,0 -4.84375,-18.4375 -4.98047,0 -4.82422,18.47656 -0.11719,-0.0195 -3.4375,-18.45703 -3.66796,0 -3.03125,0 -17.47852,0 0,5.07813 18.64648,0 5.375,23.35937 6.21094,0 4.7461,-17.55859 0.11718,0 4.78516,17.55859 6.21094,0 7.104,-30.96842 8.08231,0 0,-5.07618 -6.91825,0 -2.94726,0 z"
+         d="m 243.75696,264.56246 -4.38391,23.51371 -0.11719,0 -4.31833,-15.72321 -6.02809,0 -4.30202,15.76227 -0.11719,-0.0195 -3.4375,-18.45703 -3.66796,0 -3.03125,0 -17.47852,0 0,5.07813 18.64648,0 5.375,23.35937 6.21094,0 4.7461,-14.8443 0.11718,0 4.78516,14.8443 6.21094,0 6.52343,-28.43753 8.66288,0 0,-5.07618 -6.91825,0 -2.94726,0 z"
          id="path4143"
          style="fill:#ff4081;fill-opacity:1;stroke:none;stroke-opacity:1"
          inkscape:connector-curvature="0"
