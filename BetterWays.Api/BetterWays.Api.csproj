@@ -132,7 +132,7 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingCourseRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleResourceRepositoryDocumentDb.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleResourceRevisionHistoryRepositoryDocumentDB.cs" />
-    <Compile Include="Bounded Contexts\Shared\Domain\AggrgateRoot.cs" />
+    <Compile Include="Bounded Contexts\Shared\Domain\AggregateRoot.cs" />
     <Compile Include="Bounded Contexts\Shared\Domain\Entity.cs" />
     <Compile Include="Bounded Contexts\Shared\Domain\ValueObject.cs" />
     <Compile Include="Bounded Contexts\Shared\Infrastructure\DocumentDBRepository.cs" />
