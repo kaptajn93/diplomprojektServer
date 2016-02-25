@@ -45,9 +45,15 @@ var mutedText = {
   color: '#888888'
 }
 
-var slogalStyle = {
+var sloganStyle = {
   color: '#888888',
   marginTop:'4px'
+}
+
+var widgedSubheaderStyle = {
+  color: '#888888',
+  marginTop:'4px',
+  marginBottom:'0'
 }
 
 var bigSubtitle = {
@@ -73,7 +79,7 @@ var noMargin = {
 
 var widgedStyle = {
   margin:'8px',
-  backgroundColor: '#fafafa',
+  backgroundColor: '#f7f7f7',
   padding: '24px'
 }
 
@@ -91,12 +97,12 @@ const Dashboard = () => (
             <Row>
               <Col xs={12} sm={12} md={12} lg={12}>
                 <h1 style={title}>Better <span style={primaryText}>ways</span></h1>
-                <h3 style={slogalStyle}>Din vej til en ny fremtid</h3>
+                <h3 style={sloganStyle}>Din vej til en ny fremtid</h3>
                 <hr/>
               </Col>
             </Row>
             <Row style={noMargin}>
-              <Col xs={12} sm={12} md={7} lg={7}>
+              <Col xs={12} sm={12} md={12} lg={7}>
                 <Row style={widgedStyle}>
                   <Col xs={7} sm={7} md={7} lg={7}>
                     <h2 style={smallTitle}>Uge 1/12</h2>
@@ -110,27 +116,26 @@ const Dashboard = () => (
                   </Col>
                 </Row>
               </Col>
-              <Col xs={12} sm={12} md={5} lg={5}>
+              <Col xs={12} sm={12} md={12} lg={5}>
                 <Row style={widgedStyle}>
 
                   <Col xs={12} sm={12} md={12} lg={12}>
                     <h2 style={title}><Comment color={Colors.grey500} /> Samtaler</h2>
-                    <h5 style={slogalStyle}>Dine seneste samtaler</h5>
+                    <h5 style={widgedSubheaderStyle}>Dine seneste samtaler</h5>
                     <hr/>
                     <List style={transparentBackground}>
                       <ListItem
                         leftAvatar={<Avatar src="assets/drphil.jpg" />}
-                        primaryText="Dine styrker skal frem i lyset. Jeg vil anbefale..."
+                        primaryText="Dine styrker skal frem i lyset. Jeg..."
                         secondaryText="Fra Dr. Phil, Jan 28, 2016"
                       />
                       <ListItem
                         leftAvatar={<Avatar src="assets/jens.jpg"   />}
-                        primaryText="Etiam quis odio id neque blandit venenatis. Mauris..."
+                        primaryText="Etiam quis odio id neque blandit..."
                         secondaryText="Fra Jens, Jan 22, 2016"
                       />
                     </List>
-
-                        <FlatButton label="Se flere"  secondary={true}/>
+                    <FlatButton label="Se flere"  primary={true} />
                   </Col>
                 </Row>
               </Col>
