@@ -15,6 +15,7 @@ import Paper from 'material-ui/lib/paper';
 
 import CourseModuleInfo from '../components/CourseModuleInfo';
 import CourseModuleExperiment from '../components/CourseModuleExperiment';
+import CourseModuleReflection from '../components/CourseModuleReflection';
 
 const {Grid, Row, Col} = require('react-flexgrid');
 
@@ -99,8 +100,11 @@ const CourseModule = React.createClass({
                 </Tab>
                 <Tab style={styles.tab[2]}
                   icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">cloud</FontIcon>}
-                  label="REFLEKTION"
-                />
+                  label="REFLEKTION">
+                  <div style={paddingStyle} >
+                    <CourseModuleReflection />
+                  </div>
+                </Tab>
               </Tabs>
             </Paper>
 
