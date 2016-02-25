@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BetterWays.Api.BoundedContexts.CoachingCourses.Infrastructure.Repositories
 {
-    public class CoachingModuleResourceRepositoryDocumentDb : DocumentDBRepository<CoachingModuleResource>, ICoachingModuleResourceRepository
+    public class ModuleResourceRepositoryDocumentDb : DocumentDBRepository<CoachingModuleResource>, IModuleResourceRepository
     {
         public void CreateModuleResource(CoachingModuleResource resource)
         {

@@ -20,5 +20,10 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Infrastructure.Reposito
         {
             SaveItem(coachingCourse);
         }
+
+        public CoachingCourse GetCourseById(Guid courseId)
+        {
+            return GetItems(i => i.Id == courseId).Single();
+        }
     }
 }

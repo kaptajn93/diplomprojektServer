@@ -33,5 +33,23 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         /// </summary>
         [JsonProperty(PropertyName = "reflection")]
         public CoachingModuleResourceReference Reflection { get; set; }
+
+        public CoachingModule()
+        {
+
+        }
+
+        public CoachingModule(
+            string name, 
+            CoachingModuleResource introduction,
+            CoachingModuleResource exercise,
+            CoachingModuleResource reflection)
+        {
+            Name = name;
+
+            Introduction = new CoachingModuleResourceReference(introduction.Id, introduction.RevisionHistory.ReferenceId);
+            Exercise = new CoachingModuleResourceReference(exercise.Id, exercise.RevisionHistory.ReferenceId);
+            Reflection = new CoachingModuleResourceReference(reflection.Id, reflection.RevisionHistory.ReferenceId);
+        }
     }
 }

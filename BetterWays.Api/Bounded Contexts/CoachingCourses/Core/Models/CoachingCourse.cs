@@ -1,4 +1,5 @@
-﻿using BetterWays.Api.BoundedContexts.Shared.Domain;
+﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models;
+using BetterWays.Api.BoundedContexts.Shared.Domain;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         /// <summary>
         /// Name of this course
         /// </summary>
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
@@ -20,33 +22,26 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         /// </summary>
         /// 
         [JsonProperty(PropertyName = "modules")]
-        public List<CoachingModule> Modules { get; set; }
+        public List<CoachingModuleReference> Modules { get; set; }
 
 
         public CoachingCourse(string name)
         {
             Name = name;
-            Modules = new List<CoachingModule>();
+            Modules = new List<CoachingModuleReference>();
         }
 
-        public CoachingModule AddCoachingModule(
-            string name, 
+        public void AddCoachingModule(
+            CoachingModule module
+            /*string name, 
             CoachingModuleResource introduction,
             CoachingModuleResource exercise,
-            CoachingModuleResource reflection)
+            CoachingModuleResource reflection*/)
         {
-            var coachingModule = new CoachingModule()
-            {
-                Name = name,
-                Introduction = new CoachingModuleResourceReference(introduction.Id, introduction.RevisionHistory.ReferenceId),
-                Exercise = new CoachingModuleResourceReference(exercise.Id, exercise.RevisionHistory.ReferenceId),
-                Reflection = new CoachingModuleResourceReference(reflection.Id, reflection.RevisionHistory.ReferenceId)
-            };
+            
 
             //Add to collection
-            Modules.Add(coachingModule);
-            
-            return coachingModule;
+            Modules.Add(new CoachingModuleReference (module.Id) );
         }
     }
 }

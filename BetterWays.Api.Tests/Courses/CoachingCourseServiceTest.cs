@@ -41,8 +41,10 @@ namespace Tests
                 }
             }
 
-            _coachingCourseService = new CoachingCourseService(new CoachingCourseRepositoryDocumentDB(), new CoachingModuleResourceRevisionHistoryRepositoryDocumentDB(), new CoachingModuleResourceRepositoryDocumentDb());
-
+            _coachingCourseService = new CoachingCourseService(
+                new CoachingCourseRepositoryDocumentDB(), 
+                new ModuleResourceRepositoryDocumentDb(), 
+                new CoachingModuleRepositoryDocumentDB());
         }
 
         [TestMethod]
@@ -68,16 +70,18 @@ namespace Tests
             _coachingCourseService.CreateNewModuleInCourse(course, "Some module");
 
             //Check that revisions histories was created
-            var revRepo = new CoachingModuleResourceRevisionHistoryRepositoryDocumentDB();
-            var resourceRepo = new CoachingModuleResourceRepositoryDocumentDb();
+            var resourceRepo = new ModuleResourceRepositoryDocumentDb();
+            var moduleRepo = new CoachingModuleRepositoryDocumentDB();
+            var foundModule = moduleRepo.GetModuleById(course.Modules[0].ModuleReferenceId);
             
-            var allRepositories = revRepo.GetAllItems().ToList();
-            Assert.AreEqual(allRepositories.Count, 3);
-
             //Check that repos only has one version
-            Assert.AreEqual(resourceRepo.GetItems(i => i.RevisionHistory.ReferenceId == allRepositories[0].Id).Count(), 1);
-            Assert.AreEqual(resourceRepo.GetItems(i => i.RevisionHistory.ReferenceId == allRepositories[1].Id).Count(), 1);
-            Assert.AreEqual(resourceRepo.GetItems(i => i.RevisionHistory.ReferenceId == allRepositories[2].Id).Count(), 1);
+            Assert.AreEqual(resourceRepo.GetItems(i => i.RevisionHistory.ReferenceId == foundModule.Introduction.RevisionHistoryReferenceId).Count(), 1);
+            Assert.AreEqual(resourceRepo.GetItems(i => i.RevisionHistory.ReferenceId == foundModule.Exercise.RevisionHistoryReferenceId).Count(), 1);
+            Assert.AreEqual(resourceRepo.GetItems(i => i.RevisionHistory.ReferenceId == foundModule.Reflection.RevisionHistoryReferenceId).Count(), 1);
+
+            Assert.AreNotEqual(foundModule.Introduction.RevisionHistoryReferenceId, foundModule.Exercise.RevisionHistoryReferenceId);
+            Assert.AreNotEqual(foundModule.Introduction.RevisionHistoryReferenceId, foundModule.Reflection.RevisionHistoryReferenceId);
+            Assert.AreNotEqual(foundModule.Exercise.RevisionHistoryReferenceId, foundModule.Reflection.RevisionHistoryReferenceId);
         }
 
         [TestMethod]
@@ -88,22 +92,21 @@ namespace Tests
             var course = _coachingCourseService.CreateNewCoachingCourse(courseName);
             var coachingModule = _coachingCourseService.CreateNewModuleInCourse(course, "Some module");
             
-            _coachingCourseService.UpdateModuleResurce(course, course.Modules[0], coachingModule.Introduction, "En meget kortere tekst");
+            _coachingCourseService.UpdateModuleResurce(coachingModule, coachingModule.Introduction, "En meget kortere tekst");
 
             var courseRepo = new CoachingCourseRepositoryDocumentDB();
-            var resourceRepo = new CoachingModuleResourceRepositoryDocumentDb();
+            var resourceRepo = new ModuleResourceRepositoryDocumentDb();
+            var moduleRepo = new CoachingModuleRepositoryDocumentDB();
             var foundCourse = courseRepo.GetItems(i => i.Id == course.Id).Single();
-            var foundIntroductionResource = resourceRepo.GetResourceById(foundCourse.Modules[0].Introduction.ResourceReferenceId);
+            var foundModule = moduleRepo.GetModuleById(foundCourse.Modules[0].ModuleReferenceId);
+            var foundIntroductionResource = resourceRepo.GetResourceById(foundModule.Introduction.ResourceReferenceId);
 
             Assert.AreEqual(foundCourse.Modules.Count, 1);
             Assert.AreEqual(foundIntroductionResource.Content, "En meget kortere tekst");
-
-            var revisionRepo = new CoachingModuleResourceRevisionHistoryRepositoryDocumentDB();
-            resourceRepo = new CoachingModuleResourceRepositoryDocumentDb();
-            var foundRevison = revisionRepo.GetRevisionHistoryById(course.Modules[0].Introduction.RevisionHistoryReferenceId);
-            var foundResources = resourceRepo.GetItems(i => i.RevisionHistory.ReferenceId == course.Modules[0].Introduction.RevisionHistoryReferenceId);
-
-            Assert.IsNotNull(foundRevison);
+            
+            resourceRepo = new ModuleResourceRepositoryDocumentDb();
+            var foundResources = resourceRepo.GetItems(i => i.RevisionHistory.ReferenceId == foundModule.Introduction.RevisionHistoryReferenceId);
+            
             Assert.AreEqual(foundResources.OrderBy(v => v.Version).ToList()[0].Version, 1);
             Assert.AreEqual(foundResources.OrderBy(v => v.Version).ToList()[1].Version, 2);
             
