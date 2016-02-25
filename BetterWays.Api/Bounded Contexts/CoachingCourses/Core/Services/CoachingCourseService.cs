@@ -10,24 +10,24 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
 {
     public class CoachingCourseService
     {
-        private ICoachingCourseRepository _coachingCourserepository;
-        private ICoachingModuleResourceRevisionHistoryRepository _revisonHistoryRepository;
-        private ICoachingModuleResourceRepository _resourceRepository;
+        private ICoachingCourseRepository _coachingCourseRepository;
+        private IModuleResourceRepository _resourceRepository;
+        private ICoachingModuleRepository _moduleRepository;
 
         public CoachingCourseService(
             ICoachingCourseRepository coachingCourserepository, 
-            ICoachingModuleResourceRevisionHistoryRepository revisonHistoryRepository,
-            ICoachingModuleResourceRepository resourceRpository)
+            IModuleResourceRepository resourceRpository,
+            ICoachingModuleRepository moduleRepository)
         {
-            _coachingCourserepository = coachingCourserepository;
-            _revisonHistoryRepository = revisonHistoryRepository;
+            _coachingCourseRepository = coachingCourserepository;
             _resourceRepository = resourceRpository;
+            _moduleRepository = moduleRepository;
         }
 
         public CoachingCourse CreateNewCoachingCourse(string courseName)
         {
             var course = new CoachingCourse(courseName);
-            _coachingCourserepository.CreateCoachingCourse(course);
+            _coachingCourseRepository.CreateCoachingCourse(course);
 
             return course;
         }
@@ -42,38 +42,59 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
 
 
             //Create revsions for new content
-            var introRevision = new CoachingModuleResourceRevisionHistory();
-            introRevision.PushVersion(introduction, _resourceRepository);
-            var exerciseRevision = new CoachingModuleResourceRevisionHistory();
-            exerciseRevision.PushVersion(exercise, _resourceRepository);
-            var reflectionRevision = new CoachingModuleResourceRevisionHistory();
-            reflectionRevision.PushVersion(reflection, _resourceRepository);
+            var introRevision = Guid.NewGuid();
+            PushResourceVersion(introduction, introRevision, _resourceRepository);
+            var exerciseRevision = Guid.NewGuid();
+            PushResourceVersion(exercise, exerciseRevision, _resourceRepository);
+            var reflectionRevision = Guid.NewGuid();
+            PushResourceVersion(reflection, reflectionRevision, _resourceRepository);
 
             //Save resources
             _resourceRepository.CreateModuleResource(introduction);
             _resourceRepository.CreateModuleResource(exercise);
             _resourceRepository.CreateModuleResource(reflection);
 
-            _revisonHistoryRepository.CreateRevisionHistory(introRevision);
+            /*_revisonHistoryRepository.CreateRevisionHistory(introRevision);
             _revisonHistoryRepository.CreateRevisionHistory(exerciseRevision);
-            _revisonHistoryRepository.CreateRevisionHistory(reflectionRevision);
+            _revisonHistoryRepository.CreateRevisionHistory(reflectionRevision);*/
 
             //Create and add module
-            var module = coachingCourse.AddCoachingModule(moduleName, introduction, exercise, reflection);
-            _coachingCourserepository.SaveCoachingCourse(coachingCourse);
+            var module =new CoachingModule(
+                moduleName,
+                introduction, exercise, reflection);
+
+            _moduleRepository.SaveModule(module);
+
+            coachingCourse.AddCoachingModule(module);
+            _coachingCourseRepository.SaveCoachingCourse(coachingCourse);
             
             //Return new module
             return module;
         }
 
-        public CoachingModuleResource UpdateModuleResurce(CoachingCourse course, CoachingModule module, CoachingModuleResourceReference resource, string newContent)
+        /// <summary>
+        /// Add the new version to the revision history by adding reference to resource
+        /// </summary>
+        /// <param name="newVersion"></param>
+        /// <param name="revisionId"></param>
+        /// <param name="resourseRepos"></param>
+        private void PushResourceVersion(CoachingModuleResource newVersion, Guid revisionId, IModuleResourceRepository resourseRepos)
         {
-            //Find the revision history
-            var revisionHistory = _revisonHistoryRepository.GetRevisionHistoryById(resource.RevisionHistoryReferenceId);
+            var last = resourseRepos.GetItems(i => i.RevisionHistory.ReferenceId == revisionId).OrderBy(i => i.Version).LastOrDefault();
 
+            if (last != null)
+                newVersion.Version = last.Version + 1;
+            else
+                newVersion.Version = 1;
+
+            newVersion.RevisionHistory = new ResourseRevisionHistoryReference() { ReferenceId = revisionId };
+        }
+        
+        public CoachingModuleResource UpdateModuleResurce(CoachingModule module, CoachingModuleResourceReference resource, string newContent)
+        {
             //Create the new version
             var newResource = new CoachingModuleResource() { Content = newContent };
-            revisionHistory.PushVersion(newResource, _resourceRepository);
+            PushResourceVersion(newResource, resource.RevisionHistoryReferenceId, _resourceRepository);
 
             //Update the module revision
             if (module.Introduction.RevisionHistoryReferenceId == resource.RevisionHistoryReferenceId)
@@ -82,9 +103,9 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
                 module.Exercise = new CoachingModuleResourceReference(newResource.Id, newResource.RevisionHistory.ReferenceId);
             else if (module.Reflection.RevisionHistoryReferenceId == resource.RevisionHistoryReferenceId)
                 module.Reflection = new CoachingModuleResourceReference(newResource.Id, newResource.RevisionHistory.ReferenceId);
-            
+
             //Save
-            _coachingCourserepository.SaveCoachingCourse(course);
+            _moduleRepository.SaveModule(module);
             _resourceRepository.CreateModuleResource(newResource);
             
             return newResource;

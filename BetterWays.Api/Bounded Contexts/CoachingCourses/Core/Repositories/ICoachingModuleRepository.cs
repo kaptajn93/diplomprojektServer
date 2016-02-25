@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Repositories
 {
-    public interface ICoachingModuleResourceRevisionHistoryRepository
+    public interface ICoachingModuleRepository
     {
-        void CreateRevisionHistory(CoachingModuleResourceRevisionHistory revisionHistory);
-        CoachingModuleResourceRevisionHistory GetRevisionHistoryById(Guid id);
-
+        void CreateModule(CoachingModule module);
+        CoachingModule GetModuleById(Guid id);
+        void SaveModule(CoachingModule module);
     }
 }

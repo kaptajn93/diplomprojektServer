@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Repositories
 {
-    public interface ICoachingModuleResourceRepository
+    public interface IModuleResourceRepository
     {
         void CreateModuleResource(CoachingModuleResource resource);
         CoachingModuleResource GetResourceById(Guid id);

@@ -21,7 +21,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         /// </summary>
         /// <param name="newVersion"></param>
         /// <param name="resourseRepos"></param>
-        public void PushVersion(CoachingModuleResource newVersion, ICoachingModuleResourceRepository resourseRepos)
+        public void PushVersion(CoachingModuleResource newVersion, IModuleResourceRepository resourseRepos)
         {
             var last = resourseRepos.GetItems(i => i.RevisionHistory.ReferenceId == this.Id).OrderBy(i => i.Version).LastOrDefault();
             
