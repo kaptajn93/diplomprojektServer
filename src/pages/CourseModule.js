@@ -14,6 +14,8 @@ import CardText from 'material-ui/lib/card/card-text';
 import Paper from 'material-ui/lib/paper';
 
 import CourseModuleInfo from '../components/CourseModuleInfo';
+import CourseModuleExperiment from '../components/CourseModuleExperiment';
+
 const {Grid, Row, Col} = require('react-flexgrid');
 
 var pageContainerStyle = {
@@ -90,8 +92,11 @@ const CourseModule = React.createClass({
                 </Tab>
                 <Tab style={styles.tab[1]}
                   icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">colorize</FontIcon>}
-                  label="EKSPERIMENT"
-                />
+                  label="EKSPERIMENT">
+                  <div style={paddingStyle} >
+                    <CourseModuleExperiment />
+                  </div>
+                </Tab>
                 <Tab style={styles.tab[2]}
                   icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">cloud</FontIcon>}
                   label="REFLEKTION"
