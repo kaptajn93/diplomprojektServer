@@ -152,10 +152,9 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\CreateModuleInCourseRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleResourceRequest.cs" />
-    <Compile Include="Bounded Contexts\Shared\Domain\AggrgateRoot.cs" />
+    <Compile Include="Bounded Contexts\Shared\Domain\AggregateRoot.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleResourceRevisionHistoryRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\Shared\Application\ISmsSender.cs" />
-    <Compile Include="Bounded Contexts\Shared\Domain\AggregateRoot.cs" />
     <Compile Include="Bounded Contexts\Shared\Domain\Entity.cs" />
     <Compile Include="Bounded Contexts\Shared\Domain\ValueObject.cs" />
     <Compile Include="Bounded Contexts\Shared\Infrastructure\DocumentDBRepository.cs" />
