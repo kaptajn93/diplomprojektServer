@@ -24,7 +24,7 @@ var SortableList = React.createClass({
 
     render: function() {
         const itemsContainerStyle = {
-          'list-style-type': 'none'
+          'listStyleType': 'none'
         };
 
         const itemContainerStyle = {
@@ -40,7 +40,7 @@ var SortableList = React.createClass({
 
         return <ul style={itemsContainerStyle}>{
           this.state.items.map(function (text) {
-            return <li style={itemContainerStyle}><Paper zDepth={1}><div style={itemStyle}>{text}</div></Paper></li>
+            return <li key={text} style={itemContainerStyle}><Paper zDepth={1}><div style={itemStyle}>{text}</div></Paper></li>
           })
         }</ul>
     }
@@ -52,6 +52,8 @@ let CourseModuleExperiment = ({ dispatch }) => {
       <h1>Opgave 1</h1>
       <h3>Hvad var godt ved dit gamle job?</h3>
       <p>Prøv at sortér begreberne herunder ift. hvad du bedst kunne lide ved dit gamle job</p>
+
+      <camera id={'MyFirstCamera'} data-app-id={'a-d90a5c50-c1dc-0133-453d-0a121b885d5b'}></camera>
 
       <SortableList/>
 
