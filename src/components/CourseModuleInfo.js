@@ -10,13 +10,13 @@ function createMarkup() {
   }
 }
 
+  /*<FlatButton label="Invoke API" primary={true} onClick={e => {
+    e.preventDefault();
+    dispatch(fetchApiValue(3));
+  }} />*/
 let CourseModuleInfo = ({ dispatch }) => {
   return (
     <div>
-      <FlatButton label="Invoke API" primary={true} onClick={e => {
-        e.preventDefault();
-        dispatch(fetchApiValue(3));
-      }} />
       <div dangerouslySetInnerHTML={createMarkup()} />
     </div>
   )
