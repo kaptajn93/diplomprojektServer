@@ -15,6 +15,7 @@ import ActionAssignment from 'material-ui/lib/svg-icons/action/assignment';
 import Colors from 'material-ui/lib/styles/colors';
 import EditorInsertChart from 'material-ui/lib/svg-icons/editor/insert-chart';
 import Comment from 'material-ui/lib/svg-icons/communication/comment';
+import { Link } from 'react-router'
 
 const {Grid, Row, Col} = require('react-flexgrid');
 
@@ -79,12 +80,16 @@ var noMargin = {
 
 var widgedStyle = {
   margin:'8px',
-  backgroundColor: '#f7f7f7',
-  padding: '24px'
+  backgroundColor: '#f9f9f9',
+  padding: '20px'
 }
 
 var transparentBackground = {
   backgroundColor: 'transparent'
+}
+
+var linkButton = {
+  backgroundColor: '#ff4081'
 }
 
 const Dashboard = () => (
@@ -96,7 +101,7 @@ const Dashboard = () => (
           <div style={paddingStyle}>
             <Row>
               <Col xs={12} sm={12} md={12} lg={12}>
-                <h1 style={title}>Better <span style={primaryText}>ways</span></h1>
+                <h1 style={title}>Velkommen til Better <span style={primaryText}>Ways</span></h1>
                 <h3 style={sloganStyle}>Din vej til en ny fremtid</h3>
                 <hr/>
               </Col>
@@ -105,10 +110,9 @@ const Dashboard = () => (
               <Col xs={12} sm={12} md={12} lg={7}>
                 <Row style={widgedStyle}>
                   <Col xs={7} sm={7} md={7} lg={7}>
-                    <h2 style={smallTitle}>Uge 1/12</h2>
-                    <h3 style={bigSubtitle}>Fyret. Hvad nu?</h3>
+                    <h3 style={smallTitle}>Uge 1/12</h3>
+                    <h2 style={bigSubtitle}>Fyret. Hvad nu?</h2>
                     <p style={cardArticleText}>In eu dui felis. Vestibulum interdum magna sed justo dignissim, eget interdum orci condimentum. Donec in lobortis erat, id volutpat arcu. Sed commodo varius risus, nec venenatis felis elementum nec.</p>
-
                     <RaisedButton label="Fortsæt" primary={true} />
                   </Col>
                   <Col xs={5} sm={5} md={5} lg={5}>
@@ -120,22 +124,21 @@ const Dashboard = () => (
                 <Row style={widgedStyle}>
 
                   <Col xs={12} sm={12} md={12} lg={12}>
-                    <h2 style={title}><Comment color={Colors.grey500} /> Samtaler</h2>
-                    <h5 style={widgedSubheaderStyle}>Dine seneste samtaler</h5>
+                    <h3 style={title}><Comment style={{height:'20px'}} color={Colors.grey500} /> Samtaler</h3>
+                    <h5 style={widgedSubheaderStyle}>Fra Dr. Phil, Jan 28, 2016</h5>
                     <hr/>
                     <List style={transparentBackground}>
                       <ListItem
                         leftAvatar={<Avatar src="assets/drphil.jpg" />}
-                        primaryText="Dine styrker skal frem i lyset. Jeg..."
-                        secondaryText="Fra Dr. Phil, Jan 28, 2016"
-                      />
-                      <ListItem
-                        leftAvatar={<Avatar src="assets/jens.jpg"   />}
-                        primaryText="Etiam quis odio id neque blandit..."
-                        secondaryText="Fra Jens, Jan 22, 2016"
+                        primaryText = {
+                          <div>
+                            <span>Hej Jens</span>
+                            <p>Jeg er din <strong>coach</strong> og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.</p><p>Din coach<br/>Dr. Phil</p>
+                            <RaisedButton label="Skriv til Dr. phil"  default={true} />
+                          </div>
+                        }
                       />
                     </List>
-                    <FlatButton label="Se flere"  primary={true} />
                   </Col>
                 </Row>
               </Col>

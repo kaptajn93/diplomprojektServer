@@ -12,6 +12,7 @@ import App from './components/App'
 
 import Dashboard from './pages/Dashboard'
 import CourseModule from './pages/CourseModule'
+import AdministrationModule from  './pages/AdministrationModule'
 
 import Colors from 'material-ui/lib/styles/colors';
 import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
@@ -50,6 +51,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Dashboard}/>
         <Route path="module" component={CourseModule}/>
+        <Route path="administration" component={AdministrationModule}/>
       </Route>
     </Router>
   </Provider>,

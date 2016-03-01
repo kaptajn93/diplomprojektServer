@@ -31,6 +31,7 @@ var SortableList = React.createClass({
           maxWidth: 300,
           textAlign: 'center',
           display: 'block',
+          marginTop: '8px'
         };
 
         const itemStyle = {
