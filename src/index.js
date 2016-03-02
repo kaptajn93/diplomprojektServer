@@ -47,7 +47,7 @@ document.body.style.background = "#FAFAFA"
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router>
       <Route path="/" component={App}>
         <IndexRoute component={Dashboard}/>
         <Route path="module" component={CourseModule}/>

@@ -4,6 +4,8 @@ import SortableMixin from 'sortablejs/react-sortable-mixin'
 
 import { fetchApiValue } from '../actions/api'
 
+import TestHest from './Camera'
+
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Paper from 'material-ui/lib/paper';
@@ -54,7 +56,7 @@ let CourseModuleExperiment = ({ dispatch }) => {
       <h3>Hvad var godt ved dit gamle job?</h3>
       <p>Prøv at sortér begreberne herunder ift. hvad du bedst kunne lide ved dit gamle job</p>
 
-      <camera id={'MyFirstCamera'} data-app-id={'a-d90a5c50-c1dc-0133-453d-0a121b885d5b'}></camera>
+      <Camera></Camera>
 
       <SortableList/>
 
