@@ -165,6 +165,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\betterways-api - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\betterways-api - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\BetterWaysApi20160222124157.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -15,7 +15,7 @@ namespace BetterWays.Api.Bounded_Contexts.Notifications.Infrastructure.Controlle
 
             var smsSender = new SmsSenderPlivo(authId, authToken);
 
-            smsSender.SendSms("+4553747204", "Hej fra BetterWays reflektion.");
+            smsSender.SendSms("4553747204", "Hej fra BetterWays reflektion.");
 
             return true;
         }

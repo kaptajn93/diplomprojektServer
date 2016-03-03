@@ -23,9 +23,9 @@ namespace BetterWays.Api.Bounded_Contexts.Shared.Infrastructure
 
             var response = client.send_message(new Dictionary<string, string>()
             {
-                { "src", /*"14155690571"*/"BetterWays" }, // Senders phone number with country code
-                { "dst", "4553747204" }, // Receivers phone number wiht country code
-                { "text", "Hello from BetterWays Unit Test." }, // Your SMS text message
+                { "src", "BetterWays" }, // Senders phone number with country code
+                { "dst", receiver }, // Receivers phone number wiht country code
+                { "text", content }, // Your SMS text message
                 //{ "url", "http://dotnettest.apphb.com/delivery_report"}, // The URL to which with the status of the message is sent
                 { "method", "POST"} // Method to invoke the url
             });
