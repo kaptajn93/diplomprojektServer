@@ -59,6 +59,10 @@
       <HintPath>..\packages\RestSharpSigned.105.1.0\lib\net452\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SendWithUs.Client, Version=0.4.1.18095, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendWithUs.Client.0.4.1\lib\portable-net45+win+wp80\SendWithUs.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.3.1\lib\net40\Swashbuckle.Core.dll</HintPath>
       <Private>True</Private>
@@ -104,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Bounded Contexts\Notifications\Core\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Http">
@@ -137,6 +142,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\CoachingCourseService.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ExerciseController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\CourseController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ModuleController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ResourceController.cs" />
@@ -152,12 +158,15 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\CreateModuleInCourseRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleResourceRequest.cs" />
+    <Compile Include="Bounded Contexts\Notifications\Application\NotificationsApplicationService.cs" />
     <Compile Include="Bounded Contexts\Notifications\Infrastructure\Controllers\NotificationsController.cs" />
+    <Compile Include="Bounded Contexts\Shared\Application\IEmailSender.cs" />
     <Compile Include="Bounded Contexts\Shared\Domain\AggregateRoot.cs" />
     <Compile Include="Bounded Contexts\Shared\Application\ISmsSender.cs" />
     <Compile Include="Bounded Contexts\Shared\Domain\Entity.cs" />
     <Compile Include="Bounded Contexts\Shared\Domain\ValueObject.cs" />
     <Compile Include="Bounded Contexts\Shared\Infrastructure\DocumentDBRepository.cs" />
+    <Compile Include="Bounded Contexts\Shared\Infrastructure\EmailSenderSendWithUs.cs" />
     <Compile Include="Bounded Contexts\Shared\Infrastructure\SmsSenderPlivo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
