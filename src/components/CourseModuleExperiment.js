@@ -4,11 +4,13 @@ import SortableMixin from 'sortablejs/react-sortable-mixin'
 
 import { fetchApiValue } from '../actions/api'
 
-import TestHest from './Camera'
+import Camera from './Camera'
 
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Paper from 'material-ui/lib/paper';
+
+import { shareVideo } from '../actions/shareVideo'
 
 var SortableList = React.createClass({
     mixins: [SortableMixin],
@@ -56,9 +58,19 @@ let CourseModuleExperiment = ({ dispatch }) => {
       <h3>Hvad var godt ved dit gamle job?</h3>
       <p>Prøv at sortér begreberne herunder ift. hvad du bedst kunne lide ved dit gamle job</p>
 
-      <Camera></Camera>
-
       <SortableList/>
+
+      <h1>Opgave 2</h1>
+      <h3>Hvordan præsenterer du dig selv?</h3>
+      <p>Film en præsentation af dig selv og del den med en ven</p>
+
+      <Camera onPublish={videoUuid => {
+          console.log("onPublish invoked");
+          console.log(videoUuid);
+          
+          dispatch(shareVideo(videoUuid));
+      }}>
+      </Camera>
 
       <div style={{textAlign: 'center', marginTop: 50}}>
         <RaisedButton label="Færdig" primary={true} />
