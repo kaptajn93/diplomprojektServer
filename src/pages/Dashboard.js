@@ -133,12 +133,14 @@ const Dashboard = () => (
                         primaryText = {
                           <div>
                             <span>Hej Jens</span>
-                            <p>Jeg er din <strong>coach</strong> og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.</p><p>Din coach<br/>Dr. Phil</p>
-                            <RaisedButton label="Skriv til Dr. phil"  default={true} />
+                            <p>Jeg er din <strong>coach</strong> og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.</p>
                           </div>
                         }
                       />
                     </List>
+                    <div style={{textAlign:'right'}}>
+                      <FlatButton label="Skriv til Dr. phil" secondary={true} />
+                    </div>
                   </Col>
                 </Row>
               </Col>

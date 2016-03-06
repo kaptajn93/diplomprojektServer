@@ -50,6 +50,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Dashboard}/>
+
         <Route path="module" component={CourseModule}/>
         <Route path="administration" component={AdministrationModule}/>
       </Route>
