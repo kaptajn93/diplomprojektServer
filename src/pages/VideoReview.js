@@ -57,6 +57,11 @@ var iconStyle = {
 const VideoReview = React.createClass({
 
   render: function() {
+    let { query } = this.props.location;
+    let videoUuid = query && query.uuid ? query.uuid : '';
+
+    console.log("Video UUID:", videoUuid);
+
     return (
       <div style={pageContainerStyle}>
         <Row>
@@ -69,7 +74,9 @@ const VideoReview = React.createClass({
               </div>
               <div style={paddingStyle} >
                 <div>HELLO WORLD</div>
-                <div><Video></Video></div>
+                <div>
+                  <video id='friendsVideoPresentation' data-uuid={videoUuid}></video>
+                </div>
               </div>
             </Paper>
           </Col>
