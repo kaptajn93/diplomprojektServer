@@ -155,6 +155,7 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingCourseRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleResourceRepositoryDocumentDb.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\ShareVideoRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\CreateModuleInCourseRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleResourceRequest.cs" />
