@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link, browserHistory } from 'react-router'
+import { Link, browserHistory, router } from 'react-router'
 
 import Toolbar from 'material-ui/lib/toolbar/toolbar';
 import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
@@ -21,9 +21,12 @@ var whiteBackgroundStyle = {
 }
 
 const NavBar =React.createClass({
+  contextTypes : {
+    router: React.PropTypes.func.isRequired
+  },
 
   handleSubmit: function (event) {
-    browserHistory.push('/administration');
+    window.location.assign("/#/administration");
   },
 
   render: function(){
@@ -39,7 +42,6 @@ const NavBar =React.createClass({
             </ToolbarGroup>
               <ToolbarGroup firstChild={false} float="left">
                 <FlatButton label="Better ways" linkButton={true} containerElement={<Link to="/" />} />
-                <FlatButton label="Modul 1" linkButton={true} containerElement={<Link to="/module" />} />
               </ToolbarGroup>
 
               <ToolbarGroup float="right">

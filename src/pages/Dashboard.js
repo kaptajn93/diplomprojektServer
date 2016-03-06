@@ -15,7 +15,7 @@ import ActionAssignment from 'material-ui/lib/svg-icons/action/assignment';
 import Colors from 'material-ui/lib/styles/colors';
 import EditorInsertChart from 'material-ui/lib/svg-icons/editor/insert-chart';
 import Comment from 'material-ui/lib/svg-icons/communication/comment';
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 
 const {Grid, Row, Col} = require('react-flexgrid');
 
@@ -92,6 +92,11 @@ var linkButton = {
   backgroundColor: '#ff4081'
 }
 
+var handleSubmit = function (event) {
+  window.location.assign("/#/module");
+}
+
+
 const Dashboard = () => (
   <div style={pageContainerStyle}>
     <Row>
@@ -113,7 +118,7 @@ const Dashboard = () => (
                     <h3 style={smallTitle}>Uge 1/12</h3>
                     <h2 style={bigSubtitle}>Fyret. Hvad nu?</h2>
                     <p style={cardArticleText}>In eu dui felis. Vestibulum interdum magna sed justo dignissim, eget interdum orci condimentum. Donec in lobortis erat, id volutpat arcu. Sed commodo varius risus, nec venenatis felis elementum nec.</p>
-                    <RaisedButton label="Fortsæt" primary={true} />
+                    <RaisedButton label="Fortsæt" primary={true} onClick={handleSubmit} />
                   </Col>
                   <Col xs={5} sm={5} md={5} lg={5}>
                     <img alt="" src="./assets/week1.svg" style={logoStyle}  />
@@ -133,13 +138,13 @@ const Dashboard = () => (
                         primaryText = {
                           <div>
                             <span>Hej Jens</span>
-                            <p>Jeg er din <strong>coach</strong> og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.</p>
+                            <p style={{marginBottom:'0'}}>Jeg er din <strong>coach</strong> og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.</p>
                           </div>
                         }
                       />
                     </List>
-                    <div style={{textAlign:'right'}}>
-                      <FlatButton label="Skriv til Dr. phil" secondary={true} />
+                    <div >
+                      <RaisedButton label="Skriv til Dr. phil" secondary={true} />
                     </div>
                   </Col>
                 </Row>
