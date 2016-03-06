@@ -1,6 +1,7 @@
 ﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Converters;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Requests;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Responses;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Infrastructure.Repositories;
@@ -30,8 +31,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
                 resourceRepository.GetItems(i => i.Id == id).SingleOrDefault());
         }
 
-        // POST api/values
-        public Guid Put(UpdateModuleResourceRequest request)
+        // PUT api/values
+        public UpdateModuleResourceResponse Put(UpdateModuleResourceRequest request)
         {
             var coachingCourseRepository = new CoachingCourseRepositoryDocumentDB();
             var coachingModuleResourceRepository = new ModuleResourceRepositoryDocumentDb();
@@ -45,7 +46,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             var newResource = coachingService.UpdateModuleResurce(module, 
                 new CoachingModuleResourceReference( resource.Id, resource.RevisionHistory.ReferenceId), request.UpdatedContent);
 
-            return newResource.Id;
+            return new UpdateModuleResourceResponse() { UpdatedResouceId = newResource.Id, UpdatedResouceVersion = newResource.Version, ParentResourceId = request.ResourceId };
         }
 
         // DELETE api/values/5

@@ -8,6 +8,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs
 {
     public class CoachingCourseDTO
     {
+        [JsonProperty(PropertyName = "id")]
+        public Guid Id { get; set; }
+        
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 

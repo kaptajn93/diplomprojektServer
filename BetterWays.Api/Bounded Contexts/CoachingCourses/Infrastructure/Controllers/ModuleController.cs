@@ -22,7 +22,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             return coachingModuleRepository.GetAllItems().Select(c => CoachingModuleDTOConverter.ConvertToDTO(c));
         }
 
-        // GET api/values/5
+        // GET api/5
         public CoachingModuleDTO Get(Guid id)
         {
             var coachingModuleRepository = new CoachingModuleRepositoryDocumentDB();

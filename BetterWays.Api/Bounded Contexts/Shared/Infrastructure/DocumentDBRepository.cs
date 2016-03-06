@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Documents;
+﻿using BetterWays.Api.BoundedContexts.Shared.Domain;
+using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace BetterWays.Api.BoundedContexts.Shared.Infrastructure
 {
-    public class DocumentDBRepository<T>
+    public class DocumentDBRepository<T>  where T : Entity
     {
         //Use the Database if it exists, if not create a new Database
         private Database ReadOrCreateDatabase()
@@ -71,7 +72,7 @@ namespace BetterWays.Api.BoundedContexts.Shared.Infrastructure
             {
                 if (string.IsNullOrEmpty(_collectionId))
                 {
-                    _collectionId = typeof(T).Name;
+                    _collectionId = ConfigurationManager.AppSettings["collection"]; //typeof(T).Name;
                 }
 
                 return _collectionId;
@@ -130,15 +131,27 @@ namespace BetterWays.Api.BoundedContexts.Shared.Infrastructure
 
         public IEnumerable<T> GetItems(Expression<Func<T, bool>> predicate)
         {
-            return Client.CreateDocumentQuery<T>(Collection.DocumentsLink)
-                .Where(predicate)
-                .AsEnumerable();
+            var items = from i in Client.CreateDocumentQuery<T>(Collection.DocumentsLink).Where(predicate)
+                        where i.TypeName == typeof(T).Name
+                        select i;
+            return items.AsEnumerable();
+        }
+
+        public IEnumerable<T> GetItemsWithIds(IEnumerable<Guid> ids)
+        {
+            var items = from i in Client.CreateDocumentQuery<T>(Collection.DocumentsLink)
+                        where i.TypeName == typeof(T).Name
+                        where ids.Contains(i.Id)
+                        select i;
+            return items.AsEnumerable();
         }
 
         public IEnumerable<T> GetAllItems()
         {
-            return Client.CreateDocumentQuery<T>(Collection.DocumentsLink)
-                .AsEnumerable();
+            var items = from i in Client.CreateDocumentQuery<T>(Collection.DocumentsLink)
+                        where i.TypeName == typeof(T).Name
+                        select i;
+            return items.AsEnumerable();
         }
 
         public Document CreateItemAsync(T item)
