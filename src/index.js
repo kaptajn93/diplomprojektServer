@@ -13,6 +13,7 @@ import App from './components/App'
 import Dashboard from './pages/Dashboard'
 import CourseModule from './pages/CourseModule'
 import AdministrationModule from  './pages/AdministrationModule'
+import VideoReview from  './pages/VideoReview'
 
 import Colors from 'material-ui/lib/styles/colors';
 import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
@@ -47,12 +48,13 @@ document.body.style.background = "#FAFAFA"
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router>
       <Route path="/" component={App}>
         <IndexRoute component={Dashboard}/>
 
         <Route path="module" component={CourseModule}/>
         <Route path="administration" component={AdministrationModule}/>
+        <Route path="videoreview" component={VideoReview}/>
       </Route>
     </Router>
   </Provider>,

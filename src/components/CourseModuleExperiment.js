@@ -4,9 +4,13 @@ import SortableMixin from 'sortablejs/react-sortable-mixin'
 
 import { fetchApiValue } from '../actions/api'
 
+import Camera from './Camera'
+
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
 import Paper from 'material-ui/lib/paper';
+
+import { shareVideo } from '../actions/shareVideo'
 
 var SortableList = React.createClass({
     mixins: [SortableMixin],
@@ -24,7 +28,7 @@ var SortableList = React.createClass({
 
     render: function() {
         const itemsContainerStyle = {
-          'list-style-type': 'none'
+          'listStyleType': 'none'
         };
 
         const itemContainerStyle = {
@@ -41,7 +45,7 @@ var SortableList = React.createClass({
 
         return <ul style={itemsContainerStyle}>{
           this.state.items.map(function (text) {
-            return <li style={itemContainerStyle}><Paper zDepth={1}><div style={itemStyle}>{text}</div></Paper></li>
+            return <li key={text} style={itemContainerStyle}><Paper zDepth={1}><div style={itemStyle}>{text}</div></Paper></li>
           })
         }</ul>
     }
@@ -55,6 +59,18 @@ let CourseModuleExperiment = ({ dispatch }) => {
       <p>Prøv at sortér begreberne herunder ift. hvad du bedst kunne lide ved dit gamle job</p>
 
       <SortableList/>
+
+      <h1>Opgave 2</h1>
+      <h3>Hvordan præsenterer du dig selv?</h3>
+      <p>Film en præsentation af dig selv og del den med en ven</p>
+
+      <Camera onPublish={videoUuid => {
+          console.log("onPublish invoked");
+          console.log(videoUuid);
+          
+          dispatch(shareVideo(videoUuid));
+      }}>
+      </Camera>
 
       <div style={{textAlign: 'center', marginTop: 50}}>
         <RaisedButton label="Færdig" primary={true} />
