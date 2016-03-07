@@ -70,10 +70,9 @@ const VideoReview = React.createClass({
             <Paper style={courseContainerStyle}>
               <div style={paddingStyle}>
                 <h4 style={moduleNumStyle}>Anmeld video</h4>
-                <h1 style={moduleNameStyle}>Hvad synes du om din vens præsentation?</h1>
+                <h1 style={moduleNameStyle}>Hvad synes du om Mikkels præsentation?</h1>
               </div>
               <div style={paddingStyle} >
-                <div>HELLO WORLD</div>
                 <div>
                   <video id='friendsVideoPresentation' data-uuid={videoUuid}></video>
                 </div>
