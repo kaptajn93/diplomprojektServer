@@ -10,6 +10,8 @@ import CardActions from 'material-ui/lib/card/card-actions';
 import CardHeader from 'material-ui/lib/card/card-header';
 import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
+import TextField from 'material-ui/lib/text-field';
+import RaisedButton from 'material-ui/lib/raised-button';
 
 import Paper from 'material-ui/lib/paper';
 
@@ -75,6 +77,17 @@ const VideoReview = React.createClass({
               <div style={paddingStyle} >
                 <div>
                   <video id='friendsVideoPresentation' data-uuid={videoUuid}></video>
+                </div>
+                <div style={{marginTop: 100}}>
+                  <TextField
+                    hintText="Din anmeldelse"
+                    floatingLabelText="Skriv anmeldelse"
+                    multiLine={true}
+                    rows={5}
+                  />
+                </div>
+                <div style={{textAlign: 'center', marginTop: 50}}>
+                  <RaisedButton label="Afsend" primary={true} />
                 </div>
               </div>
             </Paper>
