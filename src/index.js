@@ -10,6 +10,7 @@ import createLogger from 'redux-logger';
 import todoApp from './reducers'
 import App from './components/App'
 
+import LandingPage from './pages/LandingPage'
 import Dashboard from './pages/Dashboard'
 import CourseModule from './pages/CourseModule'
 import AdministrationModule from  './pages/AdministrationModule'
@@ -50,8 +51,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Route path="/" component={App}>
-        <IndexRoute component={Dashboard}/>
+        <IndexRoute component={LandingPage}/>
 
+        <Route path="dashboard" component={Dashboard}/>
         <Route path="module" component={CourseModule}/>
         <Route path="administration" component={AdministrationModule}/>
         <Route path="videoreview" component={VideoReview}/>
