@@ -1,4 +1,5 @@
-﻿using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services;
+﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Repositories;
+using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Infrastructure.Repositories;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
@@ -47,11 +48,12 @@ namespace BetterWays.Api.Tests.Courses
             _coachingCourseService = new CoachingCourseService(
                 new CoachingCourseRepositoryDocumentDB(),
                 new ModuleResourceRepositoryDocumentDb(),
-                new CoachingModuleRepositoryDocumentDB());
+                new CoachingModuleRepositoryDocumentDB(),
+                new CoachnigModuleExerciseResourceRepositoryDocumentDB());
         }
 
         [TestMethod]
-        public void CourseWithModules()
+        public void InitCourseWithModules()
         {
             var courseName = "Better ways course";
             //Create the course

@@ -1,4 +1,5 @@
-﻿using BetterWays.Api.BoundedContexts.Shared.Domain;
+﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models;
+using BetterWays.Api.BoundedContexts.Shared.Domain;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -42,14 +43,14 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         public CoachingModule(
             string name, 
             CoachingModuleResource introduction,
-            CoachingModuleResource exercise,
-            CoachingModuleResource reflection)
+            CoachingModuleExerciseResource exercise,
+            CoachingModuleExerciseResource reflection)
         {
             Name = name;
 
             Introduction = new CoachingModuleResourceReference(introduction.Id, introduction.RevisionHistory.ReferenceId);
-            Exercise = new CoachingModuleResourceReference(exercise.Id, exercise.RevisionHistory.ReferenceId);
-            Reflection = new CoachingModuleResourceReference(reflection.Id, reflection.RevisionHistory.ReferenceId);
+            Exercise = new CoachingModuleResourceReference(exercise.Id, exercise.RevisionHistory.ReferenceId) ;
+            Reflection =  new CoachingModuleResourceReference(reflection.Id, reflection.RevisionHistory.ReferenceId) ;
         }
     }
 }

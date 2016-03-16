@@ -5,39 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using BetterWays.Api.BoundedContexts.Shared.Domain;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models;
 
 namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
 {
-    public class CoachingModuleResource : AggregateRoot
+    public class CoachingModuleResource : CoachingModuleBaseResource
     {
-        /// <summary>
-        /// Time of creation
-        /// </summary>
-        [JsonProperty(PropertyName = "created")]
-        public DateTime Created { get; set; }
-
-        /// <summary>
-        /// Version identification. Sequence from 1 to infinity 
-        /// </summary>
-        [JsonProperty(PropertyName = "version")]
-        public int Version { get; set; }
-
         /// <summary>
         /// HTML conten
         /// </summary>
         [JsonProperty(PropertyName = "content")]
         public string Content { get; set; }
 
-        /// <summary>
-        /// Owner of this revision
-        /// </summary>
-        [JsonProperty(PropertyName = "revisionHistory")]
-        public ResourseRevisionHistoryReference RevisionHistory { get; set; }
-
         public CoachingModuleResource()
         {
-            Created = DateTime.Now;
-            Version = 1;
         }
 		
     }

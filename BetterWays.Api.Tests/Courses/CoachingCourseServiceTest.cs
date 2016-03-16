@@ -7,6 +7,8 @@ using System.Linq;
 using Microsoft.Azure.Documents.Linq;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Infrastructure.Repositories;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Repositories;
+using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
 
 namespace Tests
 {
@@ -44,7 +46,8 @@ namespace Tests
             _coachingCourseService = new CoachingCourseService(
                 new CoachingCourseRepositoryDocumentDB(), 
                 new ModuleResourceRepositoryDocumentDb(), 
-                new CoachingModuleRepositoryDocumentDB());
+                new CoachingModuleRepositoryDocumentDB(),
+                new CoachnigModuleExerciseResourceRepositoryDocumentDB());
         }
 
         [TestMethod]
@@ -71,13 +74,14 @@ namespace Tests
 
             //Check that revisions histories was created
             var resourceRepo = new ModuleResourceRepositoryDocumentDb();
+            var exerciseRepo = new CoachnigModuleExerciseResourceRepositoryDocumentDB();
             var moduleRepo = new CoachingModuleRepositoryDocumentDB();
             var foundModule = moduleRepo.GetModuleById(course.Modules[0].ModuleReferenceId);
             
             //Check that repos only has one version
             Assert.AreEqual(resourceRepo.GetItems(i => i.RevisionHistory.ReferenceId == foundModule.Introduction.RevisionHistoryReferenceId).Count(), 1);
-            Assert.AreEqual(resourceRepo.GetItems(i => i.RevisionHistory.ReferenceId == foundModule.Exercise.RevisionHistoryReferenceId).Count(), 1);
-            Assert.AreEqual(resourceRepo.GetItems(i => i.RevisionHistory.ReferenceId == foundModule.Reflection.RevisionHistoryReferenceId).Count(), 1);
+            Assert.AreEqual(exerciseRepo.GetItems(i => i.RevisionHistory.ReferenceId == foundModule.Exercise.RevisionHistoryReferenceId).Count(), 1);
+            Assert.AreEqual(exerciseRepo.GetItems(i => i.RevisionHistory.ReferenceId == foundModule.Reflection.RevisionHistoryReferenceId).Count(), 1);
 
             Assert.AreNotEqual(foundModule.Introduction.RevisionHistoryReferenceId, foundModule.Exercise.RevisionHistoryReferenceId);
             Assert.AreNotEqual(foundModule.Introduction.RevisionHistoryReferenceId, foundModule.Reflection.RevisionHistoryReferenceId);
@@ -91,8 +95,14 @@ namespace Tests
             //Create the course
             var course = _coachingCourseService.CreateNewCoachingCourse(courseName);
             var coachingModule = _coachingCourseService.CreateNewModuleInCourse(course, "Some module");
-            
-            _coachingCourseService.UpdateModuleResurce(coachingModule, coachingModule.Introduction, "En meget kortere tekst");
+
+            var newResource = new CoachingModuleResource()
+            {
+                Content = "En meget kortere tekst",
+                RevisionHistory = new ResourseRevisionHistoryReference() { ReferenceId = coachingModule.Introduction.RevisionHistoryReferenceId }
+            };
+
+            _coachingCourseService.UpdateModuleResurce(coachingModule, newResource);
 
             var courseRepo = new CoachingCourseRepositoryDocumentDB();
             var resourceRepo = new ModuleResourceRepositoryDocumentDb();

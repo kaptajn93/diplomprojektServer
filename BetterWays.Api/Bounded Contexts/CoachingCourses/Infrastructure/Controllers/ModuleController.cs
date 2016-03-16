@@ -1,5 +1,6 @@
 ﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Converters;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Repositories;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Requests;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services;
@@ -36,8 +37,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             var coachingCourseRepository = new CoachingCourseRepositoryDocumentDB();
             var coachingModuleResourceRepository = new ModuleResourceRepositoryDocumentDb();
             var coachingModuleRepository = new CoachingModuleRepositoryDocumentDB();
+            var exerciseRepository = new CoachnigModuleExerciseResourceRepositoryDocumentDB();
 
-            var coachingService = new CoachingCourseService(coachingCourseRepository, coachingModuleResourceRepository, coachingModuleRepository);
+            var coachingService = new CoachingCourseService(coachingCourseRepository, coachingModuleResourceRepository, coachingModuleRepository, exerciseRepository);
 
             var course = coachingCourseRepository.GetCourseById(request.CourseId);
 

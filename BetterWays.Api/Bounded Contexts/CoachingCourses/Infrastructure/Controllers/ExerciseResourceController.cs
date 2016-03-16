@@ -1,4 +1,5 @@
-﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs;
+﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Converters;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Repositories;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Requests;
@@ -14,26 +15,26 @@ using System.Web.Http;
 
 namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Controllers
 {
-    public class ResourceController : ApiController
+    public class ExerciseResourceController : ApiController
     {
         // GET api/values
-        public IEnumerable<ModuleResourceDTO> Get()
+        public IEnumerable<ModuleExerciseResourceDTO> Get()
         {
             //TODO: Find user 
-            var resourceRepository = new ModuleResourceRepositoryDocumentDb();
-            return resourceRepository.GetAllItems().Select(c => ModuleResourceDTOConverter.ConvertToDTO(c));
+            var exerciseRepository = new CoachnigModuleExerciseResourceRepositoryDocumentDB();
+            return exerciseRepository.GetAllItems().Select(c => ModuleResourceDTOConverter.ConvertToDTO(c));
         }
 
         // GET api/values/5
-        public ModuleResourceDTO Get(Guid id)
+        public ModuleExerciseResourceDTO Get(Guid id)
         {
-            var resourceRepository = new ModuleResourceRepositoryDocumentDb();
+            var exerciseRepository = new CoachnigModuleExerciseResourceRepositoryDocumentDB();
             return ModuleResourceDTOConverter.ConvertToDTO(
-                resourceRepository.GetItems(i => i.Id == id).SingleOrDefault());
+                exerciseRepository.GetItems(i => i.Id == id).SingleOrDefault());
         }
 
         // PUT api/values
-        public UpdateModuleResourceResponse Put(UpdateModuleResourceRequest request)
+        public UpdateModuleResourceResponse Put(UpdateModuleExerciseRequest request)
         {
             var coachingCourseRepository = new CoachingCourseRepositoryDocumentDB();
             var coachingModuleResourceRepository = new ModuleResourceRepositoryDocumentDb();
@@ -41,14 +42,14 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             var exerciseRepository = new CoachnigModuleExerciseResourceRepositoryDocumentDB();
 
             var module = coachingModuleRepository.GetModuleById(request.ModuleId);
-            var resource = coachingModuleResourceRepository.GetResourceById(request.ResourceId);
+            var resource = exerciseRepository.GetResourceById(request.ResourceId);
 
             var coachingService = new CoachingCourseService(coachingCourseRepository, coachingModuleResourceRepository, coachingModuleRepository, exerciseRepository);
 
-            var newResource = new CoachingModuleResource()
+            var newResource = new CoachingModuleExerciseResource()
             {
                 RevisionHistory = resource.RevisionHistory,
-                Content = request.UpdatedContent
+                Elements = request.UpdatedElements.Select(e => ModuleResourceDTOConverter.ConvertFromDTO(e)).ToList()
             };
 
             coachingService.UpdateModuleResurce(module, newResource);
