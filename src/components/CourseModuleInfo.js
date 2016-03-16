@@ -37,7 +37,7 @@ let CourseModuleInfo = React.createClass({
     this.setState({
       isLoading:true
     })
-    this.props.dispatch(getAllCourseModules('a7245cc4-ca44-4daa-b299-9ccbd029adf7')).then(
+    this.props.dispatch(getAllCourseModules('d4fa696a-f425-4227-af09-c68d55c2e06b')).then(
       json => {
       this.setState({
         modules: json.modules,
@@ -53,7 +53,7 @@ let CourseModuleInfo = React.createClass({
 
         <div>
         { !this.state.isLoading ?
-          <div dangerouslySetInnerHTML={this.createMarkup()} />:
+          <div dangerouslySetInnerHTML={this.createMarkup()} /> :
           <div style={{textAlign:'center'}}>
             <CircularProgress size={0.4} style={{marginTop: '20px', marginBottom: '20px'}} />
           </div>

@@ -118,7 +118,7 @@ const Dashboard = () => (
                     <h3 style={smallTitle}>Uge 1/12</h3>
                     <h2 style={bigSubtitle}>Fyret. Hvad nu?</h2>
                     <p style={cardArticleText}>In eu dui felis. Vestibulum interdum magna sed justo dignissim, eget interdum orci condimentum. Donec in lobortis erat, id volutpat arcu. Sed commodo varius risus, nec venenatis felis elementum nec.</p>
-                    <RaisedButton label="Fortsæt" primary={true} onClick={handleSubmit} />
+                    <RaisedButton label="Fortsæt dit forløb" primary={true} onClick={handleSubmit} />
                   </Col>
                   <Col xs={5} sm={5} md={5} lg={5}>
                     <img alt="" src="./assets/week1.svg" style={logoStyle}  />
@@ -144,7 +144,7 @@ const Dashboard = () => (
                       />
                     </List>
                     <div >
-                      <RaisedButton label="Skriv til Dr. phil" secondary={true} />
+                      <FlatButton label="Skriv til Dr. phil" secondary={true} />
                     </div>
                   </Col>
                 </Row>

@@ -20,11 +20,11 @@ var whiteBackgroundStyle = {
   backgroundColor: 'white'
 }
 
+
 const NavBar =React.createClass({
   contextTypes : {
     router: React.PropTypes.func.isRequired
   },
-
   handleSubmit: function (event) {
     window.location.assign("/#/administration");
   },

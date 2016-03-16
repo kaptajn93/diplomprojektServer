@@ -189,6 +189,45 @@ export function getResourceById(resourceId){
   }
 }
 
+//Get exercise resource
+export const REQUEST_API_EXERCISE_RESOUCE_BY_ID = 'REQUEST_API_EXERCISE_RESOUCE_BY_ID'
+function requestApiExerciseResource(resourceId) {
+  return {
+    type: REQUEST_API_EXERCISE_RESOUCE_BY_ID,
+    resourceId
+  }
+}
+
+export const RECEIVE_API_EXERCISE_RESOUCE_BY_ID = 'RECEIVE_API_EXERCISE_RESOUCE_BY_ID'
+export function receiveApiExerciseResource(resourceId, json) {
+  return {
+    type: RECEIVE_API_EXERCISE_RESOUCE_BY_ID,
+    resourceId,
+    resource: json,//json.data.children.map(child => child.data),
+    receivedAt: Date.now()
+  }
+}
+
+export function getExerciseResourceById(resourceId){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(requestApiExerciseResource(resourceId))
+
+    return axios.get('http://localhost:58982/api/ExerciseResource/' + resourceId)
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveApiExerciseResource(resourceId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+}
+
 //Put resource
 
 export const PUT_API_RESOUCE = 'PUT_API_RESOUCE'
@@ -220,6 +259,41 @@ export function putResourceById(resourceId, moduleId, newContent){
       resourceId: resourceId,
       moduleId: moduleId,
       updatedContent: newContent})
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveApiUpdatedResourceId(resourceId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+}
+
+//Put exercise resource
+
+export const PUT_API_EXERCISE_RESOUCE = 'PUT_API_EXERCISE_RESOUCE'
+function putApiExerciseResource(resourceId, moduleId, newContent) {
+  return {
+    type: PUT_API_EXERCISE_RESOUCE,
+    resourceId,
+    moduleId,
+    newContent
+  }
+}
+
+export function putExerciseResourceById(resourceId, moduleId, updatedElements){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(putApiExerciseResource(resourceId))
+
+    return axios.put('http://localhost:58982/api/ExerciseResource/', {
+      resourceId: resourceId,
+      moduleId: moduleId,
+      updatedElements: updatedElements})
       .then(response => response.data)
       .then(json =>
 
