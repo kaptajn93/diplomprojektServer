@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Courses\CoachingCourseRepoTest.cs" />
     <Compile Include="Courses\CoachingCourseServiceTest.cs" />
+    <Compile Include="Courses\InitializeCourseWithModules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\Unit\SmsSenderTests.cs" />
   </ItemGroup>

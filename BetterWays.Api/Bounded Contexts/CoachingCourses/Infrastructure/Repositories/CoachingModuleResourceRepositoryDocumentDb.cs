@@ -1,4 +1,5 @@
-﻿using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
+﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models;
+using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Repositories;
 using BetterWays.Api.BoundedContexts.Shared.Infrastructure;
 using System;

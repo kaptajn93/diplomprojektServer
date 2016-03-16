@@ -12,6 +12,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
         {
             return new CoachingCourseDTO
             {
+                Id = entity.Id,
                 Name = entity.Name,
                 Modules = entity.Modules.Select(m => m.ModuleReferenceId).ToList()
             };        

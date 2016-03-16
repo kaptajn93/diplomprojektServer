@@ -15,9 +15,17 @@ namespace BetterWays.Api.BoundedContexts.Shared.Domain
         [JsonProperty(PropertyName = "id")]
         public Guid Id { get; private set; }
 
+        /// <summary>
+        /// Name of this type
+        /// </summary>
+        [JsonProperty(PropertyName = "typeName")]
+        public string TypeName { get; }
+
         public Entity()
         {
             Id = Guid.NewGuid();
+
+            TypeName = this.GetType().Name;
         }
 
     }

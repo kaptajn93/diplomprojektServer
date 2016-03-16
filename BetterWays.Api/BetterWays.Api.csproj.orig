@@ -476,19 +476,12 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Application\CourseModuleApplicationService.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Bootstrap.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingCourse.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleBaseResource.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModule.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleExerciseResource.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleReference.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleResource.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleResourceReference.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleResourceRevisionHistory.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\BaseExercise.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\BaseScoreCard.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\SortAndEvaluateExercise.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\SortAndEvaluateScoreCard.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\ResourseRevisionHistoryReference.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachigModuleExerciseResourceRepository.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingCourseRepository.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingModuleRepository.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingModuleResourceRepository.cs" />
@@ -498,7 +491,6 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ExerciseController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\CourseController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\CourseModuleController.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ExerciseResourceController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ModuleController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ResourceController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CoachingCourseDTO.cs" />
@@ -506,19 +498,19 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\CoachingCourseDTOConverter.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\CoachingModuleDTOConverter.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\ModuleResourceDTOConverter.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleExerciseResourceDTO.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleResourceDTO.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachnigModuleExerciseResourceRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingCourseRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleResourceRepositoryDocumentDb.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\ShareVideoRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\CreateModuleInCourseRequest.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleExerciseRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleResourceRequest.cs" />
+<<<<<<< HEAD
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\UpdateModuleResourceResponse.cs" />
+=======
     <Compile Include="Bounded Contexts\Notifications\Application\NotificationsApplicationService.cs" />
+>>>>>>> 958066b3234c4c40f022998926c3d2c5f4bfb5c1
     <Compile Include="Bounded Contexts\Notifications\Infrastructure\Controllers\NotificationsController.cs" />
     <Compile Include="Bounded Contexts\Shared\Application\IEmailSender.cs" />
     <Compile Include="Bounded Contexts\Shared\Domain\AggregateRoot.cs" />
