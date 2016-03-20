@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +14,16 @@ namespace BetterWays.Api
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            var jsonSerilizerSettings = new JsonSerializerSettings();
+            
+            jsonSerilizerSettings.TypeNameHandling = TypeNameHandling.Auto;
+            jsonSerilizerSettings.TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple;
+            
+            JsonConvert.DefaultSettings = () =>
+            {
+                return jsonSerilizerSettings;
+            };
         }
     }
 }

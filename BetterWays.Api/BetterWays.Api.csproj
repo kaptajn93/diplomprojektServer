@@ -487,7 +487,10 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\BaseScoreCard.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\SortAndEvaluateExercise.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\SortAndEvaluateScoreCard.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\VideoExercise.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\VideoExerciseScoreCard.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\ResourseRevisionHistoryReference.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\User.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachigModuleExerciseResourceRepository.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingCourseRepository.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingModuleRepository.cs" />

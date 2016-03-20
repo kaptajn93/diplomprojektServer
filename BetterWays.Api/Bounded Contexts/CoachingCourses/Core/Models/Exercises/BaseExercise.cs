@@ -12,6 +12,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
         /// </summary>
         public string ExerciseClassName { get; protected set; }
 
+        public abstract string Configuration { get; }
+
         /// <summary>
         /// The resulting score card, after the user has solved the exercise
         /// </summary>

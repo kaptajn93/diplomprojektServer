@@ -37,6 +37,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
             return new ModuleExerciseElementDTO
             {
                 ClassName = element.Exercise != null ? element.Exercise.ExerciseClassName : null,
+                Configuration = element.Exercise != null ? element.Exercise.Configuration : null,
                 Content = element.Content
             };
         }
@@ -46,8 +47,11 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
             BaseExercise exercise = null;
             switch (dto.ClassName)
             {
-                case "ModuleExerciseElementDTO":
-                    exercise = new SortAndEvaluateExercise();
+                case "SortAndEvaluate":
+                    exercise = new SortAndEvaluateExercise(dto.Configuration.Split(',').ToList());
+                    break;
+                case "VideoExercise":
+                    exercise = new VideoExercise();
                     break;
                 default:
                     break;
