@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
@@ -16,6 +17,8 @@ import Paper from 'material-ui/lib/paper';
 import CourseModuleInfo from '../components/CourseModuleInfo';
 import CourseModuleExperiment from '../components/CourseModuleExperiment';
 import CourseModuleReflection from '../components/CourseModuleReflection';
+
+import { getAllCourseModules } from '../actions/api';
 
 const {Grid, Row, Col} = require('react-flexgrid');
 
@@ -52,7 +55,27 @@ var iconStyle = {
   color : 'black'
 }
 
-const CourseModule = React.createClass({
+let CourseModule = React.createClass({
+  getInitialState:function(){
+    return{
+
+    }
+  },
+
+  componentDidMount : function(){
+    this.setState({
+      isLoading:true
+    })
+    this.props.dispatch(getAllCourseModules('4e9d4555-985d-4fa8-835e-e19519e8a714')).then(
+      json => {
+      this.setState({
+        modules: json.modules,
+        introduction: json.modules[0].introduction,
+        exercise: json.modules[0].exercise,
+        reflection: json.modules[0].reflection
+      });
+    });
+  },
 
   render: function() {
 
@@ -88,21 +111,21 @@ const CourseModule = React.createClass({
                   icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">wb_incandescent</FontIcon>}
                   label="VIDEN">
                   <div style={paddingStyle} >
-                    <CourseModuleInfo />
+                    <CourseModuleInfo resourceId={this.state.introduction}/>
                   </div>
                 </Tab>
                 <Tab style={styles.tab[1]}
                   icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">colorize</FontIcon>}
                   label="EKSPERIMENT">
                   <div style={paddingStyle} >
-                    <CourseModuleExperiment />
+                    <CourseModuleExperiment resourceId={this.state.exercise}/>
                   </div>
                 </Tab>
                 <Tab style={styles.tab[2]}
                   icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">cloud</FontIcon>}
                   label="REFLEKTION">
                   <div style={paddingStyle} >
-                    <CourseModuleReflection />
+                    <CourseModuleExperiment resourceId={this.state.reflection} />
                   </div>
                 </Tab>
               </Tabs>
@@ -115,5 +138,7 @@ const CourseModule = React.createClass({
     )
   }
 });
+
+CourseModule = connect()(CourseModule)
 
 export default CourseModule

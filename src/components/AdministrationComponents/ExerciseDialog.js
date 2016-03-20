@@ -9,9 +9,9 @@ import TextField from 'material-ui/lib/text-field';
 import Dialog from 'material-ui/lib/dialog';
 
 const items = [
-  <MenuItem key={0} value={'none'} primaryText="Ingen"/>,
-  <MenuItem key={1} value={'sortExercise'} primaryText="Sortér og bedøm"/>,
-  <MenuItem key={2} value={'videoExercise'} primaryText="Videoøvelse"/>
+  <MenuItem key={0} value={'None'} primaryText="Ingen"/>,
+  <MenuItem key={1} value={'SortAndEvaluate'} primaryText="Sortér og bedøm"/>,
+  <MenuItem key={2} value={'VideoExercise'} primaryText="Videoøvelse"/>
 ];
 
 var ConfigureExerciseDialog = React.createClass({
@@ -22,9 +22,9 @@ var ConfigureExerciseDialog = React.createClass({
   getInitialState: function() {
     return {
       open: this.props.open,
-      selectedExercise : this.props.selected,
-      sortCategories : this.props.selected !== undefined ?
-        this.props.selected.sortCategories : ''
+      selectedExercise : this.props.selected.className,
+      configuration : this.props.selected !== undefined ?
+        this.props.selected.configuration : ''
     };
   },
 
@@ -46,7 +46,7 @@ var ConfigureExerciseDialog = React.createClass({
   handleSubmit : function(){
     this.props.onSubmit(
       {
-        sortCategories: this.state.sortCategories,
+        configuration: this.state.configuration,
         className : this.state.selectedExercise
       });
   },
@@ -56,7 +56,7 @@ var ConfigureExerciseDialog = React.createClass({
   },
 
   sortCategoriesChanged: function(event){
-    this.setState({sortCategories:event.target.value});
+    this.setState({configuration:event.target.value});
   },
 
   render: function() {
@@ -89,18 +89,18 @@ var ConfigureExerciseDialog = React.createClass({
         </SelectField>
         <div>
           {{
-              'sortExercise':
+              'SortAndEvaluate':
                 <div>
                   <h4>Indtast kategorier</h4>
                   <TextField
                     hintText="Indtast kategorier adskildt med komma ','"
                     multiLine={true}
                     fullWidth={true}
-                    value={this.state.sortCategories}
+                    value={this.state.configuration}
                     onChange={this.sortCategoriesChanged}
                   />
                 </div>,
-              'videoExercise':
+              'VideoExercise':
                 <h1>Videoøvelse</h1>,
               'none':
                 null

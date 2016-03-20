@@ -15,7 +15,8 @@ import { getExerciseResourceById, putExerciseResourceById } from '../../actions/
 import CKEditor from './CKEditor';
 import CircularProgress from 'material-ui/lib/circular-progress';
 import ExerciseDialog from './ExerciseDialog';
-import SortableAndEvaluateExercise from '../exercises/SortAndEvaluateExercise'
+
+import ExerciseSelector from '../Exercises/ExerciseSelector';
 
 var paddingStyle = {
   padding: '32px'
@@ -33,7 +34,11 @@ const ExerciseElement = React.createClass({
       isTextDirty : false,
       editedText : this.props.model.content,
       originalText: this.props.model.content,
-      isExerciseDialogOpen: false
+      isExerciseDialogOpen: false,
+      exerciseSelection: {
+        className: this.props.model.className,
+        configuration: this.props.model.configuration
+      }
     };
   },
 
@@ -55,8 +60,14 @@ const ExerciseElement = React.createClass({
   saveResource : function(){
     this.setState({isTextDirty:false});
     this.props.model.content = this.state.editedText;
-    this.props.model.className = this.state.exerciseSelection.className,
-    this.props.model.configuration = this.state.exerciseSelection.sortCategories,
+    if (this.state.exerciseSelection !== null && this.state.exerciseSelection !== undefined){
+      this.props.model.className = this.state.exerciseSelection.className;
+      this.props.model.configuration = this.state.exerciseSelection.configuration;
+    }
+    else {
+      this.props.model.className = '';
+      this.props.model.configuration = '';
+    }
     this.state.originalText = this.state.editedText;
     this.props.initiateSave();
   },
@@ -76,10 +87,19 @@ const ExerciseElement = React.createClass({
     this.setState({isExerciseDialogOpen: true});
   },
 
-  closeExerciseDialog: function(exerciseSelection){
+  submitExerciseDialog: function(exerciseSelection){
     this.setState({
       isExerciseDialogOpen: false,
       exerciseSelection: exerciseSelection
+    }, function(){
+      this.saveResource();
+    });
+
+  },
+
+  cancelExerciseDialog: function(exerciseSelection){
+    this.setState({
+      isExerciseDialogOpen: false,
     });
   },
 
@@ -101,10 +121,7 @@ const ExerciseElement = React.createClass({
           </div> :
           <div >
             <div dangerouslySetInnerHTML={{__html:this.state.originalText}} />
-            {
-              this.state.exerciseSelection !== undefined && this.state.exerciseSelection.className === 'sortExercise'?
-                <SortableAndEvaluateExercise sortableItems={this.state.exerciseSelection.sortCategories}> </SortableAndEvaluateExercise> : null
-            }
+            <ExerciseSelector exerciseSelection={this.state.exerciseSelection}></ExerciseSelector>
 
             {this.props.isEditEnabled ?
             <div>
@@ -112,7 +129,7 @@ const ExerciseElement = React.createClass({
                 <span style={{color:'#666666'}}>Foretag ændringer: </span>
                 <FlatButton onClick={this.toggleEditing} style={{padding:'0'}} secondary={true} label="Redigér opgavetekst"></FlatButton>
                 <FlatButton onClick={this.openExerciseDialog} secondary={true} style={{marginLeft:'8px', padding:'0'}} label="Vælg opgavetype"></FlatButton>
-                <ExerciseDialog selected={this.state.exerciseSelection} open={this.state.isExerciseDialogOpen} onCancel={this.closeExerciseDialog} onSubmit={this.closeExerciseDialog} />
+                <ExerciseDialog selected={this.state.exerciseSelection} open={this.state.isExerciseDialogOpen} onCancel={this.cancelExerciseDialog} onSubmit={this.submitExerciseDialog} />
                 {!this.props.firstElement ? <FlatButton onClick={this.removeItem} secondary={true} style={{marginLeft:'8px', padding:'0'}} label="Fjern"></FlatButton> : null}
               </div>
             </div> : null}
@@ -244,7 +261,7 @@ let ExerciseContentAdministration = React.createClass({
     var editText = this.state.isEditing ? (this.state.isDirty ? "Afslut uden at gemme" : "Afslut redigering") : "Redigér indhold";
 
     var Elements = this.state.exerciseElements.map((i, index) => (
-      <ExerciseElement firstElement={index === 0} isEditEnabled={this.state.isEditing} removeItem={this.removeExerciseElement} model={i} initiateSave={this.saveResource} onDirtyFlagRaised={this.onDirtyFlagRaised} />
+      <ExerciseElement key={index} firstElement={index === 0} isEditEnabled={this.state.isEditing} removeItem={this.removeExerciseElement} model={i} initiateSave={this.saveResource} onDirtyFlagRaised={this.onDirtyFlagRaised} />
     ));
 
     var Editor = this.state.exerciseElements.length > 0 ?

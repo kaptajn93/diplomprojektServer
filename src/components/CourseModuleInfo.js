@@ -37,16 +37,15 @@ let CourseModuleInfo = React.createClass({
     this.setState({
       isLoading:true
     })
-    this.props.dispatch(getAllCourseModules('d4fa696a-f425-4227-af09-c68d55c2e06b')).then(
-      json => {
-      this.setState({
-        modules: json.modules,
-      });
 
-      this.getResource(json.modules[0].introduction)
-    });
+    if (this.props.resourceId !== undefined)
+      this.getResource(this.props.resourceId);
   },
-
+  
+  componentWillReceiveProps: function(nextProps){
+    if (nextProps.resourceId !== undefined)
+      this.getResource(nextProps.resourceId);
+  },
 
   render : function(){
     return (
