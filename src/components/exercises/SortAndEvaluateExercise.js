@@ -15,7 +15,10 @@ let EvalPhase = React.createClass({
     return {
       items: this.props.items,
       currentIndex:0,
-      currentItem : this.props.items[0]
+      currentItem : this.props.items[0],
+      currentDescription: this.props.items[0].description,
+      currentMeaning: this.props.items[0].meaning,
+      currentEffect: this.props.items[0].effect
     };
   },
 
@@ -264,6 +267,10 @@ let SortaAndEvaluateExercise = React.createClass({
       });
     },
 
+    restart: function(){
+      this.setState({phase:1});
+    },
+
     handleSort: function(sortedItems){
       this.setState({
         items:sortedItems,
@@ -272,23 +279,47 @@ let SortaAndEvaluateExercise = React.createClass({
     },
 
     mapItems: function(items){
+      var that = this;
       return items.map(function(i){
-        return {
-          title: i,
-          description:"",
-          meaning:"",
-          effect:""
-        };
+        var existingItem =
+          that.state !== null &&
+          that.state.resultItems !== undefined ?
+            that.state.resultItems.filter(function(exI){
+              return exI.title === i;
+            }): [];
+
+        if (existingItem.length === 0){
+          return {
+            title: i,
+            description:"",
+            meaning:"",
+            effect:""
+          };
+        }
+        else {
+          return {
+            title: i,
+            description: existingItem[0].description,
+            meaning: existingItem[0].meaning,
+            effect: existingItem[0].effect
+          };
+        }
       })
     },
 
     render: function() {
       var mainContent;
       if (this.state.phase === 0) {
-        mainContent = <RaisedButton
-          labelPosition="before" primary={true}
-          label={'Start øvelse'} onClick={this.onStart}
-          icon={<Play />}></RaisedButton>
+        mainContent =
+        <div>
+          <span s>Når du er klar skal du trykke, 'Start øvelse':</span>
+          <br/>
+          <RaisedButton
+            labelPosition="before" primary={true}
+            label={'Start øvelse'} onClick={this.onStart}
+            style={{marginTop:'16px'}}
+            icon={<Play />}></RaisedButton>
+        </div>
       }
       else if (this.state.phase === 1) {
       mainContent = (
@@ -342,6 +373,9 @@ let SortaAndEvaluateExercise = React.createClass({
                 )
               })
             }
+
+            <RaisedButton secondary={true} label={'Start forfra'} onClick={this.restart} />
+
           </div>
       }
 
