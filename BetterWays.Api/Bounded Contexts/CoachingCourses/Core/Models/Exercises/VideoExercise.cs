@@ -7,9 +7,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
 {
     public class VideoExercise : BaseExercise
     {
-        public VideoExercise()
+        public VideoExercise(CoachingModuleReference module)
+            : base(module, "VideoExercise")
         {
-            this.ExerciseClassName = "VideoExercise";
         }
 
         public override string Configuration

@@ -1,4 +1,7 @@
-﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Repositories;
+﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Repositories;
+using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Infrastructure.Repositories;
 using Microsoft.Azure.Documents;
@@ -49,7 +52,8 @@ namespace BetterWays.Api.Tests.Courses
                 new CoachingCourseRepositoryDocumentDB(),
                 new ModuleResourceRepositoryDocumentDb(),
                 new CoachingModuleRepositoryDocumentDB(),
-                new CoachnigModuleExerciseResourceRepositoryDocumentDB());
+                new CoachnigModuleExerciseResourceRepositoryDocumentDB(),
+                new UserRepositoryDocumentDB());
         }
 
         [TestMethod]
@@ -59,9 +63,20 @@ namespace BetterWays.Api.Tests.Courses
             //Create the course
             var course = _coachingCourseService.CreateNewCoachingCourse(courseName);
 
-            _coachingCourseService.CreateNewModuleInCourse(course, "Fyret. Hvad nu?");
+            var mod1 = _coachingCourseService.CreateNewModuleInCourse(course, "Fyret. Hvad nu?");
+            Assert.IsNotNull(mod1.Exercise);
+
+            _coachingCourseService.UpdateModuleResurce(
+                mod1,
+                new CoachingModuleExerciseResource() { Elements = new List<ResourceExerciseElement>(){
+                    new ResourceExerciseElement("<h1>Glæden i dit seneste arbejde</h1>  <p>Jeg vil bede dig om at se tilbage på dit seneste arbejde og arbejdsplads: Hvad der betød mest for dig?</p> ") {
+                        Exercise = new SortAndEvaluateExercise(new List<string>() { "Mening", "Chef", "Indfldelse", "Resultater", "Kollegaer", "Balance" }, new CoachingModuleReference(mod1.Id))        
+                    } },
+                    RevisionHistory = new ResourseRevisionHistoryReference() { ReferenceId = mod1.Exercise.RevisionHistoryReferenceId }
+                });
+              
             _coachingCourseService.CreateNewModuleInCourse(course, "Læg en plan og hold den");
-            _coachingCourseService.CreateNewModuleInCourse(course, "Siccesshistorier");
+            _coachingCourseService.CreateNewModuleInCourse(course, "Successhistorier");
             _coachingCourseService.CreateNewModuleInCourse(course, "Dit talent");
             _coachingCourseService.CreateNewModuleInCourse(course, "Dine personlige kompetencer");
             _coachingCourseService.CreateNewModuleInCourse(course, "Motivation");
@@ -69,7 +84,7 @@ namespace BetterWays.Api.Tests.Courses
             _coachingCourseService.CreateNewModuleInCourse(course, "Linkedin profil");
             _coachingCourseService.CreateNewModuleInCourse(course, "Mulighederne - dig og din nye arbejdsplads");
             _coachingCourseService.CreateNewModuleInCourse(course, "Netværk og social kapital");
-            _coachingCourseService.CreateNewModuleInCourse(course, "Nettet");
+            _coachingCourseService.CreateNewModuleInCourse(course, "Nettet");;
             _coachingCourseService.CreateNewModuleInCourse(course, "Massiv indsats - hit med jobbet");
             _coachingCourseService.CreateNewModuleInCourse(course, "Jobtilbud / jobafslag");
 

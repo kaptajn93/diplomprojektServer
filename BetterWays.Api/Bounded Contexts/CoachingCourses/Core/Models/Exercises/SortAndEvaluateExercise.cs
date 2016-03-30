@@ -21,10 +21,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
             return new SortAndEvaluateScoreCard();
         }
 
-        public SortAndEvaluateExercise(List<string> sortables)
+        public SortAndEvaluateExercise(List<string> sortables, CoachingModuleReference module)
+            : base(module, "SortAndEvaluate")
         {
-            this.ExerciseClassName = "SortAndEvaluate";
-
             this.Sorables = sortables;
         }
     }

@@ -37,8 +37,14 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             var coachingModuleResourceRepository = new ModuleResourceRepositoryDocumentDb();
             var coachingModuleRepository = new CoachingModuleRepositoryDocumentDB();
             var exerciseRepository = new CoachnigModuleExerciseResourceRepositoryDocumentDB();
+            var userRepository = new UserRepositoryDocumentDB();
 
-            var coachingService = new CoachingCourseService(coachingCourseRepository, coachingModuleResourceRepository, coachingModuleRepository, exerciseRepository);
+            var coachingService = new CoachingCourseService(
+                coachingCourseRepository, 
+                coachingModuleResourceRepository, 
+                coachingModuleRepository, 
+                exerciseRepository, 
+                userRepository);
 
             var course = coachingService.CreateNewCoachingCourse(courseName);
 

@@ -21,5 +21,6 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Infrastructure.Reposito
         {
             return GetItems(i => i.Id == id).Single();
         }
+
     }
 }

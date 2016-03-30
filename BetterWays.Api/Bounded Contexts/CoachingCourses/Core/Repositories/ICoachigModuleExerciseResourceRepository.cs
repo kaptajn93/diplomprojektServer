@@ -13,5 +13,6 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Repositories
         void CreateModuleResource(CoachingModuleExerciseResource resource);
         CoachingModuleExerciseResource GetResourceById(Guid id);
         IEnumerable<CoachingModuleExerciseResource> GetItems(Expression<Func<CoachingModuleExerciseResource, bool>> predicate);
+        IEnumerable<CoachingModuleExerciseResource> GetExercisesWithIds(IEnumerable<Guid> ids);
     }
 }

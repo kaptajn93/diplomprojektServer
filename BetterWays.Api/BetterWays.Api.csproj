@@ -63,6 +63,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=6.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.6.2.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -173,12 +177,14 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\VideoExerciseScoreCard.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\ResourseRevisionHistoryReference.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\User.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\UserCourseAdmission.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachigModuleExerciseResourceRepository.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingCourseRepository.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingModuleRepository.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingModuleResourceRepository.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\IUserRepository.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\CoachingCourseService.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ExerciseController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\CourseController.cs" />
@@ -186,17 +192,23 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ExerciseResourceController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ModuleController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ResourceController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\UserController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CoachingCourseDTO.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CoachingModuleDTO.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\CoachingCourseDTOConverter.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\CoachingModuleDTOConverter.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\ModuleResourceDTOConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\UserDtoConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CourseAdmissionDto.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleExerciseResourceDTO.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleResourceDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ScoreCardDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\UserDto.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachnigModuleExerciseResourceRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingCourseRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleResourceRepositoryDocumentDb.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\UserRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\ShareVideoRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\CreateModuleInCourseRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleExerciseRequest.cs" />

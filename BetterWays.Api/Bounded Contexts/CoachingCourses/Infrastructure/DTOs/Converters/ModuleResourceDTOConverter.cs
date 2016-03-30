@@ -42,16 +42,17 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
             };
         }
 
-        public static ResourceExerciseElement ConvertFromDTO(ModuleExerciseElementDTO dto)
+        public static ResourceExerciseElement ConvertFromDTO(ModuleExerciseElementDTO dto, CoachingModule module)
         {
             BaseExercise exercise = null;
+            var moduleReference = new CoachingModuleReference(module.Id) ;
             switch (dto.ClassName)
             {
                 case "SortAndEvaluate":
-                    exercise = new SortAndEvaluateExercise(dto.Configuration.Split(',').ToList());
+                    exercise = new SortAndEvaluateExercise(dto.Configuration.Split(',').ToList(), moduleReference);
                     break;
                 case "VideoExercise":
-                    exercise = new VideoExercise();
+                    exercise = new VideoExercise(moduleReference);
                     break;
                 default:
                     break;

@@ -1,4 +1,5 @@
 ﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises;
 using BetterWays.Api.BoundedContexts.Shared.Domain;
 using Newtonsoft.Json;
 using System;
@@ -32,16 +33,12 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         }
 
         public void AddCoachingModule(
-            CoachingModule module
-            /*string name, 
-            CoachingModuleResource introduction,
-            CoachingModuleResource exercise,
-            CoachingModuleResource reflection*/)
+            CoachingModule module)
         {
-            
-
             //Add to collection
             Modules.Add(new CoachingModuleReference (module.Id) );
         }
+        
+        
     }
 }
