@@ -15,7 +15,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
             {
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                CourseAdmissions = entity.CourseAdmissions.Select(ConvertCourseadmissionToDTO).ToList()
+                CourseAdmissions = entity.CourseAdmissions != null ? entity.CourseAdmissions.Select(ConvertCourseadmissionToDTO).ToList() : null
             };
         }
 

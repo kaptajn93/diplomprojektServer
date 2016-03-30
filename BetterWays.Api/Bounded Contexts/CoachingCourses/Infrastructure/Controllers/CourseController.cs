@@ -50,7 +50,23 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
 
             return course.Id;
         }
-        
+
+        [Route("api/course/{courseId}/modules")]
+        [AcceptVerbs("GET")]
+        public IEnumerable<CoachingModuleDTO> Modules(Guid courseId)
+        {
+            var coachingCourseRepository = new CoachingCourseRepositoryDocumentDB();
+            var coachingModuleRepository = new CoachingModuleRepositoryDocumentDB();
+
+            //Get the course
+            var course = coachingCourseRepository.GetCourseById(courseId);
+            //Get modules in course
+            var modules = coachingModuleRepository.GetItemsWithIds(course.Modules.Select(m => m.ModuleReferenceId));
+
+            return modules.Select(m => CoachingModuleDTOConverter.ConvertToDTO(m));
+        }
+
+
         // DELETE api/values/5
         public void Delete(int id)
         {
