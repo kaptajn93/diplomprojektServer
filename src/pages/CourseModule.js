@@ -66,7 +66,7 @@ let CourseModule = React.createClass({
     this.setState({
       isLoading:true
     })
-    this.props.dispatch(getAllCourseModules('64f123d8-e740-4653-9036-54910bf795e0')).then(
+    this.props.dispatch(getAllCourseModules('5ee7f624-0d89-4416-8d04-bd98c5323287')).then(
       json => {
       this.setState({
         modules: json.modules,

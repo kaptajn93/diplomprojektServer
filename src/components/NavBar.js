@@ -8,8 +8,13 @@ import FlatButton from 'material-ui/lib/flat-button';
 import Paper from 'material-ui/lib/paper';
 import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator';
 import RaisedButton from 'material-ui/lib/raised-button';
+import Avatar from 'material-ui/lib/avatar';
+import FontIcon from 'material-ui/lib/font-icon';
+import ListItem from 'material-ui/lib/lists/list-item';
+import styles from 'material-ui/lib/styles';
 
 const {Grid, Row, Col} = require('react-flexgrid');
+const colors = styles.Colors;
 
 var logoStyle = {
   height : '26px',
@@ -29,6 +34,7 @@ const NavBar =React.createClass({
     window.location.assign("/#/administration");
   },
 
+    /*<RaisedButton label="Administrator" primary={true}  onClick={this.handleSubmit}/>*/
   render: function(){
     return (
       <Paper  zDepth={1}>
@@ -45,7 +51,12 @@ const NavBar =React.createClass({
               </ToolbarGroup>
 
               <ToolbarGroup float="right">
-                <RaisedButton label="Administrator" primary={true}  onClick={this.handleSubmit}/>
+              <ListItem
+                disabled={false}
+                rightAvatar={<Avatar>J</Avatar>}
+              >
+                <span  style={{marginRight:8}}>Jens Jørgensen</span>
+              </ListItem>
               </ToolbarGroup>
             </Col>
             <Col xs={0} sm={0} md={2} lg={2}/>
