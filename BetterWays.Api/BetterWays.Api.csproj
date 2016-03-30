@@ -188,7 +188,6 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\CoachingCourseService.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ExerciseController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\CourseController.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\CourseModuleController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ExerciseResourceController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ModuleController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ResourceController.cs" />

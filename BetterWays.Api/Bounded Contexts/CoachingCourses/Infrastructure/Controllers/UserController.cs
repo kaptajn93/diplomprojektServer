@@ -18,6 +18,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             return UserDtoConverter.ConvertToDTO(usr);
         }
 
+        [Route("api/user/currentUser")]
+        [AcceptVerbs("GET")]
         public UserDto CurrentUser()
         {
             var userRepo = new UserRepositoryDocumentDB();
