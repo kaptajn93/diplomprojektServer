@@ -20,7 +20,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models
         /// <summary>
         /// The name of the resource class
         /// </summary>
-        [JsonProperty(PropertyName = "exerciseTypeName")]
+        [JsonProperty(PropertyName = "exercise")]
         public BaseExercise Exercise { get; set; }
 
         /// <summary>

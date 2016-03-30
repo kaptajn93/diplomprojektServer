@@ -1,4 +1,5 @@
 ﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.User;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Repositories;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Repositories;
@@ -16,17 +17,20 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
         private IModuleResourceRepository _resourceRepository;
         private ICoachingModuleRepository _moduleRepository;
         private ICoachigModuleExerciseResourceRepository _exerciseRepository;
+        private IUserRepository _userRepository;
 
         public CoachingCourseService(
             ICoachingCourseRepository coachingCourserepository, 
             IModuleResourceRepository resourceRpository,
             ICoachingModuleRepository moduleRepository,
-            ICoachigModuleExerciseResourceRepository exerciseRepository)
+            ICoachigModuleExerciseResourceRepository exerciseRepository,
+            IUserRepository userRepository)
         {
             _coachingCourseRepository = coachingCourserepository;
             _resourceRepository = resourceRpository;
             _moduleRepository = moduleRepository;
             _exerciseRepository = exerciseRepository;
+            _userRepository = userRepository;
         }
 
         public CoachingCourse CreateNewCoachingCourse(string courseName)
@@ -58,10 +62,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
             _resourceRepository.CreateModuleResource(introduction);
             _exerciseRepository.CreateModuleResource(exercise);
             _exerciseRepository.CreateModuleResource(reflection);
-
-            /*_revisonHistoryRepository.CreateRevisionHistory(introRevision);
-            _revisonHistoryRepository.CreateRevisionHistory(exerciseRevision);
-            _revisonHistoryRepository.CreateRevisionHistory(reflectionRevision);*/
+            
 
             //Create and add module
             var module =new CoachingModule(
@@ -122,6 +123,29 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
                 _resourceRepository.CreateModuleResource(newResource as CoachingModuleResource);
             else if (newResource is CoachingModuleExerciseResource)
                 _exerciseRepository.CreateModuleResource(newResource as CoachingModuleExerciseResource);
+            
+        }
+
+        public void AdmitUserToCourse(User user, CoachingCourse course)
+        {
+            //Find all exercises and get a fresh scorecard
+            var modules = _moduleRepository.GetModulesWithIds(course.Modules.Select(m => m.ModuleReferenceId));
+            var exercises = _exerciseRepository.GetExercisesWithIds(modules.Select(m => m.Exercise.ResourceReferenceId));
+
+            var freshScoreCards = exercises.SelectMany(er => er.Elements.Select(e => e.Exercise != null ? e.Exercise.GetEmptyScoreCard() : null));
+
+            //Add course admission to user
+            if (user.CourseAdmissions == null)
+                user.CourseAdmissions = new List<UserCourseAdmission>();
+            
+            user.CourseAdmissions.Add(new UserCourseAdmission
+            {
+                CourseId = course.Id,
+                Results = freshScoreCards.ToList()
+            });
+
+            //Save user
+            _userRepository.SaveUser(user);
             
         }
     }

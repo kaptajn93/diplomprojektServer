@@ -47,7 +47,8 @@ namespace Tests
                 new CoachingCourseRepositoryDocumentDB(), 
                 new ModuleResourceRepositoryDocumentDb(), 
                 new CoachingModuleRepositoryDocumentDB(),
-                new CoachnigModuleExerciseResourceRepositoryDocumentDB());
+                new CoachnigModuleExerciseResourceRepositoryDocumentDB(),
+                new UserRepositoryDocumentDB());
         }
 
         [TestMethod]

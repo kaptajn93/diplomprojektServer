@@ -5,10 +5,7 @@ using System.Web;
 
 namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
 {
-    public abstract class BaseScoreCard
+    public class VideoExerciseScoreCard : BaseScoreCard
     {
-        public bool IsCompleted { get; set; }
-
-        public CoachingModuleReference Module { get; private set; }
     }
 }

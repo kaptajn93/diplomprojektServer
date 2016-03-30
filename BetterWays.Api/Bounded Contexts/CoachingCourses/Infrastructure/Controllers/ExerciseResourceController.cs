@@ -40,16 +40,22 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             var coachingModuleResourceRepository = new ModuleResourceRepositoryDocumentDb();
             var coachingModuleRepository = new CoachingModuleRepositoryDocumentDB();
             var exerciseRepository = new CoachnigModuleExerciseResourceRepositoryDocumentDB();
+            var userRepository = new UserRepositoryDocumentDB();
 
             var module = coachingModuleRepository.GetModuleById(request.ModuleId);
             var resource = exerciseRepository.GetResourceById(request.ResourceId);
 
-            var coachingService = new CoachingCourseService(coachingCourseRepository, coachingModuleResourceRepository, coachingModuleRepository, exerciseRepository);
+            var coachingService = new CoachingCourseService(
+                coachingCourseRepository, 
+                coachingModuleResourceRepository, 
+                coachingModuleRepository, 
+                exerciseRepository, 
+                userRepository);
 
             var newResource = new CoachingModuleExerciseResource()
             {
                 RevisionHistory = resource.RevisionHistory,
-                Elements = request.UpdatedElements.Select(e => ModuleResourceDTOConverter.ConvertFromDTO(e)).ToList()
+                Elements = request.UpdatedElements.Select(e => ModuleResourceDTOConverter.ConvertFromDTO(e, module)).ToList()
             };
 
             coachingService.UpdateModuleResurce(module, newResource);

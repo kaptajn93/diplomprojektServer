@@ -12,5 +12,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Repositories
         void CreateModule(CoachingModule module);
         CoachingModule GetModuleById(Guid id);
         void SaveModule(CoachingModule module);
+
+        IEnumerable<CoachingModule> GetModulesWithIds(IEnumerable<Guid> ids);
     }
 }

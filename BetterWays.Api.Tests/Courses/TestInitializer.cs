@@ -1,25 +1,24 @@
-﻿
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.Http;
-using System.Web.Routing;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BetterWays.Api
+namespace BetterWays.Api.Tests.Courses
 {
-    public class WebApiApplication : System.Web.HttpApplication
+    [TestClass]
+    public class TestInitializer
     {
-        protected void Application_Start()
+        [AssemblyInitialize]
+        public static void AssemblyInit(TestContext context)
         {
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-
             var jsonSerilizerSettings = new JsonSerializerSettings();
-            
+
             jsonSerilizerSettings.TypeNameHandling = TypeNameHandling.Auto;
             jsonSerilizerSettings.TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple;
-            
+
             JsonConvert.DefaultSettings = () =>
             {
                 return jsonSerilizerSettings;

@@ -20,6 +20,11 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Infrastructure.Reposito
             return GetItems(i => i.Id == id).Single();
         }
 
+        public IEnumerable<CoachingModule> GetModulesWithIds(IEnumerable<Guid> ids)
+        {
+            return GetItemsWithIds(ids);
+        }
+
         public void SaveModule(CoachingModule module)
         {
             SaveItem(module);

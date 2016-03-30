@@ -15,6 +15,11 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Reposit
             var document = CreateItemAsync(resource);
         }
 
+        public IEnumerable<CoachingModuleExerciseResource> GetExercisesWithIds(IEnumerable<Guid> ids)
+        {
+            return GetItemsWithIds(ids);
+        }
+
         public CoachingModuleExerciseResource GetResourceById(Guid id)
         {
             return GetItems(i => i.Id == id).Single();
