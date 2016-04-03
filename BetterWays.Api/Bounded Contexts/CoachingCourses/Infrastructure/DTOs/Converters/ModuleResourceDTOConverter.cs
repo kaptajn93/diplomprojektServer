@@ -38,7 +38,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
             {
                 ClassName = element.Exercise != null ? element.Exercise.ExerciseClassName : null,
                 Configuration = element.Exercise != null ? element.Exercise.Configuration : null,
-                Content = element.Content
+                Content = element.Content,
+                Description = element.Exercise != null ? element.Exercise.Description : null,
+                ExerciseId = element.Exercise != null ? new Guid?(element.Exercise.Id) : null
             };
         }
 
@@ -49,14 +51,19 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
             switch (dto.ClassName)
             {
                 case "SortAndEvaluate":
-                    exercise = new SortAndEvaluateExercise(dto.Configuration.Split(',').ToList(), moduleReference);
+                    exercise = new SortAndEvaluateExercise(dto.Configuration.Split(';').ToList(), moduleReference);
                     break;
                 case "VideoExercise":
                     exercise = new VideoExercise(moduleReference);
                     break;
+                case "KPExplorerQuestionnaire":
+                    exercise = new KPExplorerQuestionnaire(dto.Configuration.Split(';').ToList(), moduleReference);
+                    break;
                 default:
                     break;
             }
+
+            exercise.Description = dto.Description;
 
             return new ResourceExerciseElement(dto.Content)
             {

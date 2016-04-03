@@ -19,7 +19,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
 
         public override BaseScoreCard GetEmptyScoreCard()
         {
-            return new VideoExerciseScoreCard();
+            return new VideoExerciseScoreCard(Module, Id, Description);
         }
     }
 }

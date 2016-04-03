@@ -100,6 +100,9 @@ namespace BetterWays.Api.Tests.Courses
             Assert.IsNotNull(usrDto);
             Assert.AreEqual(usrDto.FirstName, "Jørgen");
             Assert.AreEqual(usrDto.LastName, "Jensen");
+            Assert.IsTrue(
+                    usrDto.CourseAdmissions.All(ca => ca != null && ca.Results.All(r => r != null && !r.IsCompleted && r.ModuleId != null))
+                );
         }
     }
 }

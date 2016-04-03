@@ -30,10 +30,41 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
 
         public static ScoreCardDto ConvertScoreCardDto(BaseScoreCard entity)
         {
+            if (entity == null)
+                return null;
+
             return new ScoreCardDto
             {
                 IsCompleted = entity.IsCompleted,
-                ModuleId = entity.Module.ModuleReferenceId
+                ModuleId = entity.Module != null ? new Guid?(entity.Module.ModuleReferenceId) : null,
+                ExerciseDescription = entity.ExerciseDescription,
+                ExerciseId = entity.ExerciseId
+            };
+        }
+        
+        private static SortAndEvaluateResultDto ConvertEvaluationResultToDto(EvaluationResult evaluationResult)
+        {
+            return new SortAndEvaluateResultDto()
+            {
+                Description = evaluationResult.Description,
+                Meaning = evaluationResult.Meaning,
+                Effect = evaluationResult.Effect,
+                Title = evaluationResult.Title
+            };
+        }
+
+        public static SortAndEvaluateScoreCardDto ConvertScoreCardDto(SortAndEvaluateScoreCard entity)
+        {
+            if (entity == null)
+                return null;
+
+            return new SortAndEvaluateScoreCardDto
+            {
+                IsCompleted = entity.IsCompleted,
+                ModuleId = entity.Module != null ? new Guid?(entity.Module.ModuleReferenceId) : null,
+                ExerciseDescription = entity.ExerciseDescription,
+                ExerciseId = entity.ExerciseId,
+                Evaluations = entity.Evaluations != null ? entity.Evaluations.Select(ConvertEvaluationResultToDto).ToList() : null
             };
         }
     }

@@ -16,7 +16,13 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
-        
+
+        /// <summary>
+        /// Short description, for display on the dashboard
+        /// </summary>
+        [JsonProperty(PropertyName = "description")]
+        public string Description { get; set; }
+
         /// <summary>
         /// Introduction part of module
         /// </summary>
@@ -47,7 +53,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
             CoachingModuleExerciseResource reflection)
         {
             Name = name;
-
+            Description = "";
             Introduction = new CoachingModuleResourceReference(introduction.Id, introduction.RevisionHistory.ReferenceId);
             Exercise = new CoachingModuleResourceReference(exercise.Id, exercise.RevisionHistory.ReferenceId) ;
             Reflection =  new CoachingModuleResourceReference(reflection.Id, reflection.RevisionHistory.ReferenceId) ;

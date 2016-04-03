@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="BetterWays.Api.Tests.Courses.UserTests.CreateUser" /><Add Test="BetterWays.Api.Tests.Courses.UserTests.AdmitUsertoCourse" /><Add Test="BetterWays.Api.Tests.Courses.InitializeCourseWithModules.InitCourseWithModules" /></Playlist>

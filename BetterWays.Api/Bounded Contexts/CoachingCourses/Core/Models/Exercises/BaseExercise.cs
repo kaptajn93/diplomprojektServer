@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BetterWays.Api.BoundedContexts.Shared.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
 {
-    public abstract class BaseExercise
+    public abstract class BaseExercise : Entity
     {
         /// <summary>
         /// The name of the class, used by the client to find the matching ui-component
@@ -13,6 +14,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
         public string ExerciseClassName { get; private set; }
 
         public abstract string Configuration { get; }
+
+        public string Description { get; set; }
 
         public CoachingModuleReference Module { get; private set; }
         
@@ -26,6 +29,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
         {
             Module = module;
             ExerciseClassName = className;
+            Description = "";
         }
     }
 }

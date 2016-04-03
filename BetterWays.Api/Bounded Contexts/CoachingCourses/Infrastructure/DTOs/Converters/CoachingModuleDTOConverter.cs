@@ -14,6 +14,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
             {
                 Id = entity.Id,
                 Name = entity.Name,
+                Description = entity.Description,
                 Introduction = entity.Introduction.ResourceReferenceId,
                 Exercise = entity.Exercise.ResourceReferenceId,
                 Reflection = entity.Reflection.ResourceReferenceId

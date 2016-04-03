@@ -65,6 +65,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             var reflection = coachingModuleResourceRepository.GetResourceById(request.CoachingModule.Reflection);
 
             coachingModule.Name = request.CoachingModule.Name;
+            coachingModule.Description = request.CoachingModule.Description;
             coachingModule.Introduction = new CoachingModuleResourceReference(introduction.Id, introduction.RevisionHistory.ReferenceId);
             coachingModule.Exercise = new CoachingModuleResourceReference(exercise.Id, exercise.RevisionHistory.ReferenceId);
             coachingModule.Reflection = new CoachingModuleResourceReference(reflection.Id, reflection.RevisionHistory.ReferenceId);
@@ -76,6 +77,39 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
         public void Delete(int id)
         {
         }
-    
+
+        [Route("api/module/{moduleId}/description")]
+        [AcceptVerbs("PUT")]
+        public void UpdateModuleDescription(Guid moduleId, [FromBody] string description)
+        {
+            var coachingModuleRepository = new CoachingModuleRepositoryDocumentDB();
+            var coachingModuleResourceRepository = new ModuleResourceRepositoryDocumentDb();
+
+            var coachingModule = coachingModuleRepository.GetModuleById(moduleId);
+            
+            coachingModule.Description = description;
+
+            coachingModuleRepository.SaveItem(coachingModule);
+        }
+
+        [Route("api/module/{moduleId}/exercises")]
+        [AcceptVerbs("GET")]
+        public dynamic GetModuleExercises(Guid moduleId, [FromBody] string description)
+        {
+            var coachingModuleRepository = new CoachingModuleRepositoryDocumentDB();
+            var coachingModuleResourceRepository = new CoachnigModuleExerciseResourceRepositoryDocumentDB();
+
+            var coachingModule = coachingModuleRepository.GetModuleById(moduleId);
+
+            //Get all exercises
+            var resources = coachingModuleResourceRepository.GetItemsWithIds(new Guid[] {
+                coachingModule.Exercise.ResourceReferenceId, coachingModule.Reflection.ResourceReferenceId });
+
+            return new {
+                title = coachingModule.Name,
+                exercises = resources.Select(r => ModuleResourceDTOConverter.ConvertToDTO(r))
+            };
+        }
+
     }
 }

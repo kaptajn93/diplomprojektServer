@@ -59,6 +59,7 @@ namespace BetterWays.Api.Tests.Courses
         [TestMethod]
         public void InitCourseWithModules()
         {
+            var moduleRepo = new CoachingModuleRepositoryDocumentDB();
             var courseName = "Better ways course";
             //Create the course
             var course = _coachingCourseService.CreateNewCoachingCourse(courseName);
@@ -66,16 +67,22 @@ namespace BetterWays.Api.Tests.Courses
             var mod1 = _coachingCourseService.CreateNewModuleInCourse(course, "Fyret. Hvad nu?");
             Assert.IsNotNull(mod1.Exercise);
 
+            mod1.Description = "Find det positive i dit seneste job, og undgå negativiteten. Se fremad, mod nye udfordringer.";
             _coachingCourseService.UpdateModuleResurce(
                 mod1,
                 new CoachingModuleExerciseResource() { Elements = new List<ResourceExerciseElement>(){
                     new ResourceExerciseElement("<h1>Glæden i dit seneste arbejde</h1>  <p>Jeg vil bede dig om at se tilbage på dit seneste arbejde og arbejdsplads: Hvad der betød mest for dig?</p> ") {
-                        Exercise = new SortAndEvaluateExercise(new List<string>() { "Mening", "Chef", "Indfldelse", "Resultater", "Kollegaer", "Balance" }, new CoachingModuleReference(mod1.Id))        
+                        Exercise = new SortAndEvaluateExercise(
+                            new List<string>() { "Mening", "Chef", "Indfldelse", "Resultater", "Kollegaer", "Balance" }, 
+                            new CoachingModuleReference(mod1.Id)) { Description = "Find det positive" }        
                     } },
                     RevisionHistory = new ResourseRevisionHistoryReference() { ReferenceId = mod1.Exercise.RevisionHistoryReferenceId }
                 });
               
-            _coachingCourseService.CreateNewModuleInCourse(course, "Læg en plan og hold den");
+            var mod2 = _coachingCourseService.CreateNewModuleInCourse(course, "Læg en plan og hold den");
+            mod2.Description = "Planlægning kan hjælpe dig med at komme videre. Start med at lægge en plan for den nærmeste fremtid.";
+            moduleRepo.SaveModule(mod2);
+
             _coachingCourseService.CreateNewModuleInCourse(course, "Successhistorier");
             _coachingCourseService.CreateNewModuleInCourse(course, "Dit talent");
             _coachingCourseService.CreateNewModuleInCourse(course, "Dine personlige kompetencer");

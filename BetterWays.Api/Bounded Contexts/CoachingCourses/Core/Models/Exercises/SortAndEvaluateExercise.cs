@@ -8,17 +8,18 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
 {
     public class SortAndEvaluateExercise : BaseExercise
     {
+        [JsonProperty(PropertyName = "sortables")]
         public List<string> Sorables { get; set; }
 
         [JsonIgnore]
         public override string Configuration
         {
-            get { return string.Join(",", Sorables); }
+            get { return string.Join(";", Sorables); }
         }
 
         public override BaseScoreCard GetEmptyScoreCard()
         {
-            return new SortAndEvaluateScoreCard();
+            return new SortAndEvaluateScoreCard(Module, Id, Description) ;
         }
 
         public SortAndEvaluateExercise(List<string> sortables, CoachingModuleReference module)

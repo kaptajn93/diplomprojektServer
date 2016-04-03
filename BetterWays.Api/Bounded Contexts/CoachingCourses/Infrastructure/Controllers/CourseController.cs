@@ -65,8 +65,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
 
             return modules.Select(m => CoachingModuleDTOConverter.ConvertToDTO(m));
         }
-
-
+        
         // DELETE api/values/5
         public void Delete(int id)
         {

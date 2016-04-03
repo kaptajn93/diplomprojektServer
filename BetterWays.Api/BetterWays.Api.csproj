@@ -171,6 +171,8 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleResourceRevisionHistory.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\BaseExercise.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\BaseScoreCard.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\KPExplorerQuestionnaire.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\KPExplorerQuestionnaireScoreCard.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\SortAndEvaluateExercise.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\SortAndEvaluateScoreCard.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\VideoExercise.cs" />
@@ -201,6 +203,7 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CourseAdmissionDto.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleExerciseResourceDTO.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleResourceDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleResultsDto.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ScoreCardDto.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\UserDto.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachnigModuleExerciseResourceRepositoryDocumentDB.cs" />

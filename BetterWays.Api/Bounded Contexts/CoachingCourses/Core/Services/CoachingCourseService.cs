@@ -1,4 +1,5 @@
 ﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.User;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Repositories;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
@@ -129,10 +130,15 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
         public void AdmitUserToCourse(User user, CoachingCourse course)
         {
             //Find all exercises and get a fresh scorecard
-            var modules = _moduleRepository.GetModulesWithIds(course.Modules.Select(m => m.ModuleReferenceId));
-            var exercises = _exerciseRepository.GetExercisesWithIds(modules.Select(m => m.Exercise.ResourceReferenceId));
+            var modules = _moduleRepository.GetModulesWithIds(course.Modules.Select(m => m.ModuleReferenceId)).ToList();
+            var exercises = _exerciseRepository.GetExercisesWithIds(modules.Select(m => m.Exercise.ResourceReferenceId)).ToList();
 
-            var freshScoreCards = exercises.SelectMany(er => er.Elements.Select(e => e.Exercise != null ? e.Exercise.GetEmptyScoreCard() : null));
+            var freshScoreCards = exercises.SelectMany(er => er.Elements.Select(e => 
+            e.Exercise != null ? 
+                e.Exercise.GetEmptyScoreCard() : 
+                new BaseScoreCard(
+                    new CoachingModuleReference( modules.Single(m => 
+                    m.Exercise.ResourceReferenceId == er.Id).Id), Guid.NewGuid(), "")));
 
             //Add course admission to user
             if (user.CourseAdmissions == null)
