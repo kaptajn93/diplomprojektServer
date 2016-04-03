@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux'
+
 import SortableMixin from 'sortablejs/react-sortable-mixin';
 import Paper from 'material-ui/lib/paper';
 import RaisedButton from 'material-ui/lib/raised-button';
@@ -9,6 +11,9 @@ import Backward from 'material-ui/lib/svg-icons/navigation/arrow-back';
 import FontIcon from 'material-ui/lib/font-icon';
 import Colors from 'material-ui/lib/styles/colors';
 import TextField from 'material-ui/lib/text-field';
+import CircularProgress from 'material-ui/lib/circular-progress';
+
+import { putSortAndEvalResultById, getSortAndEvalResult } from '../../actions/api'
 
 let EvalPhase = React.createClass({
   getInitialState: function(){
@@ -228,16 +233,35 @@ const styles = {
 let SortaAndEvaluateExercise = React.createClass({
 
     getInitialState: function() {
-      var items = this.props.sortableItems.split(',');
+      var items = this.props.sortableItems.split(';');
       return {
           items:  items,
           resultItems: this.mapItems(items),
-          phase: 0
+          phase: 0,
+          isLoading: false
       };
     },
 
+    componentDidMount: function(){
+      //Update server
+      if (this.props.liveExercise){
+        this.setState({isLoading: true});
+        this.props.dispatch(getSortAndEvalResult(this.props.exerciseId)).then(
+          json => {
+            this.setState({
+              isLoading: false,
+              phase: json.result.isCompleted ? 4 : this.state.phase,
+              resultItems: json.result.evaluations
+            });
+
+          }
+        );
+      }
+
+    },
+
     componentWillReceiveProps: function(nextProps) {
-      var items = nextProps.sortableItems.split(',')
+      var items = nextProps.sortableItems.split(';')
       this.setState({
         items: items,
         resultItems: this.mapItems(items)
@@ -265,6 +289,13 @@ let SortaAndEvaluateExercise = React.createClass({
         phase:4,
         resultItems:items
       });
+
+      if (this.props.onFinished !== undefined)
+        this.props.onFinished(items);
+
+      //Update server
+      if (this.props.liveExercise)
+        this.props.dispatch(putSortAndEvalResultById(this.props.exerciseId, {evaluations:items, exerciseId:this.props.exerciseId, isCompleted:true}));
     },
 
     restart: function(){
@@ -283,7 +314,8 @@ let SortaAndEvaluateExercise = React.createClass({
       return items.map(function(i){
         var existingItem =
           that.state !== null &&
-          that.state.resultItems !== undefined ?
+          that.state.resultItems !== undefined &&
+          that.state.resultItems !== null ?
             that.state.resultItems.filter(function(exI){
               return exI.title === i;
             }): [];
@@ -309,7 +341,9 @@ let SortaAndEvaluateExercise = React.createClass({
 
     render: function() {
       var mainContent;
-      if (this.state.phase === 0) {
+      if (this.state.isLoading)
+        mainContent = <CircularProgress size={0.4} style={{marginTop: '6px'}} />;
+      else if (this.state.phase === 0) {
         mainContent =
         <div>
           <span s>Når du er klar skal du trykke, 'Start øvelse':</span>
@@ -353,7 +387,7 @@ let SortaAndEvaluateExercise = React.createClass({
         mainContent =
           <div>
             <h2>Øvelsen er færdig</h2>
-            <p>Her er din besvarelse, sorteret med dt mest betydningsfulde, først:</p>
+            <p>Her er din besvarelse, sorteret med det mest betydningsfulde, først:</p>
             {
               this.state.resultItems.map(function(i, index){
                 return (
@@ -374,8 +408,6 @@ let SortaAndEvaluateExercise = React.createClass({
               })
             }
 
-            <RaisedButton secondary={true} label={'Start forfra'} onClick={this.restart} />
-
           </div>
       }
 
@@ -385,5 +417,7 @@ let SortaAndEvaluateExercise = React.createClass({
         </div>)
     }
 });
+
+SortaAndEvaluateExercise = connect()(SortaAndEvaluateExercise);
 
 export default SortaAndEvaluateExercise;

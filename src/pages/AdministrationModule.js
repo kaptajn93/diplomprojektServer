@@ -11,6 +11,7 @@ import CardText from 'material-ui/lib/card/card-text';
 
 import Paper from 'material-ui/lib/paper';
 import CircularProgress from 'material-ui/lib/circular-progress';
+import TextField from 'material-ui/lib/text-field';
 
 import CourseModuleInfo from '../components/CourseModuleInfo';
 import CourseModuleExperiment from '../components/CourseModuleExperiment';
@@ -20,7 +21,7 @@ import DropDownMenu from 'material-ui/lib/DropDownMenu';
 import IntroductionContentAdministration from '../components/AdministrationComponents/IntroductionContentAdministration';
 import ExerciseContentAdministration from '../components/AdministrationComponents/ExerciseContentAdministration';
 
-import { getAllCourses, getAllCourseModules } from '../actions/api'
+import { getAllCourses, getAllCourseModules, putModuleDescription } from '../actions/api'
 
 const {Grid, Row, Col} = require('react-flexgrid');
 
@@ -108,7 +109,9 @@ let AdministrationModule = React.createClass({
     this.setState({
       selectedModule:value,
       selectedResource:null,
-      currentModuleId : this.state.modules[value].id});
+      currentModuleId : this.state.modules[value].id,
+      moduleDescription: this.state.modules[value].description
+    });
   },
 
   onResourceSelected : function(event, index, value){
@@ -126,6 +129,17 @@ let AdministrationModule = React.createClass({
       htmlText:null,
       resultHtmlText:null,
       isTextDirty:false});
+  },
+
+  moduleDescriptionBlur: function(event){
+    this.state.modules[this.state.selectedModule].description = this.state.moduleDescription;
+
+    this.props.dispatch(
+      putModuleDescription(this.state.modules[this.state.selectedModule].id, this.state.modules[this.state.selectedModule].description));
+  },
+
+  moduleDescriptionChanged: function(event){
+      this.setState({moduleDescription: event.target.value});
   },
 
   render: function() {
@@ -154,12 +168,29 @@ let AdministrationModule = React.createClass({
 
       var SelectResource = this.state.selectedModule !== null ?
         <SelectField
-          style={{width: '300px', marginLeft:'20px'}}
+          style={{width: '300px'}}
           value={this.state.selectedResource}
           onChange={this.onResourceSelected}
           floatingLabelText="Vælg resource">
           {resourceItems}
         </SelectField> : null;
+
+      var ModuleConfiguration = this.state.selectedModule !== null ?
+        <div>
+          <Divider/>
+          <div style={paddingStyle}>
+          <h5 style={{margin:0}}>Beskrivelse af modulet (vist på dashboard)</h5>
+            <TextField
+              hintText="Skriv tekst"
+              multiLine={true}
+              fullWidth={true}
+              value={this.state.moduleDescription}
+              onChange={this.moduleDescriptionChanged}
+              onBlur={this.moduleDescriptionBlur}
+            />
+            {SelectResource}
+          </div>
+        </div> : null;
 
     return (
       <div style={pageContainerStyle}>
@@ -172,11 +203,11 @@ let AdministrationModule = React.createClass({
                 <div style={{display:'flex'}}>
                   {SelectCourses}
                   {SelectModule}
-                  {SelectResource}
                   { this.state.isLoadingModules || this.state.isLoadingCourses ?
                     <CircularProgress size={0.4} style={{marginTop: '20px'}} />: null }
                 </div>
               </div>
+              {ModuleConfiguration}
               {
                 this.state.selectedResource === 1 ?
                 <IntroductionContentAdministration

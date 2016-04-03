@@ -57,7 +57,7 @@ let CourseModuleExperiment = React.createClass({
     var Elements = this.state.exerciseElements.map((i, index) => (
       <div key={index}>
         <div dangerouslySetInnerHTML={{__html:i.content}} />
-        <ExerciseSelector exerciseSelection={i}></ExerciseSelector>
+        <ExerciseSelector exerciseSelection={i} liveExercise={true}></ExerciseSelector>
       </div>
     ));
 

@@ -37,7 +37,8 @@ const ExerciseElement = React.createClass({
       isExerciseDialogOpen: false,
       exerciseSelection: {
         className: this.props.model.className,
-        configuration: this.props.model.configuration
+        configuration: this.props.model.configuration,
+        description: this.props.model.description
       }
     };
   },
@@ -63,10 +64,12 @@ const ExerciseElement = React.createClass({
     if (this.state.exerciseSelection !== null && this.state.exerciseSelection !== undefined){
       this.props.model.className = this.state.exerciseSelection.className;
       this.props.model.configuration = this.state.exerciseSelection.configuration;
+      this.props.model.description = this.state.exerciseSelection.description;
     }
     else {
       this.props.model.className = '';
       this.props.model.configuration = '';
+      this.props.model.description = '';
     }
     this.state.originalText = this.state.editedText;
     this.props.initiateSave();

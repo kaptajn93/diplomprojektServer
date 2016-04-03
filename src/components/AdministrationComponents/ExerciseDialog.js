@@ -11,7 +11,8 @@ import Dialog from 'material-ui/lib/dialog';
 const items = [
   <MenuItem key={0} value={'None'} primaryText="Ingen"/>,
   <MenuItem key={1} value={'SortAndEvaluate'} primaryText="Sortér og bedøm"/>,
-  <MenuItem key={2} value={'VideoExercise'} primaryText="Videoøvelse"/>
+  <MenuItem key={2} value={'VideoExercise'} primaryText="Videoøvelse"/>,
+  <MenuItem key={3} value={'KPExplorerQuestionnaire'} primaryText="KP explorer"/>
 ];
 
 var ConfigureExerciseDialog = React.createClass({
@@ -24,7 +25,9 @@ var ConfigureExerciseDialog = React.createClass({
       open: this.props.open,
       selectedExercise : this.props.selected.className,
       configuration : this.props.selected !== undefined ?
-        this.props.selected.configuration : ''
+        this.props.selected.configuration : '',
+      description: this.props.selected !== undefined ?
+       this.props.selected.description : ''
     };
   },
 
@@ -47,7 +50,8 @@ var ConfigureExerciseDialog = React.createClass({
     this.props.onSubmit(
       {
         configuration: this.state.configuration,
-        className : this.state.selectedExercise
+        className: this.state.selectedExercise,
+        description: this.state.description
       });
   },
 
@@ -55,8 +59,12 @@ var ConfigureExerciseDialog = React.createClass({
     this.setState({selectedExercise:value});
   },
 
-  sortCategoriesChanged: function(event){
+  configurationChanged: function(event){
     this.setState({configuration:event.target.value});
+  },
+
+  descrptionChanged: function(event){
+    this.setState({description:event.target.value});
   },
 
   render: function() {
@@ -88,20 +96,42 @@ var ConfigureExerciseDialog = React.createClass({
           {items}
         </SelectField>
         <div>
+          <h4 style={{marginBottom:0}}>Beskrivelse (vist på dahboard)</h4>
+          <TextField
+            hintText="Kan undlades"
+            multiLine={true}
+            fullWidth={true}
+            value={this.state.description}
+            onChange={this.descrptionChanged}
+          />
+        </div>
+
+        <div>
           {{
               'SortAndEvaluate':
                 <div>
-                  <h4>Indtast kategorier</h4>
+                  <h4 style={{marginBottom:0}}>Indtast kategorier</h4>
                   <TextField
-                    hintText="Indtast kategorier adskildt med komma ','"
+                    hintText="Indtast kategorier adskildt med semikolon ';'"
                     multiLine={true}
                     fullWidth={true}
                     value={this.state.configuration}
-                    onChange={this.sortCategoriesChanged}
+                    onChange={this.configurationChanged}
                   />
                 </div>,
               'VideoExercise':
                 <h1>Videoøvelse</h1>,
+              'KPExplorerQuestionnaire':
+                <div>
+                  <h4 style={{marginBottom:0}}>Indtast kategorier</h4>
+                  <TextField
+                    hintText="Indtast spørgsmål adskildt med semikolon ';'"
+                    multiLine={true}
+                    fullWidth={true}
+                    value={this.state.configuration}
+                    onChange={this.configurationChanged}
+                  />
+                </div>,
               'none':
                 null
           }[this.state.selectedExercise]}

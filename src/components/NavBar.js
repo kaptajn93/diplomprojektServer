@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
 import { Link, browserHistory, router } from 'react-router'
 
@@ -12,6 +13,7 @@ import Avatar from 'material-ui/lib/avatar';
 import FontIcon from 'material-ui/lib/font-icon';
 import ListItem from 'material-ui/lib/lists/list-item';
 import styles from 'material-ui/lib/styles';
+import { getCurrentUser } from '../actions/api';
 
 const {Grid, Row, Col} = require('react-flexgrid');
 const colors = styles.Colors;
@@ -26,7 +28,13 @@ var whiteBackgroundStyle = {
 }
 
 
-const NavBar =React.createClass({
+let NavBar =React.createClass({
+  getInitialState:function(){
+    return{
+
+    }
+  },
+
   contextTypes : {
     router: React.PropTypes.func.isRequired
   },
@@ -34,8 +42,23 @@ const NavBar =React.createClass({
     window.location.assign("/#/administration");
   },
 
+  componentDidMount : function(){
+    this.props.dispatch(getCurrentUser()).then(
+      json => {
+      this.setState({
+        currentUser: json.user
+      });
+    });
+  },
     /*<RaisedButton label="Administrator" primary={true}  onClick={this.handleSubmit}/>*/
   render: function(){
+    var userAvatar = this.state.currentUser !== null && this.state.currentUser !== undefined ?
+      <ListItem
+        disabled={false}
+        rightAvatar={<Avatar>{this.state.currentUser.firstName[0]}</Avatar>}>
+        <span  style={{marginRight:12}}>{this.state.currentUser.firstName} {this.state.currentUser.lastName}</span>
+      </ListItem> : null;
+
     return (
       <Paper  zDepth={1}>
         <Toolbar style={whiteBackgroundStyle}>
@@ -51,12 +74,7 @@ const NavBar =React.createClass({
               </ToolbarGroup>
 
               <ToolbarGroup float="right">
-              <ListItem
-                disabled={false}
-                rightAvatar={<Avatar>J</Avatar>}
-              >
-                <span  style={{marginRight:8}}>Jens Jørgensen</span>
-              </ListItem>
+                {userAvatar}
               </ToolbarGroup>
             </Col>
             <Col xs={0} sm={0} md={2} lg={2}/>
@@ -66,5 +84,7 @@ const NavBar =React.createClass({
     );
   }
 });
+
+NavBar = connect()(NavBar)
 
 export default NavBar;

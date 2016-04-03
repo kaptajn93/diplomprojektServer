@@ -18,7 +18,7 @@ import CourseModuleInfo from '../components/CourseModuleInfo';
 import CourseModuleExperiment from '../components/CourseModuleExperiment';
 import CourseModuleReflection from '../components/CourseModuleReflection';
 
-import { getAllCourseModules } from '../actions/api';
+import { getModule } from '../actions/api';
 
 const {Grid, Row, Col} = require('react-flexgrid');
 
@@ -66,13 +66,13 @@ let CourseModule = React.createClass({
     this.setState({
       isLoading:true
     })
-    this.props.dispatch(getAllCourseModules('5ee7f624-0d89-4416-8d04-bd98c5323287')).then(
+    this.props.dispatch(getModule(this.props.params.moduleId)).then(
       json => {
       this.setState({
-        modules: json.modules,
-        introduction: json.modules[0].introduction,
-        exercise: json.modules[0].exercise,
-        reflection: json.modules[0].reflection
+        module: json.module,
+        introduction: json.module.introduction,
+        exercise: json.module.exercise,
+        reflection: json.module.reflection
       });
     });
   },
@@ -115,7 +115,7 @@ let CourseModule = React.createClass({
                   </div>
                 </Tab>
                 <Tab style={styles.tab[1]}
-                  icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">colorize</FontIcon>}
+                  icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">pan_tool</FontIcon>}
                   label="EKSPERIMENT">
                   <div style={paddingStyle} >
                     <CourseModuleExperiment resourceId={this.state.exercise}/>

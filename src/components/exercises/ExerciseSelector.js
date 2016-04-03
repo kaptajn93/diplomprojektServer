@@ -1,5 +1,6 @@
 import React from 'react';
-import SortableAndEvaluateExercise from '../Exercises/SortAndEvaluateExercise';
+import SortableAndEvaluateExercise from './SortAndEvaluateExercise';
+import KPExplorerQuestionnaire from './KPExplorerQuestionnaire'
 
 var ExerciseSelector = React.createClass({
   getInitialState : function(){
@@ -9,7 +10,7 @@ var ExerciseSelector = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps) {
-    this.setState({open: nextProps.exerciseSelection});
+    this.setState({exerciseSelection: nextProps.exerciseSelection});
   },
 
   render: function() {
@@ -17,7 +18,10 @@ var ExerciseSelector = React.createClass({
           return null;
 
       else if(this.state.exerciseSelection.className === 'SortAndEvaluate' )
-        return (<SortableAndEvaluateExercise sortableItems={this.state.exerciseSelection.configuration}> </SortableAndEvaluateExercise>);
+        return (<SortableAndEvaluateExercise liveExercise={this.props.liveExercise} exerciseId={this.state.exerciseSelection.exerciseId} sortableItems={this.state.exerciseSelection.configuration}> </SortableAndEvaluateExercise>);
+
+      else if(this.state.exerciseSelection.className === 'KPExplorerQuestionnaire')
+        return (<KPExplorerQuestionnaire liveExercise={this.props.liveExercise} exerciseId={this.state.exerciseSelection.exerciseId} sortableItems={this.state.exerciseSelection.configuration}> </KPExplorerQuestionnaire>);
 
       return null;
   }

@@ -15,6 +15,8 @@ import Dashboard from './pages/Dashboard'
 import CourseModule from './pages/CourseModule'
 import AdministrationModule from  './pages/AdministrationModule'
 import VideoReview from  './pages/VideoReview'
+import DialogModule from  './pages/DialogModule'
+import ExerciseResultPage from './pages/ExerciseResultPage'
 
 import Colors from 'material-ui/lib/styles/colors';
 import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
@@ -46,17 +48,19 @@ store.dispatch(fetchPosts('reactjs')).then(() =>
 document.body.style.margin = "0px";
 document.body.style.padding = "0px";
 document.body.style.background = "#FAFAFA"
-
+/*<IndexRoute component={LandingPage}/>*/
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Route path="/" component={App}>
-        <IndexRoute component={LandingPage}/>
+        <IndexRoute component={Dashboard}/>
 
         <Route path="dashboard" component={Dashboard}/>
-        <Route path="module" component={CourseModule}/>
+        <Route path="module/:moduleId" component={CourseModule}/>
         <Route path="administration" component={AdministrationModule}/>
         <Route path="videoreview" component={VideoReview}/>
+        <Route path="dialog" component={DialogModule} />
+        <Route path="exerciseResult/:moduleId" component={ExerciseResultPage} />
       </Route>
     </Router>
   </Provider>,

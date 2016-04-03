@@ -1,79 +1,5 @@
 import axios from 'axios'
 
-export const TEST_API = 'TEST_API'
-/*export function testApi(id) {
-  return {
-    type: TEST_API,
-    id
-  }
-}*/
-
-export const REQUEST_API_VALUE = 'REQUEST_API_VALUE'
-function requestApiValue(id) {
-  return {
-    type: REQUEST_API_VALUE,
-    id
-  }
-}
-
-export const RECEIVE_API_VALUE = 'RECEIVE_API_VALUE'
-
-export function receiveApiValue(id, json) {
-  return {
-    type: RECEIVE_API_VALUE,
-    id,
-    posts: json,//json.data.children.map(child => child.data),
-    receivedAt: Date.now()
-  }
-}
-
-
-// Meet our first thunk action creator!
-// Though its insides are different, you would use it just like any other action creator:
-// store.dispatch(fetchPosts('reactjs'))
-
-export function fetchApiValue(id) {
-
-  // Thunk middleware knows how to handle functions.
-  // It passes the dispatch method as an argument to the function,
-  // thus making it able to dispatch actions itself.
-
-  return function (dispatch) {
-
-    // First dispatch: the app state is updated to inform
-    // that the API call is starting.
-    dispatch(requestApiValue(id))
-
-    // Secondly invoke the remote API and return a promise
-    return axios.get('http://betterways-api.azurewebsites.net/api/Values/' + id)
-      .then(response => response.data)
-      .then(json =>
-
-        // Final dispatch: Here, we update the app state with the results of the API call.
-        // NOTE: We can dispatch many times!
-        dispatch(receiveApiValue(id, json))
-      )
-      .catch(response => {
-        console.log(response);
-      });
-
-      /*
-    return fetch('http://betterways-api.azurewebsites.net/api/Values/${id}')
-      .then(response => response.json())
-      .then(json =>
-
-        // We can dispatch many times!
-        // Here, we update the app state with the results of the API call.
-
-        dispatch(receiveApiValue(id, json))
-      )*/
-
-      // In a real world app, you also want to
-      // catch any error in the network call.
-  }
-}
-
-
 export const REQUEST_API_ALL_COURSES = 'REQUEST_API_ALL_COURSES'
 function requestApiAllCourses() {
   return {
@@ -111,6 +37,7 @@ export function getAllCourses(){
   }
 }
 
+//GEt all course modules
 export const REQUEST_API_ALL_COURSE_MODULES = 'REQUEST_API_ALL_COURSE_MODULES'
 function requestApiAllCourseModules(courseId) {
   return {
@@ -135,13 +62,52 @@ export function getAllCourseModules(courseId){
     // that the API call is starting.
     dispatch(requestApiAllCourseModules(courseId))
 
-    return axios.get('http://localhost:58982/api/CourseModule/' + courseId)
+    return axios.get('http://localhost:58982/api/course/' + courseId + '/modules')
       .then(response => response.data)
       .then(json =>
 
         // Final dispatch: Here, we update the app state with the results of the API call.
         // NOTE: We can dispatch many times!
         dispatch(receiveApiAllCourseModules(courseId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+}
+
+//Get module
+export const REQUEST_API_MODULE = 'REQUEST_API_MODULE'
+function requestApiModule(moduleId) {
+  return {
+    type: REQUEST_API_MODULE,
+    moduleId
+  }
+}
+
+export const RECEIVE_API_MODULE = 'RECEIVE_API_MODULE'
+export function receiveApiModule(moduleId, json) {
+  return {
+    type: RECEIVE_API_MODULE,
+    moduleId,
+    module: json,//json.data.children.map(child => child.data),
+    receivedAt: Date.now()
+  }
+}
+
+export function getModule(moduleId){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(requestApiModule(moduleId))
+
+    return axios.get('http://localhost:58982/api/module/' + moduleId)
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveApiModule(moduleId, json))
       )
       .catch(response => {
         console.log(response);
@@ -228,6 +194,33 @@ export function getExerciseResourceById(resourceId){
   }
 }
 
+//Put module description
+export const PUT_API_MODULE_DESCRIPTION = 'PUT_API_MODULE_DESCRIPTION'
+function putApiModuleDescription(moduleId, description) {
+  return {
+    type: PUT_API_MODULE_DESCRIPTION,
+    moduleId,
+    description
+  }
+}
+
+export function putModuleDescription(moduleId, description){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    var foo = 2;
+    dispatch(putApiModuleDescription(moduleId))
+
+    return axios.put('http://localhost:58982/api/module/' + moduleId + '/description', '=' + description)
+      .then(response => response.data)
+
+      .catch(response => {
+        console.log(response);
+      });
+  }
+}
+
+
 //Put resource
 
 export const PUT_API_RESOUCE = 'PUT_API_RESOUCE'
@@ -300,6 +293,220 @@ export function putExerciseResourceById(resourceId, moduleId, updatedElements){
         // Final dispatch: Here, we update the app state with the results of the API call.
         // NOTE: We can dispatch many times!
         dispatch(receiveApiUpdatedResourceId(resourceId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+}
+
+//Current user
+export const REQUEST_GET_CURRENT_USER = 'REQUEST_GET_CURRENT_USER'
+function requestCurrentUser() {
+  return {
+    type: REQUEST_GET_CURRENT_USER
+  }
+}
+
+export const RECEIVE_GET_CURRENT_USER = 'RECEIVE_GET_CURRENT_USER'
+
+export function receiveCurrentUser(json) {
+  return {
+    type: RECEIVE_GET_CURRENT_USER,
+    user: json,//json.data.children.map(child => child.data),
+    receivedAt: Date.now()
+  }
+}
+
+
+// Meet our first thunk action creator!
+// Though its insides are different, you would use it just like any other action creator:
+// store.dispatch(fetchPosts('reactjs'))
+
+export function getCurrentUser() {
+
+  // Thunk middleware knows how to handle functions.
+  // It passes the dispatch method as an argument to the function,
+  // thus making it able to dispatch actions itself.
+
+  return function (dispatch) {
+
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(requestCurrentUser())
+
+    // Secondly invoke the remote API and return a promise
+    return axios.get('http://localhost:58982/api/user/currentUser')
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveCurrentUser(json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+
+  }
+}
+
+//Current user result
+export const REQUEST_GET_CURRENT_USER_RESULT = 'REQUEST_GET_CURRENT_USER_RESULT'
+function requestCurrentUserResult() {
+  return {
+    type: REQUEST_GET_CURRENT_USER_RESULT
+  }
+}
+
+export const RECEIVE_GET_CURRENT_USER_RESULT = 'RECEIVE_GET_CURRENT_USER_RESULT'
+
+export function receiveCurrentUserResult(json) {
+  return {
+    type: RECEIVE_GET_CURRENT_USER_RESULT,
+    results: json,//json.data.children.map(child => child.data),
+    receivedAt: Date.now()
+  }
+}
+
+
+// Meet our first thunk action creator!
+// Though its insides are different, you would use it just like any other action creator:
+// store.dispatch(fetchPosts('reactjs'))
+
+export function getCurrentUserResult() {
+
+  // Thunk middleware knows how to handle functions.
+  // It passes the dispatch method as an argument to the function,
+  // thus making it able to dispatch actions itself.
+
+  return function (dispatch) {
+
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(requestCurrentUserResult())
+
+    // Secondly invoke the remote API and return a promise
+    return axios.get('http://localhost:58982/api/user/currentUser/results')
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveCurrentUserResult(json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+
+  }
+}
+
+//Update sort and eval exercise
+export const PUT_API_SORT_AND_EVAL_RESULT = 'PUT_API_SORT_AND_EVAL_RESULT'
+function putSortAndEvalResult(exerciseId, result) {
+  return {
+    type: PUT_API_SORT_AND_EVAL_RESULT,
+    exerciseId,
+    result
+  }
+}
+
+export function putSortAndEvalResultById(exerciseId, result){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(putSortAndEvalResult(exerciseId, result))
+
+    return axios.put('http://localhost:58982/api/user/currentUser/sortandevalexercise/'+ exerciseId + '/result/', result)
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveApiUpdatedResourceId(exerciseId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+};
+
+//Get sort and eval result
+export const REQUEST_SORT_AND_EVAL_RESULT = 'REQUEST_SORT_AND_EVAL_RESULT'
+function requestSortAndEvalResult(exerciseId, userId) {
+  return {
+    type: REQUEST_SORT_AND_EVAL_RESULT,
+    exerciseId,
+    userId
+  }
+}
+
+export const RECEIVE_SORT_AND_EVAL_RESULT = 'RECEIVE_SORT_AND_EVAL_RESULT'
+export function receiveSortAndEvalResult(exerciseId, json, userId) {
+  return {
+    type: RECEIVE_SORT_AND_EVAL_RESULT,
+    result: json,//json.data.children.map(child => child.data),
+    exerciseId,
+    userId,
+    receivedAt: Date.now()
+  }
+}
+
+export function getSortAndEvalResult(exerciseId, userId){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(requestSortAndEvalResult(exerciseId, userId))
+    var url = 'http://localhost:58982/api/user/currentUser/sortandevalexercise/' + exerciseId + '/result/';
+    if (userId !== undefined)
+      url = 'http://localhost:58982/api/user/'+ userId +'/sortandevalexercise/' + exerciseId + '/result/';
+
+    return axios.get(url)
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveSortAndEvalResult(exerciseId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+}
+
+export const REQUEST_ALL_MODULE_EXERCISES = 'REQUEST_ALL_MODULE_EXERCISES'
+function requestAllModuleExercises(moduleId) {
+  return {
+    type: REQUEST_ALL_MODULE_EXERCISES,
+    moduleId
+  }
+}
+
+export const RECEIVE_ALL_MODULE_EXERCISES = 'RECEIVE_ALL_MODULE_EXERCISES'
+export function receiveAllModuleExercises(moduleId, json) {
+  return {
+    type: RECEIVE_ALL_MODULE_EXERCISES,
+    exercises: json,//json.data.children.map(child => child.data),
+    moduleId,
+    receivedAt: Date.now()
+  }
+}
+
+export function getModuleExercises(moduleId){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(requestAllModuleExercises(moduleId))
+
+    return axios.get('http://localhost:58982/api/module/' + moduleId + '/exercises/')
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveAllModuleExercises(moduleId, json))
       )
       .catch(response => {
         console.log(response);
