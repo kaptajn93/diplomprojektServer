@@ -21,7 +21,7 @@ var ExerciseSelector = React.createClass({
         return (<SortableAndEvaluateExercise liveExercise={this.props.liveExercise} exerciseId={this.state.exerciseSelection.exerciseId} sortableItems={this.state.exerciseSelection.configuration}> </SortableAndEvaluateExercise>);
 
       else if(this.state.exerciseSelection.className === 'KPExplorerQuestionnaire')
-        return (<KPExplorerQuestionnaire liveExercise={this.props.liveExercise} exerciseId={this.state.exerciseSelection.exerciseId} sortableItems={this.state.exerciseSelection.configuration}> </KPExplorerQuestionnaire>);
+        return (<KPExplorerQuestionnaire liveExercise={this.props.liveExercise} exerciseId={this.state.exerciseSelection.exerciseId} questions={this.state.exerciseSelection.configuration}> </KPExplorerQuestionnaire>);
 
       return null;
   }

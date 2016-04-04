@@ -13,7 +13,7 @@ import Colors from 'material-ui/lib/styles/colors';
 import TextField from 'material-ui/lib/text-field';
 import CircularProgress from 'material-ui/lib/circular-progress';
 
-import { putSortAndEvalResultById, getSortAndEvalResult } from '../../actions/api'
+import { putSortAndEvalResultById, getExerciseResult } from '../../actions/api'
 
 let EvalPhase = React.createClass({
   getInitialState: function(){
@@ -246,12 +246,13 @@ let SortaAndEvaluateExercise = React.createClass({
       //Update server
       if (this.props.liveExercise){
         this.setState({isLoading: true});
-        this.props.dispatch(getSortAndEvalResult(this.props.exerciseId)).then(
+        this.props.dispatch(getExerciseResult(this.props.exerciseId)).then(
           json => {
             this.setState({
               isLoading: false,
               phase: json.result.isCompleted ? 4 : this.state.phase,
-              resultItems: json.result.evaluations
+              resultItems: json.result.evaluations !== null && json.result.evaluations.length === this.state.items.length ?
+                json.result.evaluations : this.state.resultItems
             });
 
           }

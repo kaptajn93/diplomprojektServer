@@ -432,20 +432,49 @@ export function putSortAndEvalResultById(exerciseId, result){
   }
 };
 
-//Get sort and eval result
-export const REQUEST_SORT_AND_EVAL_RESULT = 'REQUEST_SORT_AND_EVAL_RESULT'
-function requestSortAndEvalResult(exerciseId, userId) {
+export const PUT_API_KP_EXPLORER_RESULT = 'PUT_API_KP_EXPLORER_RESULT'
+function putKpExplorerResult(exerciseId, result) {
   return {
-    type: REQUEST_SORT_AND_EVAL_RESULT,
+    type: PUT_API_KP_EXPLORER_RESULT,
+    exerciseId,
+    result
+  }
+}
+
+export function putKpExplorerResultById(exerciseId, result){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(putKpExplorerResult(exerciseId, result))
+
+    return axios.put('http://localhost:58982/api/user/currentUser/kpexplorerexercise/'+ exerciseId + '/result/', result)
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveApiUpdatedResourceId(exerciseId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+};
+
+//Get sort and eval result
+export const REQUEST_EXERCISE_RESULT = 'REQUEST_EXERCISEL_RESULT'
+function requestExerciseResult(exerciseId, userId) {
+  return {
+    type: REQUEST_EXERCISE_RESULT,
     exerciseId,
     userId
   }
 }
 
-export const RECEIVE_SORT_AND_EVAL_RESULT = 'RECEIVE_SORT_AND_EVAL_RESULT'
-export function receiveSortAndEvalResult(exerciseId, json, userId) {
+export const RECEIVE_EXERCISE_RESULT = 'RECEIVE_EXERCISE_RESULT'
+export function receiveExerciseResult(exerciseId, json, userId) {
   return {
-    type: RECEIVE_SORT_AND_EVAL_RESULT,
+    type: RECEIVE_EXERCISE_RESULT,
     result: json,//json.data.children.map(child => child.data),
     exerciseId,
     userId,
@@ -453,14 +482,14 @@ export function receiveSortAndEvalResult(exerciseId, json, userId) {
   }
 }
 
-export function getSortAndEvalResult(exerciseId, userId){
+export function getExerciseResult(exerciseId, userId){
   return function (dispatch){
     // First dispatch: the app state is updated to inform
     // that the API call is starting.
-    dispatch(requestSortAndEvalResult(exerciseId, userId))
-    var url = 'http://localhost:58982/api/user/currentUser/sortandevalexercise/' + exerciseId + '/result/';
+    dispatch(requestExerciseResult(exerciseId, userId))
+    var url = 'http://localhost:58982/api/user/currentUser/exercise/' + exerciseId + '/result/';
     if (userId !== undefined)
-      url = 'http://localhost:58982/api/user/'+ userId +'/sortandevalexercise/' + exerciseId + '/result/';
+      url = 'http://localhost:58982/api/user/'+ userId +'/exercise/' + exerciseId + '/result/';
 
     return axios.get(url)
       .then(response => response.data)
@@ -468,7 +497,7 @@ export function getSortAndEvalResult(exerciseId, userId){
 
         // Final dispatch: Here, we update the app state with the results of the API call.
         // NOTE: We can dispatch many times!
-        dispatch(receiveSortAndEvalResult(exerciseId, json))
+        dispatch(receiveExerciseResult(exerciseId, json))
       )
       .catch(response => {
         console.log(response);

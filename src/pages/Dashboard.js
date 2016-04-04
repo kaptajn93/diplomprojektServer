@@ -1,18 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AddTodo from '../containers/AddTodo'
-import VisibleTodoList from '../containers/VisibleTodoList'
 import RaisedButton from 'material-ui/lib/raised-button';
 import FlatButton from 'material-ui/lib/flat-button';
 
 import Paper from 'material-ui/lib/paper';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
-import ActionInfo from 'material-ui/lib/svg-icons/action/info';
 import Divider from 'material-ui/lib/divider';
 import Avatar from 'material-ui/lib/avatar';
-import FileFolder from 'material-ui/lib/svg-icons/file/folder';
-import ActionAssignment from 'material-ui/lib/svg-icons/action/assignment';
 import Colors from 'material-ui/lib/styles/colors';
 import EditorInsertChart from 'material-ui/lib/svg-icons/editor/insert-chart';
 import Comment from 'material-ui/lib/svg-icons/communication/comment';
@@ -23,6 +18,8 @@ import RightArrow from 'material-ui/lib/svg-icons/navigation/chevron-right';
 import LeftArrow from 'material-ui/lib/svg-icons/navigation/chevron-left';
 import IconButton from 'material-ui/lib/icon-button';
 import Check from 'material-ui/lib/svg-icons/navigation/check';
+
+import ProgressWheel from '../components/ProgressWheel'
 
 const {Grid, Row, Col} = require('react-flexgrid');
 
@@ -146,7 +143,6 @@ let Dashboard = React.createClass({
   nextModule: function(){
     if (this.state.currentModuleIndex < this.state.modules.length - 1)
       this.goToModule(this.state.currentModuleIndex + 1);
-
   },
 
   previousModule: function(){
@@ -161,10 +157,6 @@ let Dashboard = React.createClass({
         <RaisedButton label="Se resultat" secondary={true} onClick={this.navigateToCurrentModule} /> :
         null;
 
-/*
-            <List style={{background:'transparent', marginTop:0}}>
-              {ExerciseResuts}
-            </List>*/
     var ExerciseResuts = this.state.currentModuleResults !== undefined ? this.state.currentModuleResults.map((i, index) => (
       i.exerciseDescription === "" ? null :
       i.isCompleted ?
@@ -184,7 +176,7 @@ let Dashboard = React.createClass({
                 <FlatButton style={{width:24, height:24, minWidth:24, marginRight:8}} disabled={this.state.currentModuleIndex === 0}  onClick={this.previousModule}>
                   <LeftArrow  style={{width:24, height:24}}/>
                 </FlatButton> : null}
-              <h3 style={smallTitle}>Uge {this.state.currentModuleIndex + 1}/{this.state.modules.length}</h3>
+              <h3 style={smallTitle}>Modul {this.state.currentModuleIndex + 1}/{this.state.modules.length}</h3>
 
               <FlatButton style={{width:24, height:24, minWidth:24, marginLeft:8}} onClick={this.nextModule}>
                 <RightArrow style={{width:24, height:24}} />
@@ -214,7 +206,7 @@ let Dashboard = React.createClass({
           <div style={{display: 'table-cell', verticalAlign:'middle'}}>
           </div>
           <div style={{display:'table-cell', width:140}}>
-            <img alt="" src="./assets/week1.svg" style={logoStyle}  />
+            <ProgressWheel width={150} height={150} currentModule={this.state.activeModuleIndex} maxModules={this.state.modules.length} />
           </div>
         </div>
 
