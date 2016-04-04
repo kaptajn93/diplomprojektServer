@@ -81,7 +81,18 @@ namespace BetterWays.Api.Tests.Courses
               
             var mod2 = _coachingCourseService.CreateNewModuleInCourse(course, "Læg en plan og hold den");
             mod2.Description = "Planlægning kan hjælpe dig med at komme videre. Start med at lægge en plan for den nærmeste fremtid.";
-            moduleRepo.SaveModule(mod2);
+            _coachingCourseService.UpdateModuleResurce(
+                mod2,
+                new CoachingModuleExerciseResource()
+                {
+                    Elements = new List<ResourceExerciseElement>(){
+                    new ResourceExerciseElement("<h1>Personlighedstest fra KP explorer</h1> <p>Denne øvelse skal give dig et overblik over din personlige profil. </p> <h3>Guide</h3> <p>Prøv at læse de præsenterede udsagn, således at du besvarer dem så spontant som muligt. Følg så vidt muligt din første indskydelse.<br/>Brug maksimalt 40 minutter på hele besvarelsen, og undgå så vidt muligt at holde pauser.</p> ") {
+                        Exercise = new KPExplorerQuestionnaire(
+                            new List<string>() { "Jeg er mere optaget af de aktuelle opgaver end fremtiden", "Jeg arbejder bedst uforstyrret", "Planlægning skal afdække de overordnede problematikker, og i mendre grad detaljerne" },
+                            new CoachingModuleReference(mod2.Id)) { Description = "Find din personlige profil" }
+                    } },
+                    RevisionHistory = new ResourseRevisionHistoryReference() { ReferenceId = mod2.Exercise.RevisionHistoryReferenceId }
+                });
 
             _coachingCourseService.CreateNewModuleInCourse(course, "Successhistorier");
             _coachingCourseService.CreateNewModuleInCourse(course, "Dit talent");

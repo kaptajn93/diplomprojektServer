@@ -51,5 +51,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs
     {
         [JsonProperty(PropertyName = "responses")]
         public List<QuestionResponseDto> Responses { get; set; }
+        [JsonProperty(PropertyName = "elapsedTimeSeconds")]
+        public int ElapsedTimeSeconds { get; set; }
     }
 }

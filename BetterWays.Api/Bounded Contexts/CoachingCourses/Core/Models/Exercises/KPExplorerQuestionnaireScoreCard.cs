@@ -18,6 +18,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
     {
         [JsonProperty(PropertyName = "responses")]
         public List<QuestionResponse> Responses { get; set; }
+        [JsonProperty(PropertyName = "elapsedTimeSeconds")]
+        public int ElapsedTimeSeconds { get; set; }
+
         public KPExplorerQuestionnaireScoreCard(CoachingModuleReference module, Guid exerciseId, string description)
             : base(module, exerciseId, description)
         {

@@ -33,13 +33,18 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
             if (entity == null)
                 return null;
 
-            return new ScoreCardDto
-            {
-                IsCompleted = entity.IsCompleted,
-                ModuleId = entity.Module != null ? new Guid?(entity.Module.ModuleReferenceId) : null,
-                ExerciseDescription = entity.ExerciseDescription,
-                ExerciseId = entity.ExerciseId
-            };
+            if (entity is SortAndEvaluateScoreCard)
+                return ConvertScoreCardDto(entity as SortAndEvaluateScoreCard);
+            else if (entity is KPExplorerQuestionnaireScoreCard)
+                return ConvertScoreCardDto(entity as KPExplorerQuestionnaireScoreCard);
+            else
+                return new ScoreCardDto
+                {
+                    IsCompleted = entity.IsCompleted,
+                    ModuleId = entity.Module != null ? new Guid?(entity.Module.ModuleReferenceId) : null,
+                    ExerciseDescription = entity.ExerciseDescription,
+                    ExerciseId = entity.ExerciseId
+                };
         }
         
         private static SortAndEvaluateResultDto ConvertEvaluationResultToDto(EvaluationResult evaluationResult)
@@ -65,6 +70,28 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
                 ExerciseDescription = entity.ExerciseDescription,
                 ExerciseId = entity.ExerciseId,
                 Evaluations = entity.Evaluations != null ? entity.Evaluations.Select(ConvertEvaluationResultToDto).ToList() : null
+            };
+        }
+
+        private static QuestionResponseDto ConvertKpExplorerQuestionaireResultToDto(QuestionResponse entity)
+        {
+            return new QuestionResponseDto()
+            {
+                Question = entity.Question,
+                Score = entity.Score
+            };
+        }
+
+        public static KPExplorerQuestionnaireScoreCardDto ConvertScoreCardDto(KPExplorerQuestionnaireScoreCard entity)
+        {
+            return new KPExplorerQuestionnaireScoreCardDto()
+            {
+                ExerciseDescription = entity.ExerciseDescription,
+                ExerciseId = entity.ExerciseId,
+                IsCompleted = entity.IsCompleted,
+                ModuleId = entity.Module != null ? new Guid?(entity.Module.ModuleReferenceId) : null,
+                Responses = entity.Responses != null ? entity.Responses.Select(ConvertKpExplorerQuestionaireResultToDto).ToList() : null,
+                ElapsedTimeSeconds = entity.ElapsedTimeSeconds
             };
         }
     }

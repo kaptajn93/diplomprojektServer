@@ -66,42 +66,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
 
             return userResults;
         }
-
-        [Route("api/user/currentUser/exercise/{exerciseId}/result/")]
-        [AcceptVerbs("PUT")]
-        public void UpdateUserresultsResults(Guid exerciseId, SortAndEvaluateScoreCardDto scoreCard)
-        {
-            if (exerciseId != scoreCard.ExerciseId)
-                throw new Exception("Scorecard ids does not match");
-
-            var userRepo = new UserRepositoryDocumentDB();
-            var usr = userRepo.GetAllItems().Last();
-
-            foreach (var admission in usr.CourseAdmissions)
-            {
-                var excistingScoreCard = admission.Results.SingleOrDefault(r => r.ExerciseId == exerciseId) as SortAndEvaluateScoreCard;
-                
-                if (excistingScoreCard != null)
-                {
-                    //Update the score card
-                    excistingScoreCard.Evaluations = scoreCard.Evaluations.Select(e => new EvaluationResult()
-                    {
-                        Description = e.Description,
-                        Effect = e.Effect,
-                        Meaning = e.Meaning,
-                        Title = e.Title
-                    }).ToList();
-                    excistingScoreCard.IsCompleted = scoreCard.IsCompleted;
-
-                }
-
-            }
-
-            //Save user
-            userRepo.SaveUser(usr);
-
-        }
-
+        
         [Route("api/user/currentUser/sortandevalexercise/{exerciseId}/result/")]
         [AcceptVerbs("PUT")]
         public void UpdateSortAndEvalResults(Guid exerciseId, SortAndEvaluateScoreCardDto scoreCard)
@@ -133,19 +98,49 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
 
             //Save user
             userRepo.SaveUser(usr);
-
         }
 
-        [Route("api/user/currentUser/sortandevalexercise/{exerciseId}/result/")]
+        [Route("api/user/currentUser/kpexplorerexercise/{exerciseId}/result/")]
+        [AcceptVerbs("PUT")]
+        public void UpdateKPExplorerResults(Guid exerciseId, KPExplorerQuestionnaireScoreCardDto scoreCard)
+        {
+            if (exerciseId != scoreCard.ExerciseId)
+                throw new Exception("Scorecard ids does not match");
+
+            var userRepo = new UserRepositoryDocumentDB();
+            var usr = userRepo.GetAllItems().Last();
+
+            foreach (var admission in usr.CourseAdmissions)
+            {
+                var excistingScoreCard = admission.Results.SingleOrDefault(r => r.ExerciseId == exerciseId) as KPExplorerQuestionnaireScoreCard;
+
+                if (excistingScoreCard != null)
+                {
+                    //Update the score card
+                    excistingScoreCard.Responses = scoreCard.Responses.Select(e => new QuestionResponse()
+                    {
+                        Score = e.Score,
+                        Question = e.Question
+                    }).ToList();
+                    excistingScoreCard.IsCompleted = scoreCard.IsCompleted;
+                    excistingScoreCard.ElapsedTimeSeconds = scoreCard.ElapsedTimeSeconds;
+                }
+            }
+
+            //Save user
+            userRepo.SaveUser(usr);
+        }
+
+        [Route("api/user/currentUser/exercise/{exerciseId}/result/")]
         [AcceptVerbs("Get")]
-        public SortAndEvaluateScoreCardDto GetSortAndEvalResults(Guid exerciseId)
+        public ScoreCardDto GetExerciseResults(Guid exerciseId)
         {
             var userRepo = new UserRepositoryDocumentDB();
             var usr = userRepo.GetAllItems().Last();
 
             foreach (var admission in usr.CourseAdmissions)
             {
-                var excistingScoreCard = admission.Results.SingleOrDefault(r => r.ExerciseId == exerciseId) as SortAndEvaluateScoreCard;
+                var excistingScoreCard = admission.Results.SingleOrDefault(r => r.ExerciseId == exerciseId);
 
                 return UserDtoConverter.ConvertScoreCardDto(excistingScoreCard);
             }
@@ -153,16 +148,16 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             throw new Exception("Scorecard not found");
         }
 
-        [Route("api/user/{userId}/sortandevalexercise/{exerciseId}/result/")]
+        [Route("api/user/{userId}/exercise/{exerciseId}/result/")]
         [AcceptVerbs("Get")]
-        public SortAndEvaluateScoreCardDto GetSortAndEvalResults(Guid userId, Guid exerciseId)
+        public ScoreCardDto GetExerciseResults(Guid userId, Guid exerciseId)
         {
             var userRepo = new UserRepositoryDocumentDB();
             var usr = userRepo.GetUserById(userId);
 
             foreach (var admission in usr.CourseAdmissions)
             {
-                var excistingScoreCard = admission.Results.SingleOrDefault(r => r.ExerciseId == exerciseId) as SortAndEvaluateScoreCard;
+                var excistingScoreCard = admission.Results.SingleOrDefault(r => r.ExerciseId == exerciseId);
 
                 return UserDtoConverter.ConvertScoreCardDto(excistingScoreCard);
             }
