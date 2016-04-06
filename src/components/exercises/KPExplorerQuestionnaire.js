@@ -28,26 +28,37 @@ const styles = {
 
 let KPExplorerQuestionnaire = React.createClass({
   getInitialState: function() {
-    var items = this.props.questions.split(';');
+    var items = this.props.exercise.configuration.split(';');
     return {
         items:  items,
         resultItems: this.mapItems(items),
+        instrunctionContent: this.props.exercise.instrunctionContent,
         phase: 0,
         isLoading: false
     };
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    var items = nextProps.exercise.configuration.split(';')
+    this.setState({
+      items: items,
+      resultItems: this.mapItems(items),
+      instrunctionContent: nextProps.exercise.instrunctionContent
+    })
+  },
   componentDidMount: function(){
     //Update server
     if (this.props.liveExercise){
+      var that = this;
       this.setState({isLoading: true});
       this.props.dispatch(getExerciseResult(this.props.exerciseId)).then(
         json => {
-          this.setState({
+          that.setState({
             isLoading: false,
-            phase: json.result.isCompleted ? 2 : this.state.phase
+            phase: json.result.isCompleted ? 2 : that.state.phase
           });
 
+          that.props.exercisesStatusChanged(json.result.isCompleted, that.props.exercise);
         }
       );
     }
@@ -97,7 +108,6 @@ let KPExplorerQuestionnaire = React.createClass({
     }
     else
       this.onFinished();
-
   },
 
   onFinished: function(){
@@ -112,8 +122,17 @@ let KPExplorerQuestionnaire = React.createClass({
     if (this.props.liveExercise){
       var elapsed = Math.floor(this.state.elapsed / 1000);
       this.props.dispatch(putKpExplorerResultById(this.props.exerciseId, {responses:this.state.resultItems, exerciseId:this.props.exerciseId, isCompleted:true, elapsedTimeSeconds:elapsed}));
-    }
 
+      //Signal that exercise has ended
+      this.props.exercisesStatusChanged(true, this.props.exercise, this.props.exercise );
+    }
+  },
+
+  getHtmlText: function(textIndex){
+    var text = this.state.instrunctionContent.length > textIndex ?
+      this.state.instrunctionContent[textIndex] : "";
+
+    return {__html:text };
   },
 
   render: function(){
@@ -124,9 +143,7 @@ let KPExplorerQuestionnaire = React.createClass({
     else if (this.state.phase === 0) {
       mainContent =
       <div>
-
-        <span s>Når du er klar skal du trykke, 'Start øvelse':</span>
-        <br/>
+        <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
         <RaisedButton
           labelPosition="before" primary={true}
           label={'Start øvelse'} onClick={this.onStart}
@@ -144,8 +161,8 @@ let KPExplorerQuestionnaire = React.createClass({
       <div style={{display:'table'}}>
         <div style={{display:'table-row'}}>
           <div style={{display:'table-cell'}}>
-            <span>Såørgsmål: <strong>{this.state.questionIndex + 1}</strong> af {this.state.resultItems.length}</span> <Timer style={{fill:'#999999', marginLeft:32, marginBottom:-4, width:20, height:20}}/> <span>{minuttes} : {seconds}</span>
-            <h3 style={{marginTop:32}}>{
+            <span>Udsagn: <strong>{this.state.questionIndex + 1}</strong> af {this.state.resultItems.length}</span> <Timer style={{fill:'#999999', marginLeft:32, marginBottom:-4, width:20, height:20}}/> <span>{minuttes} : {seconds}</span>
+            <h3 style={{marginTop:40}}>{
               this.state.resultItems[this.state.questionIndex].question
             }</h3>
             <div style={{display:'table'}}>
@@ -219,8 +236,7 @@ let KPExplorerQuestionnaire = React.createClass({
     else if (this.state.phase === 2){
       mainContent =
         <div>
-          <h3>Tak for din indsats</h3>
-          <p>Din personlighedsprofil vil nu blive udarbejdet.</p>
+          <div dangerouslySetInnerHTML={this.getHtmlText(1)}/>
         </div>
     }
 

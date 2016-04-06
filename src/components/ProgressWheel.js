@@ -37,7 +37,7 @@ let ProgressWheel = React.createClass({
     var progress = this.state.currentModule * 2 * Math.PI / this.state.maxModules;
     var segment = 2 * Math.PI / this.state.maxModules;
 
-    var width = 12;
+    var width = 14;
     context.save();
     context.beginPath();
     context.lineWidth=width;

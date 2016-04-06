@@ -157,38 +157,48 @@ let AdministrationModule = React.createClass({
 
       var ModuleItems = this.state.modules.map((i, index) => (<MenuItem key={index} value={index} primaryText={i.name}/>));
 
-      var SelectModule = this.state.selectedCourse !== null ?
+      var SelectModule =
         <SelectField
-          style={{width: '360px', marginLeft:'20px'}}
+          style={{width: '360px', marginTop:-16}}
           value={this.state.selectedModule}
           onChange={this.onModuleSelected}
           floatingLabelText={ this.state.isLoadingModules ? "Henter..." : "Vælg modul" } >
           {ModuleItems}
-        </SelectField> : null;
+        </SelectField>
 
       var SelectResource = this.state.selectedModule !== null ?
         <SelectField
-          style={{width: '300px'}}
+          style={{width: '300px', marginTop:-16, marginBottom:32}}
           value={this.state.selectedResource}
           onChange={this.onResourceSelected}
           floatingLabelText="Vælg resource">
           {resourceItems}
         </SelectField> : null;
 
-      var ModuleConfiguration = this.state.selectedModule !== null ?
+      var ModuleConfiguration = this.state.selectedCourse !== null ?
         <div>
           <Divider/>
           <div style={paddingStyle}>
-          <h5 style={{margin:0}}>Beskrivelse af modulet (vist på dashboard)</h5>
-            <TextField
-              hintText="Skriv tekst"
-              multiLine={true}
-              fullWidth={true}
-              value={this.state.moduleDescription}
-              onChange={this.moduleDescriptionChanged}
-              onBlur={this.moduleDescriptionBlur}
-            />
-            {SelectResource}
+            <div style={{display:'flex'}}>
+
+              {SelectModule}
+              { this.state.isLoadingModules ?
+                <CircularProgress size={0.4} style={{marginTop: '20px'}} />: null }
+            </div>
+            {
+              this.state.selectedModule !== null ?
+              <div>
+                <h5 style={{marginBottom:0, marginTop:32}}>Beskrivelse af modulet (vist på dashboard)</h5>
+                <TextField
+                  hintText="Skriv tekst"
+                  multiLine={true}
+                  fullWidth={true}
+                  value={this.state.moduleDescription}
+                  onChange={this.moduleDescriptionChanged}
+                  onBlur={this.moduleDescriptionBlur}
+                />
+              </div> : null
+            }
           </div>
         </div> : null;
 
@@ -202,24 +212,33 @@ let AdministrationModule = React.createClass({
                 <h1>Administration</h1>
                 <div style={{display:'flex'}}>
                   {SelectCourses}
-                  {SelectModule}
-                  { this.state.isLoadingModules || this.state.isLoadingCourses ?
+                  { this.state.isLoadingCourses ?
                     <CircularProgress size={0.4} style={{marginTop: '20px'}} />: null }
                 </div>
               </div>
               {ModuleConfiguration}
               {
-                this.state.selectedResource === 1 ?
-                <IntroductionContentAdministration
-                  selectedModule={this.state.currentModuleId}
-                  selectedResource={this.state.selectedResourceId}
-                  resourceRevisionUpdated={this.resourceRevisionUpdated}/> :
-                this.state.selectedResource === 2 || this.state.selectedResource === 3 ?
-                <ExerciseContentAdministration
-                  selectedModule={this.state.currentModuleId}
-                  selectedResource={this.state.selectedResourceId}
-                  resourceRevisionUpdated={this.exerciseRevisionUpdate}/>
-                : null
+                this.state.selectedModule !== null ?
+                <div>
+                  <Divider/>
+                  <div style={paddingStyle}>
+                    {SelectResource}
+                    <br/>
+                    {
+                      this.state.selectedResource === 1 ?
+                      <IntroductionContentAdministration
+                        selectedModule={this.state.currentModuleId}
+                        selectedResource={this.state.selectedResourceId}
+                        resourceRevisionUpdated={this.resourceRevisionUpdated}/> :
+                      this.state.selectedResource === 2 || this.state.selectedResource === 3 ?
+                      <ExerciseContentAdministration
+                        selectedModule={this.state.currentModuleId}
+                        selectedResource={this.state.selectedResourceId}
+                        resourceRevisionUpdated={this.exerciseRevisionUpdate}/>
+                      : null
+                    }
+                  </div>
+                </div> : null
               }
             </Paper>
 

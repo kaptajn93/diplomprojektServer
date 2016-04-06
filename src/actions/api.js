@@ -461,6 +461,65 @@ export function putKpExplorerResultById(exerciseId, result){
   }
 };
 
+
+export const PUT_API_EXERCISE_GOAL_RESULT = 'PUT_API_EXERCISE_GOAL_RESULT'
+function putExerciseGoalResult(exerciseId, result) {
+  return {
+    type: PUT_API_EXERCISE_GOAL_RESULT,
+    exerciseId,
+    result
+  }
+}
+
+export function putExerciseGoalResultById(exerciseId, result){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(putExerciseGoalResult(exerciseId, result))
+
+    return axios.put('http://localhost:58982/api/user/currentUser/exerciseGoal/'+ exerciseId + '/result/', result)
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveApiUpdatedResourceId(exerciseId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+};
+
+export const PUT_API_MODULE_PROMISE_RESULT = 'PUT_API_MODULE_PROMISE_RESULT'
+function putModulePromiseResult(exerciseId, result) {
+  return {
+    type: PUT_API_MODULE_PROMISE_RESULT,
+    exerciseId,
+    result
+  }
+}
+
+export function putModulePromiseResultById(exerciseId, result){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(putModulePromiseResult(exerciseId, result))
+
+    return axios.put('http://localhost:58982/api/user/currentUser/modulePromise/'+ exerciseId + '/result/', result)
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveApiUpdatedResourceId(exerciseId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+};
+
 //Get sort and eval result
 export const REQUEST_EXERCISE_RESULT = 'REQUEST_EXERCISEL_RESULT'
 function requestExerciseResult(exerciseId, userId) {

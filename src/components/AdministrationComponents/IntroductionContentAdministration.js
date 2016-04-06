@@ -15,12 +15,8 @@ import { getResourceById, putResourceById } from '../../actions/api'
 import CKEditor from './CKEditor';
 import CircularProgress from 'material-ui/lib/circular-progress';
 
-var paddingStyle = {
-  padding: '32px'
-}
-
 var htmlStyle={
-  padding: '0px 32px 32px 32px',
+  padding: '32px 32px 32px 32px',
   color: '#888888'
 }
 
@@ -125,8 +121,7 @@ let IntroductionContentAdministration = React.createClass({
 
     var Editor = this.state.htmlText !== null ?
       <div>
-        <Divider/>
-        <div style={paddingStyle}>
+        <div>
           <Toolbar style={{background: 'transparent', padding:'0', marginBottom: '8px'}}>
             <ToolbarGroup firstChild={true} float="left">
 
@@ -153,7 +148,7 @@ let IntroductionContentAdministration = React.createClass({
             this.state.isEditing ?
             <CKEditor text={this.state.htmlText} onTextChangedCallback={this.onTextChaged}></CKEditor> :
             <div>
-              <Divider />
+              <Divider style={{marginBottom:54}} />
               <div dangerouslySetInnerHTML={{__html:this.state.resultHtmlText}} />
             </div>
           }
@@ -163,7 +158,7 @@ let IntroductionContentAdministration = React.createClass({
     return (
         <div>
           {this.state.isLoadingResource ? <div style={{textAlign:'center'}}>
-            <Divider/>
+            <Divider style={{marginBottom:54}}/>
             <CircularProgress size={0.4} style={{marginTop: '20px', marginBottom: '20px'}} />
           </div> : null}
           {Editor}

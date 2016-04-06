@@ -58,8 +58,15 @@ var iconStyle = {
 let CourseModule = React.createClass({
   getInitialState:function(){
     return{
+      moduleName: '',
+      moduleIndex: -1,
+      isExerciseCompleted: false,
+      exerciseGoalText: '',
+    };
+  },
 
-    }
+  exercisesStatusChanged: function(isExerciseCompleted){
+    this.setState({isExerciseCompleted: isExerciseCompleted});
   },
 
   componentDidMount : function(){
@@ -72,9 +79,15 @@ let CourseModule = React.createClass({
         module: json.module,
         introduction: json.module.introduction,
         exercise: json.module.exercise,
-        reflection: json.module.reflection
+        reflection: json.module.reflection,
+        moduleName: json.module.name,
+        moduleIndex: json.module.moduleIndex
       });
     });
+  },
+
+  onExerciseGoalUpdated:function(exerciseGoalText){
+    this.setState({exerciseGoalText: exerciseGoalText})
   },
 
   render: function() {
@@ -103,8 +116,8 @@ let CourseModule = React.createClass({
           <Col xs={12} sm={12} md={8} lg={8}>
             <Paper style={courseContainerStyle}>
               <div style={paddingStyle}>
-                <h4 style={moduleNumStyle}>Modul 1/12</h4>
-                <h1 style={moduleNameStyle}>Fyret. Hvad nu?</h1>
+                {this.state.moduleIndex >= 0 ? <h4 style={moduleNumStyle}>Modul {this.state.moduleIndex + 1}/12</h4> : null}
+                <h1 style={moduleNameStyle}>{this.state.moduleName}</h1>
               </div>
               <Tabs >
                 <Tab style={styles.tab[0]}
@@ -118,14 +131,14 @@ let CourseModule = React.createClass({
                   icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">pan_tool</FontIcon>}
                   label="EKSPERIMENT">
                   <div style={paddingStyle} >
-                    <CourseModuleExperiment resourceId={this.state.exercise}/>
+                    <CourseModuleExperiment onExerciseGoalUpdated={this.onExerciseGoalUpdated} exerciseGoalText={this.state.exerciseGoalText} exercisesStatusChanged={this.exercisesStatusChanged} resourceId={this.state.exercise}/>
                   </div>
                 </Tab>
                 <Tab style={styles.tab[2]}
                   icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">cloud</FontIcon>}
                   label="REFLEKTION">
                   <div style={paddingStyle} >
-                    <CourseModuleExperiment resourceId={this.state.reflection} />
+                    <CourseModuleExperiment exerciseGoalText={this.state.exerciseGoalText} exercisesStatusChanged={this.exercisesStatusChanged} isActive={this.state.isExerciseCompleted} resourceId={this.state.reflection} />
                   </div>
                 </Tab>
               </Tabs>

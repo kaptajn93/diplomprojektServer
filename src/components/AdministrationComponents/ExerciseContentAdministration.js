@@ -18,12 +18,8 @@ import ExerciseDialog from './ExerciseDialog';
 
 import ExerciseSelector from '../Exercises/ExerciseSelector';
 
-var paddingStyle = {
-  padding: '32px'
-}
-
 var htmlStyle={
-  padding: '0px 32px 32px 32px',
+  padding: '32px 32px 32px 32px',
   color: '#888888'
 }
 
@@ -38,7 +34,8 @@ const ExerciseElement = React.createClass({
       exerciseSelection: {
         className: this.props.model.className,
         configuration: this.props.model.configuration,
-        description: this.props.model.description
+        description: this.props.model.description,
+        instrunctionContent: this.props.model.instrunctionContent
       }
     };
   },
@@ -65,11 +62,13 @@ const ExerciseElement = React.createClass({
       this.props.model.className = this.state.exerciseSelection.className;
       this.props.model.configuration = this.state.exerciseSelection.configuration;
       this.props.model.description = this.state.exerciseSelection.description;
+      this.props.model.instrunctionContent = this.state.exerciseSelection.instrunctionContent;
     }
     else {
       this.props.model.className = '';
       this.props.model.configuration = '';
       this.props.model.description = '';
+      this.props.model.instrunctionContent = [];
     }
     this.state.originalText = this.state.editedText;
     this.props.initiateSave();
@@ -269,8 +268,7 @@ let ExerciseContentAdministration = React.createClass({
 
     var Editor = this.state.exerciseElements.length > 0 ?
       <div>
-        <Divider/>
-        <div style={paddingStyle}>
+        <div >
           <Toolbar style={{background: 'transparent', padding:'0', marginBottom: '8px'}}>
             <ToolbarGroup firstChild={true} float="left">
 
@@ -288,7 +286,7 @@ let ExerciseContentAdministration = React.createClass({
               <RaisedButton secondary={true} style={{marginLeft:'8px'}} label="Tilføj ny opgave" onClick={this.addExerciseElement}/>
             </ToolbarGroup>
           </Toolbar>
-          <Divider/>
+          <Divider style={{marginBottom:54}}/>
           {Elements}
         </div>
       </div> : null;
@@ -300,10 +298,6 @@ let ExerciseContentAdministration = React.createClass({
             <CircularProgress size={0.4} style={{marginTop: '20px', marginBottom: '20px'}} />
           </div> : null}
           {Editor}
-          <Divider />
-          {this.state.htmlText !== null ?
-            <FlatButton label={HtmlButtonLabel} secondary={true} onClick={this.toggleHtml}/> : null
-          }
 
         </div>
     )

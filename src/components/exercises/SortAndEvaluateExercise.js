@@ -97,7 +97,10 @@ let EvalPhase = React.createClass({
       <div>
         <div style={{marginTop:16, marginBottom:16}}>
           <h3>{this.state.currentItem.title}</h3>
-          <p>Fortæl om en positiv oplevelse vedrørende din(e)<span><i>{this.state.currentItem.title.toLowerCase()}</i></span></p>
+          <div style={{display:'flex'}}>
+            <div dangerouslySetInnerHTML={this.props.instructionText}></div>
+            <div><p>&nbsp;<i>{this.state.currentItem.title.toLowerCase()}</i></p></div>
+          </div>
 
           <h5 style={{marginBottom:0}}>Fortæl historien</h5>
           <TextField
@@ -233,10 +236,11 @@ const styles = {
 let SortaAndEvaluateExercise = React.createClass({
 
     getInitialState: function() {
-      var items = this.props.sortableItems.split(';');
+      var items = this.props.exercise.configuration.split(';');
       return {
           items:  items,
           resultItems: this.mapItems(items),
+          instrunctionContent: this.props.exercise.instrunctionContent,
           phase: 0,
           isLoading: false
       };
@@ -245,16 +249,18 @@ let SortaAndEvaluateExercise = React.createClass({
     componentDidMount: function(){
       //Update server
       if (this.props.liveExercise){
+        var that = this;
         this.setState({isLoading: true});
         this.props.dispatch(getExerciseResult(this.props.exerciseId)).then(
           json => {
-            this.setState({
+            that.setState({
               isLoading: false,
-              phase: json.result.isCompleted ? 4 : this.state.phase,
-              resultItems: json.result.evaluations !== null && json.result.evaluations.length === this.state.items.length ?
-                json.result.evaluations : this.state.resultItems
+              phase: json.result.isCompleted ? 4 : that.state.phase,
+              resultItems: json.result.evaluations !== null && json.result.evaluations.length === that.state.items.length ?
+                json.result.evaluations : that.state.resultItems
             });
 
+            that.props.exercisesStatusChanged(json.result.isCompleted, that.props.exercise);
           }
         );
       }
@@ -262,10 +268,11 @@ let SortaAndEvaluateExercise = React.createClass({
     },
 
     componentWillReceiveProps: function(nextProps) {
-      var items = nextProps.sortableItems.split(';')
+      var items = nextProps.exercise.configuration.split(';')
       this.setState({
         items: items,
-        resultItems: this.mapItems(items)
+        resultItems: this.mapItems(items),
+        instrunctionContent: nextProps.exercise.instrunctionContent
       })
     },
 
@@ -295,8 +302,10 @@ let SortaAndEvaluateExercise = React.createClass({
         this.props.onFinished(items);
 
       //Update server
-      if (this.props.liveExercise)
+      if (this.props.liveExercise){
         this.props.dispatch(putSortAndEvalResultById(this.props.exerciseId, {evaluations:items, exerciseId:this.props.exerciseId, isCompleted:true}));
+        this.props.exercisesStatusChanged(true, this.props.exercise);
+      }
     },
 
     restart: function(){
@@ -340,6 +349,12 @@ let SortaAndEvaluateExercise = React.createClass({
       })
     },
 
+    getHtmlText: function(textIndex){
+      var text = this.state.instrunctionContent.length > textIndex ?
+        this.state.instrunctionContent[textIndex] : "";
+
+      return {__html:text };
+    },
     render: function() {
       var mainContent;
       if (this.state.isLoading)
@@ -347,8 +362,7 @@ let SortaAndEvaluateExercise = React.createClass({
       else if (this.state.phase === 0) {
         mainContent =
         <div>
-          <span s>Når du er klar skal du trykke, 'Start øvelse':</span>
-          <br/>
+          <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
           <RaisedButton
             labelPosition="before" primary={true}
             label={'Start øvelse'} onClick={this.onStart}
@@ -359,7 +373,7 @@ let SortaAndEvaluateExercise = React.createClass({
       else if (this.state.phase === 1) {
       mainContent = (
         <div>
-          <p>Jeg vil bede dig om at se tilbage på dit seneste arbejde og arbejdsplads: <strong>Hvad der betød mest for dig?</strong> Det mest betydningsfulde skal du placere øverst, og det mindst betydningsfulde nederst. Tryk &quot;færdig&quot; når du er klar.</p>
+          <div dangerouslySetInnerHTML={this.getHtmlText(1)}/>
           <SortPhase items={this.state.items} onSort={this.handleSort} />
           <RaisedButton labelPosition="before" primary={true}
             label="Færdig" icon={<Done />} onClick={this.onFinishSort}></RaisedButton>
@@ -368,10 +382,7 @@ let SortaAndEvaluateExercise = React.createClass({
       else if (this.state.phase === 2){
         mainContent =
           <div>
-            <p>Der har været en hel række af begivenheder, situationer og hændelser som du husker tilbage på med forskellige følelser.</p>
-            <p>Jeg vil bede dig om at kigge tilbage på de oplevelser du har haft med [dine prioiteringer] – OG særlige oplevelser der har fyldt dig med glæde. Vær opmærksom på at her skal du kun gå i detaljer med det der har en positiv indvirken på dig.</p>
-            <p>Det andet vil jeg bede dig om at lade ligge som blot en konstatering – at der var situationer som ikke gik din vej. Dyrk det der fungerer for dig og lær hvordan du kan øge lige præcist det der styrker dig.</p>
-
+            <div dangerouslySetInnerHTML={this.getHtmlText(2)}/>
             <RaisedButton labelPosition="before" primary={true}
               label="Ok" icon={<Done />} onClick={this.onFinishInfoPhase}></RaisedButton>
           </div>
@@ -380,15 +391,14 @@ let SortaAndEvaluateExercise = React.createClass({
       else if (this.state.phase === 3){
         mainContent =
           <div>
-            <EvalPhase onReturn={this.returnFromEvaluate} onFinished={this.evalFinished} items={this.state.resultItems} />
+            <EvalPhase instructionText={this.getHtmlText(3)} onReturn={this.returnFromEvaluate} onFinished={this.evalFinished} items={this.state.resultItems} />
           </div>
       }
 
       else if (this.state.phase === 4){
         mainContent =
           <div>
-            <h2>Øvelsen er færdig</h2>
-            <p>Her er din besvarelse, sorteret med det mest betydningsfulde, først:</p>
+            <div dangerouslySetInnerHTML={this.getHtmlText(4)}/>
             {
               this.state.resultItems.map(function(i, index){
                 return (
