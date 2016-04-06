@@ -15,6 +15,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
 
         public abstract string Configuration { get; }
 
+        public List<string> InstrunctionContent { get; set; }
+
         public string Description { get; set; }
 
         public CoachingModuleReference Module { get; private set; }
@@ -30,6 +32,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
             Module = module;
             ExerciseClassName = className;
             Description = "";
+            InstrunctionContent = new List<string>();
         }
     }
 }

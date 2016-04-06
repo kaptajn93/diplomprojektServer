@@ -71,7 +71,7 @@ namespace Tests
             var courseName = "Service test course with modules";
             //Create the course
             var course = _coachingCourseService.CreateNewCoachingCourse(courseName);
-            _coachingCourseService.CreateNewModuleInCourse(course, "Some module");
+            _coachingCourseService.CreateNewModuleInCourse(course, "Some module", 0);
 
             //Check that revisions histories was created
             var resourceRepo = new ModuleResourceRepositoryDocumentDb();
@@ -95,7 +95,7 @@ namespace Tests
             var courseName = "Service test course with updated module";
             //Create the course
             var course = _coachingCourseService.CreateNewCoachingCourse(courseName);
-            var coachingModule = _coachingCourseService.CreateNewModuleInCourse(course, "Some module");
+            var coachingModule = _coachingCourseService.CreateNewModuleInCourse(course, "Some module", 0);
 
             var newResource = new CoachingModuleResource()
             {

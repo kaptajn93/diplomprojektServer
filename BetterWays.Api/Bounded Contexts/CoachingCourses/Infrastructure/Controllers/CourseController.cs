@@ -61,7 +61,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             //Get the course
             var course = coachingCourseRepository.GetCourseById(courseId);
             //Get modules in course
-            var modules = coachingModuleRepository.GetItemsWithIds(course.Modules.Select(m => m.ModuleReferenceId));
+            var modules = coachingModuleRepository.GetItemsWithIds(course.Modules.Select(m => m.ModuleReferenceId)).OrderBy(m => m.ModuleIndex);
 
             return modules.Select(m => CoachingModuleDTOConverter.ConvertToDTO(m));
         }

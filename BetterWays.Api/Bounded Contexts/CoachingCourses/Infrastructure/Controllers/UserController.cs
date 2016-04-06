@@ -131,6 +131,75 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             userRepo.SaveUser(usr);
         }
 
+        [Route("api/user/currentUser/exerciseGoal/{exerciseId}/result/")]
+        [AcceptVerbs("PUT")]
+        public void UpdateExerciseGoalResult(Guid exerciseId, GoalScoreCardDto scoreCard)
+        {
+            if (exerciseId != scoreCard.ExerciseId)
+                throw new Exception("Scorecard ids does not match");
+
+            var userRepo = new UserRepositoryDocumentDB();
+            var usr = userRepo.GetAllItems().Last();
+
+            foreach (var admission in usr.CourseAdmissions)
+            {
+                var excistingScoreCard = admission.Results.SingleOrDefault(r => r.ExerciseId == exerciseId) as GoalScoreCard;
+
+                if (excistingScoreCard != null)
+                {
+                    //Update the score card
+                    excistingScoreCard.IsCompleted = scoreCard.IsCompleted;
+                    excistingScoreCard.GoalText = scoreCard.GoalText;
+
+                    (admission.Results.Single(r => r is PromiseScoreCard && r.Module.ModuleReferenceId == excistingScoreCard.Module.ModuleReferenceId) as PromiseScoreCard).ExerciseGoalText = scoreCard.GoalText;
+                }
+            }
+
+            
+            //Save user
+            userRepo.SaveUser(usr);
+        }
+
+        [Route("api/user/currentUser/modulePromise/{exerciseId}/result/")]
+        [AcceptVerbs("PUT")]
+        public void UpdateModulePromiseResult(Guid exerciseId, PromiseScoreCardDto scoreCard)
+        {
+            if (exerciseId != scoreCard.ExerciseId)
+                throw new Exception("Scorecard ids does not match");
+
+            var userRepo = new UserRepositoryDocumentDB();
+            var usr = userRepo.GetAllItems().Last();
+
+            foreach (var admission in usr.CourseAdmissions)
+            {
+                var excistingScoreCard = admission.Results.SingleOrDefault(r => r.ExerciseId == exerciseId) as PromiseScoreCard;
+
+                if (excistingScoreCard != null)
+                {
+                    //Update the score card
+                    excistingScoreCard.IsCompleted = scoreCard.IsCompleted;
+                    excistingScoreCard.PromiseText = scoreCard.PromiseText;
+                    excistingScoreCard.Responses = scoreCard.Responses != null ? scoreCard.Responses.Select(e => new QuestionResponse()
+                    {
+                        Score = e.Score,
+                        Question = e.Question
+                    }).ToList() : null;
+
+                    //find next nodule
+                    var course = new CoachingCourseRepositoryDocumentDB().GetItems(c => c.Id == admission.CourseId).Single();
+                    var nextModuleIndex = course.Modules.IndexOf(course.Modules.Single(m => m.ModuleReferenceId == excistingScoreCard.Module.ModuleReferenceId)) + 1;
+
+                    if (nextModuleIndex < course.Modules.Count)
+                    {
+                        var nextModule = course.Modules[nextModuleIndex];
+                        (admission.Results.Single(r => r is GoalScoreCard && r.Module.ModuleReferenceId == nextModule.ModuleReferenceId) as GoalScoreCard).PreviousModulePromiseText = scoreCard.PromiseText;
+                    }
+                }
+            }
+            //Save user
+            userRepo.SaveUser(usr);
+        }
+
         [Route("api/user/currentUser/exercise/{exerciseId}/result/")]
         [AcceptVerbs("Get")]
         public ScoreCardDto GetExerciseResults(Guid exerciseId)

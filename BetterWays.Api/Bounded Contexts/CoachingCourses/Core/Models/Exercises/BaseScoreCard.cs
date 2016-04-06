@@ -11,7 +11,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
         public bool IsCompleted { get; set; }
 
         public string ExerciseDescription { get; set; }
-
+        
         public Guid ExerciseId { get; set; }
 
         public CoachingModuleReference Module { get; private set; }

@@ -49,7 +49,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
 
             var course = coachingCourseRepository.GetCourseById(request.CourseId);
 
-            var module = coachingService.CreateNewModuleInCourse(course, request.ModuleName);
+            var module = coachingService.CreateNewModuleInCourse(course, request.ModuleName, 0);
 
             return course.Id;
         }

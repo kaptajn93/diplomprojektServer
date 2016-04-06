@@ -40,6 +40,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
                 Configuration = element.Exercise != null ? element.Exercise.Configuration : null,
                 Content = element.Content,
                 Description = element.Exercise != null ? element.Exercise.Description : null,
+                InstrunctionContent = element.Exercise != null ? element.Exercise.InstrunctionContent : new List<string>(),
                 ExerciseId = element.Exercise != null ? new Guid?(element.Exercise.Id) : null
             };
         }
@@ -59,11 +60,18 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
                 case "KPExplorerQuestionnaire":
                     exercise = new KPExplorerQuestionnaire(dto.Configuration.Split(';').ToList(), moduleReference);
                     break;
+                case "Promise":
+                    exercise = new PromiseExercise(dto.Configuration.Split(';').ToList(), moduleReference);
+                    break;
+                case "Goal":
+                    exercise = new GoalExercise(moduleReference);
+                    break;
                 default:
                     break;
             }
 
             exercise.Description = dto.Description;
+            exercise.InstrunctionContent = dto.InstrunctionContent;
 
             return new ResourceExerciseElement(dto.Content)
             {

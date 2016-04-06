@@ -54,4 +54,31 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs
         [JsonProperty(PropertyName = "elapsedTimeSeconds")]
         public int ElapsedTimeSeconds { get; set; }
     }
+
+    public class ReflectionScoreCardDto : ScoreCardDto
+    {
+        [JsonProperty(PropertyName = "responses")]
+        public List<QuestionResponseDto> Responses { get; set; }
+    }
+
+    public class PromiseScoreCardDto : ScoreCardDto
+    {
+        [JsonProperty(PropertyName = "responses")]
+        public List<QuestionResponseDto> Responses { get; set; }
+
+        [JsonProperty(PropertyName = "promiseText")]
+        public string PromiseText { get; set; }
+
+        [JsonProperty(PropertyName = "exerciseGoalText")]
+        public string ExerciseGoalText { get; set; }
+    }
+
+    public class GoalScoreCardDto : ScoreCardDto
+    {
+        [JsonProperty(PropertyName = "goalText")]
+        public string GoalText { get; set; }
+
+        [JsonProperty(PropertyName = "previousModulePromiseText")]
+        public string PreviousModulePromiseText { get; set; }
+    }
 }

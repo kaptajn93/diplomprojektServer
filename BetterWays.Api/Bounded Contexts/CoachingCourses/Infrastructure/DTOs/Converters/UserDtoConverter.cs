@@ -37,6 +37,12 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
                 return ConvertScoreCardDto(entity as SortAndEvaluateScoreCard);
             else if (entity is KPExplorerQuestionnaireScoreCard)
                 return ConvertScoreCardDto(entity as KPExplorerQuestionnaireScoreCard);
+            else if (entity is ReflectionScoreCard)
+                return ConvertScoreCardDto(entity as ReflectionScoreCard);
+            else if (entity is GoalScoreCard)
+                return ConvertScoreCardDto(entity as GoalScoreCard);
+            else if (entity is PromiseScoreCard)
+                return ConvertScoreCardDto(entity as PromiseScoreCard);
             else
                 return new ScoreCardDto
                 {
@@ -92,6 +98,45 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
                 ModuleId = entity.Module != null ? new Guid?(entity.Module.ModuleReferenceId) : null,
                 Responses = entity.Responses != null ? entity.Responses.Select(ConvertKpExplorerQuestionaireResultToDto).ToList() : null,
                 ElapsedTimeSeconds = entity.ElapsedTimeSeconds
+            };
+        }
+
+        public static ReflectionScoreCardDto ConvertScoreCardDto(ReflectionScoreCard entity)
+        {
+            return new ReflectionScoreCardDto()
+            {
+                ExerciseDescription = entity.ExerciseDescription,
+                ExerciseId = entity.ExerciseId,
+                IsCompleted = entity.IsCompleted,
+                ModuleId = entity.Module != null ? new Guid?(entity.Module.ModuleReferenceId) : null,
+                Responses = entity.Responses != null ? entity.Responses.Select(ConvertKpExplorerQuestionaireResultToDto).ToList() : null
+            };
+        }
+
+        public static GoalScoreCardDto ConvertScoreCardDto(GoalScoreCard entity)
+        {
+            return new GoalScoreCardDto()
+            {
+                ExerciseDescription = entity.ExerciseDescription,
+                ExerciseId = entity.ExerciseId,
+                IsCompleted = entity.IsCompleted,
+                ModuleId = entity.Module != null ? new Guid?(entity.Module.ModuleReferenceId) : null,
+                GoalText = entity.GoalText,
+                PreviousModulePromiseText = entity.PreviousModulePromiseText
+            };
+        }
+
+        public static PromiseScoreCardDto ConvertScoreCardDto(PromiseScoreCard entity)
+        {
+            return new PromiseScoreCardDto()
+            {
+                ExerciseDescription = entity.ExerciseDescription,
+                ExerciseId = entity.ExerciseId,
+                IsCompleted = entity.IsCompleted,
+                ModuleId = entity.Module != null ? new Guid?(entity.Module.ModuleReferenceId) : null,
+                PromiseText = entity.PromiseText,
+                ExerciseGoalText = entity.ExerciseGoalText,
+                Responses = entity.Responses != null ? entity.Responses.Select(ConvertKpExplorerQuestionaireResultToDto).ToList() : null
             };
         }
     }

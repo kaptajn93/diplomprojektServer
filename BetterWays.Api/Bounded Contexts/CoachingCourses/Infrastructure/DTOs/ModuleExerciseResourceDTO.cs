@@ -17,6 +17,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs
         [JsonProperty(PropertyName = "configuration")]
         public string Configuration { get; set; }
 
+        [JsonProperty(PropertyName = "instrunctionContent")]
+        public List<string> InstrunctionContent { get; set; }
+
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 

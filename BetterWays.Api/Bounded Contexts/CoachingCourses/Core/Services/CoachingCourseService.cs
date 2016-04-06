@@ -42,15 +42,21 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
             return course;
         }
 
-        public CoachingModule CreateNewModuleInCourse(CoachingCourse coachingCourse, string moduleName)
+        public CoachingModule CreateNewModuleInCourse(CoachingCourse coachingCourse, string moduleName, int index)
         {
             //Create resources with default content
             //TODO: Load the default content from somewhere
             var introduction = new CoachingModuleResource() { Content = "<h1>&lt;Overskrift her&gt;</h1> <p>&lt;Kort tekst her&gt;</p> <div data-oembed-url='https://vimeo.com/ricardonilsson/coachingwill'> <div style='left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;'><iframe allowfullscreen='true' frameborder='0' mozallowfullscreen='true' src='//player.vimeo.com/video/77308630?byline=0&amp;badge=0&amp;portrait=0&amp;title=0' style='top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;' webkitallowfullscreen='true'></iframe></div> </div> <h2>&lt;Overskrift, start p&aring; udvidet intro&gt;</h2> <p>&lt;Intro her&gt;</p> <h2>&lt;Overskrift, eksterne henvisninger&gt;</h2> <p><a href='http://wikipedia.org'>&lt;Eksempel p&aring; link&gt;</a></p>" };
-            var exercise = new CoachingModuleExerciseResource() { Elements = new List<ResourceExerciseElement>() { new ResourceExerciseElement("<h1>&lt;Overskrift her&gt;</h1>  <p>&lt;Kort tekst her, evt. efterfulgt af opgave: &gt;</p> ") } };
-            var reflection = new CoachingModuleExerciseResource() { Elements = new List<ResourceExerciseElement>() { new ResourceExerciseElement("<h1>&lt;Overskrift her&gt;</h1>  <p>&lt;Kort tekst her, evt. efterfulgt af opgave: &gt;</p> ") } };
-
-
+            var exercise = new CoachingModuleExerciseResource() { Elements = new List<ResourceExerciseElement>()
+            {
+                new ResourceExerciseElement(""),
+                new ResourceExerciseElement("<h1>&lt;Overskrift her&gt;</h1>  <p>&lt;Kort tekst her, evt. efterfulgt af opgave: &gt;</p> ")
+            } };
+            var reflection = new CoachingModuleExerciseResource() { Elements = new List<ResourceExerciseElement>()
+            {
+                new ResourceExerciseElement("")
+            } };
+            
             //Create revsions for new content
             var introRevision = Guid.NewGuid();
             PushResourceVersion(introduction, introRevision);
@@ -59,17 +65,20 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
             var reflectionRevision = Guid.NewGuid();
             PushResourceVersion(reflection, reflectionRevision);
 
+            //Create and add module
+            var module = new CoachingModule(
+                moduleName,
+                introduction, exercise, reflection);
+            module.ModuleIndex = index;
+
+            exercise.Elements[0].Exercise = new GoalExercise(new CoachingModuleReference(module.Id));
+            reflection.Elements[0].Exercise = new PromiseExercise(new List<string>() { "Resultatet af øvelsen levede op til mine forventinger" }, new CoachingModuleReference(module.Id)) { };
+
             //Save resources
             _resourceRepository.CreateModuleResource(introduction);
             _exerciseRepository.CreateModuleResource(exercise);
             _exerciseRepository.CreateModuleResource(reflection);
             
-
-            //Create and add module
-            var module =new CoachingModule(
-                moduleName,
-                introduction, exercise, reflection);
-
             _moduleRepository.SaveModule(module);
 
             coachingCourse.AddCoachingModule(module);
@@ -131,14 +140,14 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
         {
             //Find all exercises and get a fresh scorecard
             var modules = _moduleRepository.GetModulesWithIds(course.Modules.Select(m => m.ModuleReferenceId)).ToList();
-            var exercises = _exerciseRepository.GetExercisesWithIds(modules.Select(m => m.Exercise.ResourceReferenceId)).ToList();
+            var exercises = _exerciseRepository.GetExercisesWithIds(modules.SelectMany(m => new[] { m.Exercise.ResourceReferenceId, m.Reflection.ResourceReferenceId })).ToList();
 
             var freshScoreCards = exercises.SelectMany(er => er.Elements.Select(e => 
-            e.Exercise != null ? 
-                e.Exercise.GetEmptyScoreCard() : 
-                new BaseScoreCard(
-                    new CoachingModuleReference( modules.Single(m => 
-                    m.Exercise.ResourceReferenceId == er.Id).Id), Guid.NewGuid(), "")));
+                e.Exercise != null ? 
+                    e.Exercise.GetEmptyScoreCard() : 
+                    new BaseScoreCard(
+                        new CoachingModuleReference( modules.Single(m => 
+                        m.Exercise.ResourceReferenceId == er.Id).Id), Guid.NewGuid(), "")));
 
             //Add course admission to user
             if (user.CourseAdmissions == null)

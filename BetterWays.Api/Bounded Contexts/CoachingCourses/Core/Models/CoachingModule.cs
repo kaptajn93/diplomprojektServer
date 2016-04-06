@@ -24,6 +24,12 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         public string Description { get; set; }
 
         /// <summary>
+        /// The index of this module in the course
+        /// </summary>
+        [JsonProperty(PropertyName = "moduleIndex")]
+        public int ModuleIndex { get; set; }
+
+        /// <summary>
         /// Introduction part of module
         /// </summary>
         [JsonProperty(PropertyName = "introduction")]
