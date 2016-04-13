@@ -1,5 +1,8 @@
 import axios from 'axios'
 
+const apiUrl = 'http://localhost:58982/api'
+//const apiUrl = 'http://betterways-test.azurewebsites.net/api'
+
 export const REQUEST_API_ALL_COURSES = 'REQUEST_API_ALL_COURSES'
 function requestApiAllCourses() {
   return {
@@ -23,7 +26,7 @@ export function getAllCourses(){
     // that the API call is starting.
     dispatch(requestApiAllCourses())
 
-    return axios.get('http://localhost:58982/api/Course/')
+    return axios.get(apiUrl + '/Course/')
       .then(response => response.data)
       .then(json =>
 
@@ -62,7 +65,7 @@ export function getAllCourseModules(courseId){
     // that the API call is starting.
     dispatch(requestApiAllCourseModules(courseId))
 
-    return axios.get('http://localhost:58982/api/course/' + courseId + '/modules')
+    return axios.get(apiUrl + '/course/' + courseId + '/modules')
       .then(response => response.data)
       .then(json =>
 
@@ -101,7 +104,7 @@ export function getModule(moduleId){
     // that the API call is starting.
     dispatch(requestApiModule(moduleId))
 
-    return axios.get('http://localhost:58982/api/module/' + moduleId)
+    return axios.get(apiUrl + '/module/' + moduleId)
       .then(response => response.data)
       .then(json =>
 
@@ -141,7 +144,7 @@ export function getResourceById(resourceId){
     // that the API call is starting.
     dispatch(requestApiResource(resourceId))
 
-    return axios.get('http://localhost:58982/api/Resource/' + resourceId)
+    return axios.get(apiUrl + '/Resource/' + resourceId)
       .then(response => response.data)
       .then(json =>
 
@@ -180,7 +183,7 @@ export function getExerciseResourceById(resourceId){
     // that the API call is starting.
     dispatch(requestApiExerciseResource(resourceId))
 
-    return axios.get('http://localhost:58982/api/ExerciseResource/' + resourceId)
+    return axios.get(apiUrl + '/ExerciseResource/' + resourceId)
       .then(response => response.data)
       .then(json =>
 
@@ -211,7 +214,7 @@ export function putModuleDescription(moduleId, description){
     var foo = 2;
     dispatch(putApiModuleDescription(moduleId))
 
-    return axios.put('http://localhost:58982/api/module/' + moduleId + '/description', '=' + description)
+    return axios.put(apiUrl + '/module/' + moduleId + '/description', '=' + description)
       .then(response => response.data)
 
       .catch(response => {
@@ -248,7 +251,7 @@ export function putResourceById(resourceId, moduleId, newContent){
     // that the API call is starting.
     dispatch(putApiResource(resourceId))
 
-    return axios.put('http://localhost:58982/api/Resource/', {
+    return axios.put(apiUrl + '/Resource/', {
       resourceId: resourceId,
       moduleId: moduleId,
       updatedContent: newContent})
@@ -283,7 +286,7 @@ export function putExerciseResourceById(resourceId, moduleId, updatedElements){
     // that the API call is starting.
     dispatch(putApiExerciseResource(resourceId))
 
-    return axios.put('http://localhost:58982/api/ExerciseResource/', {
+    return axios.put(apiUrl + '/ExerciseResource/', {
       resourceId: resourceId,
       moduleId: moduleId,
       updatedElements: updatedElements})
@@ -336,7 +339,7 @@ export function getCurrentUser() {
     dispatch(requestCurrentUser())
 
     // Secondly invoke the remote API and return a promise
-    return axios.get('http://localhost:58982/api/user/currentUser')
+    return axios.get(apiUrl + '/user/currentUser')
       .then(response => response.data)
       .then(json =>
 
@@ -387,7 +390,7 @@ export function getCurrentUserResult() {
     dispatch(requestCurrentUserResult())
 
     // Secondly invoke the remote API and return a promise
-    return axios.get('http://localhost:58982/api/user/currentUser/results')
+    return axios.get(apiUrl + '/user/currentUser/results')
       .then(response => response.data)
       .then(json =>
 
@@ -401,6 +404,36 @@ export function getCurrentUserResult() {
 
   }
 }
+
+//Update sort and eval exercise
+export const RESET_COURSE_ADMISSION = 'RESET_COURSE_ADMISSION'
+function requestResetCourseAdmission() {
+  return {
+    type: RESET_COURSE_ADMISSION,
+  }
+}
+
+export function resetCourseAdmission(){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(requestResetCourseAdmission())
+
+    return axios.put(apiUrl + '/user/currentUser/resetCourseAdmission/')
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveApiUpdatedResourceId())
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+};
+
+
 
 //Update sort and eval exercise
 export const PUT_API_SORT_AND_EVAL_RESULT = 'PUT_API_SORT_AND_EVAL_RESULT'
@@ -418,7 +451,7 @@ export function putSortAndEvalResultById(exerciseId, result){
     // that the API call is starting.
     dispatch(putSortAndEvalResult(exerciseId, result))
 
-    return axios.put('http://localhost:58982/api/user/currentUser/sortandevalexercise/'+ exerciseId + '/result/', result)
+    return axios.put(apiUrl + '/user/currentUser/sortandevalexercise/'+ exerciseId + '/result/', result)
       .then(response => response.data)
       .then(json =>
 
@@ -447,7 +480,7 @@ export function putKpExplorerResultById(exerciseId, result){
     // that the API call is starting.
     dispatch(putKpExplorerResult(exerciseId, result))
 
-    return axios.put('http://localhost:58982/api/user/currentUser/kpexplorerexercise/'+ exerciseId + '/result/', result)
+    return axios.put(apiUrl + '/user/currentUser/kpexplorerexercise/'+ exerciseId + '/result/', result)
       .then(response => response.data)
       .then(json =>
 
@@ -477,7 +510,7 @@ export function putExerciseGoalResultById(exerciseId, result){
     // that the API call is starting.
     dispatch(putExerciseGoalResult(exerciseId, result))
 
-    return axios.put('http://localhost:58982/api/user/currentUser/exerciseGoal/'+ exerciseId + '/result/', result)
+    return axios.put(apiUrl + '/user/currentUser/exerciseGoal/'+ exerciseId + '/result/', result)
       .then(response => response.data)
       .then(json =>
 
@@ -506,7 +539,7 @@ export function putModulePromiseResultById(exerciseId, result){
     // that the API call is starting.
     dispatch(putModulePromiseResult(exerciseId, result))
 
-    return axios.put('http://localhost:58982/api/user/currentUser/modulePromise/'+ exerciseId + '/result/', result)
+    return axios.put(apiUrl + '/user/currentUser/modulePromise/'+ exerciseId + '/result/', result)
       .then(response => response.data)
       .then(json =>
 
@@ -546,9 +579,9 @@ export function getExerciseResult(exerciseId, userId){
     // First dispatch: the app state is updated to inform
     // that the API call is starting.
     dispatch(requestExerciseResult(exerciseId, userId))
-    var url = 'http://localhost:58982/api/user/currentUser/exercise/' + exerciseId + '/result/';
+    var url = apiUrl + '/user/currentUser/exercise/' + exerciseId + '/result/';
     if (userId !== undefined)
-      url = 'http://localhost:58982/api/user/'+ userId +'/exercise/' + exerciseId + '/result/';
+      url = apiUrl + '/user/'+ userId +'/exercise/' + exerciseId + '/result/';
 
     return axios.get(url)
       .then(response => response.data)
@@ -588,7 +621,7 @@ export function getModuleExercises(moduleId){
     // that the API call is starting.
     dispatch(requestAllModuleExercises(moduleId))
 
-    return axios.get('http://localhost:58982/api/module/' + moduleId + '/exercises/')
+    return axios.get(apiUrl + '/module/' + moduleId + '/exercises/')
       .then(response => response.data)
       .then(json =>
 

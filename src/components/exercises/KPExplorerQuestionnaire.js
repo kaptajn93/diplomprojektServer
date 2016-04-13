@@ -47,7 +47,7 @@ let KPExplorerQuestionnaire = React.createClass({
     })
   },
   componentDidMount: function(){
-    //Update server
+    //Update from server
     if (this.props.liveExercise){
       var that = this;
       this.setState({isLoading: true});

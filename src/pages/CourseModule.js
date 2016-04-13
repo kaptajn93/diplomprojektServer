@@ -18,6 +18,8 @@ import CourseModuleInfo from '../components/CourseModuleInfo';
 import CourseModuleExperiment from '../components/CourseModuleExperiment';
 import CourseModuleReflection from '../components/CourseModuleReflection';
 
+import Theme from '../components/Theme';
+
 import { getModule } from '../actions/api';
 
 const {Grid, Row, Col} = require('react-flexgrid');
@@ -95,7 +97,7 @@ let CourseModule = React.createClass({
     var styles = {
       default_tab:{
         color: 'black',
-        backgroundColor: '#F0F0F0',
+        backgroundColor:  Theme.palette.backgroundColor,
         fontWeight: 400,
       },
       active_tab:{
@@ -121,21 +123,21 @@ let CourseModule = React.createClass({
               </div>
               <Tabs >
                 <Tab style={styles.tab[0]}
-                  icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">wb_incandescent</FontIcon>}
+                  icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">wb_incandescent</FontIcon>}
                   label="VIDEN">
                   <div style={paddingStyle} >
                     <CourseModuleInfo resourceId={this.state.introduction}/>
                   </div>
                 </Tab>
                 <Tab style={styles.tab[1]}
-                  icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">pan_tool</FontIcon>}
+                  icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">pan_tool</FontIcon>}
                   label="EKSPERIMENT">
                   <div style={paddingStyle} >
                     <CourseModuleExperiment onExerciseGoalUpdated={this.onExerciseGoalUpdated} exerciseGoalText={this.state.exerciseGoalText} exercisesStatusChanged={this.exercisesStatusChanged} resourceId={this.state.exercise}/>
                   </div>
                 </Tab>
                 <Tab style={styles.tab[2]}
-                  icon={<FontIcon style={iconStyle} color={'DarkGray'} className="material-icons">cloud</FontIcon>}
+                  icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">cloud</FontIcon>}
                   label="REFLEKTION">
                   <div style={paddingStyle} >
                     <CourseModuleExperiment exerciseGoalText={this.state.exerciseGoalText} exercisesStatusChanged={this.exercisesStatusChanged} isActive={this.state.isExerciseCompleted} resourceId={this.state.reflection} />

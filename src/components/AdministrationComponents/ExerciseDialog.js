@@ -259,6 +259,15 @@ var ConfigureExerciseDialog = React.createClass({
                 </div>,
               'Goal':
                 <div>
+                <h5 style={{marginBottom:0}}>Informationstekst</h5>
+
+                  <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
+                  <FlatButton
+                    label="Redigér"
+                    secondary={true}
+                    style={{marginBottom:21}}
+                    onClick={this.openEditText.bind(this, 0)}
+                    />
                 </div>,
               'Promise':
               <div>
@@ -271,7 +280,17 @@ var ConfigureExerciseDialog = React.createClass({
                   value={this.state.configuration}
                   onChange={this.configurationChanged}
                 />
-                <div dangerouslySetInnerHTML={{__html:'Dette er en test'}}/>
+
+
+                <h5 style={{marginBottom:0}}>Informationstekst til løfte</h5>
+
+                  <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
+                  <FlatButton
+                    label="Redigér"
+                    secondary={true}
+                    style={{marginBottom:21}}
+                    onClick={this.openEditText.bind(this, 0)}
+                    />
               </div>,
               'none':
                 null

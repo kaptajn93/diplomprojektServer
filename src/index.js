@@ -17,11 +17,13 @@ import AdministrationModule from  './pages/AdministrationModule'
 import VideoReview from  './pages/VideoReview'
 import DialogModule from  './pages/DialogModule'
 import ExerciseResultPage from './pages/ExerciseResultPage'
+import LoginPage from './pages/LoginPage'
 
 import Colors from 'material-ui/lib/styles/colors';
 import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
 import Spacing from 'material-ui/lib/styles/spacing';
 import zIndex from 'material-ui/lib/styles/zIndex';
+import Theme from './components/Theme'
 
 // Needed for onTouchTap
 // Can go away when react 1.0 release
@@ -45,15 +47,19 @@ store.dispatch(fetchPosts('reactjs')).then(() =>
 )
 */
 
+var loginState = {
+  isLoggedIn : sessionStorage.getItem('isLoggedIn')
+}
+
 document.body.style.margin = "0px";
 document.body.style.padding = "0px";
-document.body.style.background = "#FAFAFA"
+document.body.style.background = Theme.palette.backgroundColor;
 /*<IndexRoute component={LandingPage}/>*/
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <Route path="/" component={App}>
-        <IndexRoute component={Dashboard}/>
+      <Route path="/" component={App} loginState={loginState}>
+        <IndexRoute component={LoginPage}  loginState={loginState}/>
 
         <Route path="dashboard" component={Dashboard}/>
         <Route path="module/:moduleId" component={CourseModule}/>

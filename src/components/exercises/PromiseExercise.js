@@ -34,6 +34,7 @@ let PromiseExercise = React.createClass({
         items:  items,
         phase: 0,
         resultItems: this.mapItems(items),
+        instrunctionContent: this.props.exercise.instrunctionContent,
     };
   },
 
@@ -46,7 +47,7 @@ let PromiseExercise = React.createClass({
         that.state.resultItems !== null ?
           that.state.resultItems[index]: null;
 
-      if (existingItem === null){
+      if (existingItem === null || existingItem === undefined){
         return {
           question: i,
           score: -1,
@@ -89,9 +90,11 @@ let PromiseExercise = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps){
+    var items = nextProps.exercise.configuration.split(';')
       this.setState({
-        exerciseGoalText:nextProps.exerciseGoalText,
-        resultItems: this.mapItems(nextProps.items)
+        items: items,
+        resultItems: this.mapItems(items),
+        instrunctionContent: nextProps.exercise.instrunctionContent
       });
   },
 
@@ -120,6 +123,13 @@ let PromiseExercise = React.createClass({
   onScoreChanged: function(score, item){
     item.score = score;
     this.setState({resultItems:this.state.resultItems});
+  },
+
+  getHtmlText: function(textIndex){
+    var text = this.state.instrunctionContent.length > textIndex ?
+      this.state.instrunctionContent[textIndex] : "";
+
+    return {__html:text };
   },
 
   render: function(){
@@ -213,9 +223,9 @@ let PromiseExercise = React.createClass({
     if (this.state.phase === 0) {
       mainContent =
       <div style={{marginTop:40}}>
-        <h4>Før vi går videre skal du give dig selv en opgave til næste modul. Jeg lover mig selv:</h4>
+        <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
         <TextField style={{width: 400}}
-          hintText="At jeg..." value={this.state.promiseText} onChange={this.onPromiseTextChanged}
+          hintText="Dit mål.." value={this.state.promiseText} onChange={this.onPromiseTextChanged}
         />
         <RaisedButton primary={true} style={{marginLeft:16}}
           label="Ok" icon={<Done />} onClick={this.onFinished}></RaisedButton>

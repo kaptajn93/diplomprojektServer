@@ -228,7 +228,12 @@ let ExerciseContentAdministration = React.createClass({
       exerciseElements : this.state.exerciseElements.concat([{
         content: this.state.exerciseElements.length > 0 ?
           '<h3>&lt;Underoverskrift her&gt;</h3> <p>&lt;Kort tekst her, evt. efterfulgt af opgave: &gt;</p>' :
-          '<h1>&lt;Overskrift her&gt;</h1> <p>&lt;Kort tekst her, evt. efterfulgt af opgave: &gt;</p>'
+          '<h1>&lt;Overskrift her&gt;</h1> <p>&lt;Kort tekst her, evt. efterfulgt af opgave: &gt;</p>',
+
+          className: 'None',
+          configuration: '',
+          description: '',
+          instrunctionContent: []
       }])
     }, function(){
       //State change has taken effect

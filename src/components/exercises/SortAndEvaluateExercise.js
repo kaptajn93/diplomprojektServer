@@ -173,7 +173,6 @@ let SortPhase = React.createClass({
         };
 
         const sortIndexIndicator = {
-          display: 'block',
           textAlign: 'center',
           background: '#FAFAFA',
           display: 'block',

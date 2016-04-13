@@ -16,6 +16,7 @@ let GoalExercise = React.createClass({
   getInitialState: function() {
     return {
         isLoading: false,
+        instrunctionContent: this.props.exercise.instrunctionContent,
         phase: 0
     };
   },
@@ -38,6 +39,12 @@ let GoalExercise = React.createClass({
       );
     }
 
+  },
+
+  componentWillReceiveProps: function(nextProps){
+    this.setState({
+      instrunctionContent: nextProps.exercise.instrunctionContent
+    });
   },
 
   onGoalTextChanged: function(evt){
@@ -66,6 +73,13 @@ let GoalExercise = React.createClass({
 
   },
 
+  getHtmlText: function(textIndex){
+    var text = this.state.instrunctionContent.length > textIndex ?
+      this.state.instrunctionContent[textIndex] : "";
+
+    return {__html:text };
+  },
+
   render: function(){
 
     var mainContent;
@@ -74,7 +88,7 @@ let GoalExercise = React.createClass({
     else if (this.state.phase === 0) {
       mainContent =
       <div>
-        <h4>Før vi går i gang skal du give dig selv et mål for øvelsen:</h4>
+        <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
         <TextField style={{width: 400}}
           hintText="Mit mål er..." value={this.state.goalText} onChange={this.onGoalTextChanged}
         />

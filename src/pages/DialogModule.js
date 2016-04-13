@@ -139,7 +139,7 @@ let DialogModule = React.createClass({
                   <Col xs={12} sm={12} md={12} lg={4}>
                     <List subheader="Seneste samtaler" style={{marginTop: 16}}>
                       <ListItem
-                        primaryText="Dr. Phil"
+                        primaryText="Tine"
                         secondaryText={
                           <p>
                             <span style={{color: Colors.darkBlack}}>Din coach</span> --
@@ -147,7 +147,7 @@ let DialogModule = React.createClass({
                           </p>
                         }
                         secondaryTextLines={2}
-                        leftAvatar={<Avatar src="assets/drphil.jpg" />}
+                        leftAvatar={<Avatar src="assets/tine.jpg" />}
                       />
                       <ListItem
                         primaryText="Jens Jørgen"
@@ -168,12 +168,12 @@ let DialogModule = React.createClass({
                       <div style={{height: 500}}>
                       <Card>
                         <CardHeader
-                          title="Dr. Phil"
+                          title="Tine"
                           subtitle="Jan 28, 2016"
                           actAsExpander={false}
                           showExpandableButton={false}
 
-                          avatar="assets/drphil.jpg"
+                          avatar="assets/tine.jpg"
                         />
                         <CardText>
                           Hej Jørgen<br/>Jeg er din coach og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.
@@ -189,7 +189,7 @@ let DialogModule = React.createClass({
                         <div style={{display:'flex'}}>
                           <TextField
                             style={{width:'100%'}}
-                            floatingLabelText="Besked til Dr. Phil"
+                            floatingLabelText="Besked til Tine"
                             multiLine={true}
                             rows={1}
                             rowsMax={4}
