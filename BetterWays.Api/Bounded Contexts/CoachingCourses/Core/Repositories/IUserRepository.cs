@@ -11,6 +11,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Repositories
     {
         void CreateUser(User user);
         User GetUserById(Guid id);
+        User GetUserByUserId(string userName);
         void SaveUser(User user);
     }
 }

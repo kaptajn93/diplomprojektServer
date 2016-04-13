@@ -20,6 +20,11 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Reposit
             return GetItems(i => i.Id == id).Single();
         }
 
+        public User GetUserByUserId(string userName)
+        {
+            return GetItems(i => i.UserId == userName).SingleOrDefault();
+        }
+
         public void SaveUser(User user)
         {
             SaveItem(user);

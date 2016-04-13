@@ -11,5 +11,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Repositories
     {
         void CreateCoachingCourse(CoachingCourse course);
         void SaveCoachingCourse(CoachingCourse coachingCourse);
+        CoachingCourse GetCourseById(Guid id);
+
     }
 }

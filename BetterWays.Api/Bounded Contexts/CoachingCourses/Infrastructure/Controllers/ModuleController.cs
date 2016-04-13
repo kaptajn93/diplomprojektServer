@@ -32,6 +32,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
         }
 
         // POST api/values
+        [Authorize(Roles = "Admin")]
         public Guid Post(CreateModuleInCourseRequest request)
         {
             var coachingCourseRepository = new CoachingCourseRepositoryDocumentDB();
@@ -54,6 +55,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             return course.Id;
         }
 
+        [Authorize(Roles = "Admin")]
         public void Put(UpdateModuleRequest request)
         {
             var coachingModuleRepository = new CoachingModuleRepositoryDocumentDB();
@@ -80,6 +82,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
 
         [Route("api/module/{moduleId}/description")]
         [AcceptVerbs("PUT")]
+        [Authorize(Roles = "Admin")]
         public void UpdateModuleDescription(Guid moduleId, [FromBody] string description)
         {
             var coachingModuleRepository = new CoachingModuleRepositoryDocumentDB();

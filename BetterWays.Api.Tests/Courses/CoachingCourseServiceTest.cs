@@ -28,20 +28,18 @@ namespace Tests
             var dbName = ConfigurationManager.AppSettings["database"];
 
             _client = new DocumentClient(new Uri(endpoint), masterKey);
-
-            /*------ Get a fresh database --------*/
-
+            
             //Check if database has been created
             var databases = _client.CreateDatabaseQuery().Where(d => d.Id == dbName).ToList();
 
             //Delete any
-            if (databases.Any())
+            /*if (databases.Any())
             {
                 foreach (var database in databases)
                 {
                     _client.DeleteDatabaseAsync(database.SelfLink);
                 }
-            }
+            }*/
 
             _coachingCourseService = new CoachingCourseService(
                 new CoachingCourseRepositoryDocumentDB(), 

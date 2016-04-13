@@ -22,6 +22,10 @@ namespace BetterWays.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+
+            config.MessageHandlers.Add(new AuthHandler());
+            config.Filters.Add(new AuthorizeAttribute());
         }
     }
 }

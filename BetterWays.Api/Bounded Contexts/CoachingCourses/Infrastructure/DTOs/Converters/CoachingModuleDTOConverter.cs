@@ -1,4 +1,5 @@
-﻿using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
+﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models;
+using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,18 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
                 Introduction = entity.Introduction.ResourceReferenceId,
                 Exercise = entity.Exercise.ResourceReferenceId,
                 Reflection = entity.Reflection.ResourceReferenceId,
-                ModuleIndex = entity.ModuleIndex
+                ModuleIndex = entity.ModuleIndex,
+                GroupId = entity.GroupId
+            };
+        }
+
+        public static ModuleGroupDTO ConvertToDTO(ModuleGroup group)
+        {
+            return new ModuleGroupDTO
+            {
+                GroupDescription = group.GroupDescription,
+                GroupName = group.GroupName,
+                GroupId = group.Id
             };
         }
     }

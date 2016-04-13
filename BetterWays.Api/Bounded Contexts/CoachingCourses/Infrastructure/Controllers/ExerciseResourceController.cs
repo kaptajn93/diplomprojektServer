@@ -34,6 +34,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
         }
 
         // PUT api/values
+        [Authorize(Roles = "Admin")]
         public UpdateModuleResourceResponse Put(UpdateModuleExerciseRequest request)
         {
             var coachingCourseRepository = new CoachingCourseRepositoryDocumentDB();

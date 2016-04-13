@@ -70,9 +70,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
                     break;
             }
 
-            exercise.Description = dto.Description;
+            /*exercise.Description = dto.Description;
             exercise.InstrunctionContent = dto.InstrunctionContent;
-
+            */
             return new ResourceExerciseElement(dto.Content)
             {
                 Exercise = exercise

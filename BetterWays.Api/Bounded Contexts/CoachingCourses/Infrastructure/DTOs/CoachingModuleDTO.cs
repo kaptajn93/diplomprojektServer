@@ -24,5 +24,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs
         public Guid Exercise { get; set; }
         [JsonProperty(PropertyName = "reflection")]
         public Guid Reflection { get; set; }
+
+        [JsonProperty(PropertyName = "groupId")]
+        public Guid GroupId { get; set; }
     }
 }

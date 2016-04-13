@@ -31,6 +31,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
         }
 
         // POST api/values
+        [Authorize(Roles = "Admin")]
         public Guid Post([FromBody]string courseName)
         {
             var coachingCourseRepository = new CoachingCourseRepositoryDocumentDB();

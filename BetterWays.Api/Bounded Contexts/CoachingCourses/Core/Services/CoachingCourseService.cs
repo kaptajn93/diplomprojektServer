@@ -163,5 +163,35 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
             _userRepository.SaveUser(user);
             
         }
+
+        public void ResetCourse(User user, UserCourseAdmission courseAdmission)
+        {
+            user.CourseAdmissions.Remove(courseAdmission);
+
+            var course = _coachingCourseRepository.GetCourseById(courseAdmission.CourseId);
+            //Find all exercises and get a fresh scorecard
+            var modules = _moduleRepository.GetModulesWithIds(course.Modules.Select(m => m.ModuleReferenceId)).ToList();
+            var exercises = _exerciseRepository.GetExercisesWithIds(modules.SelectMany(m => new[] { m.Exercise.ResourceReferenceId, m.Reflection.ResourceReferenceId })).ToList();
+
+            var freshScoreCards = exercises.SelectMany(er => er.Elements.Select(e =>
+                e.Exercise != null ?
+                    e.Exercise.GetEmptyScoreCard() :
+                    new BaseScoreCard(
+                        new CoachingModuleReference(modules.Single(m =>
+                       m.Exercise.ResourceReferenceId == er.Id).Id), Guid.NewGuid(), "")));
+
+            //Add course admission to user
+            if (user.CourseAdmissions == null)
+                user.CourseAdmissions = new List<UserCourseAdmission>();
+
+            user.CourseAdmissions.Add(new UserCourseAdmission
+            {
+                CourseId = course.Id,
+                Results = freshScoreCards.ToList()
+            });
+
+            //Save user
+            _userRepository.SaveUser(user);
+        }
     }
 }

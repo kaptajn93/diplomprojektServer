@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Controllers;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Services;
 
 namespace BetterWays.Api.Tests.Courses
 {
@@ -22,9 +23,9 @@ namespace BetterWays.Api.Tests.Courses
     {
         private static DocumentClient _client;
         private static Database _database;
-        private static CoachingCourseService _coachingCourseService;
+        private static UserService _userService;
         private static Guid _testUserId;
-
+        
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
         {
@@ -34,28 +35,68 @@ namespace BetterWays.Api.Tests.Courses
             var dbName = ConfigurationManager.AppSettings["database"];
 
             _client = new DocumentClient(new Uri(endpoint), masterKey);
-            
-            _coachingCourseService = new CoachingCourseService(
-                new CoachingCourseRepositoryDocumentDB(),
-                new ModuleResourceRepositoryDocumentDb(),
-                new CoachingModuleRepositoryDocumentDB(),
-                new CoachnigModuleExerciseResourceRepositoryDocumentDB(),
+
+            _userService = new UserService(
                 new UserRepositoryDocumentDB());
         }
 
         [TestMethod]
         public void CreateUser()
         {
+            var usr = _userService.CreateUser(
+                "sto", 
+                "Simon", 
+                "Tobiasen", 
+                "1234", 
+                "sto@miracle.dk", 
+                new List<string>());
+            _testUserId = usr.Id;
+            
+            var foundUsr = new UserRepositoryDocumentDB().GetUserById(usr.Id);
+
+            Assert.IsNotNull(foundUsr);
+            Assert.AreEqual(foundUsr.FirstName, usr.FirstName);
+            Assert.AreEqual(foundUsr.LastName, usr.LastName);
+            Assert.AreEqual(foundUsr.Password, usr.Password);
+        }
+
+        [TestMethod]
+        public void CreateAdminUser()
+        {
             var usr = new Bounded_Contexts.CoachingCourses.Core.Models.User.User()
             {
-               FirstName = "Jørgen",
-               LastName = "Jensen",
-               Password = "1234" 
+                UserId = "admin",
+                FirstName = "Indholds",
+                LastName = "Administrator",
+                Password = "1234",
+                Roles = new List<string>() { "Admin" }
             };
 
             var userRepo = new UserRepositoryDocumentDB();
             userRepo.CreateUser(usr);
-            _testUserId = usr.Id;
+
+            var foundUsr = userRepo.GetUserById(usr.Id);
+
+            Assert.IsNotNull(foundUsr);
+            Assert.AreEqual(foundUsr.FirstName, usr.FirstName);
+            Assert.AreEqual(foundUsr.LastName, usr.LastName);
+            Assert.AreEqual(foundUsr.Password, usr.Password);
+        }
+
+        [TestMethod]
+        public void CreateCoachUser()
+        {
+            var usr = new Bounded_Contexts.CoachingCourses.Core.Models.User.User()
+            {
+                UserId = "coach1",
+                FirstName = "Tine",
+                LastName = "Meisner",
+                Password = "1234",
+                Roles = new List<string>() { "Coach" }
+            };
+
+            var userRepo = new UserRepositoryDocumentDB();
+            userRepo.CreateUser(usr);
 
             var foundUsr = userRepo.GetUserById(usr.Id);
 
@@ -72,7 +113,7 @@ namespace BetterWays.Api.Tests.Courses
             
             var userRepo = new UserRepositoryDocumentDB();
 
-            var foundUsr = userRepo.GetUserById(_testUserId);
+            var foundUsr = userRepo.GetUserById(new Guid("267befca-9ee4-4325-a85a-74734db30d88"));
 
             var coachingCourseService = new CoachingCourseService(
                 courseRepo,

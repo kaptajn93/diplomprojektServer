@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Net.Http;
+using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Responses;
 
 namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Controllers
 {
@@ -25,27 +28,48 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
         public UserDto CurrentUser()
         {
             var userRepo = new UserRepositoryDocumentDB();
-            var usr = userRepo.GetAllItems().Last();
+            //var usr = userRepo.GetAllItems().Last();
+            var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
             return UserDtoConverter.ConvertToDTO(usr);
+        }
+
+        [Route("api/user/currentUser/resetCourseAdmission")]
+        [AcceptVerbs("Put")]
+        public void ResetCourseAdmission()
+        {
+            var coachingCourseService = new CoachingCourseService(
+                new CoachingCourseRepositoryDocumentDB(),
+                new ModuleResourceRepositoryDocumentDb(),
+                new CoachingModuleRepositoryDocumentDB(),
+                new CoachnigModuleExerciseResourceRepositoryDocumentDB(),
+                new UserRepositoryDocumentDB());
+
+            var userRepo = new UserRepositoryDocumentDB();
+            //var usr = userRepo.GetAllItems().Last();
+            var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
+            coachingCourseService.ResetCourse(usr, usr.CourseAdmissions.Single());
         }
 
         [Route("api/user/currentUser/results")]
         [AcceptVerbs("GET")]
-        public UserResultsDto UserResults()
+        public GetUserResultsResponse UserResults()
         {
 
             var userRepo = new UserRepositoryDocumentDB();
-            var usr = userRepo.GetAllItems().Last();
+            //var usr = userRepo.GetAllItems().Last();
+            var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
 
             //Load modules
             var coachingCourseRepository = new CoachingCourseRepositoryDocumentDB();
             var coachingModuleRepository = new CoachingModuleRepositoryDocumentDB();
+            var moduleGroupRepository = new ModuleGroupRepositoryDocumentDB();
 
             //TODO: Support multiple course admissions
             var course = coachingCourseRepository.GetCourseById(usr.CourseAdmissions.Single().CourseId);
             var modules = coachingModuleRepository.GetModulesWithIds(course.Modules.Select(m => m.ModuleReferenceId)).ToList();
+            var moduleGroups = moduleGroupRepository.GetItemsWithIds(course.ModuleGroups);
 
-            var userResults = new UserResultsDto()
+            var userResults = new GetUserResultsResponse()
             {
                 ModuleResults = modules.Select(m => {
                     var moduleResults = usr.CourseAdmissions.Single().Results.Where(r =>
@@ -58,11 +82,13 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
                         ModuleResults = moduleResults.Select(mr =>
                             UserDtoConverter.ConvertScoreCardDto(mr)).ToList()
                     };
-                }).ToList()
+                }).ToList(),
+                Groups = moduleGroups.Select(CoachingModuleDTOConverter.ConvertToDTO)
             };
 
             userResults.ActiveModule = userResults.ModuleResults.First(mr => mr.ModuleResults.Any(r => !r.IsCompleted)).Module;
             userResults.ActiveModuleIndex = modules.IndexOf(modules.Single(m => m.Id == userResults.ActiveModule.Id));
+
 
             return userResults;
         }
@@ -75,7 +101,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
                 throw new Exception("Scorecard ids does not match");
 
             var userRepo = new UserRepositoryDocumentDB();
-            var usr = userRepo.GetAllItems().Last();
+            //var usr = userRepo.GetAllItems().Last();
+            var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
 
             foreach (var admission in usr.CourseAdmissions)
             {
@@ -108,7 +135,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
                 throw new Exception("Scorecard ids does not match");
 
             var userRepo = new UserRepositoryDocumentDB();
-            var usr = userRepo.GetAllItems().Last();
+            //var usr = userRepo.GetAllItems().Last();
+            var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
 
             foreach (var admission in usr.CourseAdmissions)
             {
@@ -139,7 +167,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
                 throw new Exception("Scorecard ids does not match");
 
             var userRepo = new UserRepositoryDocumentDB();
-            var usr = userRepo.GetAllItems().Last();
+            //var usr = userRepo.GetAllItems().Last();
+            var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
 
             foreach (var admission in usr.CourseAdmissions)
             {
@@ -168,7 +197,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
                 throw new Exception("Scorecard ids does not match");
 
             var userRepo = new UserRepositoryDocumentDB();
-            var usr = userRepo.GetAllItems().Last();
+            //var usr = userRepo.GetAllItems().Last();
+            var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
 
             foreach (var admission in usr.CourseAdmissions)
             {
@@ -205,7 +235,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
         public ScoreCardDto GetExerciseResults(Guid exerciseId)
         {
             var userRepo = new UserRepositoryDocumentDB();
-            var usr = userRepo.GetAllItems().Last();
+            //var usr = userRepo.GetAllItems().Last();
+            var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
 
             foreach (var admission in usr.CourseAdmissions)
             {

@@ -25,6 +25,12 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         [JsonProperty(PropertyName = "modules")]
         public List<CoachingModuleReference> Modules { get; set; }
 
+        /// <summary>
+        /// Grouping of modules
+        /// </summary>
+        [JsonProperty(PropertyName = "ModuleGroups")]
+        public List<Guid> ModuleGroups { get; set; }
+
 
         public CoachingCourse(string name)
         {
