@@ -172,7 +172,57 @@ namespace BetterWays.Api.Tests.Courses
             moduleRep.SaveItem(md12);
 
             courseRep.SaveItem(course);
+        }
 
+        [TestMethod]
+        public void SetupModulePeptalk()
+        {
+            var courseRep = new CoachingCourseRepositoryDocumentDB();
+            var moduleRep = new CoachingModuleRepositoryDocumentDB();
+            var groupRep = new ModuleGroupRepositoryDocumentDB();
+
+            //Find modules
+            var allModules = moduleRep.GetAllItems();
+            Assert.AreEqual(allModules.Count(), 12);
+            
+            var md1 = allModules.Single(m => m.ModuleIndex == 0);
+            var md2 = allModules.Single(m => m.ModuleIndex == 1);
+            var md3 = allModules.Single(m => m.ModuleIndex == 2);
+            var md4 = allModules.Single(m => m.ModuleIndex == 3);
+            var md5 = allModules.Single(m => m.ModuleIndex == 4);
+            var md6 = allModules.Single(m => m.ModuleIndex == 5);
+            var md7 = allModules.Single(m => m.ModuleIndex == 6);
+            var md8 = allModules.Single(m => m.ModuleIndex == 7);
+            var md9 = allModules.Single(m => m.ModuleIndex == 8);
+            var md10 = allModules.Single(m => m.ModuleIndex == 9);
+            var md11 = allModules.Single(m => m.ModuleIndex == 10);
+            var md12 = allModules.Single(m => m.ModuleIndex == 11);
+
+            md1.Peptalk = "<p>Velkommen til Better Ways - vi hjælper dig med at finde vejen til dit nye job. Du er allerede godt på vej.</p><p>Dit kursus består af 12 moduler fordelt i 4 faser. Vi starter med at se på dit tidligere job og ligge en plan for den kommende tid. Hvis du har spørgsmål er du velkommen til at skrive til din coach. For at komme i gang skal du klikke på det første modul: Fyret. Hvad nu?</p>";
+            md2.Peptalk = "<p>Velkommen tilbage - du er nået til modul 2.<p></p>Husk at bevare optimismen. Din indstilling har betydning for hvordan du kommer videre.</p>";
+            md3.Peptalk = "<p>Velkommen tilbage - du er nået til modul 3 - det er nu tid til at finde ud af hvem du er.<br/>Hvordan går det med at følge din plan? Det kræver tålmodighed at indarbejde nye vaner.</p><p>Har du talt med din coach? Han/hun er klar til at hjælpe dig.</p>";
+            md4.Peptalk = "<p>Velkommen tilbage - du er nået til modul 2.<p>";
+            md5.Peptalk = "<p>Velkommen tilbage - du er nået til modul 2.<p>";
+            md6.Peptalk = "<p>Velkommen tilbage - du er nået til modul 2.<p>";
+            md7.Peptalk = "<p>Velkommen tilbage - du er nået til modul 2.<p>";
+            md8.Peptalk = "<p>Velkommen tilbage - du er nået til modul 2.<p>";
+            md9.Peptalk = "<p>Velkommen tilbage - du er nået til modul 2.<p>";
+            md10.Peptalk = "<p>Velkommen tilbage - du er nået til modul 2.<p>";
+            md11.Peptalk = "<p>Velkommen tilbage - du er nået til modul 2.<p>";
+            md12.Peptalk = "<p>Velkommen tilbage - du er nået til modul 2.<p>";
+
+            moduleRep.SaveItem(md1);
+            moduleRep.SaveItem(md2);
+            moduleRep.SaveItem(md3);
+            moduleRep.SaveItem(md4);
+            moduleRep.SaveItem(md5);
+            moduleRep.SaveItem(md6);
+            moduleRep.SaveItem(md7);
+            moduleRep.SaveItem(md8);
+            moduleRep.SaveItem(md9);
+            moduleRep.SaveItem(md10);
+            moduleRep.SaveItem(md11);
+            moduleRep.SaveItem(md12);
         }
 
     }

@@ -18,10 +18,16 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Short description, for display on the dashboard
+        /// Short description
         /// </summary>
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
+        
+        /// <summary>
+        /// Display on dashboard
+        /// </summary>
+        [JsonProperty(PropertyName = "peptalk")]
+        public string Peptalk { get; set; }
 
         /// <summary>
         /// The index of this module in the course
@@ -66,6 +72,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         {
             Name = name;
             Description = "";
+            Peptalk = "";
             Introduction = new CoachingModuleResourceReference(introduction.Id, introduction.RevisionHistory.ReferenceId);
             Exercise = new CoachingModuleResourceReference(exercise.Id, exercise.RevisionHistory.ReferenceId) ;
             Reflection =  new CoachingModuleResourceReference(reflection.Id, reflection.RevisionHistory.ReferenceId) ;

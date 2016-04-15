@@ -68,6 +68,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
 
             coachingModule.Name = request.CoachingModule.Name;
             coachingModule.Description = request.CoachingModule.Description;
+            coachingModule.Peptalk = request.CoachingModule.Peptalk;
             coachingModule.Introduction = new CoachingModuleResourceReference(introduction.Id, introduction.RevisionHistory.ReferenceId);
             coachingModule.Exercise = new CoachingModuleResourceReference(exercise.Id, exercise.RevisionHistory.ReferenceId);
             coachingModule.Reflection = new CoachingModuleResourceReference(reflection.Id, reflection.RevisionHistory.ReferenceId);

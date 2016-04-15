@@ -44,11 +44,11 @@ namespace BetterWays.Api.Tests.Courses
         public void CreateUser()
         {
             var usr = _userService.CreateUser(
-                "sto", 
-                "Simon", 
-                "Tobiasen", 
-                "1234", 
-                "sto@miracle.dk", 
+                "vsk@ak-samvirke.dk", 
+                "Verner", 
+                "Sand Kirk", 
+                "1234",
+                "vsk@ak-samvirke.dk", 
                 new List<string>());
             _testUserId = usr.Id;
             
@@ -113,7 +113,7 @@ namespace BetterWays.Api.Tests.Courses
             
             var userRepo = new UserRepositoryDocumentDB();
 
-            var foundUsr = userRepo.GetUserById(new Guid("267befca-9ee4-4325-a85a-74734db30d88"));
+            var foundUsr = userRepo.GetUserById(new Guid("b714ad9a-e474-4097-9280-b32e374429d4"));
 
             var coachingCourseService = new CoachingCourseService(
                 courseRepo,
