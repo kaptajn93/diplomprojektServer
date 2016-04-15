@@ -14,14 +14,15 @@ export default {
     backgroundColor: '#EFEFEF',
     accent1Color: '#EC9D5B',
     accent2Color: '#ECBF64',
+    widgetGreen: '#5A984B',
     accent3Color: Colors.grey500,
     textColor: Colors.darkBlack,
-    textColorMuted: ColorManipulator.fade(Colors.darkBlack, 0.8),
+    textColorMuted: ColorManipulator.fade(Colors.darkBlack, 0.6),
     alternateTextColor: Colors.white,
     alternateTextColorMuted: ColorManipulator.fade(Colors.white, 0.8),
     canvasColor: Colors.white,
     borderColor: Colors.grey300,
-    disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
+    disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.4),
     pickerHeaderColor: Colors.cyan500,
   }
 };

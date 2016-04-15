@@ -12606,35 +12606,35 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _LandingPage = __webpack_require__(713);
+	var _LandingPage = __webpack_require__(714);
 	
 	var _LandingPage2 = _interopRequireDefault(_LandingPage);
 	
-	var _Dashboard = __webpack_require__(738);
+	var _Dashboard = __webpack_require__(739);
 	
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 	
-	var _CourseModule = __webpack_require__(749);
+	var _CourseModule = __webpack_require__(755);
 	
 	var _CourseModule2 = _interopRequireDefault(_CourseModule);
 	
-	var _AdministrationModule = __webpack_require__(794);
+	var _AdministrationModule = __webpack_require__(800);
 	
 	var _AdministrationModule2 = _interopRequireDefault(_AdministrationModule);
 	
-	var _VideoReview = __webpack_require__(809);
+	var _VideoReview = __webpack_require__(815);
 	
 	var _VideoReview2 = _interopRequireDefault(_VideoReview);
 	
-	var _DialogModule = __webpack_require__(811);
+	var _DialogModule = __webpack_require__(817);
 	
 	var _DialogModule2 = _interopRequireDefault(_DialogModule);
 	
-	var _ExerciseResultPage = __webpack_require__(824);
+	var _ExerciseResultPage = __webpack_require__(830);
 	
 	var _ExerciseResultPage2 = _interopRequireDefault(_ExerciseResultPage);
 	
-	var _LoginPage = __webpack_require__(825);
+	var _LoginPage = __webpack_require__(831);
 	
 	var _LoginPage2 = _interopRequireDefault(_LoginPage);
 	
@@ -12653,6 +12653,10 @@
 	var _zIndex = __webpack_require__(618);
 	
 	var _zIndex2 = _interopRequireDefault(_zIndex);
+	
+	var _Theme = __webpack_require__(713);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -12679,7 +12683,7 @@
 	
 	document.body.style.margin = "0px";
 	document.body.style.padding = "0px";
-	document.body.style.background = "#FAFAFA";
+	document.body.style.background = _Theme2.default.palette.backgroundColor;
 	/*<IndexRoute component={LandingPage}/>*/
 	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRedux.Provider,
@@ -40075,8 +40079,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//const apiUrl = 'http://localhost:58982/api'
-	var apiUrl = 'http://betterways-test.azurewebsites.net/api';
+	var apiUrl = 'http://localhost:58982/api';
+	//const apiUrl = 'http://betterways-test.azurewebsites.net/api'
 	
 	var REQUEST_API_ALL_COURSES = exports.REQUEST_API_ALL_COURSES = 'REQUEST_API_ALL_COURSES';
 	function requestApiAllCourses() {
@@ -41829,10 +41833,31 @@
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
+	var _Theme = __webpack_require__(713);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
+	
+	var _themeManager = __webpack_require__(676);
+	
+	var _themeManager2 = _interopRequireDefault(_themeManager);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var App = _react2.default.createClass({
 	  displayName: 'App',
+	
+	
+	  //the key passed through context must be called "muiTheme"
+	  childContextTypes: {
+	    muiTheme: _react2.default.PropTypes.object
+	  },
+	
+	  getChildContext: function getChildContext() {
+	    return {
+	      muiTheme: _themeManager2.default.getMuiTheme(_Theme2.default)
+	    };
+	  },
+	
 	
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -55609,8 +55634,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	//const apiUrl = 'http://localhost:58982/api'
-	var apiUrl = 'http://betterways-test.azurewebsites.net/api';
+	var apiUrl = 'http://localhost:58982/api';
+	//const apiUrl = 'http://betterways-test.azurewebsites.net/api'
 	
 	// Add a request interceptor
 	_axios2.default.interceptors.request.use(function (config) {
@@ -55688,6 +55713,8 @@
 	        sessionStorage.setItem('sessionToken', response.data.token);
 	        sessionStorage.setItem('sessionUser', response.data.user.id);
 	        sessionStorage.setItem('sessionUserRole', response.data.user.role);
+	        sessionStorage.setItem('sessionFirstName', response.data.user.firstName);
+	        sessionStorage.setItem('sessionLastName', response.data.user.lastName);
 	        sessionStorage.setItem('isLoggedIn', true);
 	        // Dispatch the success action
 	        dispatch(receiveLogin(response));
@@ -56803,11 +56830,63 @@
 	  value: true
 	});
 	
+	var _colors = __webpack_require__(614);
+	
+	var _colors2 = _interopRequireDefault(_colors);
+	
+	var _colorManipulator = __webpack_require__(615);
+	
+	var _colorManipulator2 = _interopRequireDefault(_colorManipulator);
+	
+	var _spacing = __webpack_require__(617);
+	
+	var _spacing2 = _interopRequireDefault(_spacing);
+	
+	var _zIndex = __webpack_require__(618);
+	
+	var _zIndex2 = _interopRequireDefault(_zIndex);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = {
+	  spacing: _spacing2.default,
+	  zIndex: _zIndex2.default,
+	  fontFamily: 'Roboto, sans-serif',
+	  palette: {
+	    primary1Color: '#6597AF', //Colors.cyan500,
+	    primary2Color: '#AAC3Cf', //'#A8B3B8',
+	    primary3Color: _colors2.default.lightBlack,
+	    backgroundColor: '#EFEFEF',
+	    accent1Color: '#EC9D5B',
+	    accent2Color: '#ECBF64',
+	    widgetGreen: '#5A984B',
+	    accent3Color: _colors2.default.grey500,
+	    textColor: _colors2.default.darkBlack,
+	    textColorMuted: _colorManipulator2.default.fade(_colors2.default.darkBlack, 0.6),
+	    alternateTextColor: _colors2.default.white,
+	    alternateTextColorMuted: _colorManipulator2.default.fade(_colors2.default.white, 0.8),
+	    canvasColor: _colors2.default.white,
+	    borderColor: _colors2.default.grey300,
+	    disabledColor: _colorManipulator2.default.fade(_colors2.default.darkBlack, 0.4),
+	    pickerHeaderColor: _colors2.default.cyan500
+	  }
+	};
+
+/***/ },
+/* 714 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _react = __webpack_require__(264);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _FacebookButton = __webpack_require__(714);
+	var _FacebookButton = __webpack_require__(715);
 	
 	var _FacebookButton2 = _interopRequireDefault(_FacebookButton);
 	
@@ -56932,7 +57011,7 @@
 	exports.default = LandingPage;
 
 /***/ },
-/* 714 */
+/* 715 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56941,23 +57020,23 @@
 	   value: true
 	});
 	
-	var _getPrototypeOf = __webpack_require__(715);
+	var _getPrototypeOf = __webpack_require__(716);
 	
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 	
-	var _classCallCheck2 = __webpack_require__(719);
+	var _classCallCheck2 = __webpack_require__(720);
 	
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 	
-	var _createClass2 = __webpack_require__(720);
+	var _createClass2 = __webpack_require__(721);
 	
 	var _createClass3 = _interopRequireDefault(_createClass2);
 	
-	var _possibleConstructorReturn2 = __webpack_require__(723);
+	var _possibleConstructorReturn2 = __webpack_require__(724);
 	
 	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 	
-	var _inherits2 = __webpack_require__(732);
+	var _inherits2 = __webpack_require__(733);
 	
 	var _inherits3 = _interopRequireDefault(_inherits2);
 	
@@ -57038,33 +57117,33 @@
 	;
 
 /***/ },
-/* 715 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(716), __esModule: true };
-
-/***/ },
 /* 716 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(717);
-	module.exports = __webpack_require__(518).Object.getPrototypeOf;
+	module.exports = { "default": __webpack_require__(717), __esModule: true };
 
 /***/ },
 /* 717 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(718);
+	module.exports = __webpack_require__(518).Object.getPrototypeOf;
+
+/***/ },
+/* 718 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// 19.1.2.9 Object.getPrototypeOf(O)
 	var toObject = __webpack_require__(535);
 	
-	__webpack_require__(718)('getPrototypeOf', function($getPrototypeOf){
+	__webpack_require__(719)('getPrototypeOf', function($getPrototypeOf){
 	  return function getPrototypeOf(it){
 	    return $getPrototypeOf(toObject(it));
 	  };
 	});
 
 /***/ },
-/* 718 */
+/* 719 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// most Object methods by ES6 should accept primitives
@@ -57079,7 +57158,7 @@
 	};
 
 /***/ },
-/* 719 */
+/* 720 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -57093,14 +57172,14 @@
 	};
 
 /***/ },
-/* 720 */
+/* 721 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _defineProperty = __webpack_require__(721);
+	var _defineProperty = __webpack_require__(722);
 	
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 	
@@ -57125,13 +57204,13 @@
 	})();
 
 /***/ },
-/* 721 */
+/* 722 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(722), __esModule: true };
+	module.exports = { "default": __webpack_require__(723), __esModule: true };
 
 /***/ },
-/* 722 */
+/* 723 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var $ = __webpack_require__(523);
@@ -57140,14 +57219,14 @@
 	};
 
 /***/ },
-/* 723 */
+/* 724 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	exports.__esModule = true;
 	
-	var _typeof2 = __webpack_require__(724);
+	var _typeof2 = __webpack_require__(725);
 	
 	var _typeof3 = _interopRequireDefault(_typeof2);
 	
@@ -57162,12 +57241,12 @@
 	};
 
 /***/ },
-/* 724 */
+/* 725 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _Symbol = __webpack_require__(725)["default"];
+	var _Symbol = __webpack_require__(726)["default"];
 	
 	exports["default"] = function (obj) {
 	  return obj && obj.constructor === _Symbol ? "symbol" : typeof obj;
@@ -57176,21 +57255,21 @@
 	exports.__esModule = true;
 
 /***/ },
-/* 725 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(726), __esModule: true };
-
-/***/ },
 /* 726 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(727);
+	module.exports = { "default": __webpack_require__(727), __esModule: true };
+
+/***/ },
+/* 727 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(728);
 	__webpack_require__(684);
 	module.exports = __webpack_require__(518).Symbol;
 
 /***/ },
-/* 727 */
+/* 728 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57206,10 +57285,10 @@
 	  , setToStringTag = __webpack_require__(530)
 	  , uid            = __webpack_require__(533)
 	  , wks            = __webpack_require__(531)
-	  , keyOf          = __webpack_require__(728)
-	  , $names         = __webpack_require__(729)
-	  , enumKeys       = __webpack_require__(730)
-	  , isArray        = __webpack_require__(731)
+	  , keyOf          = __webpack_require__(729)
+	  , $names         = __webpack_require__(730)
+	  , enumKeys       = __webpack_require__(731)
+	  , isArray        = __webpack_require__(732)
 	  , anObject       = __webpack_require__(537)
 	  , toIObject      = __webpack_require__(689)
 	  , createDesc     = __webpack_require__(524)
@@ -57422,7 +57501,7 @@
 	setToStringTag(global.JSON, 'JSON', true);
 
 /***/ },
-/* 728 */
+/* 729 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var $         = __webpack_require__(523)
@@ -57437,7 +57516,7 @@
 	};
 
 /***/ },
-/* 729 */
+/* 730 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
@@ -57462,7 +57541,7 @@
 	};
 
 /***/ },
-/* 730 */
+/* 731 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// all enumerable object keys, includes symbols
@@ -57481,7 +57560,7 @@
 	};
 
 /***/ },
-/* 731 */
+/* 732 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.2.2 IsArray(argument)
@@ -57491,14 +57570,14 @@
 	};
 
 /***/ },
-/* 732 */
+/* 733 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _Object$create = __webpack_require__(733)["default"];
+	var _Object$create = __webpack_require__(734)["default"];
 	
-	var _Object$setPrototypeOf = __webpack_require__(735)["default"];
+	var _Object$setPrototypeOf = __webpack_require__(736)["default"];
 	
 	exports["default"] = function (subClass, superClass) {
 	  if (typeof superClass !== "function" && superClass !== null) {
@@ -57519,13 +57598,13 @@
 	exports.__esModule = true;
 
 /***/ },
-/* 733 */
+/* 734 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(734), __esModule: true };
+	module.exports = { "default": __webpack_require__(735), __esModule: true };
 
 /***/ },
-/* 734 */
+/* 735 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var $ = __webpack_require__(523);
@@ -57534,20 +57613,20 @@
 	};
 
 /***/ },
-/* 735 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(736), __esModule: true };
-
-/***/ },
 /* 736 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(737);
-	module.exports = __webpack_require__(518).Object.setPrototypeOf;
+	module.exports = { "default": __webpack_require__(737), __esModule: true };
 
 /***/ },
 /* 737 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(738);
+	module.exports = __webpack_require__(518).Object.setPrototypeOf;
+
+/***/ },
+/* 738 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.3.19 Object.setPrototypeOf(O, proto)
@@ -57555,7 +57634,7 @@
 	$export($export.S, 'Object', {setPrototypeOf: __webpack_require__(693).set});
 
 /***/ },
-/* 738 */
+/* 739 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57590,7 +57669,7 @@
 	
 	var _listItem2 = _interopRequireDefault(_listItem);
 	
-	var _divider = __webpack_require__(739);
+	var _divider = __webpack_require__(740);
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
@@ -57602,19 +57681,19 @@
 	
 	var _colors2 = _interopRequireDefault(_colors);
 	
-	var _insertChart = __webpack_require__(741);
+	var _insertChart = __webpack_require__(742);
 	
 	var _insertChart2 = _interopRequireDefault(_insertChart);
 	
-	var _comment = __webpack_require__(742);
+	var _comment = __webpack_require__(743);
 	
 	var _comment2 = _interopRequireDefault(_comment);
 	
-	var _playArrow = __webpack_require__(743);
+	var _playArrow = __webpack_require__(744);
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _search = __webpack_require__(744);
+	var _search = __webpack_require__(745);
 	
 	var _search2 = _interopRequireDefault(_search);
 	
@@ -57622,15 +57701,15 @@
 	
 	var _api = __webpack_require__(552);
 	
-	var _circularProgress = __webpack_require__(745);
+	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
-	var _chevronRight = __webpack_require__(746);
+	var _chevronRight = __webpack_require__(747);
 	
 	var _chevronRight2 = _interopRequireDefault(_chevronRight);
 	
-	var _chevronLeft = __webpack_require__(747);
+	var _chevronLeft = __webpack_require__(748);
 	
 	var _chevronLeft2 = _interopRequireDefault(_chevronLeft);
 	
@@ -57642,7 +57721,35 @@
 	
 	var _check2 = _interopRequireDefault(_check);
 	
-	var _ProgressWheel = __webpack_require__(748);
+	var _doneAll = __webpack_require__(749);
+	
+	var _doneAll2 = _interopRequireDefault(_doneAll);
+	
+	var _place = __webpack_require__(750);
+	
+	var _place2 = _interopRequireDefault(_place);
+	
+	var _personOutline = __webpack_require__(751);
+	
+	var _personOutline2 = _interopRequireDefault(_personOutline);
+	
+	var _expandMore = __webpack_require__(671);
+	
+	var _expandMore2 = _interopRequireDefault(_expandMore);
+	
+	var _expandLess = __webpack_require__(752);
+	
+	var _expandLess2 = _interopRequireDefault(_expandLess);
+	
+	var _Theme = __webpack_require__(713);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
+	
+	var _badge = __webpack_require__(753);
+	
+	var _badge2 = _interopRequireDefault(_badge);
+	
+	var _ProgressWheel = __webpack_require__(754);
 	
 	var _ProgressWheel2 = _interopRequireDefault(_ProgressWheel);
 	
@@ -57656,7 +57763,7 @@
 	
 	
 	var pageContainerStyle = {
-	  margin: '32px 20px'
+	  margin: '16px 20px'
 	};
 	
 	var courseContainerStyle = {
@@ -57669,7 +57776,7 @@
 	};
 	
 	var primaryText = {
-	  color: '#ff4081'
+	  color: _Theme2.default.palette.primary1Color
 	};
 	
 	var logoStyle = {
@@ -57704,7 +57811,8 @@
 	};
 	
 	var title = {
-	  marginBottom: '4px'
+	  marginBottom: '4px',
+	  marginTop: 0
 	};
 	
 	var cardArticleText = {
@@ -57716,8 +57824,6 @@
 	};
 	
 	var widgedStyle = {
-	  margin: '8px',
-	  backgroundColor: '#f9f9f9',
 	  padding: '20px 30px'
 	};
 	
@@ -57725,8 +57831,8 @@
 	  backgroundColor: 'transparent'
 	};
 	
-	var linkButton = {
-	  backgroundColor: '#ff4081'
+	var colStyle = {
+	  padding: '4 16'
 	};
 	
 	var Dashboard = _react2.default.createClass({
@@ -57740,6 +57846,10 @@
 	    window.location.assign("/#/module/" + this.state.currentModule.id);
 	  },
 	
+	  navigateToModule: function navigateToModule(i) {
+	    if (i <= this.state.activeModuleIndex) window.location.assign("/#/module/" + this.state.modules[i].module.id);
+	  },
+	
 	  navigateToDialog: function navigateToDialog(event) {
 	    window.location.assign("/#/dialog/");
 	  },
@@ -57751,10 +57861,44 @@
 	      isLoading: true
 	    });
 	    this.props.dispatch((0, _api.getCurrentUserResult)()).then(function (json) {
+	
+	      for (var i = 0; i < json.results.moduleResults.length; i++) {
+	
+	        json.results.moduleResults[i].isCompleted = !json.results.moduleResults[i].moduleResults.some(function (r, index) {
+	          return !r.isCompleted;
+	        });
+	        json.results.moduleResults[i].isActive = json.results.activeModuleIndex === i;
+	      }
+	
+	      //Separate into groups
+	      var groups = json.results.groups.map(function (g, index) {
+	        var modules = json.results.moduleResults.filter(function (m, index) {
+	          return m.module.groupId === g.groupId;
+	        });
+	        var isCompleted = !modules.some(function (m, index) {
+	          return !m.isCompleted;
+	        });
+	        var isActive = modules.some(function (m, index) {
+	          return m.isActive;
+	        });
+	
+	        return {
+	          name: g.groupName,
+	          description: g.groupDescription,
+	          modules: modules,
+	          isCompleted: isCompleted,
+	          isActive: isActive,
+	          groupNumber: index + 1,
+	          isOpen: isActive
+	        };
+	      });
+	
 	      _this.setState({
 	        results: json.results,
 	        modules: json.results.moduleResults,
+	        groups: groups,
 	        currentModule: json.results.activeModule,
+	        activeModule: json.results.activeModule,
 	        currentModuleResults: json.results.moduleResults[json.results.activeModuleIndex].moduleResults,
 	        currentModuleIndex: json.results.activeModuleIndex,
 	        activeModuleIndex: json.results.activeModuleIndex
@@ -57778,7 +57922,14 @@
 	    if (this.state.currentModuleIndex > 0) this.goToModule(this.state.currentModuleIndex - 1);
 	  },
 	
+	  openGroup: function openGroup(group) {
+	    group.isOpen = !group.isOpen;
+	    this.setState({});
+	  },
+	
 	  render: function render() {
+	    var _this2 = this;
+	
 	    var actionButton = this.state.activeModuleIndex === this.state.currentModuleIndex ? _react2.default.createElement(_raisedButton2.default, { label: 'Fortsæt', labelPosition: 'before', icon: _react2.default.createElement(_playArrow2.default, null), primary: true, onClick: this.navigateToCurrentModule }) : this.state.activeModuleIndex > this.state.currentModuleIndex ? _react2.default.createElement(_raisedButton2.default, { label: 'Se resultat', labelPosition: 'before', icon: _react2.default.createElement(_search2.default, null), secondary: true, onClick: this.navigateToCurrentModule }) : null;
 	
 	    var ExerciseResuts = this.state.currentModuleResults !== undefined ? this.state.currentModuleResults.map(function (i, index) {
@@ -57805,76 +57956,144 @@
 	      );
 	    }) : null;
 	
-	    var courseOverview = this.state.currentModule !== undefined ? _react2.default.createElement(
-	      'div',
-	      { style: { display: 'table' } },
-	      _react2.default.createElement(
+	    var groups = this.state.groups !== undefined ? this.state.groups.map(function (g, index) {
+	      return _react2.default.createElement(
 	        'div',
-	        { style: { display: 'table-row' } },
+	        { style: { color: !g.isActive ? _Theme2.default.palette.textColorMuted : _Theme2.default.palette.textColor } },
 	        _react2.default.createElement(
 	          'div',
-	          { style: { display: 'table-cell', width: '100%', verticalAlign: 'top' } },
-	          _react2.default.createElement(
-	            'div',
-	            { style: { display: 'flex' } },
-	            this.state.currentModuleIndex > 0 ? _react2.default.createElement(
-	              _flatButton2.default,
-	              { style: { width: 24, height: 24, minWidth: 24, marginRight: 8 }, disabled: this.state.currentModuleIndex === 0, onClick: this.previousModule },
-	              _react2.default.createElement(_chevronLeft2.default, { style: { width: 24, height: 24 } })
-	            ) : null,
-	            _react2.default.createElement(
-	              'h3',
-	              { style: smallTitle },
-	              'Modul ',
-	              this.state.currentModuleIndex + 1,
-	              '/',
-	              this.state.modules.length
-	            ),
-	            _react2.default.createElement(
-	              _flatButton2.default,
-	              { style: { width: 24, height: 24, minWidth: 24, marginLeft: 8 }, onClick: this.nextModule },
-	              _react2.default.createElement(_chevronRight2.default, { style: { width: 24, height: 24 } })
-	            )
-	          ),
+	          { style: {
+	              backgroundColor: _Theme2.default.palette.backgroundColor,
+	              display: 'flex', padding: '8 16', cursor: 'pointer',
+	              position: 'relative', boxShadow: index > 0 ? 'inset 0 5px 7px -7px rgba(0,0,0, 0.7)' : '' },
+	            onClick: _this2.openGroup.bind(_this2, g) },
 	          _react2.default.createElement(
 	            'h2',
-	            { style: bigSubtitle },
-	            this.state.currentModule.name
+	            { style: { margin: 0 } },
+	            g.groupNumber
 	          ),
 	          _react2.default.createElement(
-	            'p',
-	            { style: cardArticleText },
-	            this.state.currentModule.description
+	            'h4',
+	            { style: {
+	                fontWeight: g.isActive ? 'bold' : 'normal',
+	                margin: 0,
+	                marginLeft: 20,
+	                marginTop: 5
+	              } },
+	            g.name
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { style: { marginTop: 16 } },
-	            ExerciseResuts
+	            'span',
+	            { style: { marginRight: 0, marginLeft: 'auto', marginTop: 3 } },
+	            g.isCompleted ? _react2.default.createElement(_doneAll2.default, { style: { width: 24, height: 24 }, color: _Theme2.default.palette.widgetGreen }) : g.isActive ? _react2.default.createElement(_place2.default, { style: { width: 24, height: 24 }, color: _colors2.default.grey600 }) : null
 	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { style: { display: 'flex', marginTop: 16 } },
-	            actionButton
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { style: { display: 'table', width: '100%' } },
-	            _react2.default.createElement(
-	              'div',
-	              { style: { display: 'table-row', width: '100%' } },
-	              _react2.default.createElement('div', { style: { display: 'table-cell', width: '50%' } }),
-	              _react2.default.createElement('div', { style: { display: 'table-cell' } }),
-	              _react2.default.createElement('div', { style: { display: 'table-cell', width: '50%' } })
-	            )
-	          )
+	          _react2.default.createElement('div', { style: {
+	              position: 'absolute',
+	              left: 0,
+	              bottom: -22,
+	              width: 0,
+	              height: 0,
+	              borderLeft: '22px solid transparent',
+	              borderRight: '22px solid transparent',
+	
+	              borderTop: '22px solid ' + _Theme2.default.palette.backgroundColor
+	            } })
 	        ),
-	        _react2.default.createElement('div', { style: { display: 'table-cell', verticalAlign: 'middle' } }),
 	        _react2.default.createElement(
 	          'div',
-	          { style: { display: 'table-cell', width: 140 } },
-	          _react2.default.createElement(_ProgressWheel2.default, { width: 150, height: 150, currentModule: this.state.activeModuleIndex, maxModules: this.state.modules.length })
+	          { style: { padding: '20 50', background: 'white', display: 'flex' } },
+	          g.isOpen ? _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'p',
+	              { style: { margin: 0 } },
+	              g.description
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { style: { marginTop: 32, marginBottom: 12 } },
+	              g.modules.map(function (m, index) {
+	                return _react2.default.createElement(
+	                  _raisedButton2.default,
+	                  { onClick: _this2.navigateToModule.bind(_this2, m.module.moduleIndex), secondary: m.isCompleted, primary: m.isActive, style: { margin: '4 0', width: '100%', padding: 0 } },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: { height: '100%', width: '100%', textAlign: 'left' } },
+	                    _react2.default.createElement(
+	                      'div',
+	                      { style: { display: 'flex', padding: '8 16', color: m.isCompleted || m.isActive ? _Theme2.default.palette.alternateTextColor : _Theme2.default.palette.textColorMuted } },
+	                      _react2.default.createElement(_badge2.default, {
+	                        style: { padding: '0px 20px 0px 0px', marginTop: -2 },
+	                        badgeStyle: { fontWeight: 'bold',
+	                          color: m.isActive ? _Theme2.default.palette.accent1Color : m.isCompleted ? _Theme2.default.palette.primary1Color : _Theme2.default.palette.alternateTextColor,
+	                          background: !m.isActive && !m.isCompleted ? _Theme2.default.palette.primary2Color : _Theme2.default.palette.alternateTextColor
+	                        },
+	                        badgeContent: m.module.moduleIndex + 1,
+	                        secondary: !m.isCompleted && !m.isActive ? true : false
+	                      }),
+	                      _react2.default.createElement(
+	                        'div',
+	                        { style: { width: '100%', marginTop: 1, marginLeft: 6 } },
+	                        _react2.default.createElement(
+	                          'span',
+	                          { style: { marginLeft: 8 } },
+	                          m.module.name
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'div',
+	                        { style: { width: '50%', textAlign: 'right', marginTop: -2 } },
+	                        m.isCompleted ? _react2.default.createElement(_check2.default, { style: { width: 24, height: 24 }, color: _colors2.default.white }) : m.isActive ? _react2.default.createElement(
+	                          'div',
+	                          null,
+	                          ' ',
+	                          _react2.default.createElement(
+	                            'span',
+	                            { style: { marginLeft: 8, color: _Theme2.default.palette.alternateTextColorMuted } },
+	                            m.module.moduleIndex === 0 ? _react2.default.createElement(
+	                              'span',
+	                              null,
+	                              'Start her'
+	                            ) : _react2.default.createElement(
+	                              'span',
+	                              null,
+	                              'Fortsæt her'
+	                            )
+	                          ),
+	                          ' ',
+	                          _react2.default.createElement(_playArrow2.default, { style: { width: 24, height: 24, marginBottom: -6 }, color: _colors2.default.white }),
+	                          ' '
+	                        ) : null
+	                      )
+	                    )
+	                  )
+	                );
+	              })
+	            )
+	          ) : _react2.default.createElement(
+	            'div',
+	            { style: { width: '100%' } },
+	            g.modules.map(function (m, index) {
+	              return _react2.default.createElement(_badge2.default, {
+	                style: { padding: '0px 20px 0px 0px', marginTop: -2, marginLeft: 8 }, badgeStyle: { fontWeight: 'bold', background: m.isActive || m.isCompleted ? _Theme2.default.palette.primary1Color : _Theme2.default.palette.primary2Color },
+	                badgeContent: m.module.moduleIndex + 1,
+	                secondary: true });
+	            })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { marginRight: -24 } },
+	            g.isOpen ? _react2.default.createElement(_expandLess2.default, { style: { position: 'relative', right: -10, cursor: 'pointer' }, onClick: _this2.openGroup.bind(_this2, g) }) : _react2.default.createElement(_expandMore2.default, { style: { position: 'relative', right: -10, cursor: 'pointer' }, onClick: _this2.openGroup.bind(_this2, g) })
+	          )
 	        )
-	      )
+	      );
+	    }) : null;
+	
+	    var courseOverview = this.state.currentModule !== undefined ? _react2.default.createElement(
+	      'div',
+	      null,
+	      groups
 	    ) : _react2.default.createElement(
 	      'div',
 	      { style: { textAlign: 'center' } },
@@ -57889,104 +58108,128 @@
 	      _react2.default.createElement(
 	        Row,
 	        null,
-	        _react2.default.createElement(Col, { xs: 0, sm: 0, md: 2, lg: 2 }),
+	        _react2.default.createElement(Col, { xs: 0, sm: 0, md: 1, lg: 2 }),
 	        _react2.default.createElement(
 	          Col,
-	          { xs: 12, sm: 12, md: 8, lg: 8 },
+	          { xs: 12, sm: 12, md: 10, lg: 8 },
 	          _react2.default.createElement(
-	            _paper2.default,
-	            { style: courseContainerStyle },
+	            Row,
+	            null,
 	            _react2.default.createElement(
-	              'div',
-	              { style: paddingStyle },
+	              Col,
+	              { style: colStyle, xs: 12, sm: 12, md: 12, lg: 12 },
 	              _react2.default.createElement(
-	                Row,
+	                'div',
+	                { style: { padding: '16 48', background: _Theme2.default.palette.primary1Color, color: _Theme2.default.palette.alternateTextColor } },
+	                _react2.default.createElement(
+	                  'h3',
+	                  { style: { color: _Theme2.default.palette.alternateTextColor } },
+	                  'Hej ',
+	                  sessionStorage.sessionFirstName
+	                ),
+	                _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: this.state.activeModule !== undefined ? this.state.activeModule.peptalk : '' } })
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            Row,
+	            { style: { marginTop: 32 } },
+	            _react2.default.createElement(
+	              Col,
+	              { style: colStyle, xs: 12, sm: 12, md: 12, lg: 7 },
+	              _react2.default.createElement(
+	                _paper2.default,
+	                null,
+	                courseOverview
+	              )
+	            ),
+	            _react2.default.createElement(
+	              Col,
+	              { style: colStyle, xs: 12, sm: 12, md: 12, lg: 5 },
+	              _react2.default.createElement(
+	                _paper2.default,
 	                null,
 	                _react2.default.createElement(
-	                  Col,
-	                  { xs: 12, sm: 12, md: 12, lg: 12 },
+	                  'div',
+	                  { style: {
+	                      backgroundColor: _Theme2.default.palette.backgroundColor,
+	                      display: 'flex', padding: '8 16' } },
+	                  _react2.default.createElement(_comment2.default, { style: { height: '29px', width: '29px' }, color: _colors2.default.grey500 }),
 	                  _react2.default.createElement(
-	                    'h1',
-	                    { style: title },
-	                    'Velkommen til Better ',
-	                    _react2.default.createElement(
-	                      'span',
-	                      { style: primaryText },
-	                      'W'
-	                    ),
-	                    'ays'
-	                  ),
-	                  _react2.default.createElement(
-	                    'h3',
-	                    { style: sloganStyle },
-	                    'Din vej til en ny fremtid'
-	                  ),
-	                  _react2.default.createElement('hr', null)
-	                )
-	              ),
-	              _react2.default.createElement(
-	                Row,
-	                { style: noMargin },
-	                _react2.default.createElement(
-	                  Col,
-	                  { xs: 12, sm: 12, md: 12, lg: 7 },
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: widgedStyle },
-	                    courseOverview
+	                    'h4',
+	                    { style: {
+	                        fontWeight: 'normal',
+	                        margin: 0,
+	                        marginLeft: 20,
+	                        marginTop: 5
+	                      } },
+	                    'Samtaler'
 	                  )
 	                ),
 	                _react2.default.createElement(
-	                  Col,
-	                  { xs: 12, sm: 12, md: 12, lg: 5 },
+	                  'div',
+	                  { style: { padding: '16 24' } },
+	                  _react2.default.createElement(
+	                    _list2.default,
+	                    { style: transparentBackground },
+	                    _react2.default.createElement(_listItem2.default, { onClick: this.navigateToDialog,
+	                      leftAvatar: _react2.default.createElement(_avatar2.default, { src: 'assets/tine.jpg' }),
+	                      primaryText: 'Fra Tine',
+	                      secondaryText: _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        _react2.default.createElement(
+	                          'span',
+	                          null,
+	                          'Din coach'
+	                        ),
+	                        '  --',
+	                        _react2.default.createElement(
+	                          'span',
+	                          { style: { color: _colors2.default.darkBlack } },
+	                          'Jeg er din coach og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.'
+	                        )
+	                      ),
+	                      secondaryTextLines: 2
+	                    })
+	                  ),
 	                  _react2.default.createElement(
 	                    'div',
-	                    { style: widgedStyle },
-	                    _react2.default.createElement(
-	                      'h3',
-	                      { style: title },
-	                      _react2.default.createElement(_comment2.default, { style: { height: '20px' }, color: _colors2.default.grey500 }),
-	                      ' Samtaler'
-	                    ),
-	                    _react2.default.createElement(
-	                      'h5',
-	                      { style: widgedSubheaderStyle },
-	                      'Fra Tine, Jan 28, 2016'
-	                    ),
-	                    _react2.default.createElement('hr', null),
-	                    _react2.default.createElement(
-	                      _list2.default,
-	                      { style: transparentBackground },
-	                      _react2.default.createElement(_listItem2.default, { onClick: this.navigateToDialog,
-	                        leftAvatar: _react2.default.createElement(_avatar2.default, { src: 'assets/tine.jpg' }),
-	                        primaryText: _react2.default.createElement(
-	                          'div',
-	                          null,
-	                          _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            'Hej Jørgen'
-	                          ),
-	                          _react2.default.createElement(
-	                            'p',
-	                            { style: { marginBottom: '0' } },
-	                            'Jeg er din coach og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.'
-	                          )
-	                        )
-	                      })
-	                    ),
-	                    _react2.default.createElement(
-	                      'div',
-	                      null,
-	                      _react2.default.createElement(_flatButton2.default, { label: 'Skriv til Tine', secondary: true, onMouseUp: this.navigateToDialog })
-	                    )
+	                    null,
+	                    _react2.default.createElement(_flatButton2.default, { label: 'Skriv til Tine', secondary: true, onMouseUp: this.navigateToDialog })
 	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                _paper2.default,
+	                { style: { marginTop: 32 } },
+	                _react2.default.createElement(
+	                  'div',
+	                  { style: {
+	                      backgroundColor: _Theme2.default.palette.backgroundColor,
+	                      display: 'flex', padding: '8 16' } },
+	                  _react2.default.createElement(_personOutline2.default, { style: { height: '29px', width: '29px' }, color: _colors2.default.grey500 }),
+	                  _react2.default.createElement(
+	                    'h4',
+	                    { style: {
+	                        fontWeight: 'normal',
+	                        margin: 0,
+	                        marginLeft: 20,
+	                        marginTop: 5
+	                      } },
+	                    'Dit better ways'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { style: { padding: '16 16' } },
+	                  _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: '<div data-oembed-url="https://vimeo.com/162963147"> <div> <div style="left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;"><iframe allowfullscreen="true" frameborder="0" mozallowfullscreen="true" src="//player.vimeo.com/video/162963147?byline=0&amp;badge=0&amp;portrait=0&amp;title=0" style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;" webkitallowfullscreen="true"></iframe></div> </div> </div>' } })
 	                )
 	              )
 	            )
 	          )
 	        ),
-	        _react2.default.createElement(Col, { xs: 0, sm: 0, md: 2, lg: 2 })
+	        _react2.default.createElement(Col, { xs: 0, sm: 0, md: 1, lg: 2 })
 	      )
 	    );
 	  }
@@ -57997,7 +58240,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 739 */
+/* 740 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58012,7 +58255,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _muiThemeable = __webpack_require__(740);
+	var _muiThemeable = __webpack_require__(741);
 	
 	var _muiThemeable2 = _interopRequireDefault(_muiThemeable);
 	
@@ -58079,7 +58322,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 740 */
+/* 741 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58126,7 +58369,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 741 */
+/* 742 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58167,7 +58410,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 742 */
+/* 743 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58208,7 +58451,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 743 */
+/* 744 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58249,7 +58492,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 744 */
+/* 745 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58290,7 +58533,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 745 */
+/* 746 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58565,7 +58808,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 746 */
+/* 747 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58606,7 +58849,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 747 */
+/* 748 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58647,7 +58890,336 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 748 */
+/* 749 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAddonsPureRenderMixin = __webpack_require__(634);
+	
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+	
+	var _svgIcon = __webpack_require__(666);
+	
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ActionDoneAll = _react2.default.createClass({
+	  displayName: 'ActionDoneAll',
+	
+	  mixins: [_reactAddonsPureRenderMixin2.default],
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      _svgIcon2.default,
+	      this.props,
+	      _react2.default.createElement('path', { d: 'M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z' })
+	    );
+	  }
+	});
+	
+	exports.default = ActionDoneAll;
+	module.exports = exports['default'];
+
+/***/ },
+/* 750 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAddonsPureRenderMixin = __webpack_require__(634);
+	
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+	
+	var _svgIcon = __webpack_require__(666);
+	
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var MapsPlace = _react2.default.createClass({
+	  displayName: 'MapsPlace',
+	
+	  mixins: [_reactAddonsPureRenderMixin2.default],
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      _svgIcon2.default,
+	      this.props,
+	      _react2.default.createElement('path', { d: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z' })
+	    );
+	  }
+	});
+	
+	exports.default = MapsPlace;
+	module.exports = exports['default'];
+
+/***/ },
+/* 751 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAddonsPureRenderMixin = __webpack_require__(634);
+	
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+	
+	var _svgIcon = __webpack_require__(666);
+	
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SocialPersonOutline = _react2.default.createClass({
+	  displayName: 'SocialPersonOutline',
+	
+	  mixins: [_reactAddonsPureRenderMixin2.default],
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      _svgIcon2.default,
+	      this.props,
+	      _react2.default.createElement('path', { d: 'M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z' })
+	    );
+	  }
+	});
+	
+	exports.default = SocialPersonOutline;
+	module.exports = exports['default'];
+
+/***/ },
+/* 752 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAddonsPureRenderMixin = __webpack_require__(634);
+	
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+	
+	var _svgIcon = __webpack_require__(666);
+	
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var NavigationExpandLess = _react2.default.createClass({
+	  displayName: 'NavigationExpandLess',
+	
+	  mixins: [_reactAddonsPureRenderMixin2.default],
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      _svgIcon2.default,
+	      this.props,
+	      _react2.default.createElement('path', { d: 'M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z' })
+	    );
+	  }
+	});
+	
+	exports.default = NavigationExpandLess;
+	module.exports = exports['default'];
+
+/***/ },
+/* 753 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _typography = __webpack_require__(632);
+	
+	var _typography2 = _interopRequireDefault(_typography);
+	
+	var _getMuiTheme = __webpack_require__(596);
+	
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+	
+	var _stylePropable = __webpack_require__(573);
+	
+	var _stylePropable2 = _interopRequireDefault(_stylePropable);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	// Badge
+	var Badge = _react2.default.createClass({
+	  displayName: 'Badge',
+	
+	  propTypes: {
+	    /**
+	     * This is the content rendered within the badge.
+	     */
+	    badgeContent: _react2.default.PropTypes.node.isRequired,
+	
+	    /**
+	     * Override the inline-styles of the badge element.
+	     */
+	    badgeStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * The badge will be added relativelty to this node.
+	     */
+	    children: _react2.default.PropTypes.node,
+	
+	    /**
+	     * The css class name of the root element.
+	     */
+	    className: _react2.default.PropTypes.string,
+	
+	    /**
+	     * If true, the badge will use the primary badge colors.
+	     */
+	    primary: _react2.default.PropTypes.bool,
+	
+	    /**
+	     * If true, the badge will use the secondary badge colors.
+	     */
+	    secondary: _react2.default.PropTypes.bool,
+	
+	    /**
+	     * Override the inline-styles of the root element.
+	     */
+	    style: _react2.default.PropTypes.object
+	  },
+	  contextTypes: {
+	    muiTheme: _react2.default.PropTypes.object
+	  },
+	  //for passing default theme context to children
+	  childContextTypes: {
+	    muiTheme: _react2.default.PropTypes.object
+	  },
+	  mixins: [_stylePropable2.default],
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      primary: false,
+	      secondary: false
+	    };
+	  },
+	  getInitialState: function getInitialState() {
+	    return {
+	      muiTheme: this.context.muiTheme || (0, _getMuiTheme2.default)()
+	    };
+	  },
+	  getChildContext: function getChildContext() {
+	    return {
+	      muiTheme: this.state.muiTheme
+	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+	    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+	    this.setState({
+	      muiTheme: newMuiTheme
+	    });
+	  },
+	  getStyles: function getStyles() {
+	    var theme = this.state.muiTheme.badge;
+	
+	    var badgeBackgroundColor = this.props.primary ? theme.primaryColor : this.props.secondary ? theme.secondaryColor : theme.color;
+	
+	    var badgeTextColor = this.props.primary ? theme.primaryTextColor : this.props.secondary ? theme.secondaryTextColor : theme.textColor;
+	
+	    var radius = 12;
+	    var radius2x = Math.floor(2 * radius);
+	
+	    return {
+	      root: {
+	        position: 'relative',
+	        display: 'inline-block',
+	        padding: [radius2x + 'px', radius2x + 'px', radius + 'px', radius + 'px'].join(' ')
+	      },
+	      badge: {
+	        display: 'flex',
+	        flexDirection: 'row',
+	        flexWrap: 'wrap',
+	        justifyContent: 'center',
+	        alignContent: 'center',
+	        alignItems: 'center',
+	        position: 'absolute',
+	        top: 0,
+	        right: 0,
+	        fontWeight: _typography2.default.fontWeightMedium,
+	        fontSize: radius,
+	        width: radius2x,
+	        height: radius2x,
+	        borderRadius: '50%',
+	        backgroundColor: badgeBackgroundColor,
+	        color: badgeTextColor
+	      }
+	    };
+	  },
+	  render: function render() {
+	    var _props = this.props;
+	    var style = _props.style;
+	    var children = _props.children;
+	    var badgeContent = _props.badgeContent;
+	    var badgeStyle = _props.badgeStyle;
+	
+	    var other = _objectWithoutProperties(_props, ['style', 'children', 'badgeContent', 'badgeStyle']);
+	
+	    var styles = this.getStyles();
+	
+	    return _react2.default.createElement(
+	      'div',
+	      _extends({}, other, { style: this.prepareStyles(styles.root, style) }),
+	      children,
+	      _react2.default.createElement(
+	        'span',
+	        { style: this.prepareStyles(styles.badge, badgeStyle) },
+	        badgeContent
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = Badge;
+	module.exports = exports['default'];
+
+/***/ },
+/* 754 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58751,7 +59323,7 @@
 	exports.default = ProgressWheel;
 
 /***/ },
-/* 749 */
+/* 755 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58766,11 +59338,11 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _tabs = __webpack_require__(750);
+	var _tabs = __webpack_require__(756);
 	
 	var _tabs2 = _interopRequireDefault(_tabs);
 	
-	var _tab = __webpack_require__(753);
+	var _tab = __webpack_require__(759);
 	
 	var _tab2 = _interopRequireDefault(_tab);
 	
@@ -58778,19 +59350,19 @@
 	
 	var _fontIcon2 = _interopRequireDefault(_fontIcon);
 	
-	var _flightTakeoff = __webpack_require__(754);
+	var _flightTakeoff = __webpack_require__(760);
 	
 	var _flightTakeoff2 = _interopRequireDefault(_flightTakeoff);
 	
-	var _card = __webpack_require__(755);
+	var _card = __webpack_require__(761);
 	
 	var _card2 = _interopRequireDefault(_card);
 	
-	var _cardActions = __webpack_require__(759);
+	var _cardActions = __webpack_require__(765);
 	
 	var _cardActions2 = _interopRequireDefault(_cardActions);
 	
-	var _cardHeader = __webpack_require__(760);
+	var _cardHeader = __webpack_require__(766);
 	
 	var _cardHeader2 = _interopRequireDefault(_cardHeader);
 	
@@ -58798,7 +59370,7 @@
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
 	
-	var _cardText = __webpack_require__(761);
+	var _cardText = __webpack_require__(767);
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
 	
@@ -58806,17 +59378,21 @@
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _CourseModuleInfo = __webpack_require__(762);
+	var _CourseModuleInfo = __webpack_require__(768);
 	
 	var _CourseModuleInfo2 = _interopRequireDefault(_CourseModuleInfo);
 	
-	var _CourseModuleExperiment = __webpack_require__(763);
+	var _CourseModuleExperiment = __webpack_require__(769);
 	
 	var _CourseModuleExperiment2 = _interopRequireDefault(_CourseModuleExperiment);
 	
-	var _CourseModuleReflection = __webpack_require__(791);
+	var _CourseModuleReflection = __webpack_require__(797);
 	
 	var _CourseModuleReflection2 = _interopRequireDefault(_CourseModuleReflection);
+	
+	var _Theme = __webpack_require__(713);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
 	
 	var _api = __webpack_require__(552);
 	
@@ -58905,7 +59481,7 @@
 	    var styles = {
 	      default_tab: {
 	        color: 'black',
-	        backgroundColor: '#F0F0F0',
+	        backgroundColor: _Theme2.default.palette.backgroundColor,
 	        fontWeight: 400
 	      },
 	      active_tab: {
@@ -58930,70 +59506,100 @@
 	          Col,
 	          { xs: 12, sm: 12, md: 8, lg: 8 },
 	          _react2.default.createElement(
-	            _paper2.default,
-	            { style: courseContainerStyle },
+	            Row,
+	            null,
 	            _react2.default.createElement(
-	              'div',
-	              { style: paddingStyle },
-	              this.state.moduleIndex >= 0 ? _react2.default.createElement(
-	                'h4',
-	                { style: moduleNumStyle },
-	                'Modul ',
-	                this.state.moduleIndex + 1,
-	                '/12'
-	              ) : null,
+	              Col,
+	              { xs: 12, sm: 12, md: 12, lg: 12 },
 	              _react2.default.createElement(
-	                'h1',
-	                { style: moduleNameStyle },
-	                this.state.moduleName
+	                'div',
+	                { style: { padding: '16 48', background: _Theme2.default.palette.primary1Color, color: _Theme2.default.palette.alternateTextColor } },
+	                _react2.default.createElement(
+	                  'h3',
+	                  { style: { color: _Theme2.default.palette.alternateTextColor } },
+	                  'Velkommen til ',
+	                  this.state.moduleIndex + 1,
+	                  '. modul'
+	                ),
+	                _react2.default.createElement(
+	                  'p',
+	                  null,
+	                  this.state.module !== undefined ? this.state.module.description : ''
+	                ),
+	                _react2.default.createElement(
+	                  'p',
+	                  null,
+	                  'Vi starter med at give dig ny viden, efterfulgt af et eksperiment. Når du har gennemført eksperimentet slutter vi af med en reflektionssøvelse.'
+	                )
 	              )
-	            ),
+	            )
+	          ),
+	          _react2.default.createElement(
+	            Row,
+	            { style: { marginTop: 8 } },
 	            _react2.default.createElement(
-	              _tabs2.default,
-	              null,
+	              Col,
+	              { xs: 12, sm: 12, md: 12, lg: 12 },
 	              _react2.default.createElement(
-	                _tab2.default,
-	                { style: styles.tab[0],
-	                  icon: _react2.default.createElement(
-	                    _fontIcon2.default,
-	                    { style: iconStyle, color: 'DarkGray', className: 'material-icons' },
-	                    'wb_incandescent'
-	                  ),
-	                  label: 'VIDEN' },
+	                _paper2.default,
+	                { style: courseContainerStyle },
 	                _react2.default.createElement(
 	                  'div',
 	                  { style: paddingStyle },
-	                  _react2.default.createElement(_CourseModuleInfo2.default, { resourceId: this.state.introduction })
-	                )
-	              ),
-	              _react2.default.createElement(
-	                _tab2.default,
-	                { style: styles.tab[1],
-	                  icon: _react2.default.createElement(
-	                    _fontIcon2.default,
-	                    { style: iconStyle, color: 'DarkGray', className: 'material-icons' },
-	                    'pan_tool'
-	                  ),
-	                  label: 'EKSPERIMENT' },
+	                  _react2.default.createElement(
+	                    'h1',
+	                    { style: moduleNameStyle },
+	                    this.state.moduleName
+	                  )
+	                ),
 	                _react2.default.createElement(
-	                  'div',
-	                  { style: paddingStyle },
-	                  _react2.default.createElement(_CourseModuleExperiment2.default, { onExerciseGoalUpdated: this.onExerciseGoalUpdated, exerciseGoalText: this.state.exerciseGoalText, exercisesStatusChanged: this.exercisesStatusChanged, resourceId: this.state.exercise })
-	                )
-	              ),
-	              _react2.default.createElement(
-	                _tab2.default,
-	                { style: styles.tab[2],
-	                  icon: _react2.default.createElement(
-	                    _fontIcon2.default,
-	                    { style: iconStyle, color: 'DarkGray', className: 'material-icons' },
-	                    'cloud'
+	                  _tabs2.default,
+	                  null,
+	                  _react2.default.createElement(
+	                    _tab2.default,
+	                    { style: styles.tab[0],
+	                      icon: _react2.default.createElement(
+	                        _fontIcon2.default,
+	                        { color: _Theme2.default.palette.disabledColor, className: 'material-icons' },
+	                        'wb_incandescent'
+	                      ),
+	                      label: 'VIDEN' },
+	                    _react2.default.createElement(
+	                      'div',
+	                      { style: paddingStyle },
+	                      _react2.default.createElement(_CourseModuleInfo2.default, { resourceId: this.state.introduction })
+	                    )
 	                  ),
-	                  label: 'REFLEKTION' },
-	                _react2.default.createElement(
-	                  'div',
-	                  { style: paddingStyle },
-	                  _react2.default.createElement(_CourseModuleExperiment2.default, { exerciseGoalText: this.state.exerciseGoalText, exercisesStatusChanged: this.exercisesStatusChanged, isActive: this.state.isExerciseCompleted, resourceId: this.state.reflection })
+	                  _react2.default.createElement(
+	                    _tab2.default,
+	                    { style: styles.tab[1],
+	                      icon: _react2.default.createElement(
+	                        _fontIcon2.default,
+	                        { color: _Theme2.default.palette.disabledColor, className: 'material-icons' },
+	                        'pan_tool'
+	                      ),
+	                      label: 'EKSPERIMENT' },
+	                    _react2.default.createElement(
+	                      'div',
+	                      { style: paddingStyle },
+	                      _react2.default.createElement(_CourseModuleExperiment2.default, { onExerciseGoalUpdated: this.onExerciseGoalUpdated, exerciseGoalText: this.state.exerciseGoalText, exercisesStatusChanged: this.exercisesStatusChanged, resourceId: this.state.exercise })
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    _tab2.default,
+	                    { style: styles.tab[2],
+	                      icon: _react2.default.createElement(
+	                        _fontIcon2.default,
+	                        { color: _Theme2.default.palette.disabledColor, className: 'material-icons' },
+	                        'cloud'
+	                      ),
+	                      label: 'REFLEKTION' },
+	                    _react2.default.createElement(
+	                      'div',
+	                      { style: paddingStyle },
+	                      _react2.default.createElement(_CourseModuleExperiment2.default, { exerciseGoalText: this.state.exerciseGoalText, exercisesStatusChanged: this.exercisesStatusChanged, isActive: this.state.isExerciseCompleted, resourceId: this.state.reflection })
+	                    )
+	                  )
 	                )
 	              )
 	            )
@@ -59010,7 +59616,7 @@
 	exports.default = CourseModule;
 
 /***/ },
-/* 750 */
+/* 756 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -59029,11 +59635,11 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _tabTemplate = __webpack_require__(751);
+	var _tabTemplate = __webpack_require__(757);
 	
 	var _tabTemplate2 = _interopRequireDefault(_tabTemplate);
 	
-	var _inkBar = __webpack_require__(752);
+	var _inkBar = __webpack_require__(758);
 	
 	var _inkBar2 = _interopRequireDefault(_inkBar);
 	
@@ -59291,7 +59897,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 751 */
+/* 757 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59358,7 +59964,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 752 */
+/* 758 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59463,7 +60069,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 753 */
+/* 759 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59647,7 +60253,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 754 */
+/* 760 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59688,7 +60294,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 755 */
+/* 761 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59711,7 +60317,7 @@
 	
 	var _stylePropable2 = _interopRequireDefault(_stylePropable);
 	
-	var _cardExpandable = __webpack_require__(756);
+	var _cardExpandable = __webpack_require__(762);
 	
 	var _cardExpandable2 = _interopRequireDefault(_cardExpandable);
 	
@@ -59839,7 +60445,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 756 */
+/* 762 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59852,11 +60458,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _keyboardArrowUp = __webpack_require__(757);
+	var _keyboardArrowUp = __webpack_require__(763);
 	
 	var _keyboardArrowUp2 = _interopRequireDefault(_keyboardArrowUp);
 	
-	var _keyboardArrowDown = __webpack_require__(758);
+	var _keyboardArrowDown = __webpack_require__(764);
 	
 	var _keyboardArrowDown2 = _interopRequireDefault(_keyboardArrowDown);
 	
@@ -59973,7 +60579,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 757 */
+/* 763 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60014,7 +60620,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 758 */
+/* 764 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60055,7 +60661,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 759 */
+/* 765 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60154,7 +60760,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 760 */
+/* 766 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60315,7 +60921,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 761 */
+/* 767 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60409,7 +61015,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 762 */
+/* 768 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60430,7 +61036,7 @@
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
 	
-	var _circularProgress = __webpack_require__(745);
+	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
@@ -60492,7 +61098,7 @@
 	exports.default = CourseModuleInfo;
 
 /***/ },
-/* 763 */
+/* 769 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60507,13 +61113,13 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _ExerciseSelector = __webpack_require__(764);
+	var _ExerciseSelector = __webpack_require__(770);
 	
 	var _ExerciseSelector2 = _interopRequireDefault(_ExerciseSelector);
 	
 	var _api = __webpack_require__(552);
 	
-	var _Camera = __webpack_require__(789);
+	var _Camera = __webpack_require__(795);
 	
 	var _Camera2 = _interopRequireDefault(_Camera);
 	
@@ -60529,7 +61135,7 @@
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _shareVideo = __webpack_require__(790);
+	var _shareVideo = __webpack_require__(796);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -60656,7 +61262,7 @@
 	</div>*/
 
 /***/ },
-/* 764 */
+/* 770 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60669,19 +61275,19 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _SortAndEvaluateExercise = __webpack_require__(765);
+	var _SortAndEvaluateExercise = __webpack_require__(771);
 	
 	var _SortAndEvaluateExercise2 = _interopRequireDefault(_SortAndEvaluateExercise);
 	
-	var _KPExplorerQuestionnaire = __webpack_require__(779);
+	var _KPExplorerQuestionnaire = __webpack_require__(785);
 	
 	var _KPExplorerQuestionnaire2 = _interopRequireDefault(_KPExplorerQuestionnaire);
 	
-	var _GoalExercise = __webpack_require__(787);
+	var _GoalExercise = __webpack_require__(793);
 	
 	var _GoalExercise2 = _interopRequireDefault(_GoalExercise);
 	
-	var _PromiseExercise = __webpack_require__(788);
+	var _PromiseExercise = __webpack_require__(794);
 	
 	var _PromiseExercise2 = _interopRequireDefault(_PromiseExercise);
 	
@@ -60729,7 +61335,7 @@
 	exports.default = ExerciseSelector;
 
 /***/ },
-/* 765 */
+/* 771 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60744,7 +61350,7 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _reactSortableMixin = __webpack_require__(766);
+	var _reactSortableMixin = __webpack_require__(772);
 	
 	var _reactSortableMixin2 = _interopRequireDefault(_reactSortableMixin);
 	
@@ -60756,19 +61362,19 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
-	var _playArrow = __webpack_require__(743);
+	var _playArrow = __webpack_require__(744);
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _done = __webpack_require__(768);
+	var _done = __webpack_require__(774);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
-	var _arrowForward = __webpack_require__(769);
+	var _arrowForward = __webpack_require__(775);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _arrowBack = __webpack_require__(770);
+	var _arrowBack = __webpack_require__(776);
 	
 	var _arrowBack2 = _interopRequireDefault(_arrowBack);
 	
@@ -60780,11 +61386,11 @@
 	
 	var _colors2 = _interopRequireDefault(_colors);
 	
-	var _textField = __webpack_require__(771);
+	var _textField = __webpack_require__(777);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
-	var _circularProgress = __webpack_require__(745);
+	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
@@ -61275,7 +61881,7 @@
 	exports.default = SortaAndEvaluateExercise;
 
 /***/ },
-/* 766 */
+/* 772 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -61287,10 +61893,10 @@
 		'use strict';
 	
 		if (typeof module != 'undefined' && typeof module.exports != 'undefined') {
-			module.exports = factory(__webpack_require__(767));
+			module.exports = factory(__webpack_require__(773));
 		}
 		else if (true) {
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(767)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(773)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 		}
 		else {
 			/* jshint sub:true */
@@ -61446,7 +62052,7 @@
 
 
 /***/ },
-/* 767 */
+/* 773 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -62701,7 +63307,7 @@
 
 
 /***/ },
-/* 768 */
+/* 774 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62742,7 +63348,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 769 */
+/* 775 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62783,7 +63389,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 770 */
+/* 776 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62824,7 +63430,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 771 */
+/* 777 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62833,7 +63439,7 @@
 	  value: true
 	});
 	
-	var _TextField = __webpack_require__(772);
+	var _TextField = __webpack_require__(778);
 	
 	var _TextField2 = _interopRequireDefault(_TextField);
 	
@@ -62843,7 +63449,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 772 */
+/* 778 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62852,7 +63458,7 @@
 	  value: true
 	});
 	
-	var _TextField = __webpack_require__(773);
+	var _TextField = __webpack_require__(779);
 	
 	var _TextField2 = _interopRequireDefault(_TextField);
 	
@@ -62862,7 +63468,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 773 */
+/* 779 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -62893,11 +63499,11 @@
 	
 	var _transitions2 = _interopRequireDefault(_transitions);
 	
-	var _uniqueId = __webpack_require__(774);
+	var _uniqueId = __webpack_require__(780);
 	
 	var _uniqueId2 = _interopRequireDefault(_uniqueId);
 	
-	var _enhancedTextarea = __webpack_require__(775);
+	var _enhancedTextarea = __webpack_require__(781);
 	
 	var _enhancedTextarea2 = _interopRequireDefault(_enhancedTextarea);
 	
@@ -62909,15 +63515,15 @@
 	
 	var _contextPure2 = _interopRequireDefault(_contextPure);
 	
-	var _TextFieldHint = __webpack_require__(776);
+	var _TextFieldHint = __webpack_require__(782);
 	
 	var _TextFieldHint2 = _interopRequireDefault(_TextFieldHint);
 	
-	var _TextFieldLabel = __webpack_require__(777);
+	var _TextFieldLabel = __webpack_require__(783);
 	
 	var _TextFieldLabel2 = _interopRequireDefault(_TextFieldLabel);
 	
-	var _TextFieldUnderline = __webpack_require__(778);
+	var _TextFieldUnderline = __webpack_require__(784);
 	
 	var _TextFieldUnderline2 = _interopRequireDefault(_TextFieldUnderline);
 	
@@ -63428,7 +64034,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 774 */
+/* 780 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -63446,7 +64052,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 775 */
+/* 781 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63652,7 +64258,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 776 */
+/* 782 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63730,7 +64336,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 777 */
+/* 783 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63842,7 +64448,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 778 */
+/* 784 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63980,7 +64586,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 779 */
+/* 785 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63999,27 +64605,27 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
-	var _radioButton = __webpack_require__(780);
+	var _radioButton = __webpack_require__(786);
 	
 	var _radioButton2 = _interopRequireDefault(_radioButton);
 	
-	var _playArrow = __webpack_require__(743);
+	var _playArrow = __webpack_require__(744);
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _arrowForward = __webpack_require__(769);
+	var _arrowForward = __webpack_require__(775);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _done = __webpack_require__(768);
+	var _done = __webpack_require__(774);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
-	var _timer = __webpack_require__(786);
+	var _timer = __webpack_require__(792);
 	
 	var _timer2 = _interopRequireDefault(_timer);
 	
-	var _circularProgress = __webpack_require__(745);
+	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
@@ -64338,7 +64944,7 @@
 	exports.default = KPExplorerQuestionnaire;
 
 /***/ },
-/* 780 */
+/* 786 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64361,15 +64967,15 @@
 	
 	var _transitions2 = _interopRequireDefault(_transitions);
 	
-	var _enhancedSwitch = __webpack_require__(781);
+	var _enhancedSwitch = __webpack_require__(787);
 	
 	var _enhancedSwitch2 = _interopRequireDefault(_enhancedSwitch);
 	
-	var _radioButtonUnchecked = __webpack_require__(784);
+	var _radioButtonUnchecked = __webpack_require__(790);
 	
 	var _radioButtonUnchecked2 = _interopRequireDefault(_radioButtonUnchecked);
 	
-	var _radioButtonChecked = __webpack_require__(785);
+	var _radioButtonChecked = __webpack_require__(791);
 	
 	var _radioButtonChecked2 = _interopRequireDefault(_radioButtonChecked);
 	
@@ -64570,7 +65176,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 781 */
+/* 787 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -64601,7 +65207,7 @@
 	
 	var _transitions2 = _interopRequireDefault(_transitions);
 	
-	var _uniqueId = __webpack_require__(774);
+	var _uniqueId = __webpack_require__(780);
 	
 	var _uniqueId2 = _interopRequireDefault(_uniqueId);
 	
@@ -64609,7 +65215,7 @@
 	
 	var _windowListenable2 = _interopRequireDefault(_windowListenable);
 	
-	var _clearfix = __webpack_require__(782);
+	var _clearfix = __webpack_require__(788);
 	
 	var _clearfix2 = _interopRequireDefault(_clearfix);
 	
@@ -65050,7 +65656,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 782 */
+/* 788 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65065,7 +65671,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _beforeAfterWrapper = __webpack_require__(783);
+	var _beforeAfterWrapper = __webpack_require__(789);
 	
 	var _beforeAfterWrapper2 = _interopRequireDefault(_beforeAfterWrapper);
 	
@@ -65117,7 +65723,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 783 */
+/* 789 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65271,7 +65877,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 784 */
+/* 790 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65312,7 +65918,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 785 */
+/* 791 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65353,7 +65959,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 786 */
+/* 792 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65394,7 +66000,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 787 */
+/* 793 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65413,23 +66019,23 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
-	var _playArrow = __webpack_require__(743);
+	var _playArrow = __webpack_require__(744);
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _arrowForward = __webpack_require__(769);
+	var _arrowForward = __webpack_require__(775);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _done = __webpack_require__(768);
+	var _done = __webpack_require__(774);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
-	var _textField = __webpack_require__(771);
+	var _textField = __webpack_require__(777);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
-	var _circularProgress = __webpack_require__(745);
+	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
@@ -65561,7 +66167,7 @@
 	exports.default = GoalExercise;
 
 /***/ },
-/* 788 */
+/* 794 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65580,27 +66186,27 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
-	var _radioButton = __webpack_require__(780);
+	var _radioButton = __webpack_require__(786);
 	
 	var _radioButton2 = _interopRequireDefault(_radioButton);
 	
-	var _playArrow = __webpack_require__(743);
+	var _playArrow = __webpack_require__(744);
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _arrowForward = __webpack_require__(769);
+	var _arrowForward = __webpack_require__(775);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _done = __webpack_require__(768);
+	var _done = __webpack_require__(774);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
-	var _textField = __webpack_require__(771);
+	var _textField = __webpack_require__(777);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
-	var _circularProgress = __webpack_require__(745);
+	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
@@ -65954,7 +66560,7 @@
 	exports.default = PromiseExercise;
 
 /***/ },
-/* 789 */
+/* 795 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66020,7 +66626,7 @@
 	exports.default = Camera;
 
 /***/ },
-/* 790 */
+/* 796 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66082,7 +66688,7 @@
 	}
 
 /***/ },
-/* 791 */
+/* 797 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66097,7 +66703,7 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _sendSms = __webpack_require__(792);
+	var _sendSms = __webpack_require__(798);
 	
 	var _raisedButton = __webpack_require__(673);
 	
@@ -66107,7 +66713,7 @@
 	
 	var _fontIcon2 = _interopRequireDefault(_fontIcon);
 	
-	var _textsms = __webpack_require__(793);
+	var _textsms = __webpack_require__(799);
 	
 	var _textsms2 = _interopRequireDefault(_textsms);
 	
@@ -66150,7 +66756,7 @@
 	exports.default = CourseModuleReflection;
 
 /***/ },
-/* 792 */
+/* 798 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66214,7 +66820,7 @@
 	}
 
 /***/ },
-/* 793 */
+/* 799 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66255,7 +66861,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 794 */
+/* 800 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66270,11 +66876,11 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _divider = __webpack_require__(739);
+	var _divider = __webpack_require__(740);
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
-	var _selectField = __webpack_require__(795);
+	var _selectField = __webpack_require__(801);
 	
 	var _selectField2 = _interopRequireDefault(_selectField);
 	
@@ -66290,7 +66896,7 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
-	var _cardText = __webpack_require__(761);
+	var _cardText = __webpack_require__(767);
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
 	
@@ -66298,35 +66904,35 @@
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _circularProgress = __webpack_require__(745);
+	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
-	var _textField = __webpack_require__(771);
+	var _textField = __webpack_require__(777);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
-	var _CourseModuleInfo = __webpack_require__(762);
+	var _CourseModuleInfo = __webpack_require__(768);
 	
 	var _CourseModuleInfo2 = _interopRequireDefault(_CourseModuleInfo);
 	
-	var _CourseModuleExperiment = __webpack_require__(763);
+	var _CourseModuleExperiment = __webpack_require__(769);
 	
 	var _CourseModuleExperiment2 = _interopRequireDefault(_CourseModuleExperiment);
 	
-	var _CourseModuleReflection = __webpack_require__(791);
+	var _CourseModuleReflection = __webpack_require__(797);
 	
 	var _CourseModuleReflection2 = _interopRequireDefault(_CourseModuleReflection);
 	
-	var _DropDownMenu = __webpack_require__(798);
+	var _DropDownMenu = __webpack_require__(804);
 	
 	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 	
-	var _IntroductionContentAdministration = __webpack_require__(802);
+	var _IntroductionContentAdministration = __webpack_require__(808);
 	
 	var _IntroductionContentAdministration2 = _interopRequireDefault(_IntroductionContentAdministration);
 	
-	var _ExerciseContentAdministration = __webpack_require__(805);
+	var _ExerciseContentAdministration = __webpack_require__(811);
 	
 	var _ExerciseContentAdministration2 = _interopRequireDefault(_ExerciseContentAdministration);
 	
@@ -66581,7 +67187,7 @@
 	exports.default = AdministrationModule;
 
 /***/ },
-/* 795 */
+/* 801 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66590,7 +67196,7 @@
 	  value: true
 	});
 	
-	var _SelectField = __webpack_require__(796);
+	var _SelectField = __webpack_require__(802);
 	
 	var _SelectField2 = _interopRequireDefault(_SelectField);
 	
@@ -66600,7 +67206,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 796 */
+/* 802 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66609,7 +67215,7 @@
 	  value: true
 	});
 	
-	var _SelectField = __webpack_require__(797);
+	var _SelectField = __webpack_require__(803);
 	
 	var _SelectField2 = _interopRequireDefault(_SelectField);
 	
@@ -66619,7 +67225,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 797 */
+/* 803 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66638,11 +67244,11 @@
 	
 	var _stylePropable2 = _interopRequireDefault(_stylePropable);
 	
-	var _textField = __webpack_require__(771);
+	var _textField = __webpack_require__(777);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
-	var _DropDownMenu = __webpack_require__(798);
+	var _DropDownMenu = __webpack_require__(804);
 	
 	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 	
@@ -66654,7 +67260,7 @@
 	
 	var _contextPure2 = _interopRequireDefault(_contextPure);
 	
-	var _deprecatedPropType = __webpack_require__(801);
+	var _deprecatedPropType = __webpack_require__(807);
 	
 	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
 	
@@ -66917,7 +67523,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 798 */
+/* 804 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66926,7 +67532,7 @@
 	  value: true
 	});
 	
-	var _DropDownMenu = __webpack_require__(799);
+	var _DropDownMenu = __webpack_require__(805);
 	
 	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 	
@@ -66936,7 +67542,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 799 */
+/* 805 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -66967,7 +67573,7 @@
 	
 	var _menuItem2 = _interopRequireDefault(_menuItem);
 	
-	var _clearfix = __webpack_require__(782);
+	var _clearfix = __webpack_require__(788);
 	
 	var _clearfix2 = _interopRequireDefault(_clearfix);
 	
@@ -66979,7 +67585,7 @@
 	
 	var _popover2 = _interopRequireDefault(_popover);
 	
-	var _popoverAnimationFromTop = __webpack_require__(800);
+	var _popoverAnimationFromTop = __webpack_require__(806);
 	
 	var _popoverAnimationFromTop2 = _interopRequireDefault(_popoverAnimationFromTop);
 	
@@ -66989,7 +67595,7 @@
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _deprecatedPropType = __webpack_require__(801);
+	var _deprecatedPropType = __webpack_require__(807);
 	
 	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
 	
@@ -67414,7 +68020,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 800 */
+/* 806 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -67556,7 +68162,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 801 */
+/* 807 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -67585,7 +68191,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 802 */
+/* 808 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -67612,15 +68218,15 @@
 	
 	var _toolbarSeparator2 = _interopRequireDefault(_toolbarSeparator);
 	
-	var _toolbarTitle = __webpack_require__(803);
+	var _toolbarTitle = __webpack_require__(809);
 	
 	var _toolbarTitle2 = _interopRequireDefault(_toolbarTitle);
 	
-	var _DropDownMenu = __webpack_require__(798);
+	var _DropDownMenu = __webpack_require__(804);
 	
 	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 	
-	var _divider = __webpack_require__(739);
+	var _divider = __webpack_require__(740);
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
@@ -67638,11 +68244,11 @@
 	
 	var _api = __webpack_require__(552);
 	
-	var _CKEditor = __webpack_require__(804);
+	var _CKEditor = __webpack_require__(810);
 	
 	var _CKEditor2 = _interopRequireDefault(_CKEditor);
 	
-	var _circularProgress = __webpack_require__(745);
+	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
@@ -67810,7 +68416,7 @@
 	exports.default = IntroductionContentAdministration;
 
 /***/ },
-/* 803 */
+/* 809 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -67924,7 +68530,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 804 */
+/* 810 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68013,7 +68619,7 @@
 	exports.default = CKEditor;
 
 /***/ },
-/* 805 */
+/* 811 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68040,15 +68646,15 @@
 	
 	var _toolbarSeparator2 = _interopRequireDefault(_toolbarSeparator);
 	
-	var _toolbarTitle = __webpack_require__(803);
+	var _toolbarTitle = __webpack_require__(809);
 	
 	var _toolbarTitle2 = _interopRequireDefault(_toolbarTitle);
 	
-	var _DropDownMenu = __webpack_require__(798);
+	var _DropDownMenu = __webpack_require__(804);
 	
 	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 	
-	var _divider = __webpack_require__(739);
+	var _divider = __webpack_require__(740);
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
@@ -68066,19 +68672,19 @@
 	
 	var _api = __webpack_require__(552);
 	
-	var _CKEditor = __webpack_require__(804);
+	var _CKEditor = __webpack_require__(810);
 	
 	var _CKEditor2 = _interopRequireDefault(_CKEditor);
 	
-	var _circularProgress = __webpack_require__(745);
+	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
-	var _ExerciseDialog = __webpack_require__(806);
+	var _ExerciseDialog = __webpack_require__(812);
 	
 	var _ExerciseDialog2 = _interopRequireDefault(_ExerciseDialog);
 	
-	var _ExerciseSelector = __webpack_require__(764);
+	var _ExerciseSelector = __webpack_require__(770);
 	
 	var _ExerciseSelector2 = _interopRequireDefault(_ExerciseSelector);
 	
@@ -68387,7 +68993,7 @@
 	exports.default = ExerciseContentAdministration;
 
 /***/ },
-/* 806 */
+/* 812 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68408,7 +69014,7 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
-	var _selectField = __webpack_require__(795);
+	var _selectField = __webpack_require__(801);
 	
 	var _selectField2 = _interopRequireDefault(_selectField);
 	
@@ -68416,19 +69022,19 @@
 	
 	var _menuItem2 = _interopRequireDefault(_menuItem);
 	
-	var _textField = __webpack_require__(771);
+	var _textField = __webpack_require__(777);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
-	var _divider = __webpack_require__(739);
+	var _divider = __webpack_require__(740);
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
-	var _CKEditor = __webpack_require__(804);
+	var _CKEditor = __webpack_require__(810);
 	
 	var _CKEditor2 = _interopRequireDefault(_CKEditor);
 	
-	var _dialog = __webpack_require__(807);
+	var _dialog = __webpack_require__(813);
 	
 	var _dialog2 = _interopRequireDefault(_dialog);
 	
@@ -68775,7 +69381,7 @@
 	exports.default = ConfigureExerciseDialog;
 
 /***/ },
-/* 807 */
+/* 813 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -68814,7 +69420,7 @@
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
 	
-	var _overlay = __webpack_require__(808);
+	var _overlay = __webpack_require__(814);
 	
 	var _overlay2 = _interopRequireDefault(_overlay);
 	
@@ -68834,7 +69440,7 @@
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _deprecatedPropType = __webpack_require__(801);
+	var _deprecatedPropType = __webpack_require__(807);
 	
 	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
 	
@@ -69431,7 +70037,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 808 */
+/* 814 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69576,7 +70182,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 809 */
+/* 815 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69589,11 +70195,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _tabs = __webpack_require__(750);
+	var _tabs = __webpack_require__(756);
 	
 	var _tabs2 = _interopRequireDefault(_tabs);
 	
-	var _tab = __webpack_require__(753);
+	var _tab = __webpack_require__(759);
 	
 	var _tab2 = _interopRequireDefault(_tab);
 	
@@ -69601,19 +70207,19 @@
 	
 	var _fontIcon2 = _interopRequireDefault(_fontIcon);
 	
-	var _flightTakeoff = __webpack_require__(754);
+	var _flightTakeoff = __webpack_require__(760);
 	
 	var _flightTakeoff2 = _interopRequireDefault(_flightTakeoff);
 	
-	var _card = __webpack_require__(755);
+	var _card = __webpack_require__(761);
 	
 	var _card2 = _interopRequireDefault(_card);
 	
-	var _cardActions = __webpack_require__(759);
+	var _cardActions = __webpack_require__(765);
 	
 	var _cardActions2 = _interopRequireDefault(_cardActions);
 	
-	var _cardHeader = __webpack_require__(760);
+	var _cardHeader = __webpack_require__(766);
 	
 	var _cardHeader2 = _interopRequireDefault(_cardHeader);
 	
@@ -69621,11 +70227,11 @@
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
 	
-	var _cardText = __webpack_require__(761);
+	var _cardText = __webpack_require__(767);
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
 	
-	var _textField = __webpack_require__(771);
+	var _textField = __webpack_require__(777);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
@@ -69637,15 +70243,15 @@
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _CourseModuleInfo = __webpack_require__(762);
+	var _CourseModuleInfo = __webpack_require__(768);
 	
 	var _CourseModuleInfo2 = _interopRequireDefault(_CourseModuleInfo);
 	
-	var _CourseModuleExperiment = __webpack_require__(763);
+	var _CourseModuleExperiment = __webpack_require__(769);
 	
 	var _CourseModuleExperiment2 = _interopRequireDefault(_CourseModuleExperiment);
 	
-	var _Video = __webpack_require__(810);
+	var _Video = __webpack_require__(816);
 	
 	var _Video2 = _interopRequireDefault(_Video);
 	
@@ -69764,7 +70370,7 @@
 	exports.default = VideoReview;
 
 /***/ },
-/* 810 */
+/* 816 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69817,7 +70423,7 @@
 	exports.default = Video;
 
 /***/ },
-/* 811 */
+/* 817 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69832,11 +70438,11 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _AddTodo = __webpack_require__(812);
+	var _AddTodo = __webpack_require__(818);
 	
 	var _AddTodo2 = _interopRequireDefault(_AddTodo);
 	
-	var _VisibleTodoList = __webpack_require__(813);
+	var _VisibleTodoList = __webpack_require__(819);
 	
 	var _VisibleTodoList2 = _interopRequireDefault(_VisibleTodoList);
 	
@@ -69860,11 +70466,11 @@
 	
 	var _listItem2 = _interopRequireDefault(_listItem);
 	
-	var _info = __webpack_require__(816);
+	var _info = __webpack_require__(822);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
-	var _divider = __webpack_require__(739);
+	var _divider = __webpack_require__(740);
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
@@ -69872,11 +70478,11 @@
 	
 	var _avatar2 = _interopRequireDefault(_avatar);
 	
-	var _folder = __webpack_require__(817);
+	var _folder = __webpack_require__(823);
 	
 	var _folder2 = _interopRequireDefault(_folder);
 	
-	var _assignment = __webpack_require__(818);
+	var _assignment = __webpack_require__(824);
 	
 	var _assignment2 = _interopRequireDefault(_assignment);
 	
@@ -69884,11 +70490,11 @@
 	
 	var _colors2 = _interopRequireDefault(_colors);
 	
-	var _insertChart = __webpack_require__(741);
+	var _insertChart = __webpack_require__(742);
 	
 	var _insertChart2 = _interopRequireDefault(_insertChart);
 	
-	var _comment = __webpack_require__(742);
+	var _comment = __webpack_require__(743);
 	
 	var _comment2 = _interopRequireDefault(_comment);
 	
@@ -69896,15 +70502,15 @@
 	
 	var _api = __webpack_require__(552);
 	
-	var _circularProgress = __webpack_require__(745);
+	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
-	var _chevronRight = __webpack_require__(746);
+	var _chevronRight = __webpack_require__(747);
 	
 	var _chevronRight2 = _interopRequireDefault(_chevronRight);
 	
-	var _chevronLeft = __webpack_require__(747);
+	var _chevronLeft = __webpack_require__(748);
 	
 	var _chevronLeft2 = _interopRequireDefault(_chevronLeft);
 	
@@ -69916,43 +70522,43 @@
 	
 	var _check2 = _interopRequireDefault(_check);
 	
-	var _send = __webpack_require__(819);
+	var _send = __webpack_require__(825);
 	
 	var _send2 = _interopRequireDefault(_send);
 	
-	var _attachFile = __webpack_require__(820);
+	var _attachFile = __webpack_require__(826);
 	
 	var _attachFile2 = _interopRequireDefault(_attachFile);
 	
-	var _chatBubble = __webpack_require__(821);
+	var _chatBubble = __webpack_require__(827);
 	
 	var _chatBubble2 = _interopRequireDefault(_chatBubble);
 	
-	var _textField = __webpack_require__(771);
+	var _textField = __webpack_require__(777);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
-	var _card = __webpack_require__(755);
+	var _card = __webpack_require__(761);
 	
 	var _card2 = _interopRequireDefault(_card);
 	
-	var _cardActions = __webpack_require__(759);
+	var _cardActions = __webpack_require__(765);
 	
 	var _cardActions2 = _interopRequireDefault(_cardActions);
 	
-	var _cardHeader = __webpack_require__(760);
+	var _cardHeader = __webpack_require__(766);
 	
 	var _cardHeader2 = _interopRequireDefault(_cardHeader);
 	
-	var _cardMedia = __webpack_require__(822);
+	var _cardMedia = __webpack_require__(828);
 	
 	var _cardMedia2 = _interopRequireDefault(_cardMedia);
 	
-	var _cardTitle = __webpack_require__(823);
+	var _cardTitle = __webpack_require__(829);
 	
 	var _cardTitle2 = _interopRequireDefault(_cardTitle);
 	
-	var _cardText = __webpack_require__(761);
+	var _cardText = __webpack_require__(767);
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
 	
@@ -70196,7 +70802,7 @@
 	exports.default = DialogModule;
 
 /***/ },
-/* 812 */
+/* 818 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70249,7 +70855,7 @@
 	exports.default = AddTodo;
 
 /***/ },
-/* 813 */
+/* 819 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70262,7 +70868,7 @@
 	
 	var _actions = __webpack_require__(711);
 	
-	var _TodoList = __webpack_require__(814);
+	var _TodoList = __webpack_require__(820);
 	
 	var _TodoList2 = _interopRequireDefault(_TodoList);
 	
@@ -70302,7 +70908,7 @@
 	exports.default = VisibleTodoList;
 
 /***/ },
-/* 814 */
+/* 820 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70319,7 +70925,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Todo = __webpack_require__(815);
+	var _Todo = __webpack_require__(821);
 	
 	var _Todo2 = _interopRequireDefault(_Todo);
 	
@@ -70355,7 +70961,7 @@
 	exports.default = TodoList;
 
 /***/ },
-/* 815 */
+/* 821 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70395,7 +71001,7 @@
 	exports.default = Todo;
 
 /***/ },
-/* 816 */
+/* 822 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70436,7 +71042,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 817 */
+/* 823 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70477,7 +71083,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 818 */
+/* 824 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70518,7 +71124,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 819 */
+/* 825 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70559,7 +71165,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 820 */
+/* 826 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70600,7 +71206,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 821 */
+/* 827 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70641,7 +71247,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 822 */
+/* 828 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70808,7 +71414,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 823 */
+/* 829 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70941,7 +71547,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 824 */
+/* 830 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70956,11 +71562,11 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _AddTodo = __webpack_require__(812);
+	var _AddTodo = __webpack_require__(818);
 	
 	var _AddTodo2 = _interopRequireDefault(_AddTodo);
 	
-	var _VisibleTodoList = __webpack_require__(813);
+	var _VisibleTodoList = __webpack_require__(819);
 	
 	var _VisibleTodoList2 = _interopRequireDefault(_VisibleTodoList);
 	
@@ -70984,11 +71590,11 @@
 	
 	var _listItem2 = _interopRequireDefault(_listItem);
 	
-	var _info = __webpack_require__(816);
+	var _info = __webpack_require__(822);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
-	var _divider = __webpack_require__(739);
+	var _divider = __webpack_require__(740);
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
@@ -70996,11 +71602,11 @@
 	
 	var _avatar2 = _interopRequireDefault(_avatar);
 	
-	var _folder = __webpack_require__(817);
+	var _folder = __webpack_require__(823);
 	
 	var _folder2 = _interopRequireDefault(_folder);
 	
-	var _assignment = __webpack_require__(818);
+	var _assignment = __webpack_require__(824);
 	
 	var _assignment2 = _interopRequireDefault(_assignment);
 	
@@ -71008,11 +71614,11 @@
 	
 	var _colors2 = _interopRequireDefault(_colors);
 	
-	var _insertChart = __webpack_require__(741);
+	var _insertChart = __webpack_require__(742);
 	
 	var _insertChart2 = _interopRequireDefault(_insertChart);
 	
-	var _comment = __webpack_require__(742);
+	var _comment = __webpack_require__(743);
 	
 	var _comment2 = _interopRequireDefault(_comment);
 	
@@ -71020,15 +71626,15 @@
 	
 	var _api = __webpack_require__(552);
 	
-	var _circularProgress = __webpack_require__(745);
+	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
-	var _chevronRight = __webpack_require__(746);
+	var _chevronRight = __webpack_require__(747);
 	
 	var _chevronRight2 = _interopRequireDefault(_chevronRight);
 	
-	var _chevronLeft = __webpack_require__(747);
+	var _chevronLeft = __webpack_require__(748);
 	
 	var _chevronLeft2 = _interopRequireDefault(_chevronLeft);
 	
@@ -71040,7 +71646,7 @@
 	
 	var _check2 = _interopRequireDefault(_check);
 	
-	var _ExerciseSelector = __webpack_require__(764);
+	var _ExerciseSelector = __webpack_require__(770);
 	
 	var _ExerciseSelector2 = _interopRequireDefault(_ExerciseSelector);
 	
@@ -71175,7 +71781,7 @@
 	exports.default = ExerciseResultPage;
 
 /***/ },
-/* 825 */
+/* 831 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71194,7 +71800,7 @@
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _textField = __webpack_require__(771);
+	var _textField = __webpack_require__(777);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
@@ -71205,6 +71811,10 @@
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
 	var _authentication = __webpack_require__(681);
+	
+	var _Theme = __webpack_require__(713);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -71232,7 +71842,7 @@
 	};
 	
 	var primaryText = {
-	  color: '#ff4081'
+	  color: _Theme2.default.palette.primary1Color
 	};
 	
 	var sloganStyle = {

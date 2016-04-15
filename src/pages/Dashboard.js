@@ -20,10 +20,14 @@ import RightArrow from 'material-ui/lib/svg-icons/navigation/chevron-right';
 import LeftArrow from 'material-ui/lib/svg-icons/navigation/chevron-left';
 import IconButton from 'material-ui/lib/icon-button';
 import Check from 'material-ui/lib/svg-icons/navigation/check';
+import DoneAll from 'material-ui/lib/svg-icons/action/done-all';
 import Place from 'material-ui/lib/svg-icons/maps/place';
 import Person from 'material-ui/lib/svg-icons/social/person-outline';
+import Expand from 'material-ui/lib/svg-icons/navigation/expand-more';
+import ExpandLess from 'material-ui/lib/svg-icons/navigation/expand-less';
 import Theme from '../components/Theme';
 
+import Badge from 'material-ui/lib/badge';
 import ProgressWheel from '../components/ProgressWheel'
 
 const {Grid, Row, Col} = require('react-flexgrid');
@@ -158,6 +162,7 @@ let Dashboard = React.createClass({
           modules: json.results.moduleResults,
           groups: groups,
           currentModule: json.results.activeModule,
+          activeModule:json.results.activeModule,
           currentModuleResults: json.results.moduleResults[json.results.activeModuleIndex].moduleResults,
           currentModuleIndex: json.results.activeModuleIndex,
           activeModuleIndex: json.results.activeModuleIndex,
@@ -183,6 +188,11 @@ let Dashboard = React.createClass({
       this.goToModule(this.state.currentModuleIndex - 1);
   },
 
+  openGroup: function(group){
+    group.isOpen = !group.isOpen;
+    this.setState({});
+  },
+
   render: function() {
     var actionButton = this.state.activeModuleIndex === this.state.currentModuleIndex ?
       <RaisedButton label="Fortsæt" labelPosition="before" icon={<Forward />} primary={true} onClick={this.navigateToCurrentModule} /> :
@@ -200,18 +210,28 @@ let Dashboard = React.createClass({
 
     var groups = this.state.groups !== undefined ? this.state.groups.map((g, index) => {
       return (
-        <div>
+        <div style={{color: !g.isActive ? Theme.palette.textColorMuted : Theme.palette.textColor }}>
           <div style={{
             backgroundColor: Theme.palette.backgroundColor,
-            display:'flex', padding:'8 16',
-            position:'relative'}}>
+            display:'flex', padding:'8 16', cursor: 'pointer',
+            position:'relative', boxShadow: index > 0 ? 'inset 0 4px 7px -6px rgba(0,0,0, 0.7)': ''}}
+            onClick={this.openGroup.bind(this, g)} >
+
             <h2 style={{margin:0}}>{g.groupNumber}</h2>
             <h4 style={{
               fontWeight: g.isActive ? 'bold' : 'normal',
               margin:0,
               marginLeft: 20,
               marginTop: 5
-            }}>{g.name}</h4>
+            }}>
+            {g.name}</h4>
+            <span style={{marginRight: 0, marginLeft: 'auto', marginTop:3}}>
+              {
+                g.isCompleted ? <DoneAll style={{ width:24, height:24}} color={Theme.palette.widgetGreen}  /> :
+                g.isActive ?  <Place style={{ width:24, height:24}}  color={Colors.grey600} /> :
+                null
+              }
+            </span>
             <div style={{
               position: 'absolute',
               left: 0,
@@ -225,25 +245,39 @@ let Dashboard = React.createClass({
             }}></div>
           </div>
 
-          <div style={{padding:40}}>
-            <p style={{margin:0}}>{g.description}</p>
-            { g.isOpen ? <div style={{marginTop:32}}>
-              <p>Du skal gennem {g.modules.length} moduler i denne fase</p>
-              <div>
+          <div style={{padding:'20 50', background:'white', display:'flex'}} >
+
+            { g.isOpen ? <div>
+
+              <p style={{margin:0}}>{g.description}</p>
+              <div style={{marginTop:32, marginBottom:12}}>
                 {
                   g.modules.map((m, index) =>
-                    <RaisedButton onClick={this.navigateToModule.bind(this, m.module.moduleIndex)} secondary={true} style={{margin:'4 0', width:'100%', padding:0}}>
+                    <RaisedButton onClick={this.navigateToModule.bind(this, m.module.moduleIndex)} secondary={m.isCompleted} primary={m.isActive} style={{margin:'4 0', width:'100%', padding:0}}>
                       <div style={{height:'100%', width:'100%', textAlign:'left'}}>
-                        <div style={{display:'flex', padding: '8 16', color: Theme.palette.alternateTextColor }}>
-                          <div  style={{width:'100%'}}>
-                            <strong >
-                              {m.module.moduleIndex + 1}.</strong>
+                        <div style={{display:'flex', padding: '8 16', color: m.isCompleted || m.isActive ? Theme.palette.alternateTextColor : Theme.palette.textColorMuted }}>
+                          <Badge
+                          style={{padding: '0px 20px 0px 0px', marginTop: -2}}
+                          badgeStyle={{fontWeight:'bold',
+                            color:m.isActive ? Theme.palette.accent1Color : m.isCompleted ? Theme.palette.primary1Color : Theme.palette.alternateTextColor,
+                            background: !m.isActive && !m.isCompleted ? Theme.palette.primary2Color : Theme.palette.alternateTextColor
+                          }}
+                            badgeContent={m.module.moduleIndex + 1}
+                            secondary={!m.isCompleted && !m.isActive ? true : false}
+                          >
+                          </Badge>
+                          <div  style={{width:'100%', marginTop:1, marginLeft:6}}>
                             <span style={{marginLeft:8}}>{m.module.name}</span>
                           </div>
                           <div style={{width:'50%', textAlign:'right', marginTop:-2}}>
                             {
                               m.isCompleted ? <Check style={{ width:24, height:24}} color={Colors.white}  /> :
-                              m.isActive ? <div> <span style={{marginLeft:8, color: Theme.palette.alternateTextColorMuted}}>(Du er her)</span> <Place style={{ width:24, height:24, marginBottom: -6}} color={Colors.white}  /> </div>:
+                              m.isActive ? <div> <span style={{marginLeft:8, color: Theme.palette.alternateTextColorMuted}}>
+                                {
+                                  m.module.moduleIndex === 0 ? <span>Start her</span> : <span>Fortsæt her</span>
+
+                                }
+                              </span> <Forward style={{ width:24, height:24, marginBottom: -6}} color={Colors.white}  /> </div>:
                               null
                             }
                           </div>
@@ -252,11 +286,29 @@ let Dashboard = React.createClass({
                     </RaisedButton>
                   )
                 }
+
               </div>
-              <div style={{marginTop: 16, textAlign:'right'}}>
-                <RaisedButton style={{width:220, minHeight:44}} labelStyle={{ minHeight:44}} label={this.state.activeModuleIndex === 0 ? 'Kom i gang' : 'Fortsæt modul ' + (this.state.activeModuleIndex + 1)} labelPosition="before" icon={<Forward />} primary={true} onClick={this.navigateToCurrentModule} />
+            </div> :
+            <div style={{width:'100%'}}>
+              {
+                g.modules.map((m, index) =>
+                  <Badge
+                  style={{padding: '0px 20px 0px 0px', marginTop: -2, marginLeft:8}} badgeStyle={{fontWeight:'bold', background: m.isActive || m.isCompleted ? Theme.palette.primary1Color : Theme.palette.primary2Color}}
+                    badgeContent={m.module.moduleIndex + 1}
+                    secondary={true}>
+                  </Badge>
+                )
+              }
               </div>
-            </div> : null}
+            }
+
+            <div style={{marginRight:  -24}}>
+              {
+                g.isOpen ?
+                <ExpandLess style={{position: 'relative', right: -10, cursor: 'pointer'}} onClick={this.openGroup.bind(this, g)} /> :
+                <Expand style={{position: 'relative', right: -10, cursor: 'pointer'}} onClick={this.openGroup.bind(this, g)} />
+              }
+            </div>
           </div>
         </div>);
     }) : null;
@@ -276,10 +328,10 @@ let Dashboard = React.createClass({
           <Col xs={12} sm={12} md={10} lg={8}>
             <Row>
               <Col style={colStyle} xs={12} sm={12} md={12} lg={12}>
-                <div style={{padding:'16 48', background:Theme.palette.primary1Color, color:Theme.palette.alternateTextColorMuted}}>
+                <div style={{padding:'16 48', background:Theme.palette.primary1Color, color:Theme.palette.alternateTextColor}}>
 
                   <h3 style={{color:Theme.palette.alternateTextColor}}>Hej {sessionStorage.sessionFirstName}</h3>
-                  <p>Velkommen til Better Ways - vi hjælper dig med at finde vejen til dit nye job.<br/>Du er jo allerede godt på vej. Held og lykke.</p>
+                  <div dangerouslySetInnerHTML={{__html:this.state.activeModule !== undefined ? this.state.activeModule.peptalk : ''}}></div>
                 </div>
               </Col>
             </Row>
@@ -322,7 +374,7 @@ let Dashboard = React.createClass({
                     </div>
                   </div>
                 </Paper>
-                <Paper style={{marginTop:16}}>
+                <Paper style={{marginTop:32}}>
                   <div style={{
                     backgroundColor: Theme.palette.backgroundColor,
                     display:'flex', padding:'8 16'}}>
@@ -336,7 +388,7 @@ let Dashboard = React.createClass({
 
                   </div>
                   <div style={{padding:'16 16'}}>
-                    <div dangerouslySetInnerHTML={{__html:'<div data-oembed-url="https://youtu.be/G2k6kjRvUOY"> <div> <div style="left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;"><iframe allowfullscreen="true" frameborder="0" mozallowfullscreen="true" src="https://www.youtube.com/embed/G2k6kjRvUOY?wmode=transparent&amp;rel=0&amp;autohide=1&amp;showinfo=0&amp;enablejsapi=1" style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;" webkitallowfullscreen="true"></iframe></div> </div> </div>' }}></div>
+                    <div dangerouslySetInnerHTML={{__html:'<div data-oembed-url="https://vimeo.com/162963147"> <div> <div style="left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;"><iframe allowfullscreen="true" frameborder="0" mozallowfullscreen="true" src="//player.vimeo.com/video/162963147?byline=0&amp;badge=0&amp;portrait=0&amp;title=0" style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;" webkitallowfullscreen="true"></iframe></div> </div> </div>' }}></div>
 
                   </div>
                 </Paper>

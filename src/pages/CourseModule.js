@@ -116,35 +116,48 @@ let CourseModule = React.createClass({
         <Row>
           <Col xs={0} sm={0} md={2} lg={2}/>
           <Col xs={12} sm={12} md={8} lg={8}>
-            <Paper style={courseContainerStyle}>
-              <div style={paddingStyle}>
-                {this.state.moduleIndex >= 0 ? <h4 style={moduleNumStyle}>Modul {this.state.moduleIndex + 1}/12</h4> : null}
-                <h1 style={moduleNameStyle}>{this.state.moduleName}</h1>
-              </div>
-              <Tabs >
-                <Tab style={styles.tab[0]}
-                  icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">wb_incandescent</FontIcon>}
-                  label="VIDEN">
-                  <div style={paddingStyle} >
-                    <CourseModuleInfo resourceId={this.state.introduction}/>
+            <Row>
+              <Col  xs={12} sm={12} md={12} lg={12}>
+                <div style={{padding:'16 48', background:Theme.palette.primary1Color, color:Theme.palette.alternateTextColor}}>
+
+                  <h3 style={{color:Theme.palette.alternateTextColor}}>Velkommen til {this.state.moduleIndex + 1}. modul</h3>
+                  <p>{this.state.module !== undefined ? this.state.module.description : ''}</p>
+                  <p>Vi starter med at give dig ny viden, efterfulgt af et eksperiment. Når du har gennemført eksperimentet slutter vi af med en reflektionssøvelse.</p>
+                </div>
+              </Col>
+            </Row>
+            <Row style={{marginTop:8}}>
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Paper style={courseContainerStyle}>
+                  <div style={paddingStyle}>
+                    <h1 style={moduleNameStyle}>{this.state.moduleName}</h1>
                   </div>
-                </Tab>
-                <Tab style={styles.tab[1]}
-                  icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">pan_tool</FontIcon>}
-                  label="EKSPERIMENT">
-                  <div style={paddingStyle} >
-                    <CourseModuleExperiment onExerciseGoalUpdated={this.onExerciseGoalUpdated} exerciseGoalText={this.state.exerciseGoalText} exercisesStatusChanged={this.exercisesStatusChanged} resourceId={this.state.exercise}/>
-                  </div>
-                </Tab>
-                <Tab style={styles.tab[2]}
-                  icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">cloud</FontIcon>}
-                  label="REFLEKTION">
-                  <div style={paddingStyle} >
-                    <CourseModuleExperiment exerciseGoalText={this.state.exerciseGoalText} exercisesStatusChanged={this.exercisesStatusChanged} isActive={this.state.isExerciseCompleted} resourceId={this.state.reflection} />
-                  </div>
-                </Tab>
-              </Tabs>
-            </Paper>
+                  <Tabs >
+                    <Tab style={styles.tab[0]}
+                      icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">wb_incandescent</FontIcon>}
+                      label="VIDEN">
+                      <div style={paddingStyle} >
+                        <CourseModuleInfo resourceId={this.state.introduction}/>
+                      </div>
+                    </Tab>
+                    <Tab style={styles.tab[1]}
+                      icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">pan_tool</FontIcon>}
+                      label="EKSPERIMENT">
+                      <div style={paddingStyle} >
+                        <CourseModuleExperiment onExerciseGoalUpdated={this.onExerciseGoalUpdated} exerciseGoalText={this.state.exerciseGoalText} exercisesStatusChanged={this.exercisesStatusChanged} resourceId={this.state.exercise}/>
+                      </div>
+                    </Tab>
+                    <Tab style={styles.tab[2]}
+                      icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">cloud</FontIcon>}
+                      label="REFLEKTION">
+                      <div style={paddingStyle} >
+                        <CourseModuleExperiment exerciseGoalText={this.state.exerciseGoalText} exercisesStatusChanged={this.exercisesStatusChanged} isActive={this.state.isExerciseCompleted} resourceId={this.state.reflection} />
+                      </div>
+                    </Tab>
+                  </Tabs>
+                </Paper>
+              </Col>
+            </Row>
 
           </Col>
           <Col xs={0} sm={0} md={2} lg={2}/>
