@@ -10,14 +10,16 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Services
     public class UserService
     {
         private IUserRepository _userRepository;
+        private IDialogRepository _dialogRepository;
 
         public UserService(
-            IUserRepository userRepository)
+            IUserRepository userRepository, IDialogRepository dialogRepository)
         {
             _userRepository = userRepository;
+            _dialogRepository = dialogRepository;
         }
 
-        public User CreateUser(string userId, string firstName, string lastName, string password, string email, List<string> roles)
+        public User CreateUser(string userId, string firstName, string lastName, string password, string email, List<string> roles, Guid? coachId)
         {
             var existingUser = _userRepository.GetUserByUserId(userId);
 
@@ -30,9 +32,25 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Services
                 FirstName = firstName,
                 LastName = lastName,
                 Password = password,
-                Roles = roles
+                Roles = roles,
+                CoachId = coachId
             };
             
+            if (coachId != null)
+            {
+                //Create dialog
+                var dialogService = new DialogService(_dialogRepository);
+                dialogService.InitiateDialog(usr.Id, coachId.Value, "", "Din coach");
+                
+                //Send a message
+                var dialogEntry = dialogService.Post(
+                    coachId.Value, 
+                    usr.Id, 
+                    "Hej " + firstName + ". Jeg er din coach og er til rådighed her på chatten. Skriv til mig hvis du har spørgsmål. Jeg glæder mig til at høre fra dig."
+                    );
+
+            }
+
             _userRepository.CreateUser(usr);
             return usr;
         }

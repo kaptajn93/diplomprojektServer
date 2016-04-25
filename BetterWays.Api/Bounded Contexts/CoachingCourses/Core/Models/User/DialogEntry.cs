@@ -17,5 +17,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.User
 
         [JsonProperty(PropertyName = "timeStamp")]
         public DateTime TimeStamp { get; set; }
+
+        [JsonProperty(PropertyName = "isRead")]
+        public bool IsRead { get; set; }
     }
 }

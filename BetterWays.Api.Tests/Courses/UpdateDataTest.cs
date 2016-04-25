@@ -1,5 +1,7 @@
 ﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Controllers;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Repositories;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Requests;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Infrastructure.Repositories;
 using Microsoft.Azure.Documents;
@@ -8,9 +10,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace BetterWays.Api.Tests.Courses
 {
@@ -223,6 +228,56 @@ namespace BetterWays.Api.Tests.Courses
             moduleRep.SaveItem(md10);
             moduleRep.SaveItem(md11);
             moduleRep.SaveItem(md12);
+        }
+
+        [TestMethod]
+        public void CreateDialog()
+        {
+            //HCA
+            var userB = new Bounded_Contexts.CoachingCourses.Core.Models.User.User() {
+                Id = new Guid("be9122f0-e7f3-4030-adb9-157453f3b7b7")
+            };
+
+            var userA= new Bounded_Contexts.CoachingCourses.Core.Models.User.User()
+            {
+                Id = new Guid("77bca353-e5f8-44b9-85d3-672b775dc7e9")
+            };
+
+            //Set up http context
+            HttpContext.Current = new HttpContext(
+                new HttpRequest("", "http://tempuri.org", ""),
+                new HttpResponse(new StringWriter())
+                );
+            
+
+            // User is logged in
+            HttpContext.Current.User = new GenericPrincipal(
+                new GenericIdentity("username"),
+                new string[0]
+                );
+
+            HttpContext.Current.Items.Add("UserId", userB.Id);
+
+
+            var dialogController = new DialogController();
+
+            var dialog = dialogController.InitiateDialog(new InitiateDialogRequest
+            {
+                UserA = userA.Id,
+                UserB = userB.Id,
+                UserADescription = "",
+                UserBDescription = "Din ven",
+            });
+            
+
+            //Try to send a message
+            var dialogEntry = dialogController.Post(new PostDialogRequest()
+            {
+                Message = "Hej Jørgen. Godt at høre fra dig. Op med humøret!",
+                ReceiverUserId = userA.Id,
+                SenderUserId = userB.Id
+            });
+
         }
 
     }

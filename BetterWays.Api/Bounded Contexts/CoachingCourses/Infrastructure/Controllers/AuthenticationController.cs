@@ -83,7 +83,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
 
             var token = JsonWebToken.Encode(payload, apikey, JwtHashAlgorithm.HS256);
 
-            dbUser = new { id = user.Id, role = user.Roles.Count > 0 ? user.Roles.First() : "", firstName = user.FirstName, lastName = user.LastName };
+            dbUser = new { id = user.Id, roles = user.Roles, firstName = user.FirstName, lastName = user.LastName, imageUrl = user.ImageUrl };
             return token;
         }
     }

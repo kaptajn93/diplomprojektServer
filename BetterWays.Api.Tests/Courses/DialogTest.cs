@@ -88,7 +88,7 @@ namespace BetterWays.Api.Tests.Courses
 
             Assert.IsNotNull(dialog);
             Assert.AreEqual(dialog.Receiver, coachUser.Id);
-            Assert.AreEqual(dialog.ReceiverFullName, coachUser.FirstName + " " + coachUser.LastName);
+            Assert.AreEqual(dialog.SenderFullName, coachUser.FirstName + " " + coachUser.LastName);
 
             //Try to send a message
             var dialogEntry = dialogController.Post(new PostDialogRequest()

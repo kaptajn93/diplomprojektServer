@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Repositories
 {
     public interface IDialogRepository
     {
+        IEnumerable<UserDialog> GetDialogFromUsers(Guid userA, Guid userB);
+        IEnumerable<UserDialog> GetUserReceivedDialogs(Guid userId);
+        void SaveDialog(UserDialog dialog);
     }
 }

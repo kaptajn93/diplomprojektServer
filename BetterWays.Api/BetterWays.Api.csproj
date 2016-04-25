@@ -204,6 +204,7 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\IModuleGroupRepository.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\IUserRepository.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\CoachingCourseService.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\DialogService.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\UserService.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\AuthenticationController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\DialogController.cs" />
@@ -213,6 +214,7 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ModuleController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ResourceController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\UserController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\BaseUserDto.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CoachingCourseDTO.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CoachingModuleDTO.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\CoachingCourseDTOConverter.cs" />
@@ -244,6 +246,7 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleExerciseRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleResourceRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetUserDialogsResponse.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetUserResultsResponse.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\UpdateModuleResourceResponse.cs" />
     <Compile Include="Bounded Contexts\Notifications\Application\NotificationsApplicationService.cs" />

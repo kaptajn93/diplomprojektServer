@@ -27,7 +27,10 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.User
         public List<string> Roles { get; set; }
 
         [JsonProperty(PropertyName = "coachId")]
-        public Guid CoachId { get; set; }
+        public Guid? CoachId { get; set; }
+
+        [JsonProperty(PropertyName = "imageUrl")]
+        public string ImageUrl { get; set; }
 
         public User()
         {

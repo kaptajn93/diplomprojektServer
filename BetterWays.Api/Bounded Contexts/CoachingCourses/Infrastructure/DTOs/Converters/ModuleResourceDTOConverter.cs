@@ -32,7 +32,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
             };
         }
 
-        private static ModuleExerciseElementDTO ConvertToDTO(ResourceExerciseElement element)
+        public static ModuleExerciseElementDTO ConvertToDTO(ResourceExerciseElement element)
         {
             return new ModuleExerciseElementDTO
             {
@@ -70,9 +70,11 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
                     break;
             }
 
-            /*exercise.Description = dto.Description;
-            exercise.InstrunctionContent = dto.InstrunctionContent;
-            */
+            if (exercise != null) {
+                exercise.Description = dto.Description;
+                exercise.InstrunctionContent = dto.InstrunctionContent;
+            }
+            
             return new ResourceExerciseElement(dto.Content)
             {
                 Exercise = exercise

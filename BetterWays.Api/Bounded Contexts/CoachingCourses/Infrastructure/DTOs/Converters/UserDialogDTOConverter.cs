@@ -8,31 +8,37 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
 {
     public static class UserDialogDTOConverter
     {
-        public static DialogEntryDTO ConvertToDTO(DialogEntry entity, User userA, User userB)
+        public static DialogEntryDTO ConvertToDTO(DialogEntry entity, User userA, User userB, UserDialog dialog)
         {
-            var user = entity.SenderId == userA.Id ? userA : entity.SenderId == userB.Id ? userB : null;
-
-            if (user == null)
+            User sender  = entity.SenderId == userA.Id ? userA : entity.SenderId == userB.Id ? userB : null;
+            
+            if (sender == null)
                 throw new Exception("Unexected user in dialog entry");
 
             return new DialogEntryDTO()
             {
-                SenderImgageUrl = "",
-                SenderName = user.FirstName + " " + user.LastName,
+                SenderName = sender.FirstName,
+                SenderImageUrl = sender.ImageUrl,
                 Text = entity.Text,
-                TimeStamp = entity.TimeStamp
+                TimeStamp = entity.TimeStamp,
+                SenderDescription = dialog.SenderDescription,
+                SenderId = sender.Id
             };
         }
 
         public static UserDialogDto ConvertToDTO(UserDialog entity, User userA, User userB) {
-            var receiver = entity.ReceiverId == userA.Id ? userA : entity.ReceiverId == userB.Id ? userB : null;
-
+            var sender = entity.OwnerId == userA.Id ? userA : entity.OwnerId == userB.Id ? userB : null;
+            var entries = entity.Entries.OrderBy(e => e.TimeStamp).Select(e => ConvertToDTO(e, userA, userB, entity)).ToList();
             return new UserDialogDto
             {
-                Entries = entity.Entries.Select(e => ConvertToDTO(e, userA, userB)).ToList(),
+                Entries = entries,
                 Receiver = entity.ReceiverId,
-                ReceiverDescripton = entity.ReceiverDescription,
-                ReceiverFullName = receiver.FirstName + " " + receiver.LastName
+                Sender = sender.Id,
+                SenderDescripton = entity.SenderDescription,
+                SenderFullName = sender.FirstName + " " + sender.LastName,
+                SenderFirstName = sender.FirstName,
+                SenderImageUrl = sender.ImageUrl,
+                LatestEntry = entries.LastOrDefault(e => e.SenderId == sender.Id)
             };
         }
 

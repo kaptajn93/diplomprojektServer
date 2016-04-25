@@ -10,6 +10,21 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Reposit
 {
     public class DialogRepositoryDocumentDb : DocumentDBRepository<UserDialog>, IDialogRepository
     {
+        public IEnumerable<UserDialog> GetDialogFromUsers(Guid userA, Guid userB)
+        {
+            return GetItems(d =>
+                (d.OwnerId == userA && d.ReceiverId == userB) ||
+                (d.OwnerId == userB && d.ReceiverId == userA));
+        }
 
+        public IEnumerable<UserDialog> GetUserReceivedDialogs(Guid userId)
+        {
+            return GetItems(d => d.ReceiverId == userId);
+        }
+
+        public void SaveDialog(UserDialog dialog)
+        {
+            SaveItem(dialog);
+        }
     }
 }

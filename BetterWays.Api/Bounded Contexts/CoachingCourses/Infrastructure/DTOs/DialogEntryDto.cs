@@ -10,12 +10,22 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs
     {
         [JsonProperty(PropertyName = "senderName")]
         public string SenderName { get; set; }
+
+        [JsonProperty(PropertyName = "senderId")]
+        public Guid SenderId { get; set; }
+
         [JsonProperty(PropertyName = "senderImageUrl")]
-        public string SenderImgageUrl { get; set; }
+        public string SenderImageUrl { get; set; }
+
+        [JsonProperty(PropertyName = "senderDescription")]
+        public string SenderDescription { get; set; }
+        
+
         [JsonProperty(PropertyName = "timeStamp")]
         public DateTime TimeStamp { get; set; }
+
         [JsonProperty(PropertyName = "text")]
         public string Text { get; set; }
-
+        
     }
 }

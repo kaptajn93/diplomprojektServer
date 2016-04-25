@@ -19,6 +19,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs
 
         [JsonProperty(PropertyName = "exerciseDescription")]
         public string ExerciseDescription { get; set; }
+
+        [JsonProperty(PropertyName = "exercise")]
+        public ModuleExerciseElementDTO Exercise { get; set; }
     }
 
     public class SortAndEvaluateResultDto
@@ -37,6 +40,11 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs
     {
         [JsonProperty(PropertyName = "evaluations")]
         public List<SortAndEvaluateResultDto> Evaluations { get; set; }
+    }
+
+    public class VideoExerciseScoreCardDto : ScoreCardDto
+    {
+
     }
 
     public class QuestionResponseDto

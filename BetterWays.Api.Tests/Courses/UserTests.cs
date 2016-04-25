@@ -37,19 +37,21 @@ namespace BetterWays.Api.Tests.Courses
             _client = new DocumentClient(new Uri(endpoint), masterKey);
 
             _userService = new UserService(
-                new UserRepositoryDocumentDB());
+                new UserRepositoryDocumentDB(), new DialogRepositoryDocumentDb());
         }
 
         [TestMethod]
         public void CreateUser()
         {
             var usr = _userService.CreateUser(
-                "vsk@ak-samvirke.dk", 
-                "Verner", 
-                "Sand Kirk", 
+                "sto", 
+                "Simon", 
+                "Tobiasen", 
                 "1234",
-                "vsk@ak-samvirke.dk", 
-                new List<string>());
+                "sto@miracle.dk", 
+                new List<string>() { }, 
+                new Guid("06f5e043-7a28-4f76-bd23-35f5012a13b6")
+                );
             _testUserId = usr.Id;
             
             var foundUsr = new UserRepositoryDocumentDB().GetUserById(usr.Id);
@@ -113,7 +115,7 @@ namespace BetterWays.Api.Tests.Courses
             
             var userRepo = new UserRepositoryDocumentDB();
 
-            var foundUsr = userRepo.GetUserById(new Guid("b714ad9a-e474-4097-9280-b32e374429d4"));
+            var foundUsr = userRepo.GetUserById(new Guid("990f5557-478e-4fa7-9e50-13934ff89e29"));
 
             var coachingCourseService = new CoachingCourseService(
                 courseRepo,

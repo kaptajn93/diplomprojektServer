@@ -20,5 +20,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Respons
 
         [JsonProperty(PropertyName = "groups")]
         public IEnumerable<ModuleGroupDTO> Groups { get; set; }
+
+        [JsonProperty(PropertyName = "user")]
+        public BaseUserDto User { get; set; }
     }
 }

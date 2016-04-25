@@ -26,6 +26,7 @@ namespace BetterWays.Api
 
             config.MessageHandlers.Add(new AuthHandler());
             config.Filters.Add(new AuthorizeAttribute());
+            
         }
     }
 }

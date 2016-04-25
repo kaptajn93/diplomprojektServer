@@ -24,6 +24,7 @@ namespace BetterWays.Api
             {
                 return jsonSerilizerSettings;
             };
+            
         }
     }
 }

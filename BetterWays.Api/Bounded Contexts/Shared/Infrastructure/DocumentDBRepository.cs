@@ -96,7 +96,7 @@ namespace BetterWays.Api.BoundedContexts.Shared.Infrastructure
 
         //Use the ReadOrCreateCollection function to get a reference to the collection.
         private DocumentCollection _collection;
-        private DocumentCollection Collection
+        public DocumentCollection Collection
         {
             get
             {
@@ -113,7 +113,7 @@ namespace BetterWays.Api.BoundedContexts.Shared.Infrastructure
         //and then reuses this instance for the duration of the application avoiding the
         //overhead of instantiating a new instance of DocumentClient with each request
         private DocumentClient _client;
-        private DocumentClient Client
+        public DocumentClient Client
         {
             get
             {
@@ -135,6 +135,13 @@ namespace BetterWays.Api.BoundedContexts.Shared.Infrastructure
                         where i.TypeName == typeof(T).Name
                         select i;
             return items.AsEnumerable();
+        }
+
+        public IQueryable<T> GetItemsAsQueryable()
+        {
+            return from i in Client.CreateDocumentQuery<T>(Collection.DocumentsLink)
+                        where i.TypeName == typeof(T).Name
+                        select i;
         }
 
         public IEnumerable<T> GetItemsWithIds(IEnumerable<Guid> ids)

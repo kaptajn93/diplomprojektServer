@@ -13,7 +13,7 @@ namespace BetterWays.Api.BoundedContexts.Shared.Domain
         /// Identifier of this identity
         /// </summary>
         [JsonProperty(PropertyName = "id")]
-        public Guid Id { get; private set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Name of this type

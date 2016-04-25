@@ -1,4 +1,5 @@
 ﻿using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.User;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Services;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Converters;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Repositories;
@@ -20,18 +21,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             var userRepo = new UserRepositoryDocumentDB();
             var dialogRepo = new DialogRepositoryDocumentDb();
 
-            //Check that this dialog has not already been created
-            if (dialogRepo.GetItems(d =>
-                (d.OwnerId == request.UserA && d.ReceiverId == request.UserB) ||
-                (d.OwnerId == request.UserB && d.ReceiverId == request.UserA)).Any())
-                throw new Exception(String.Format("Dialog with users {0} and {1} already exists", request.UserA, request.UserB));
-
-            var dialogA = new UserDialog() { OwnerId = request.UserA, ReceiverId = request.UserB, ReceiverDescription = request.UserBDescription, Entries = new List<DialogEntry>() };
-            var dialogB = new UserDialog() { OwnerId = request.UserB, ReceiverId = request.UserA, ReceiverDescription = request.UserADescription, Entries = new List<DialogEntry>() };
-
-            //Persist dialog
-            dialogRepo.SaveItem(dialogA);
-            dialogRepo.SaveItem(dialogB);
+            var dialogService = new DialogService(dialogRepo);
+            
+            var dialogA = dialogService.InitiateDialog(request.UserA, request.UserB, request.UserADescription, request.UserBDescription);
 
             var userA = userRepo.GetUserById(request.UserA);
             var userB = userRepo.GetUserById(request.UserB);
@@ -53,31 +45,17 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             var userRepo = new UserRepositoryDocumentDB();
             var dialogRepo = new DialogRepositoryDocumentDb();
 
-            var dialogSender = dialogRepo.GetItems(d => d.OwnerId == request.SenderUserId && d.ReceiverId == request.ReceiverUserId).Single();
-            var dialogReceiver = dialogRepo.GetItems(d => d.OwnerId == request.ReceiverUserId && d.ReceiverId == request.SenderUserId).Single();
+            var dialogService = new DialogService(dialogRepo);
+
+            var entry = dialogService.Post(request.SenderUserId, request.ReceiverUserId, request.Message);
             var sender = userRepo.GetUserById(request.SenderUserId);
-
-            var dateTime = DateTime.Now;
-
-            var entry = new DialogEntry
-            {
-                TimeStamp = dateTime,
-                Text = request.Message,
-                SenderId = request.SenderUserId
-            };
-
-            //Add entry to sender dialog
-            dialogSender.Entries.Add(entry);
-
-            //Add entry to receiver dialog
-            dialogReceiver.Entries.Add(entry);
 
             return new DialogEntryDTO
             {
-                SenderImgageUrl = "",
                 SenderName = sender.FirstName + " " + sender.LastName,
                 TimeStamp = entry.TimeStamp,
-                Text = entry.Text
+                Text = entry.Text,
+                SenderImageUrl = sender.ImageUrl
             };
         }
     }
