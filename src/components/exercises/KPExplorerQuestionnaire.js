@@ -1,12 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/lib/raised-button';
+import FlatButton from 'material-ui/lib/flat-button';
 import RadioButton from 'material-ui/lib/radio-button';
+import Dialog from 'material-ui/lib/dialog';
 
 import Play from 'material-ui/lib/svg-icons/av/play-arrow';
 import Forward from 'material-ui/lib/svg-icons/navigation/arrow-forward';
 import Done from 'material-ui/lib/svg-icons/action/done';
 import Timer from 'material-ui/lib/svg-icons/image/timer';
+import Theme from '../Theme';
 
 
 import CircularProgress from 'material-ui/lib/circular-progress';
@@ -34,7 +37,8 @@ let KPExplorerQuestionnaire = React.createClass({
         resultItems: this.mapItems(items),
         instrunctionContent: this.props.exercise.instrunctionContent,
         phase: 0,
-        isLoading: false
+        isLoading: false,
+        dialogOpen: false,
     };
   },
 
@@ -48,22 +52,29 @@ let KPExplorerQuestionnaire = React.createClass({
   },
   componentDidMount: function(){
     //Update from server
-    if (this.props.liveExercise){
+    if (this.props.liveExercise && this.props.scoreCard === undefined){
       var that = this;
       this.setState({isLoading: true});
       this.props.dispatch(getExerciseResult(this.props.exerciseId)).then(
         json => {
-          that.setState({
-            isLoading: false,
-            phase: json.result.isCompleted ? 2 : that.state.phase
-          });
+          this.setScoreCard(json.result);
 
           that.props.exercisesStatusChanged(json.result.isCompleted, that.props.exercise);
         }
       );
     }
 
+    else if (this.props.scoreCard !== undefined)
+      this.setScoreCard(this.props.scoreCard);
   },
+
+  setScoreCard: function(scoreCard){
+    this.setState({
+      isLoading: false,
+      phase: scoreCard.isCompleted ? 2 : that.state.phase
+    });
+  },
+
   componentWillUnmount: function(){
 
       // This method is called immediately before the component is removed
@@ -102,6 +113,10 @@ let KPExplorerQuestionnaire = React.createClass({
   },
 
   onContinue: function(){
+    if ( this.state.questionIndex === 3 && sessionStorage.sessionUserRoles.split(",").indexOf("Demo") >= 0){
+      this.setState({dialogOpen: true});
+    }
+
     if (this.state.questionIndex < this.state.resultItems.length -1){
       if (this.state.resultItems[this.state.questionIndex].score !== -1)
         this.setState({questionIndex: this.state.questionIndex + 1});
@@ -133,6 +148,18 @@ let KPExplorerQuestionnaire = React.createClass({
       this.state.instrunctionContent[textIndex] : "";
 
     return {__html:text };
+  },
+
+  handleDemoDialogClose: function(){
+    this.setState({
+      dialogOpen: false
+    });
+  },
+
+  handleGoToLastQuestion: function(){
+    this.setState({
+      questionIndex: 85,
+      dialogOpen: false});
   },
 
   render: function(){
@@ -242,9 +269,34 @@ let KPExplorerQuestionnaire = React.createClass({
 
 
 
+    var dialogActions = [
+      <FlatButton
+        label="Nej"
+        secondary={true}
+        onTouchTap={this.handleDemoDialogClose}
+      />,
+      <FlatButton
+        label="Ja"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.handleGoToLastQuestion}
+      />,
+    ];
+
+
     return (
-      <div style={{background:'#fafafa', padding:'16px'}}>
+      <div style={{background:Theme.palette.backgroundColor, padding:'32px'}}>
         {mainContent}
+
+        <Dialog
+          title="Du er logget ind som demo-bruger"
+          actions={dialogActions}
+          modal={false}
+          open={this.state.dialogOpen}
+          onRequestClose={this.handleDemoDialogClose}
+        >
+           Vil du springe til spørgsmål 86?
+        </Dialog>
       </div>);
   }
 });

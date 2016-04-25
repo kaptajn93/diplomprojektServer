@@ -12,6 +12,7 @@ import FontIcon from 'material-ui/lib/font-icon';
 import Colors from 'material-ui/lib/styles/colors';
 import TextField from 'material-ui/lib/text-field';
 import CircularProgress from 'material-ui/lib/circular-progress';
+import Theme from '../Theme';
 
 import { putSortAndEvalResultById, getExerciseResult } from '../../actions/api'
 
@@ -247,23 +248,29 @@ let SortaAndEvaluateExercise = React.createClass({
 
     componentDidMount: function(){
       //Update server
-      if (this.props.liveExercise){
+      if (this.props.liveExercise && this.props.scoreCard === undefined){
         var that = this;
         this.setState({isLoading: true});
         this.props.dispatch(getExerciseResult(this.props.exerciseId)).then(
           json => {
-            that.setState({
-              isLoading: false,
-              phase: json.result.isCompleted ? 4 : that.state.phase,
-              resultItems: json.result.evaluations !== null && json.result.evaluations.length === that.state.items.length ?
-                json.result.evaluations : that.state.resultItems
-            });
+            that.setScoreCard(json.result, that);
 
             that.props.exercisesStatusChanged(json.result.isCompleted, that.props.exercise);
           }
         );
       }
 
+      else if (this.props.scoreCard !== undefined)
+        this.setScoreCard(this.props.scoreCard, this);
+    },
+
+    setScoreCard: function(scoreCard, that){
+      that.setState({
+        isLoading: false,
+        phase: scoreCard.isCompleted ? 4 : that.state.phase,
+        resultItems: scoreCard.evaluations !== null && scoreCard.evaluations.length === that.state.items.length ?
+          scoreCard.evaluations : that.state.resultItems
+      });
     },
 
     componentWillReceiveProps: function(nextProps) {
@@ -422,7 +429,7 @@ let SortaAndEvaluateExercise = React.createClass({
       }
 
       return (
-        <div style={{background:'#fafafa', padding:'16px'}}>
+        <div style={{background:Theme.palette.backgroundColor, padding:'32px'}}>
           { mainContent }
         </div>)
     }

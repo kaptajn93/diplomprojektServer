@@ -56,6 +56,8 @@ let NavBar =React.createClass({
           that.setState({
             currentUser: json.user
           });
+        }).catch(function(error) {
+          that.handleLogOut();
         });
       }
       else
@@ -63,11 +65,14 @@ let NavBar =React.createClass({
           currentUser: null
         });
     }
+
     this.props.dispatch(getCurrentUser()).then(
       json => {
       this.setState({
         currentUser: json.user
       });
+    }).catch(function(error) {
+      that.handleLogOut();
     });
   },
 
@@ -98,7 +103,7 @@ let NavBar =React.createClass({
       <ToolbarGroup style={{display:'flex'}} float="right">
         <ListItem
           disabled={false}
-          rightAvatar={<Avatar>{this.state.currentUser.firstName[0]}</Avatar>}>
+          rightAvatar={<Avatar src={this.state.currentUser.imageUrl}>{this.state.currentUser.imageUrl === null ? this.state.currentUser.firstName[0] : null}</Avatar>}>
           <span  style={{marginRight:12}}>{this.state.currentUser.firstName} {this.state.currentUser.lastName}</span>
 
 
@@ -129,7 +134,7 @@ let NavBar =React.createClass({
               <ToolbarGroup firstChild={false} float="left">
                 {
                   sessionStorage.sessionUserRole !== 'Admin' ?
-                  <FlatButton label="Better ways" linkButton={true} containerElement={<Link to="/" />} />
+                  <FlatButton label={<span>Better <strong>ways</strong></span>} linkButton={true} containerElement={<Link to="/" />} />
                   : null
                 }
               </ToolbarGroup>

@@ -14,7 +14,7 @@ import Comment from 'material-ui/lib/svg-icons/communication/comment';
 import Forward from 'material-ui/lib/svg-icons/av/play-arrow';
 import Search from 'material-ui/lib/svg-icons/action/search';
 import { Link, browserHistory } from 'react-router';
-import { getCurrentUserResult } from '../actions/api';
+import { getUserResult, getUserDialogs } from '../actions/api';
 import CircularProgress from 'material-ui/lib/circular-progress';
 import RightArrow from 'material-ui/lib/svg-icons/navigation/chevron-right';
 import LeftArrow from 'material-ui/lib/svg-icons/navigation/chevron-left';
@@ -24,6 +24,7 @@ import DoneAll from 'material-ui/lib/svg-icons/action/done-all';
 import Place from 'material-ui/lib/svg-icons/maps/place';
 import Person from 'material-ui/lib/svg-icons/social/person-outline';
 import Expand from 'material-ui/lib/svg-icons/navigation/expand-more';
+import Event from 'material-ui/lib/svg-icons/action/event';
 import ExpandLess from 'material-ui/lib/svg-icons/navigation/expand-less';
 import Theme from '../components/Theme';
 
@@ -108,7 +109,8 @@ var colStyle = {
 let Dashboard = React.createClass({
   getInitialState:function(){
     return{
-
+      isLoading:true,
+      isLoadingDialog: true
     }
   },
 
@@ -127,13 +129,15 @@ let Dashboard = React.createClass({
 
   componentDidMount : function(){
     this.setState({
-      isLoading:true
-    })
-    this.props.dispatch(getCurrentUserResult()).then(
+      isLoading:true,
+      isLoadingDialog: true
+    });
+
+    //Load course state
+    this.props.dispatch(getUserResult()).then(
       json => {
 
         for (var i = 0; i < json.results.moduleResults.length; i++) {
-
           json.results.moduleResults[i].isCompleted = !json.results.moduleResults[i].moduleResults.some((r, index) =>
             !r.isCompleted
           );
@@ -168,6 +172,15 @@ let Dashboard = React.createClass({
           activeModuleIndex: json.results.activeModuleIndex,
         });
     });
+
+    //Load unread
+    this.props.dispatch(getUserDialogs()).then(
+      json => {
+        this.setState({
+          isLoadingDialog: false,
+          latestUnread: json.dialogs.latestUnread
+        })
+      });
   },
 
   goToModule: function(index){
@@ -212,14 +225,15 @@ let Dashboard = React.createClass({
       return (
         <div style={{color: !g.isActive ? Theme.palette.textColorMuted : Theme.palette.textColor }}>
           <div style={{
-            backgroundColor: Theme.palette.backgroundColor,
+            backgroundColor: g.isActive ? Theme.palette.primary1Color : Theme.palette.backgroundColor,
+            color: g.isActive ? Theme.palette.alternateTextColor : Theme.palette.textColor,
             display:'flex', padding:'8 16', cursor: 'pointer',
-            position:'relative', boxShadow: index > 0 ? 'inset 0 4px 7px -6px rgba(0,0,0, 0.7)': ''}}
+            position:'relative', boxShadow: index > 0 ? 'inset 0 5px 8px -6px rgba(0,0,0, 0.55)': ''}}
             onClick={this.openGroup.bind(this, g)} >
 
             <h2 style={{margin:0}}>{g.groupNumber}</h2>
             <h4 style={{
-              fontWeight: g.isActive ? 'bold' : 'normal',
+              fontWeight:  'normal',
               margin:0,
               marginLeft: 20,
               marginTop: 5
@@ -228,7 +242,7 @@ let Dashboard = React.createClass({
             <span style={{marginRight: 0, marginLeft: 'auto', marginTop:3}}>
               {
                 g.isCompleted ? <DoneAll style={{ width:24, height:24}} color={Theme.palette.widgetGreen}  /> :
-                g.isActive ?  <Place style={{ width:24, height:24}}  color={Colors.grey600} /> :
+                g.isActive ?  <Place style={{ width:24, height:24}}  color={Colors.white} /> :
                 null
               }
             </span>
@@ -240,8 +254,7 @@ let Dashboard = React.createClass({
             	height: 0,
             	borderLeft: '22px solid transparent',
             	borderRight: '22px solid transparent',
-
-            	borderTop: '22px solid ' + Theme.palette.backgroundColor
+            	borderTop: '22px solid ' + (g.isActive ? Theme.palette.primary1Color : Theme.palette.backgroundColor)
             }}></div>
           </div>
 
@@ -253,9 +266,9 @@ let Dashboard = React.createClass({
               <div style={{marginTop:32, marginBottom:12}}>
                 {
                   g.modules.map((m, index) =>
-                    <RaisedButton onClick={this.navigateToModule.bind(this, m.module.moduleIndex)} secondary={m.isCompleted} primary={m.isActive} style={{margin:'4 0', width:'100%', padding:0}}>
+                    <RaisedButton disabled={!m.isCompleted && !m.isActive} onClick={this.navigateToModule.bind(this, m.module.moduleIndex)} secondary={m.isCompleted} primary={m.isActive} style={{margin:'4 0', width:'100%', padding:0}}>
                       <div style={{height:'100%', width:'100%', textAlign:'left'}}>
-                        <div style={{display:'flex', padding: '8 16', color: m.isCompleted || m.isActive ? Theme.palette.alternateTextColor : Theme.palette.textColorMuted }}>
+                        <div style={{display:'flex', padding: '8 16', color: m.isCompleted || m.isActive ? Theme.palette.alternateTextColor : Theme.palette.textColor }}>
                           <Badge
                           style={{padding: '0px 20px 0px 0px', marginTop: -2}}
                           badgeStyle={{fontWeight:'bold',
@@ -293,9 +306,16 @@ let Dashboard = React.createClass({
               {
                 g.modules.map((m, index) =>
                   <Badge
-                  style={{padding: '0px 20px 0px 0px', marginTop: -2, marginLeft:8}} badgeStyle={{fontWeight:'bold', background: m.isActive || m.isCompleted ? Theme.palette.primary1Color : Theme.palette.primary2Color}}
+                  onClick={this.navigateToModule.bind(this, m.module.moduleIndex)}
+                  className="tooltip"
+                  style={{padding: '0px 20px 0px 0px', marginTop: -2, marginLeft:8,
+                    cursor: m.isActive || m.isCompleted ? 'pointer' : 'default'}}
+                  badgeStyle={{fontWeight:'bold',
+                  background: m.isActive ? Theme.palette.accent1Color : m.isCompleted ? Theme.palette.primary1Color : Theme.palette.primary2Color}}
                     badgeContent={m.module.moduleIndex + 1}
                     secondary={true}>
+
+                    <span className="tooltiptext">{m.module.name}</span>
                   </Badge>
                 )
               }
@@ -355,25 +375,60 @@ let Dashboard = React.createClass({
                     }}>Samtaler</h4>
 
                   </div>
-                  <div style={{padding:'16 24'}}>
-                    <List style={transparentBackground}>
-                    <ListItem onClick={this.navigateToDialog}
-                        leftAvatar={<Avatar src="assets/tine.jpg" />}
-                        primaryText="Fra Tine"
-                        secondaryText={
-                          <p>
-                            <span>Din coach</span>  --
-                            <span style={{color: Colors.darkBlack}}>Jeg er din coach og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.</span>
-                          </p>
-                        }
-                        secondaryTextLines={2}
-                      />
-                    </List>
-                    <div >
-                      <FlatButton label="Skriv til Tine" secondary={true} onMouseUp={this.navigateToDialog} />
+                  {
+                    this.state.isLoadingDialog ?
+                    <CircularProgress size={0.6} style={{marginTop:60, marginBottom:60, width:'100%', textAlign:'center'}} /> :
+                    this.state.latestUnread === undefined || this.state.latestUnread === null ?
+                    <div  style={{padding:'16 24'}}><p style={{color:Theme.palette.disabledColor}}>Du har ingen samtaler</p></div> :
+                    <div style={{padding:'16 24'}}>
+                      <List style={transparentBackground}>
+                      <ListItem onClick={this.navigateToDialog}
+                          leftAvatar={<Avatar src={this.state.latestUnread.senderImageUrl} >{ this.state.latestUnread.senderImageUrl === null ? this.state.latestUnread.senderName[0] : null}</Avatar>}
+                          primaryText= {"Fra " + this.state.latestUnread.senderName}
+                          secondaryText={
+                            <p>
+                              <span>{this.state.latestUnread.senderDescription}</span>  --
+                              <span style={{color: Colors.darkBlack}}>{this.state.latestUnread.text}</span>
+                            </p>
+                          }
+                          secondaryTextLines={2}
+                        />
+                      </List>
+                      <div >
+                        <FlatButton label="Skriv til Tine" secondary={true} onMouseUp={this.navigateToDialog} />
+                      </div>
+                    </div>
+                  }
+                </Paper>
+
+                <Paper style={{marginTop:32}}>
+                  <div style={{
+                    backgroundColor: Theme.palette.backgroundColor,
+                    display:'flex', padding:'8 16'}}>
+                    <Event style={{height: '29px', width: '29px'}} color={Colors.grey500} />
+                    <h4 style={{
+                      fontWeight: 'normal',
+                      margin:0,
+                      marginLeft: 20,
+                      marginTop: 5
+                    }}>Dine aftaler</h4>
+
+                  </div>
+                  <div style={{display:'flex'}}>
+                    <div style={{width:64, height:64, background: Theme.palette.primary2Color}}>
+                      <div style={{marginTop: 0, marginBottom: 0, textAlign: 'center', padding: 8}}>
+                        <h2 style={{marginTop:'auto', marginBottom:'auto', padding:0, color:Theme.palette.alternateTextColor}}>27</h2>
+                        <p style={{marginTop:'auto', marginBottom:'auto', padding:0, color:Theme.palette.alternateTextColor}}>april</p>
+                      </div>
+                    </div>
+
+                    <div style={{padding:12}}>
+                      <h5 style={{margin:0}}>Samtale med din coach</h5>
+                      <p style={{margin:0, marginTop:4, color:Theme.palette.disabledColor}}>Via skype</p>
                     </div>
                   </div>
                 </Paper>
+
                 <Paper style={{marginTop:32}}>
                   <div style={{
                     backgroundColor: Theme.palette.backgroundColor,
@@ -388,7 +443,7 @@ let Dashboard = React.createClass({
 
                   </div>
                   <div style={{padding:'16 16'}}>
-                    <div dangerouslySetInnerHTML={{__html:'<div data-oembed-url="https://vimeo.com/162963147"> <div> <div style="left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;"><iframe allowfullscreen="true" frameborder="0" mozallowfullscreen="true" src="//player.vimeo.com/video/162963147?byline=0&amp;badge=0&amp;portrait=0&amp;title=0" style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;" webkitallowfullscreen="true"></iframe></div> </div> </div>' }}></div>
+                    <div dangerouslySetInnerHTML={{__html:'<div data-oembed-url="https://vimeo.com/164063014"> <div> <div style="left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;"><iframe allowfullscreen="true" frameborder="0" mozallowfullscreen="true" src="//player.vimeo.com/video/164063014?byline=0&amp;badge=0&amp;portrait=0&amp;title=0" style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;" webkitallowfullscreen="true"></iframe></div> </div> </div>' }}></div>
 
                   </div>
                 </Paper>

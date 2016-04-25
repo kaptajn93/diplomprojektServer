@@ -76,10 +76,14 @@ export function loginUser(creds) {
           dispatch(loginError(response.message))
           return Promise.reject(response)
         } else {
+          response.data.user.hasRole = function(roleName){
+            return response.data.user.roles.indexOf(roleName) >= 0;
+          }
           // If login was successful, set the token in local storage
           sessionStorage.setItem('sessionToken', response.data.token);
           sessionStorage.setItem('sessionUser', response.data.user.id);
-          sessionStorage.setItem('sessionUserRole', response.data.user.role);
+          sessionStorage.setItem('sessionImageUrl', response.data.user.imageUrl);
+          sessionStorage.setItem('sessionUserRoles', response.data.user.roles);
           sessionStorage.setItem('sessionFirstName',response.data.user.firstName);
           sessionStorage.setItem('sessionLastName',response.data.user.lastName);
           sessionStorage.setItem('isLoggedIn', true);

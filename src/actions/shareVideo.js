@@ -26,8 +26,8 @@ export function shareVideo(videoUuid) {
     dispatch(requestShareVideo(videoUuid))
 
     // Secondly invoke the remote API and return a promise
-    //var url = "http://localhost:58982/api/Exercise";
-    var url = "http://betterways-api.azurewebsites.net/api/Exercise";
+    var url = "http://localhost:58982/api/Exercise";
+    //var url = "http://betterways-api.azurewebsites.net/api/Exercise";
 
     console.log("Sending video UUID:", videoUuid);
 

@@ -223,7 +223,40 @@ var ConfigureExerciseDialog = React.createClass({
                     />
                 </div>,
               'VideoExercise':
-                <h1>Videoøvelse</h1>,
+                <div>
+
+                  <h4 style={{marginBottom:0}}>Opgavetekser:</h4>
+                  <h5 style={{marginBottom:0}}>Indledende tekst</h5>
+                  <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
+                  <FlatButton
+                    label="Redigér"
+                    secondary={true}
+                    style={{marginBottom:21}}
+                    onClick={this.openEditText.bind(this, 0)}
+                    />
+
+                  <Divider />
+                  <h5 style={{marginBottom:0}}>Tekst til personlig data</h5>
+
+                  <div dangerouslySetInnerHTML={this.getHtmlText(1)}/>
+                  <FlatButton
+                    label="Redigér"
+                    secondary={true}
+                    style={{marginBottom:21}}
+                    onClick={this.openEditText.bind(this, 1)}
+                    />
+
+                    <Divider />
+                    <h5 style={{marginBottom:0}}>Afsluttende tekst</h5>
+
+                    <div dangerouslySetInnerHTML={this.getHtmlText(2)}/>
+                    <FlatButton
+                      label="Redigér"
+                      secondary={true}
+                      style={{marginBottom:21}}
+                      onClick={this.openEditText.bind(this, 2)}
+                      />
+                </div>,
               'KPExplorerQuestionnaire':
                 <div>
                   <h4 style={{marginBottom:0}}>Indtast spørgsmål</h4>

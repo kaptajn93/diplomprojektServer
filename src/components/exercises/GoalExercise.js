@@ -11,6 +11,7 @@ import TextField from 'material-ui/lib/text-field';
 import CircularProgress from 'material-ui/lib/circular-progress';
 
 import { putExerciseGoalResultById, getExerciseResult } from '../../actions/api'
+import Theme from '../Theme';
 
 let GoalExercise = React.createClass({
   getInitialState: function() {
@@ -23,22 +24,28 @@ let GoalExercise = React.createClass({
 
   componentDidMount: function(){
     //Update server
-    if (this.props.liveExercise){
+    if (this.props.liveExercise && this.props.scoreCard === undefined){
       this.setState({isLoading: true});
       this.props.dispatch(getExerciseResult(this.props.exerciseId)).then(
         json => {
-          this.setState({
-            isLoading: false,
-            phase: json.result.isCompleted ? 1 : this.state.phase,
-            goalText: json.result.goalText,
-            previousModulePromiseText: json.result.previousModulePromiseText
-          });
+          this.setScoreCard(json.result)
 
           this.props.exercisesStatusChanged(json.result.isCompleted, this.props.exercise);
         }
       );
     }
+    else if (this.props.scoreCard !== undefined)
+      this.setScoreCard(this.props.scoreCard);
 
+  },
+
+  setScoreCard: function(scoreCard){
+    this.setState({
+      isLoading: false,
+      phase: scoreCard.isCompleted ? 1 : this.state.phase,
+      goalText: scoreCard.goalText,
+      previousModulePromiseText: scoreCard.previousModulePromiseText
+    });
   },
 
   componentWillReceiveProps: function(nextProps){
@@ -104,7 +111,7 @@ let GoalExercise = React.createClass({
     }
 
     return (
-      <div>
+      <div style={{background:Theme.palette.backgroundColor, padding:'32px'}}>
         {
           this.state.previousModulePromiseText !== undefined && this.state.previousModulePromiseText !== "" ?
           <p><span style={{color:'#777777', marginBottom:8, fontSize:'small'}}>I sidste modul, lovede du dig selv:</span><br/><span>{this.state.previousModulePromiseText}</span></p>

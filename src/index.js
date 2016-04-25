@@ -18,6 +18,7 @@ import VideoReview from  './pages/VideoReview'
 import DialogModule from  './pages/DialogModule'
 import ExerciseResultPage from './pages/ExerciseResultPage'
 import LoginPage from './pages/LoginPage'
+import VideoRecord from './pages/VideoRecord'
 
 import Colors from 'material-ui/lib/styles/colors';
 import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
@@ -66,7 +67,9 @@ ReactDOM.render(
         <Route path="administration" component={AdministrationModule}/>
         <Route path="videoreview" component={VideoReview}/>
         <Route path="dialog" component={DialogModule} />
-        <Route path="exerciseResult/:moduleId" component={ExerciseResultPage} />
+        <Route path="coachDialogOverview" isCoachDialog={true} component={DialogModule} />
+        <Route path="exerciseResult/:userId" component={ExerciseResultPage} />
+        <Route path="videorecord" component={VideoRecord} />
       </Route>
     </Router>
   </Provider>,

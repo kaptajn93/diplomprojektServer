@@ -57,8 +57,12 @@ let LoginPage = React.createClass({
   componentDidMount: function(){
     if (sessionStorage.getItem('isLoggedIn') === "true"){
       //We are logged in
-
-      window.location.assign("/#/dashboard");
+      if (sessionStorage.sessionUserRoles.split(",").indexOf("Admin") >= 0)
+        window.location.assign("/#/administration");
+      else if (sessionStorage.sessionUserRoles.split(",").indexOf("Coach") >= 0)
+        window.location.assign("/#/coachDialogOverview");
+      else
+        window.location.assign("/#/dashboard");
     }
   },
 
@@ -67,8 +71,10 @@ let LoginPage = React.createClass({
     this.props.dispatch(loginUser({userId:this.state.userId, password:this.state.password})).then(
       json => {
         //We are logged in
-        if (json.user.role === "Admin")
+        if (json.user.hasRole("Admin"))
           window.location.assign("/#/administration");
+        else if (json.user.hasRole("Coach"))
+          window.location.assign("/#/coachDialogOverview");
         else
           window.location.assign("/#/dashboard");
 

@@ -17,7 +17,7 @@ import Colors from 'material-ui/lib/styles/colors';
 import EditorInsertChart from 'material-ui/lib/svg-icons/editor/insert-chart';
 import Comment from 'material-ui/lib/svg-icons/communication/comment';
 import { Link, browserHistory } from 'react-router';
-import { getCurrentUserResult } from '../actions/api';
+import { getUserResult } from '../actions/api';
 import CircularProgress from 'material-ui/lib/circular-progress';
 import RightArrow from 'material-ui/lib/svg-icons/navigation/chevron-right';
 import LeftArrow from 'material-ui/lib/svg-icons/navigation/chevron-left';
@@ -25,6 +25,7 @@ import IconButton from 'material-ui/lib/icon-button';
 import Check from 'material-ui/lib/svg-icons/navigation/check';
 import { getModuleExercises } from '../actions/api';
 import ExerciseSelector from '../components/Exercises/ExerciseSelector';
+import Theme from '../components/Theme';
 
 
 const {Grid, Row, Col} = require('react-flexgrid');
@@ -61,12 +62,21 @@ var sloganStyle = {
   marginTop:'4px'
 }
 
+let ModuleExercise = React.createClass({
+
+  render: function(){
+    return this.props.ScoreCard.isCompleted ?
+      <ExerciseSelector scoreCard={this.props.ScoreCard} exerciseSelection={this.props.ScoreCard.exercise} liveExercise={false}></ExerciseSelector>
+      : null;
+  }
+});
+
 let ExerciseResultPage = React.createClass({
   getInitialState:function(){
     return{
       title: "",
       isLoading: false,
-      exercises: []
+      modules: []
     }
   },
   componentDidMount : function(){
@@ -74,12 +84,12 @@ let ExerciseResultPage = React.createClass({
       isLoading:true
     });
 
-    this.props.dispatch(getModuleExercises(this.props.params.moduleId)).then(
+    this.props.dispatch(getUserResult(this.props.params.userId)).then(
       json => {
         this.setState({
           isLoading:false,
-          title: json.exercises.title,
-          exercises: json.exercises.exercises
+          modules: json.results.moduleResults,
+          user: json.results.user
         });
     });
   },
@@ -87,14 +97,31 @@ let ExerciseResultPage = React.createClass({
 
   render: function() {
 
-    var exercises = this.state.exercises.length > 0 ? this.state.exercises.map((element, i) => element.elements).reduce(function(a,b){
-        var foo =3;
-        return a.concat(b);
-      }).filter(function(element){
-        return element.className !== null;
-      }).map((element, index) => (
-        <ExerciseSelector exerciseSelection={element}></ExerciseSelector>
-      )) : null;
+
+    var modules = this.state.modules.length > 0 ? this.state.modules.map((element, i) =>{
+      var isActiveOrComplete = element.moduleResults.some(e => e.isCompleted);
+
+      return (
+          <div>
+            <h2 style={{color:isActiveOrComplete ? Theme.palette.textColor: Theme.palette.disabledColor  }}>{i + 1}. {element.module.name}</h2>
+            {
+              isActiveOrComplete ?
+              <div>
+              {
+                element.moduleResults.map((element, index) => {
+                  return (
+                    <div style={{marginTop: index > 0 ? 16 : 0}}>
+                      <ModuleExercise ScoreCard={element} />
+                    </div>);
+                })
+              }
+              </div> :
+              <p style={{color: Theme.palette.disabledColor, marginLeft:16}}>Dette modul er ikke påbegyndt</p>
+            }
+          </div>
+      )}
+    ): null;
+
     return (
       <div style={pageContainerStyle}>
         <Row>
@@ -104,10 +131,14 @@ let ExerciseResultPage = React.createClass({
               <div style={paddingStyle}>
                 <Row>
                   <Col xs={12} sm={12} md={12} lg={12}>
-                    <h1 style={title}>{this.state.title}</h1>
+                    {
+                      this.state.user !== undefined ?
+                      <h1 style={title}>Resultater for {this.state.user.firstName} {this.state.user.lastName}</h1> :
+                      null
+                    }
                     <hr/>
                     {this.state.isLoading ? <div style={{textAlign:'center'}}> <CircularProgress size={0.4} style={{marginTop: '6px'}} /> </div>: null}
-                    {exercises}
+                    {modules}
                   </Col>
                 </Row>
 

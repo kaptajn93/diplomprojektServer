@@ -12614,27 +12614,27 @@
 	
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 	
-	var _CourseModule = __webpack_require__(755);
+	var _CourseModule = __webpack_require__(756);
 	
 	var _CourseModule2 = _interopRequireDefault(_CourseModule);
 	
-	var _AdministrationModule = __webpack_require__(800);
+	var _AdministrationModule = __webpack_require__(804);
 	
 	var _AdministrationModule2 = _interopRequireDefault(_AdministrationModule);
 	
-	var _VideoReview = __webpack_require__(815);
+	var _VideoReview = __webpack_require__(816);
 	
 	var _VideoReview2 = _interopRequireDefault(_VideoReview);
 	
-	var _DialogModule = __webpack_require__(817);
+	var _DialogModule = __webpack_require__(818);
 	
 	var _DialogModule2 = _interopRequireDefault(_DialogModule);
 	
-	var _ExerciseResultPage = __webpack_require__(830);
+	var _ExerciseResultPage = __webpack_require__(831);
 	
 	var _ExerciseResultPage2 = _interopRequireDefault(_ExerciseResultPage);
 	
-	var _LoginPage = __webpack_require__(831);
+	var _LoginPage = __webpack_require__(833);
 	
 	var _LoginPage2 = _interopRequireDefault(_LoginPage);
 	
@@ -12700,7 +12700,8 @@
 	      _react2.default.createElement(_reactRouter.Route, { path: 'administration', component: _AdministrationModule2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'videoreview', component: _VideoReview2.default }),
 	      _react2.default.createElement(_reactRouter.Route, { path: 'dialog', component: _DialogModule2.default }),
-	      _react2.default.createElement(_reactRouter.Route, { path: 'exerciseResult/:moduleId', component: _ExerciseResultPage2.default })
+	      _react2.default.createElement(_reactRouter.Route, { path: 'coachDialogOverview', isCoachDialog: true, component: _DialogModule2.default }),
+	      _react2.default.createElement(_reactRouter.Route, { path: 'exerciseResult/:userId', component: _ExerciseResultPage2.default })
 	    )
 	  )
 	), document.getElementById('root'));
@@ -40044,7 +40045,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.RECEIVE_ALL_MODULE_EXERCISES = exports.REQUEST_ALL_MODULE_EXERCISES = exports.RECEIVE_EXERCISE_RESULT = exports.REQUEST_EXERCISE_RESULT = exports.PUT_API_MODULE_PROMISE_RESULT = exports.PUT_API_EXERCISE_GOAL_RESULT = exports.PUT_API_KP_EXPLORER_RESULT = exports.PUT_API_SORT_AND_EVAL_RESULT = exports.RESET_COURSE_ADMISSION = exports.RECEIVE_GET_CURRENT_USER_RESULT = exports.REQUEST_GET_CURRENT_USER_RESULT = exports.RECEIVE_GET_CURRENT_USER = exports.REQUEST_GET_CURRENT_USER = exports.PUT_API_EXERCISE_RESOUCE = exports.RECEIVE_API_UPDATED_RESOUCE_ID = exports.PUT_API_RESOUCE = exports.PUT_API_MODULE_DESCRIPTION = exports.RECEIVE_API_EXERCISE_RESOUCE_BY_ID = exports.REQUEST_API_EXERCISE_RESOUCE_BY_ID = exports.RECEIVE_API_RESOUCE_BY_ID = exports.REQUEST_API_RESOUCE_BY_ID = exports.RECEIVE_API_MODULE = exports.REQUEST_API_MODULE = exports.RECEIVE_API_ALL_COURSE_MODULES = exports.REQUEST_API_ALL_COURSE_MODULES = exports.RECEIVE_API_ALL_COURSES = exports.REQUEST_API_ALL_COURSES = undefined;
+	exports.RECEIVE_POST_DIALOG_MESSAGE = exports.REQUEST_POST_DIALOG_MESSAGE = exports.RECEIVE_USER_DIALOGS = exports.REQUEST_USER_DIALOGS = exports.RECEIVE_ALL_MODULE_EXERCISES = exports.REQUEST_ALL_MODULE_EXERCISES = exports.RECEIVE_EXERCISE_RESULT = exports.REQUEST_EXERCISE_RESULT = exports.PUT_API_MODULE_PROMISE_RESULT = exports.PUT_API_EXERCISE_GOAL_RESULT = exports.PUT_API_KP_EXPLORER_RESULT = exports.PUT_API_SORT_AND_EVAL_RESULT = exports.RESET_COURSE_ADMISSION = exports.RECEIVE_GET_USER_RESULT = exports.REQUEST_GET_USER_RESULT = exports.RECEIVE_GET_CURRENT_USER = exports.REQUEST_GET_CURRENT_USER = exports.PUT_API_EXERCISE_RESOUCE = exports.RECEIVE_API_UPDATED_RESOUCE_ID = exports.PUT_API_RESOUCE = exports.PUT_API_MODULE_DESCRIPTION = exports.RECEIVE_API_EXERCISE_RESOUCE_BY_ID = exports.REQUEST_API_EXERCISE_RESOUCE_BY_ID = exports.RECEIVE_API_RESOUCE_BY_ID = exports.REQUEST_API_RESOUCE_BY_ID = exports.RECEIVE_API_MODULE = exports.REQUEST_API_MODULE = exports.RECEIVE_API_ALL_COURSE_MODULES = exports.REQUEST_API_ALL_COURSE_MODULES = exports.RECEIVE_API_ALL_COURSES = exports.REQUEST_API_ALL_COURSES = undefined;
 	exports.receiveApiAllCourses = receiveApiAllCourses;
 	exports.getAllCourses = getAllCourses;
 	exports.receiveApiAllCourseModules = receiveApiAllCourseModules;
@@ -40061,8 +40062,8 @@
 	exports.putExerciseResourceById = putExerciseResourceById;
 	exports.receiveCurrentUser = receiveCurrentUser;
 	exports.getCurrentUser = getCurrentUser;
-	exports.receiveCurrentUserResult = receiveCurrentUserResult;
-	exports.getCurrentUserResult = getCurrentUserResult;
+	exports.receiveUserResult = receiveUserResult;
+	exports.getUserResult = getUserResult;
 	exports.resetCourseAdmission = resetCourseAdmission;
 	exports.putSortAndEvalResultById = putSortAndEvalResultById;
 	exports.putKpExplorerResultById = putKpExplorerResultById;
@@ -40072,6 +40073,10 @@
 	exports.getExerciseResult = getExerciseResult;
 	exports.receiveAllModuleExercises = receiveAllModuleExercises;
 	exports.getModuleExercises = getModuleExercises;
+	exports.receiveUserDialogs = receiveUserDialogs;
+	exports.getUserDialogs = getUserDialogs;
+	exports.receivePostDialogMessage = receivePostDialogMessage;
+	exports.postDialogMessage = postDialogMessage;
 	
 	var _axios = __webpack_require__(553);
 	
@@ -40079,8 +40084,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var apiUrl = 'http://localhost:58982/api';
-	//const apiUrl = 'http://betterways-test.azurewebsites.net/api'
+	//const apiUrl = 'http://localhost:58982/api'
+	var apiUrl = 'http://betterways-test.azurewebsites.net/api';
 	
 	var REQUEST_API_ALL_COURSES = exports.REQUEST_API_ALL_COURSES = 'REQUEST_API_ALL_COURSES';
 	function requestApiAllCourses() {
@@ -40433,24 +40438,26 @@
 	      );
 	    }).catch(function (response) {
 	      console.log(response);
+	      throw response;
 	    });
 	  };
 	}
 	
 	//Current user result
-	var REQUEST_GET_CURRENT_USER_RESULT = exports.REQUEST_GET_CURRENT_USER_RESULT = 'REQUEST_GET_CURRENT_USER_RESULT';
-	function requestCurrentUserResult() {
+	var REQUEST_GET_USER_RESULT = exports.REQUEST_GET_USER_RESULT = 'REQUEST_GET_USER_RESULT';
+	function requestUserResult(userId) {
 	  return {
-	    type: REQUEST_GET_CURRENT_USER_RESULT
+	    type: REQUEST_GET_USER_RESULT
 	  };
 	}
 	
-	var RECEIVE_GET_CURRENT_USER_RESULT = exports.RECEIVE_GET_CURRENT_USER_RESULT = 'RECEIVE_GET_CURRENT_USER_RESULT';
+	var RECEIVE_GET_USER_RESULT = exports.RECEIVE_GET_USER_RESULT = 'RECEIVE_GET_USER_RESULT';
 	
-	function receiveCurrentUserResult(json) {
+	function receiveUserResult(userId, json) {
 	  return {
-	    type: RECEIVE_GET_CURRENT_USER_RESULT,
-	    results: json, //json.data.children.map(child => child.data),
+	    type: RECEIVE_GET_USER_RESULT,
+	    results: json,
+	    userId: userId,
 	    receivedAt: Date.now()
 	  };
 	}
@@ -40459,27 +40466,26 @@
 	// Though its insides are different, you would use it just like any other action creator:
 	// store.dispatch(fetchPosts('reactjs'))
 	
-	function getCurrentUserResult() {
-	
-	  // Thunk middleware knows how to handle functions.
-	  // It passes the dispatch method as an argument to the function,
-	  // thus making it able to dispatch actions itself.
+	function getUserResult(userId) {
 	
 	  return function (dispatch) {
 	
 	    // First dispatch: the app state is updated to inform
 	    // that the API call is starting.
-	    dispatch(requestCurrentUserResult());
+	    dispatch(requestUserResult());
+	
+	    var url = apiUrl + '/user/currentUser/results';
+	    if (userId !== undefined) url = apiUrl + '/user/' + userId + '/results';
 	
 	    // Secondly invoke the remote API and return a promise
-	    return _axios2.default.get(apiUrl + '/user/currentUser/results').then(function (response) {
+	    return _axios2.default.get(url).then(function (response) {
 	      return response.data;
 	    }).then(function (json) {
 	      return(
 	
 	        // Final dispatch: Here, we update the app state with the results of the API call.
 	        // NOTE: We can dispatch many times!
-	        dispatch(receiveCurrentUserResult(json))
+	        dispatch(receiveUserResult(userId, json))
 	      );
 	    }).catch(function (response) {
 	      console.log(response);
@@ -40713,6 +40719,85 @@
 	        // Final dispatch: Here, we update the app state with the results of the API call.
 	        // NOTE: We can dispatch many times!
 	        dispatch(receiveAllModuleExercises(moduleId, json))
+	      );
+	    }).catch(function (response) {
+	      console.log(response);
+	    });
+	  };
+	}
+	
+	//User dialogs
+	var REQUEST_USER_DIALOGS = exports.REQUEST_USER_DIALOGS = 'REQUEST_USER_DIALOGS';
+	function requestUserDialogs() {
+	  return {
+	    type: REQUEST_USER_DIALOGS
+	  };
+	}
+	
+	var RECEIVE_USER_DIALOGS = exports.RECEIVE_USER_DIALOGS = 'RECEIVE_USER_DIALOGS';
+	function receiveUserDialogs(json) {
+	  return {
+	    type: RECEIVE_USER_DIALOGS,
+	    dialogs: json,
+	    receivedAt: Date.now()
+	  };
+	}
+	
+	function getUserDialogs() {
+	  return function (dispatch) {
+	    // First dispatch: the app state is updated to inform
+	    // that the API call is starting.
+	    dispatch(requestUserDialogs());
+	
+	    return _axios2.default.get(apiUrl + '/user/currentUser/dialogs/').then(function (response) {
+	      return response.data;
+	    }).then(function (json) {
+	      return(
+	
+	        // Final dispatch: Here, we update the app state with the results of the API call.
+	        // NOTE: We can dispatch many times!
+	        dispatch(receiveUserDialogs(json))
+	      );
+	    }).catch(function (response) {
+	      console.log(response);
+	    });
+	  };
+	}
+	
+	//Post dialog message
+	var REQUEST_POST_DIALOG_MESSAGE = exports.REQUEST_POST_DIALOG_MESSAGE = 'REQUEST_POST_DIALOG_MESSAGE';
+	function requestPostDialogMessage(message, receiverUserId, senderUserId) {
+	  return {
+	    type: REQUEST_POST_DIALOG_MESSAGE,
+	    message: message,
+	    receiverUserId: receiverUserId,
+	    senderUserId: senderUserId
+	  };
+	}
+	
+	var RECEIVE_POST_DIALOG_MESSAGE = exports.RECEIVE_POST_DIALOG_MESSAGE = 'RECEIVE_POST_DIALOG_MESSAGE';
+	function receivePostDialogMessage(json) {
+	  return {
+	    type: RECEIVE_POST_DIALOG_MESSAGE,
+	    dialogEntry: json,
+	    receivedAt: Date.now()
+	  };
+	}
+	
+	function postDialogMessage(message, receiverUserId, senderUserId) {
+	  return function (dispatch) {
+	    // First dispatch: the app state is updated to inform
+	    // that the API call is starting.
+	    dispatch(requestPostDialogMessage(message, receiverUserId, senderUserId));
+	
+	    return _axios2.default.post(apiUrl + '/dialog/', { message: message, receiverUserId: receiverUserId, senderUserId: senderUserId }).then(function (response) {
+	      return response.data;
+	    }).then(function (json) {
+	      return(
+	
+	        // Final dispatch: Here, we update the app state with the results of the API call.
+	        // NOTE: We can dispatch many times!
+	        dispatch(receivePostDialogMessage(json))
 	      );
 	    }).catch(function (response) {
 	      console.log(response);
@@ -41993,15 +42078,20 @@
 	          that.setState({
 	            currentUser: json.user
 	          });
+	        }).catch(function (error) {
+	          that.handleLogOut();
 	        });
 	      } else that.setState({
 	        currentUser: null
 	      });
 	    };
+	
 	    this.props.dispatch((0, _api.getCurrentUser)()).then(function (json) {
 	      _this.setState({
 	        currentUser: json.user
 	      });
+	    }).catch(function (error) {
+	      that.handleLogOut();
 	    });
 	  },
 	
@@ -42032,8 +42122,8 @@
 	          disabled: false,
 	          rightAvatar: _react2.default.createElement(
 	            _avatar2.default,
-	            null,
-	            this.state.currentUser.firstName[0]
+	            { src: this.state.currentUser.imageUrl },
+	            this.state.currentUser.imageUrl === null ? this.state.currentUser.firstName[0] : null
 	          ) },
 	        _react2.default.createElement(
 	          'span',
@@ -42080,7 +42170,16 @@
 	            _react2.default.createElement(
 	              _toolbarGroup2.default,
 	              { firstChild: false, float: 'left' },
-	              sessionStorage.sessionUserRole !== 'Admin' ? _react2.default.createElement(_flatButton2.default, { label: 'Better ways', linkButton: true, containerElement: _react2.default.createElement(_reactRouter.Link, { to: '/' }) }) : null
+	              sessionStorage.sessionUserRole !== 'Admin' ? _react2.default.createElement(_flatButton2.default, { label: _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  'Better ',
+	                  _react2.default.createElement(
+	                    'strong',
+	                    null,
+	                    'ways'
+	                  )
+	                ), linkButton: true, containerElement: _react2.default.createElement(_reactRouter.Link, { to: '/' }) }) : null
 	            ),
 	            userAvatar
 	          ),
@@ -55634,8 +55733,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var apiUrl = 'http://localhost:58982/api';
-	//const apiUrl = 'http://betterways-test.azurewebsites.net/api'
+	//const apiUrl = 'http://localhost:58982/api'
+	var apiUrl = 'http://betterways-test.azurewebsites.net/api';
 	
 	// Add a request interceptor
 	_axios2.default.interceptors.request.use(function (config) {
@@ -55709,10 +55808,14 @@
 	        dispatch(loginError(response.message));
 	        return _promise2.default.reject(response);
 	      } else {
+	        response.data.user.hasRole = function (roleName) {
+	          return response.data.user.roles.indexOf(roleName) >= 0;
+	        };
 	        // If login was successful, set the token in local storage
 	        sessionStorage.setItem('sessionToken', response.data.token);
 	        sessionStorage.setItem('sessionUser', response.data.user.id);
-	        sessionStorage.setItem('sessionUserRole', response.data.user.role);
+	        sessionStorage.setItem('sessionImageUrl', response.data.user.imageUrl);
+	        sessionStorage.setItem('sessionUserRoles', response.data.user.roles);
 	        sessionStorage.setItem('sessionFirstName', response.data.user.firstName);
 	        sessionStorage.setItem('sessionLastName', response.data.user.lastName);
 	        sessionStorage.setItem('isLoggedIn', true);
@@ -57737,7 +57840,11 @@
 	
 	var _expandMore2 = _interopRequireDefault(_expandMore);
 	
-	var _expandLess = __webpack_require__(752);
+	var _event = __webpack_require__(752);
+	
+	var _event2 = _interopRequireDefault(_event);
+	
+	var _expandLess = __webpack_require__(753);
 	
 	var _expandLess2 = _interopRequireDefault(_expandLess);
 	
@@ -57745,11 +57852,11 @@
 	
 	var _Theme2 = _interopRequireDefault(_Theme);
 	
-	var _badge = __webpack_require__(753);
+	var _badge = __webpack_require__(754);
 	
 	var _badge2 = _interopRequireDefault(_badge);
 	
-	var _ProgressWheel = __webpack_require__(754);
+	var _ProgressWheel = __webpack_require__(755);
 	
 	var _ProgressWheel2 = _interopRequireDefault(_ProgressWheel);
 	
@@ -57839,7 +57946,10 @@
 	  displayName: 'Dashboard',
 	
 	  getInitialState: function getInitialState() {
-	    return {};
+	    return {
+	      isLoading: true,
+	      isLoadingDialog: true
+	    };
 	  },
 	
 	  navigateToCurrentModule: function navigateToCurrentModule(event) {
@@ -57858,12 +57968,14 @@
 	    var _this = this;
 	
 	    this.setState({
-	      isLoading: true
+	      isLoading: true,
+	      isLoadingDialog: true
 	    });
-	    this.props.dispatch((0, _api.getCurrentUserResult)()).then(function (json) {
+	
+	    //Load course state
+	    this.props.dispatch((0, _api.getUserResult)()).then(function (json) {
 	
 	      for (var i = 0; i < json.results.moduleResults.length; i++) {
-	
 	        json.results.moduleResults[i].isCompleted = !json.results.moduleResults[i].moduleResults.some(function (r, index) {
 	          return !r.isCompleted;
 	        });
@@ -57902,6 +58014,14 @@
 	        currentModuleResults: json.results.moduleResults[json.results.activeModuleIndex].moduleResults,
 	        currentModuleIndex: json.results.activeModuleIndex,
 	        activeModuleIndex: json.results.activeModuleIndex
+	      });
+	    });
+	
+	    //Load unread
+	    this.props.dispatch((0, _api.getUserDialogs)()).then(function (json) {
+	      _this.setState({
+	        isLoadingDialog: false,
+	        latestUnread: json.dialogs.latestUnread
 	      });
 	    });
 	  },
@@ -57963,9 +58083,10 @@
 	        _react2.default.createElement(
 	          'div',
 	          { style: {
-	              backgroundColor: _Theme2.default.palette.backgroundColor,
+	              backgroundColor: g.isActive ? _Theme2.default.palette.primary1Color : _Theme2.default.palette.backgroundColor,
+	              color: g.isActive ? _Theme2.default.palette.alternateTextColor : _Theme2.default.palette.textColor,
 	              display: 'flex', padding: '8 16', cursor: 'pointer',
-	              position: 'relative', boxShadow: index > 0 ? 'inset 0 5px 7px -7px rgba(0,0,0, 0.7)' : '' },
+	              position: 'relative', boxShadow: index > 0 ? 'inset 0 5px 8px -6px rgba(0,0,0, 0.55)' : '' },
 	            onClick: _this2.openGroup.bind(_this2, g) },
 	          _react2.default.createElement(
 	            'h2',
@@ -57975,7 +58096,7 @@
 	          _react2.default.createElement(
 	            'h4',
 	            { style: {
-	                fontWeight: g.isActive ? 'bold' : 'normal',
+	                fontWeight: 'normal',
 	                margin: 0,
 	                marginLeft: 20,
 	                marginTop: 5
@@ -57985,7 +58106,7 @@
 	          _react2.default.createElement(
 	            'span',
 	            { style: { marginRight: 0, marginLeft: 'auto', marginTop: 3 } },
-	            g.isCompleted ? _react2.default.createElement(_doneAll2.default, { style: { width: 24, height: 24 }, color: _Theme2.default.palette.widgetGreen }) : g.isActive ? _react2.default.createElement(_place2.default, { style: { width: 24, height: 24 }, color: _colors2.default.grey600 }) : null
+	            g.isCompleted ? _react2.default.createElement(_doneAll2.default, { style: { width: 24, height: 24 }, color: _Theme2.default.palette.widgetGreen }) : g.isActive ? _react2.default.createElement(_place2.default, { style: { width: 24, height: 24 }, color: _colors2.default.white }) : null
 	          ),
 	          _react2.default.createElement('div', { style: {
 	              position: 'absolute',
@@ -57995,8 +58116,7 @@
 	              height: 0,
 	              borderLeft: '22px solid transparent',
 	              borderRight: '22px solid transparent',
-	
-	              borderTop: '22px solid ' + _Theme2.default.palette.backgroundColor
+	              borderTop: '22px solid ' + (g.isActive ? _Theme2.default.palette.primary1Color : _Theme2.default.palette.backgroundColor)
 	            } })
 	        ),
 	        _react2.default.createElement(
@@ -58016,13 +58136,13 @@
 	              g.modules.map(function (m, index) {
 	                return _react2.default.createElement(
 	                  _raisedButton2.default,
-	                  { onClick: _this2.navigateToModule.bind(_this2, m.module.moduleIndex), secondary: m.isCompleted, primary: m.isActive, style: { margin: '4 0', width: '100%', padding: 0 } },
+	                  { disabled: !m.isCompleted && !m.isActive, onClick: _this2.navigateToModule.bind(_this2, m.module.moduleIndex), secondary: m.isCompleted, primary: m.isActive, style: { margin: '4 0', width: '100%', padding: 0 } },
 	                  _react2.default.createElement(
 	                    'div',
 	                    { style: { height: '100%', width: '100%', textAlign: 'left' } },
 	                    _react2.default.createElement(
 	                      'div',
-	                      { style: { display: 'flex', padding: '8 16', color: m.isCompleted || m.isActive ? _Theme2.default.palette.alternateTextColor : _Theme2.default.palette.textColorMuted } },
+	                      { style: { display: 'flex', padding: '8 16', color: m.isCompleted || m.isActive ? _Theme2.default.palette.alternateTextColor : _Theme2.default.palette.textColor } },
 	                      _react2.default.createElement(_badge2.default, {
 	                        style: { padding: '0px 20px 0px 0px', marginTop: -2 },
 	                        badgeStyle: { fontWeight: 'bold',
@@ -58075,10 +58195,23 @@
 	            'div',
 	            { style: { width: '100%' } },
 	            g.modules.map(function (m, index) {
-	              return _react2.default.createElement(_badge2.default, {
-	                style: { padding: '0px 20px 0px 0px', marginTop: -2, marginLeft: 8 }, badgeStyle: { fontWeight: 'bold', background: m.isActive || m.isCompleted ? _Theme2.default.palette.primary1Color : _Theme2.default.palette.primary2Color },
-	                badgeContent: m.module.moduleIndex + 1,
-	                secondary: true });
+	              return _react2.default.createElement(
+	                _badge2.default,
+	                {
+	                  onClick: _this2.navigateToModule.bind(_this2, m.module.moduleIndex),
+	                  className: 'tooltip',
+	                  style: { padding: '0px 20px 0px 0px', marginTop: -2, marginLeft: 8,
+	                    cursor: m.isActive || m.isCompleted ? 'pointer' : 'default' },
+	                  badgeStyle: { fontWeight: 'bold',
+	                    background: m.isActive ? _Theme2.default.palette.accent1Color : m.isCompleted ? _Theme2.default.palette.primary1Color : _Theme2.default.palette.primary2Color },
+	                  badgeContent: m.module.moduleIndex + 1,
+	                  secondary: true },
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'tooltiptext' },
+	                  m.module.name
+	                )
+	              );
 	            })
 	          ),
 	          _react2.default.createElement(
@@ -58166,28 +58299,40 @@
 	                    'Samtaler'
 	                  )
 	                ),
-	                _react2.default.createElement(
+	                this.state.isLoadingDialog ? _react2.default.createElement(_circularProgress2.default, { size: 0.6, style: { marginTop: 60, marginBottom: 60, width: '100%', textAlign: 'center' } }) : this.state.latestUnread === undefined || this.state.latestUnread === null ? _react2.default.createElement(
+	                  'div',
+	                  { style: { padding: '16 24' } },
+	                  _react2.default.createElement(
+	                    'p',
+	                    { style: { color: _Theme2.default.palette.disabledColor } },
+	                    'Du har ingen samtaler'
+	                  )
+	                ) : _react2.default.createElement(
 	                  'div',
 	                  { style: { padding: '16 24' } },
 	                  _react2.default.createElement(
 	                    _list2.default,
 	                    { style: transparentBackground },
 	                    _react2.default.createElement(_listItem2.default, { onClick: this.navigateToDialog,
-	                      leftAvatar: _react2.default.createElement(_avatar2.default, { src: 'assets/tine.jpg' }),
-	                      primaryText: 'Fra Tine',
+	                      leftAvatar: _react2.default.createElement(
+	                        _avatar2.default,
+	                        { src: this.state.latestUnread.senderImageUrl },
+	                        this.state.latestUnread.senderImageUrl === null ? this.state.latestUnread.senderName[0] : null
+	                      ),
+	                      primaryText: "Fra " + this.state.latestUnread.senderName,
 	                      secondaryText: _react2.default.createElement(
 	                        'p',
 	                        null,
 	                        _react2.default.createElement(
 	                          'span',
 	                          null,
-	                          'Din coach'
+	                          this.state.latestUnread.senderDescription
 	                        ),
 	                        '  --',
 	                        _react2.default.createElement(
 	                          'span',
 	                          { style: { color: _colors2.default.darkBlack } },
-	                          'Jeg er din coach og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.'
+	                          this.state.latestUnread.text
 	                        )
 	                      ),
 	                      secondaryTextLines: 2
@@ -58197,6 +58342,63 @@
 	                    'div',
 	                    null,
 	                    _react2.default.createElement(_flatButton2.default, { label: 'Skriv til Tine', secondary: true, onMouseUp: this.navigateToDialog })
+	                  )
+	                )
+	              ),
+	              _react2.default.createElement(
+	                _paper2.default,
+	                { style: { marginTop: 32 } },
+	                _react2.default.createElement(
+	                  'div',
+	                  { style: {
+	                      backgroundColor: _Theme2.default.palette.backgroundColor,
+	                      display: 'flex', padding: '8 16' } },
+	                  _react2.default.createElement(_event2.default, { style: { height: '29px', width: '29px' }, color: _colors2.default.grey500 }),
+	                  _react2.default.createElement(
+	                    'h4',
+	                    { style: {
+	                        fontWeight: 'normal',
+	                        margin: 0,
+	                        marginLeft: 20,
+	                        marginTop: 5
+	                      } },
+	                    'Dine aftaler'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { style: { display: 'flex' } },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: { width: 64, height: 64, background: _Theme2.default.palette.primary2Color } },
+	                    _react2.default.createElement(
+	                      'div',
+	                      { style: { marginTop: 0, marginBottom: 0, textAlign: 'center', padding: 8 } },
+	                      _react2.default.createElement(
+	                        'h2',
+	                        { style: { marginTop: 'auto', marginBottom: 'auto', padding: 0, color: _Theme2.default.palette.alternateTextColor } },
+	                        '27'
+	                      ),
+	                      _react2.default.createElement(
+	                        'p',
+	                        { style: { marginTop: 'auto', marginBottom: 'auto', padding: 0, color: _Theme2.default.palette.alternateTextColor } },
+	                        'april'
+	                      )
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: { padding: 12 } },
+	                    _react2.default.createElement(
+	                      'h5',
+	                      { style: { margin: 0 } },
+	                      'Samtale med din coach'
+	                    ),
+	                    _react2.default.createElement(
+	                      'p',
+	                      { style: { margin: 0, marginTop: 4, color: _Theme2.default.palette.disabledColor } },
+	                      'Via skype'
+	                    )
 	                  )
 	                )
 	              ),
@@ -59036,6 +59238,47 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var ActionEvent = _react2.default.createClass({
+	  displayName: 'ActionEvent',
+	
+	  mixins: [_reactAddonsPureRenderMixin2.default],
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      _svgIcon2.default,
+	      this.props,
+	      _react2.default.createElement('path', { d: 'M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z' })
+	    );
+	  }
+	});
+	
+	exports.default = ActionEvent;
+	module.exports = exports['default'];
+
+/***/ },
+/* 753 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAddonsPureRenderMixin = __webpack_require__(634);
+	
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+	
+	var _svgIcon = __webpack_require__(666);
+	
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var NavigationExpandLess = _react2.default.createClass({
 	  displayName: 'NavigationExpandLess',
 	
@@ -59054,7 +59297,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 753 */
+/* 754 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59219,7 +59462,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 754 */
+/* 755 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59323,7 +59566,7 @@
 	exports.default = ProgressWheel;
 
 /***/ },
-/* 755 */
+/* 756 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59338,11 +59581,11 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _tabs = __webpack_require__(756);
+	var _tabs = __webpack_require__(757);
 	
 	var _tabs2 = _interopRequireDefault(_tabs);
 	
-	var _tab = __webpack_require__(759);
+	var _tab = __webpack_require__(760);
 	
 	var _tab2 = _interopRequireDefault(_tab);
 	
@@ -59350,19 +59593,19 @@
 	
 	var _fontIcon2 = _interopRequireDefault(_fontIcon);
 	
-	var _flightTakeoff = __webpack_require__(760);
+	var _flightTakeoff = __webpack_require__(761);
 	
 	var _flightTakeoff2 = _interopRequireDefault(_flightTakeoff);
 	
-	var _card = __webpack_require__(761);
+	var _card = __webpack_require__(762);
 	
 	var _card2 = _interopRequireDefault(_card);
 	
-	var _cardActions = __webpack_require__(765);
+	var _cardActions = __webpack_require__(766);
 	
 	var _cardActions2 = _interopRequireDefault(_cardActions);
 	
-	var _cardHeader = __webpack_require__(766);
+	var _cardHeader = __webpack_require__(767);
 	
 	var _cardHeader2 = _interopRequireDefault(_cardHeader);
 	
@@ -59370,7 +59613,7 @@
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
 	
-	var _cardText = __webpack_require__(767);
+	var _cardText = __webpack_require__(768);
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
 	
@@ -59378,15 +59621,15 @@
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _CourseModuleInfo = __webpack_require__(768);
+	var _CourseModuleInfo = __webpack_require__(769);
 	
 	var _CourseModuleInfo2 = _interopRequireDefault(_CourseModuleInfo);
 	
-	var _CourseModuleExperiment = __webpack_require__(769);
+	var _CourseModuleExperiment = __webpack_require__(770);
 	
 	var _CourseModuleExperiment2 = _interopRequireDefault(_CourseModuleExperiment);
 	
-	var _CourseModuleReflection = __webpack_require__(797);
+	var _CourseModuleReflection = __webpack_require__(801);
 	
 	var _CourseModuleReflection2 = _interopRequireDefault(_CourseModuleReflection);
 	
@@ -59616,7 +59859,7 @@
 	exports.default = CourseModule;
 
 /***/ },
-/* 756 */
+/* 757 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -59635,11 +59878,11 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _tabTemplate = __webpack_require__(757);
+	var _tabTemplate = __webpack_require__(758);
 	
 	var _tabTemplate2 = _interopRequireDefault(_tabTemplate);
 	
-	var _inkBar = __webpack_require__(758);
+	var _inkBar = __webpack_require__(759);
 	
 	var _inkBar2 = _interopRequireDefault(_inkBar);
 	
@@ -59897,7 +60140,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 757 */
+/* 758 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -59964,7 +60207,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 758 */
+/* 759 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60069,7 +60312,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 759 */
+/* 760 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60253,7 +60496,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 760 */
+/* 761 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60294,7 +60537,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 761 */
+/* 762 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60317,7 +60560,7 @@
 	
 	var _stylePropable2 = _interopRequireDefault(_stylePropable);
 	
-	var _cardExpandable = __webpack_require__(762);
+	var _cardExpandable = __webpack_require__(763);
 	
 	var _cardExpandable2 = _interopRequireDefault(_cardExpandable);
 	
@@ -60445,7 +60688,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 762 */
+/* 763 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60458,11 +60701,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _keyboardArrowUp = __webpack_require__(763);
+	var _keyboardArrowUp = __webpack_require__(764);
 	
 	var _keyboardArrowUp2 = _interopRequireDefault(_keyboardArrowUp);
 	
-	var _keyboardArrowDown = __webpack_require__(764);
+	var _keyboardArrowDown = __webpack_require__(765);
 	
 	var _keyboardArrowDown2 = _interopRequireDefault(_keyboardArrowDown);
 	
@@ -60579,7 +60822,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 763 */
+/* 764 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60620,7 +60863,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 764 */
+/* 765 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60661,7 +60904,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 765 */
+/* 766 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60760,7 +61003,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 766 */
+/* 767 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60921,7 +61164,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 767 */
+/* 768 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61015,7 +61258,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 768 */
+/* 769 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61098,7 +61341,7 @@
 	exports.default = CourseModuleInfo;
 
 /***/ },
-/* 769 */
+/* 770 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61113,13 +61356,13 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _ExerciseSelector = __webpack_require__(770);
+	var _ExerciseSelector = __webpack_require__(771);
 	
 	var _ExerciseSelector2 = _interopRequireDefault(_ExerciseSelector);
 	
 	var _api = __webpack_require__(552);
 	
-	var _Camera = __webpack_require__(795);
+	var _Camera = __webpack_require__(799);
 	
 	var _Camera2 = _interopRequireDefault(_Camera);
 	
@@ -61135,7 +61378,7 @@
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _shareVideo = __webpack_require__(796);
+	var _shareVideo = __webpack_require__(800);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -61262,7 +61505,7 @@
 	</div>*/
 
 /***/ },
-/* 770 */
+/* 771 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61275,19 +61518,19 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _SortAndEvaluateExercise = __webpack_require__(771);
+	var _SortAndEvaluateExercise = __webpack_require__(772);
 	
 	var _SortAndEvaluateExercise2 = _interopRequireDefault(_SortAndEvaluateExercise);
 	
-	var _KPExplorerQuestionnaire = __webpack_require__(785);
+	var _KPExplorerQuestionnaire = __webpack_require__(786);
 	
 	var _KPExplorerQuestionnaire2 = _interopRequireDefault(_KPExplorerQuestionnaire);
 	
-	var _GoalExercise = __webpack_require__(793);
+	var _GoalExercise = __webpack_require__(797);
 	
 	var _GoalExercise2 = _interopRequireDefault(_GoalExercise);
 	
-	var _PromiseExercise = __webpack_require__(794);
+	var _PromiseExercise = __webpack_require__(798);
 	
 	var _PromiseExercise2 = _interopRequireDefault(_PromiseExercise);
 	
@@ -61309,23 +61552,23 @@
 	  render: function render() {
 	    if (this.state.exerciseSelection === undefined || this.state.exerciseSelection === null) return null;else if (this.state.exerciseSelection.className === 'SortAndEvaluate') return _react2.default.createElement(
 	      _SortAndEvaluateExercise2.default,
-	      { exercisesStatusChanged: this.props.exercisesStatusChanged, liveExercise: this.props.liveExercise, exerciseId: this.state.exerciseSelection.exerciseId, exercise: this.state.exerciseSelection },
+	      { exercisesStatusChanged: this.props.exercisesStatusChanged, liveExercise: this.props.liveExercise, exerciseId: this.state.exerciseSelection.exerciseId, exercise: this.state.exerciseSelection, scoreCard: this.props.scoreCard },
 	      ' '
 	    );else if (this.state.exerciseSelection.className === 'KPExplorerQuestionnaire') return _react2.default.createElement(
 	      _KPExplorerQuestionnaire2.default,
-	      { exercisesStatusChanged: this.props.exercisesStatusChanged, liveExercise: this.props.liveExercise, exerciseId: this.state.exerciseSelection.exerciseId, exercise: this.state.exerciseSelection },
+	      { exercisesStatusChanged: this.props.exercisesStatusChanged, liveExercise: this.props.liveExercise, exerciseId: this.state.exerciseSelection.exerciseId, exercise: this.state.exerciseSelection, scoreCard: this.props.scoreCard },
 	      ' '
 	    );else if (this.state.exerciseSelection.className === 'Goal') return _react2.default.createElement(
 	      _GoalExercise2.default,
-	      { onExerciseGoalUpdated: this.props.onExerciseGoalUpdated, exercisesStatusChanged: this.props.exercisesStatusChanged, liveExercise: this.props.liveExercise, exerciseId: this.state.exerciseSelection.exerciseId, exercise: this.state.exerciseSelection },
+	      { onExerciseGoalUpdated: this.props.onExerciseGoalUpdated, exercisesStatusChanged: this.props.exercisesStatusChanged, liveExercise: this.props.liveExercise, exerciseId: this.state.exerciseSelection.exerciseId, exercise: this.state.exerciseSelection, scoreCard: this.props.scoreCard },
 	      ' '
 	    );else if (this.state.exerciseSelection.className === 'Promise') return _react2.default.createElement(
 	      _PromiseExercise2.default,
-	      { exerciseGoalText: this.props.exerciseGoalText, exercisesStatusChanged: this.props.exercisesStatusChanged, liveExercise: this.props.liveExercise, exerciseId: this.state.exerciseSelection.exerciseId, exercise: this.state.exerciseSelection },
+	      { exerciseGoalText: this.props.exerciseGoalText, exercisesStatusChanged: this.props.exercisesStatusChanged, liveExercise: this.props.liveExercise, exerciseId: this.state.exerciseSelection.exerciseId, exercise: this.state.exerciseSelection, scoreCard: this.props.scoreCard },
 	      ' '
 	    );else if (this.state.exerciseSelection.className === 'Reflection') return _react2.default.createElement(
 	      _KPExplorerQuestionnaire2.default,
-	      { exercisesStatusChanged: this.props.exercisesStatusChanged, liveExercise: this.props.liveExercise, exerciseId: this.state.exerciseSelection.exerciseId, exercise: this.state.exerciseSelection },
+	      { exercisesStatusChanged: this.props.exercisesStatusChanged, liveExercise: this.props.liveExercise, exerciseId: this.state.exerciseSelection.exerciseId, exercise: this.state.exerciseSelection, scoreCard: this.props.scoreCard },
 	      ' '
 	    );
 	    return null;
@@ -61335,7 +61578,7 @@
 	exports.default = ExerciseSelector;
 
 /***/ },
-/* 771 */
+/* 772 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61350,7 +61593,7 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _reactSortableMixin = __webpack_require__(772);
+	var _reactSortableMixin = __webpack_require__(773);
 	
 	var _reactSortableMixin2 = _interopRequireDefault(_reactSortableMixin);
 	
@@ -61366,15 +61609,15 @@
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _done = __webpack_require__(774);
+	var _done = __webpack_require__(775);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
-	var _arrowForward = __webpack_require__(775);
+	var _arrowForward = __webpack_require__(776);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _arrowBack = __webpack_require__(776);
+	var _arrowBack = __webpack_require__(777);
 	
 	var _arrowBack2 = _interopRequireDefault(_arrowBack);
 	
@@ -61386,13 +61629,17 @@
 	
 	var _colors2 = _interopRequireDefault(_colors);
 	
-	var _textField = __webpack_require__(777);
+	var _textField = __webpack_require__(778);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
 	var _circularProgress = __webpack_require__(746);
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
+	
+	var _Theme = __webpack_require__(713);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
 	
 	var _api = __webpack_require__(552);
 	
@@ -61684,19 +61931,23 @@
 	
 	  componentDidMount: function componentDidMount() {
 	    //Update server
-	    if (this.props.liveExercise) {
+	    if (this.props.liveExercise && this.props.scoreCard === undefined) {
 	      var that = this;
 	      this.setState({ isLoading: true });
 	      this.props.dispatch((0, _api.getExerciseResult)(this.props.exerciseId)).then(function (json) {
-	        that.setState({
-	          isLoading: false,
-	          phase: json.result.isCompleted ? 4 : that.state.phase,
-	          resultItems: json.result.evaluations !== null && json.result.evaluations.length === that.state.items.length ? json.result.evaluations : that.state.resultItems
-	        });
+	        that.setScoreCard(json.result, that);
 	
 	        that.props.exercisesStatusChanged(json.result.isCompleted, that.props.exercise);
 	      });
-	    }
+	    } else if (this.props.scoreCard !== undefined) this.setScoreCard(this.props.scoreCard, this);
+	  },
+	
+	  setScoreCard: function setScoreCard(scoreCard, that) {
+	    that.setState({
+	      isLoading: false,
+	      phase: scoreCard.isCompleted ? 4 : that.state.phase,
+	      resultItems: scoreCard.evaluations !== null && scoreCard.evaluations.length === that.state.items.length ? scoreCard.evaluations : that.state.resultItems
+	    });
 	  },
 	
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
@@ -61870,7 +62121,7 @@
 	
 	    return _react2.default.createElement(
 	      'div',
-	      { style: { background: '#fafafa', padding: '16px' } },
+	      { style: { background: _Theme2.default.palette.backgroundColor, padding: '32px' } },
 	      mainContent
 	    );
 	  }
@@ -61881,7 +62132,7 @@
 	exports.default = SortaAndEvaluateExercise;
 
 /***/ },
-/* 772 */
+/* 773 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -61893,10 +62144,10 @@
 		'use strict';
 	
 		if (typeof module != 'undefined' && typeof module.exports != 'undefined') {
-			module.exports = factory(__webpack_require__(773));
+			module.exports = factory(__webpack_require__(774));
 		}
 		else if (true) {
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(773)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(774)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 		}
 		else {
 			/* jshint sub:true */
@@ -62052,7 +62303,7 @@
 
 
 /***/ },
-/* 773 */
+/* 774 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -63307,7 +63558,7 @@
 
 
 /***/ },
-/* 774 */
+/* 775 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63348,7 +63599,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 775 */
+/* 776 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63389,7 +63640,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 776 */
+/* 777 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63430,25 +63681,6 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 777 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _TextField = __webpack_require__(778);
-	
-	var _TextField2 = _interopRequireDefault(_TextField);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _TextField2.default;
-	module.exports = exports['default'];
-
-/***/ },
 /* 778 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -63469,6 +63701,25 @@
 
 /***/ },
 /* 779 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _TextField = __webpack_require__(780);
+	
+	var _TextField2 = _interopRequireDefault(_TextField);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _TextField2.default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 780 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -63499,11 +63750,11 @@
 	
 	var _transitions2 = _interopRequireDefault(_transitions);
 	
-	var _uniqueId = __webpack_require__(780);
+	var _uniqueId = __webpack_require__(781);
 	
 	var _uniqueId2 = _interopRequireDefault(_uniqueId);
 	
-	var _enhancedTextarea = __webpack_require__(781);
+	var _enhancedTextarea = __webpack_require__(782);
 	
 	var _enhancedTextarea2 = _interopRequireDefault(_enhancedTextarea);
 	
@@ -63515,15 +63766,15 @@
 	
 	var _contextPure2 = _interopRequireDefault(_contextPure);
 	
-	var _TextFieldHint = __webpack_require__(782);
+	var _TextFieldHint = __webpack_require__(783);
 	
 	var _TextFieldHint2 = _interopRequireDefault(_TextFieldHint);
 	
-	var _TextFieldLabel = __webpack_require__(783);
+	var _TextFieldLabel = __webpack_require__(784);
 	
 	var _TextFieldLabel2 = _interopRequireDefault(_TextFieldLabel);
 	
-	var _TextFieldUnderline = __webpack_require__(784);
+	var _TextFieldUnderline = __webpack_require__(785);
 	
 	var _TextFieldUnderline2 = _interopRequireDefault(_TextFieldUnderline);
 	
@@ -64034,7 +64285,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 780 */
+/* 781 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -64052,7 +64303,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 781 */
+/* 782 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64258,7 +64509,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 782 */
+/* 783 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64336,7 +64587,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 783 */
+/* 784 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64448,7 +64699,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 784 */
+/* 785 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64586,7 +64837,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 785 */
+/* 786 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64605,25 +64856,37 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
-	var _radioButton = __webpack_require__(786);
+	var _flatButton = __webpack_require__(625);
+	
+	var _flatButton2 = _interopRequireDefault(_flatButton);
+	
+	var _radioButton = __webpack_require__(787);
 	
 	var _radioButton2 = _interopRequireDefault(_radioButton);
+	
+	var _dialog = __webpack_require__(793);
+	
+	var _dialog2 = _interopRequireDefault(_dialog);
 	
 	var _playArrow = __webpack_require__(744);
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _arrowForward = __webpack_require__(775);
+	var _arrowForward = __webpack_require__(776);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _done = __webpack_require__(774);
+	var _done = __webpack_require__(775);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
-	var _timer = __webpack_require__(792);
+	var _timer = __webpack_require__(796);
 	
 	var _timer2 = _interopRequireDefault(_timer);
+	
+	var _Theme = __webpack_require__(713);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
 	
 	var _circularProgress = __webpack_require__(746);
 	
@@ -64656,7 +64919,8 @@
 	      resultItems: this.mapItems(items),
 	      instrunctionContent: this.props.exercise.instrunctionContent,
 	      phase: 0,
-	      isLoading: false
+	      isLoading: false,
+	      dialogOpen: false
 	    };
 	  },
 	
@@ -64669,20 +64933,27 @@
 	    });
 	  },
 	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
 	    //Update from server
-	    if (this.props.liveExercise) {
+	    if (this.props.liveExercise && this.props.scoreCard === undefined) {
 	      var that = this;
 	      this.setState({ isLoading: true });
 	      this.props.dispatch((0, _api.getExerciseResult)(this.props.exerciseId)).then(function (json) {
-	        that.setState({
-	          isLoading: false,
-	          phase: json.result.isCompleted ? 2 : that.state.phase
-	        });
+	        _this.setScoreCard(json.result);
 	
 	        that.props.exercisesStatusChanged(json.result.isCompleted, that.props.exercise);
 	      });
-	    }
+	    } else if (this.props.scoreCard !== undefined) this.setScoreCard(this.props.scoreCard);
 	  },
+	
+	  setScoreCard: function setScoreCard(scoreCard) {
+	    this.setState({
+	      isLoading: false,
+	      phase: scoreCard.isCompleted ? 2 : that.state.phase
+	    });
+	  },
+	
 	  componentWillUnmount: function componentWillUnmount() {
 	
 	    // This method is called immediately before the component is removed
@@ -64721,6 +64992,10 @@
 	  },
 	
 	  onContinue: function onContinue() {
+	    if (this.state.questionIndex === 3 && sessionStorage.sessionUserRoles.split(",").indexOf("Demo") >= 0) {
+	      this.setState({ dialogOpen: true });
+	    }
+	
 	    if (this.state.questionIndex < this.state.resultItems.length - 1) {
 	      if (this.state.resultItems[this.state.questionIndex].score !== -1) this.setState({ questionIndex: this.state.questionIndex + 1 });
 	    } else this.onFinished();
@@ -64747,6 +65022,18 @@
 	    var text = this.state.instrunctionContent.length > textIndex ? this.state.instrunctionContent[textIndex] : "";
 	
 	    return { __html: text };
+	  },
+	
+	  handleDemoDialogClose: function handleDemoDialogClose() {
+	    this.setState({
+	      dialogOpen: false
+	    });
+	  },
+	
+	  handleGoToLastQuestion: function handleGoToLastQuestion() {
+	    this.setState({
+	      questionIndex: 85,
+	      dialogOpen: false });
 	  },
 	
 	  render: function render() {
@@ -64931,10 +65218,32 @@
 	      );
 	    }
 	
+	    var dialogActions = [_react2.default.createElement(_flatButton2.default, {
+	      label: 'Nej',
+	      secondary: true,
+	      onTouchTap: this.handleDemoDialogClose
+	    }), _react2.default.createElement(_flatButton2.default, {
+	      label: 'Ja',
+	      primary: true,
+	      keyboardFocused: true,
+	      onTouchTap: this.handleGoToLastQuestion
+	    })];
+	
 	    return _react2.default.createElement(
 	      'div',
-	      { style: { background: '#fafafa', padding: '16px' } },
-	      mainContent
+	      { style: { background: _Theme2.default.palette.backgroundColor, padding: '32px' } },
+	      mainContent,
+	      _react2.default.createElement(
+	        _dialog2.default,
+	        {
+	          title: 'Du er logget ind som demo-bruger',
+	          actions: dialogActions,
+	          modal: false,
+	          open: this.state.dialogOpen,
+	          onRequestClose: this.handleDemoDialogClose
+	        },
+	        'Vil du springe til spørgsmål 86?'
+	      )
 	    );
 	  }
 	});
@@ -64944,7 +65253,7 @@
 	exports.default = KPExplorerQuestionnaire;
 
 /***/ },
-/* 786 */
+/* 787 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64967,15 +65276,15 @@
 	
 	var _transitions2 = _interopRequireDefault(_transitions);
 	
-	var _enhancedSwitch = __webpack_require__(787);
+	var _enhancedSwitch = __webpack_require__(788);
 	
 	var _enhancedSwitch2 = _interopRequireDefault(_enhancedSwitch);
 	
-	var _radioButtonUnchecked = __webpack_require__(790);
+	var _radioButtonUnchecked = __webpack_require__(791);
 	
 	var _radioButtonUnchecked2 = _interopRequireDefault(_radioButtonUnchecked);
 	
-	var _radioButtonChecked = __webpack_require__(791);
+	var _radioButtonChecked = __webpack_require__(792);
 	
 	var _radioButtonChecked2 = _interopRequireDefault(_radioButtonChecked);
 	
@@ -65176,7 +65485,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 787 */
+/* 788 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -65207,7 +65516,7 @@
 	
 	var _transitions2 = _interopRequireDefault(_transitions);
 	
-	var _uniqueId = __webpack_require__(780);
+	var _uniqueId = __webpack_require__(781);
 	
 	var _uniqueId2 = _interopRequireDefault(_uniqueId);
 	
@@ -65215,7 +65524,7 @@
 	
 	var _windowListenable2 = _interopRequireDefault(_windowListenable);
 	
-	var _clearfix = __webpack_require__(788);
+	var _clearfix = __webpack_require__(789);
 	
 	var _clearfix2 = _interopRequireDefault(_clearfix);
 	
@@ -65656,7 +65965,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 788 */
+/* 789 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65671,7 +65980,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _beforeAfterWrapper = __webpack_require__(789);
+	var _beforeAfterWrapper = __webpack_require__(790);
 	
 	var _beforeAfterWrapper2 = _interopRequireDefault(_beforeAfterWrapper);
 	
@@ -65723,7 +66032,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 789 */
+/* 790 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65877,7 +66186,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 790 */
+/* 791 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65918,7 +66227,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 791 */
+/* 792 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65959,3429 +66268,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 792 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactAddonsPureRenderMixin = __webpack_require__(634);
-	
-	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
-	
-	var _svgIcon = __webpack_require__(666);
-	
-	var _svgIcon2 = _interopRequireDefault(_svgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ImageTimer = _react2.default.createClass({
-	  displayName: 'ImageTimer',
-	
-	  mixins: [_reactAddonsPureRenderMixin2.default],
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      _svgIcon2.default,
-	      this.props,
-	      _react2.default.createElement('path', { d: 'M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42C16.07 4.74 14.12 4 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z' })
-	    );
-	  }
-	});
-	
-	exports.default = ImageTimer;
-	module.exports = exports['default'];
-
-/***/ },
 /* 793 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(483);
-	
-	var _raisedButton = __webpack_require__(673);
-	
-	var _raisedButton2 = _interopRequireDefault(_raisedButton);
-	
-	var _playArrow = __webpack_require__(744);
-	
-	var _playArrow2 = _interopRequireDefault(_playArrow);
-	
-	var _arrowForward = __webpack_require__(775);
-	
-	var _arrowForward2 = _interopRequireDefault(_arrowForward);
-	
-	var _done = __webpack_require__(774);
-	
-	var _done2 = _interopRequireDefault(_done);
-	
-	var _textField = __webpack_require__(777);
-	
-	var _textField2 = _interopRequireDefault(_textField);
-	
-	var _circularProgress = __webpack_require__(746);
-	
-	var _circularProgress2 = _interopRequireDefault(_circularProgress);
-	
-	var _api = __webpack_require__(552);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var GoalExercise = _react2.default.createClass({
-	  displayName: 'GoalExercise',
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      isLoading: false,
-	      instrunctionContent: this.props.exercise.instrunctionContent,
-	      phase: 0
-	    };
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    var _this = this;
-	
-	    //Update server
-	    if (this.props.liveExercise) {
-	      this.setState({ isLoading: true });
-	      this.props.dispatch((0, _api.getExerciseResult)(this.props.exerciseId)).then(function (json) {
-	        _this.setState({
-	          isLoading: false,
-	          phase: json.result.isCompleted ? 1 : _this.state.phase,
-	          goalText: json.result.goalText,
-	          previousModulePromiseText: json.result.previousModulePromiseText
-	        });
-	
-	        _this.props.exercisesStatusChanged(json.result.isCompleted, _this.props.exercise);
-	      });
-	    }
-	  },
-	
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    this.setState({
-	      instrunctionContent: nextProps.exercise.instrunctionContent
-	    });
-	  },
-	
-	  onGoalTextChanged: function onGoalTextChanged(evt) {
-	    this.setState({
-	      goalText: evt.target.value
-	    });
-	  },
-	
-	  onFinished: function onFinished() {
-	    this.setState({
-	      phase: 1
-	    });
-	
-	    if (this.props.onFinished !== undefined) this.props.onFinished(items);
-	
-	    if (this.props.onGoalUpdated !== null) this.props.onExerciseGoalUpdated(this.state.goalText);
-	
-	    //Update server
-	    if (this.props.liveExercise) {
-	      this.props.dispatch((0, _api.putExerciseGoalResultById)(this.props.exerciseId, { goalText: this.state.goalText, exerciseId: this.props.exerciseId, isCompleted: true }));
-	      this.props.exercisesStatusChanged(true, this.props.exercise);
-	    }
-	  },
-	
-	  getHtmlText: function getHtmlText(textIndex) {
-	    var text = this.state.instrunctionContent.length > textIndex ? this.state.instrunctionContent[textIndex] : "";
-	
-	    return { __html: text };
-	  },
-	
-	  render: function render() {
-	
-	    var mainContent;
-	    if (this.state.isLoading) mainContent = _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '6px' } });else if (this.state.phase === 0) {
-	      mainContent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
-	        _react2.default.createElement(_textField2.default, { style: { width: 400 },
-	          hintText: 'Mit mål er...', value: this.state.goalText, onChange: this.onGoalTextChanged
-	        }),
-	        _react2.default.createElement(_raisedButton2.default, { primary: true, style: { marginLeft: 16 },
-	          label: 'Ok', icon: _react2.default.createElement(_done2.default, null), onClick: this.onFinished })
-	      );
-	    } else if (this.state.phase === 1) {
-	      mainContent = _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          _react2.default.createElement(
-	            'span',
-	            { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
-	            'Dit mål for øvelsen:'
-	          ),
-	          _react2.default.createElement('br', null),
-	          this.state.goalText
-	        )
-	      );
-	    }
-	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      this.state.previousModulePromiseText !== undefined && this.state.previousModulePromiseText !== "" ? _react2.default.createElement(
-	        'p',
-	        null,
-	        _react2.default.createElement(
-	          'span',
-	          { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
-	          'I sidste modul, lovede du dig selv:'
-	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(
-	          'span',
-	          null,
-	          this.state.previousModulePromiseText
-	        )
-	      ) : null,
-	      mainContent
-	    );
-	  }
-	});
-	
-	GoalExercise = (0, _reactRedux.connect)()(GoalExercise);
-	
-	exports.default = GoalExercise;
-
-/***/ },
-/* 794 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(483);
-	
-	var _raisedButton = __webpack_require__(673);
-	
-	var _raisedButton2 = _interopRequireDefault(_raisedButton);
-	
-	var _radioButton = __webpack_require__(786);
-	
-	var _radioButton2 = _interopRequireDefault(_radioButton);
-	
-	var _playArrow = __webpack_require__(744);
-	
-	var _playArrow2 = _interopRequireDefault(_playArrow);
-	
-	var _arrowForward = __webpack_require__(775);
-	
-	var _arrowForward2 = _interopRequireDefault(_arrowForward);
-	
-	var _done = __webpack_require__(774);
-	
-	var _done2 = _interopRequireDefault(_done);
-	
-	var _textField = __webpack_require__(777);
-	
-	var _textField2 = _interopRequireDefault(_textField);
-	
-	var _circularProgress = __webpack_require__(746);
-	
-	var _circularProgress2 = _interopRequireDefault(_circularProgress);
-	
-	var _api = __webpack_require__(552);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var styles = {
-	  radioButton: {
-	    marginTop: 8,
-	    width: 24,
-	    marginLeft: 'auto',
-	    marginRight: 'auto'
-	  },
-	  scoreIndicator: {
-	    paddingRight: 24,
-	    display: 'table-cell'
-	  }
-	};
-	
-	var PromiseExercise = _react2.default.createClass({
-	  displayName: 'PromiseExercise',
-	
-	  getInitialState: function getInitialState() {
-	    var items = this.props.exercise.configuration.split(';');
-	    return {
-	      isLoading: false,
-	      items: items,
-	      phase: 0,
-	      resultItems: this.mapItems(items),
-	      instrunctionContent: this.props.exercise.instrunctionContent
-	    };
-	  },
-	
-	  mapItems: function mapItems(items) {
-	    var that = this;
-	    return items.map(function (i, index) {
-	      var existingItem = that.state !== null && that.state.resultItems !== undefined && that.state.resultItems !== null ? that.state.resultItems[index] : null;
-	
-	      if (existingItem === null || existingItem === undefined) {
-	        return {
-	          question: i,
-	          score: -1
-	        };
-	      } else {
-	        return {
-	          question: i,
-	          score: existingItem.score
-	        };
-	      }
-	    });
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    var _this = this;
-	
-	    //Update server
-	    if (this.props.liveExercise) {
-	      this.setState({ isLoading: true });
-	      this.props.dispatch((0, _api.getExerciseResult)(this.props.exerciseId)).then(function (json) {
-	
-	        var resultItems = json.result.responses !== null ? _this.state.resultItems.map(function (i, index) {
-	          i.score = json.result.responses[index].score;
-	          return i;
-	        }) : _this.state.resultItems;
-	
-	        _this.setState({
-	          isLoading: false,
-	          phase: json.result.isCompleted ? 1 : _this.state.phase,
-	          promiseText: json.result.promiseText,
-	          exerciseGoalText: json.result.exerciseGoalText,
-	          resultItems: resultItems
-	        });
-	
-	        _this.props.exercisesStatusChanged(json.result.isCompleted, _this.props.exercise);
-	      });
-	    }
-	  },
-	
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var items = nextProps.exercise.configuration.split(';');
-	    this.setState({
-	      items: items,
-	      resultItems: this.mapItems(items),
-	      instrunctionContent: nextProps.exercise.instrunctionContent
-	    });
-	  },
-	
-	  onPromiseTextChanged: function onPromiseTextChanged(evt) {
-	    this.setState({
-	      promiseText: evt.target.value
-	    });
-	  },
-	
-	  onFinished: function onFinished() {
-	    this.setState({
-	      phase: 1
-	    });
-	
-	    if (this.props.onFinished !== undefined) this.props.onFinished(items);
-	
-	    //Update server
-	    if (this.props.liveExercise) {
-	      this.props.dispatch((0, _api.putModulePromiseResultById)(this.props.exerciseId, { responses: this.state.resultItems, promiseText: this.state.promiseText, exerciseId: this.props.exerciseId, isCompleted: true }));
-	    }
-	  },
-	
-	  onScoreChanged: function onScoreChanged(score, item) {
-	    item.score = score;
-	    this.setState({ resultItems: this.state.resultItems });
-	  },
-	
-	  getHtmlText: function getHtmlText(textIndex) {
-	    var text = this.state.instrunctionContent.length > textIndex ? this.state.instrunctionContent[textIndex] : "";
-	
-	    return { __html: text };
-	  },
-	
-	  render: function render() {
-	    var that = this;
-	    var questions = this.state.resultItems.map(function (i, index) {
-	      return _react2.default.createElement(
-	        'div',
-	        { style: { display: 'table' } },
-	        _react2.default.createElement(
-	          'div',
-	          { style: { display: 'table-row' } },
-	          _react2.default.createElement(
-	            'div',
-	            { style: { display: 'table-cell' } },
-	            that.state.phase === 0 ? _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(
-	                'h4',
-	                { style: { marginTop: 32 } },
-	                i.question
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { style: { display: 'table' } },
-	                _react2.default.createElement(
-	                  'div',
-	                  { style: { display: 'table-row' } },
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: styles.scoreIndicator },
-	                    _react2.default.createElement(
-	                      'span',
-	                      null,
-	                      'Fuldstændig forkert'
-	                    )
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: styles.scoreIndicator },
-	                    _react2.default.createElement(
-	                      'span',
-	                      null,
-	                      'Delvis forkert'
-	                    )
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: styles.scoreIndicator },
-	                    _react2.default.createElement(
-	                      'span',
-	                      null,
-	                      'Hverken rigtigt eller forkert'
-	                    )
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: styles.scoreIndicator },
-	                    _react2.default.createElement(
-	                      'span',
-	                      null,
-	                      'Delvis rigtigt'
-	                    )
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: styles.scoreIndicator },
-	                    _react2.default.createElement(
-	                      'span',
-	                      null,
-	                      'Fuldstændig rigtigt'
-	                    )
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'div',
-	                  { style: { display: 'table-row' } },
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: { display: 'table-cell' } },
-	                    _react2.default.createElement(_radioButton2.default, {
-	                      value: '1',
-	                      style: styles.radioButton,
-	                      checked: i.score === 1,
-	                      onCheck: that.onScoreChanged.bind(that, 1, i)
-	                    })
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: { display: 'table-cell' } },
-	                    _react2.default.createElement(_radioButton2.default, {
-	                      value: '2',
-	                      style: styles.radioButton,
-	                      checked: i.score === 2,
-	                      onCheck: that.onScoreChanged.bind(that, 2, i)
-	                    })
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: { display: 'table-cell' } },
-	                    _react2.default.createElement(_radioButton2.default, {
-	                      value: '3',
-	                      style: styles.radioButton,
-	                      checked: i.score === 3,
-	                      onCheck: that.onScoreChanged.bind(that, 3, i)
-	                    })
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: { display: 'table-cell' } },
-	                    _react2.default.createElement(_radioButton2.default, {
-	                      value: '4',
-	                      style: styles.radioButton,
-	                      checked: i.score === 4,
-	                      onCheck: that.onScoreChanged.bind(that, 4, i)
-	                    })
-	                  ),
-	                  _react2.default.createElement(
-	                    'div',
-	                    { style: { display: 'table-cell' } },
-	                    _react2.default.createElement(_radioButton2.default, {
-	                      value: '5',
-	                      style: styles.radioButton,
-	                      labelStyle: { display: 'none' },
-	                      checked: i.score === 5,
-	                      onCheck: that.onScoreChanged.bind(that, 5, i)
-	                    })
-	                  )
-	                )
-	              )
-	            ) : _react2.default.createElement(
-	              'div',
-	              { style: { marginTop: 40 } },
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                _react2.default.createElement(
-	                  'span',
-	                  { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
-	                  i.question,
-	                  ' '
-	                ),
-	                _react2.default.createElement('br', null),
-	                {
-	                  '1': _react2.default.createElement(
-	                    'span',
-	                    null,
-	                    'Fuldstændig forkert'
-	                  ),
-	                  '2': _react2.default.createElement(
-	                    'span',
-	                    null,
-	                    'Delvis forkert'
-	                  ),
-	                  '3': _react2.default.createElement(
-	                    'span',
-	                    null,
-	                    'Hverken rigtigt eller forkert'
-	                  ),
-	                  '4': _react2.default.createElement(
-	                    'span',
-	                    null,
-	                    'Delvis rigtigt'
-	                  ),
-	                  '5': _react2.default.createElement(
-	                    'span',
-	                    null,
-	                    'Fuldstændig rigtigt'
-	                  )
-	                }[i.score]
-	              )
-	            )
-	          )
-	        )
-	      );
-	    });
-	
-	    var mainContent;
-	    if (this.state.phase === 0) {
-	      mainContent = _react2.default.createElement(
-	        'div',
-	        { style: { marginTop: 40 } },
-	        _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
-	        _react2.default.createElement(_textField2.default, { style: { width: 400 },
-	          hintText: 'Dit mål..', value: this.state.promiseText, onChange: this.onPromiseTextChanged
-	        }),
-	        _react2.default.createElement(_raisedButton2.default, { primary: true, style: { marginLeft: 16 },
-	          label: 'Ok', icon: _react2.default.createElement(_done2.default, null), onClick: this.onFinished })
-	      );
-	    } else if (this.state.phase === 1) {
-	      mainContent = _react2.default.createElement(
-	        'div',
-	        { style: { marginTop: 40 } },
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          _react2.default.createElement(
-	            'span',
-	            { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
-	            'Jeg lover mig selv:'
-	          ),
-	          _react2.default.createElement('br', null),
-	          ' ',
-	          this.state.promiseText
-	        )
-	      );
-	    }
-	
-	    if (this.state.isLoading) return _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '6px' } });else return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'p',
-	        { style: { marginBottom: 0 } },
-	        _react2.default.createElement(
-	          'span',
-	          { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
-	          'Dit mål for øvelsen var:'
-	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(
-	          'span',
-	          null,
-	          this.state.exerciseGoalText
-	        )
-	      ),
-	      questions,
-	      mainContent
-	    );
-	  }
-	});
-	
-	PromiseExercise = (0, _reactRedux.connect)()(PromiseExercise);
-	
-	exports.default = PromiseExercise;
-
-/***/ },
-/* 795 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Camera = _react2.default.createClass({
-	  displayName: 'Camera',
-	
-	  getInitialState: function getInitialState() {
-	    return { test: 'Weee' };
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    console.log("componentDidMount");
-	
-	    $(this.refs.placeholder).append($('<camera id="VideoPresentationCamera" data-app-id="a-d90a5c50-c1dc-0133-453d-0a121b885d5b"></camera>'));
-	
-	    console.log(CameraTag);
-	
-	    var ctx = this;
-	
-	    CameraTag.observe("VideoPresentationCamera", "initialized", function () {
-	      console.log("Camera initialized");
-	    });
-	
-	    CameraTag.observe("VideoPresentationCamera", "published", function () {
-	      console.log("Video published");
-	
-	      var camera = CameraTag.cameras["VideoPresentationCamera"];
-	      var video = camera.getVideo();
-	
-	      console.log(video.uuid);
-	
-	      ctx.props.onPublish(video.uuid);
-	    });
-	  },
-	
-	  componentWillUnmount: function componentWillUnmount() {
-	    // Clean up work here.
-	  },
-	
-	  shouldComponentUpdate: function shouldComponentUpdate() {
-	    // Let's just never update this component again.
-	    return true;
-	  },
-	
-	  render: function render() {
-	    console.log("render");
-	
-	    return _react2.default.createElement('div', { ref: 'placeholder' });
-	  }
-	});
-	
-	exports.default = Camera;
-
-/***/ },
-/* 796 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.RECEIVE_SHARE_VIDEO = exports.REQUEST_SHARE_VIDEO = undefined;
-	exports.shareVideo = shareVideo;
-	
-	var _axios = __webpack_require__(553);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var REQUEST_SHARE_VIDEO = exports.REQUEST_SHARE_VIDEO = 'REQUEST_SHARE_VIDEO';
-	function requestShareVideo(videoUuid) {
-	  return {
-	    type: REQUEST_SHARE_VIDEO,
-	    videoUuid: videoUuid
-	  };
-	}
-	
-	var RECEIVE_SHARE_VIDEO = exports.RECEIVE_SHARE_VIDEO = 'RECEIVE_SHARE_VIDEO';
-	function receiveShareVideo(videoUuid, result) {
-	  return {
-	    type: RECEIVE_SHARE_VIDEO,
-	    videoUuid: videoUuid,
-	    result: result,
-	    receivedAt: Date.now()
-	  };
-	}
-	
-	function shareVideo(videoUuid) {
-	  return function (dispatch) {
-	
-	    // First dispatch: the app state is updated to inform
-	    // that the API call is starting.
-	    dispatch(requestShareVideo(videoUuid));
-	
-	    // Secondly invoke the remote API and return a promise
-	    //var url = "http://localhost:58982/api/Exercise";
-	    var url = "http://betterways-api.azurewebsites.net/api/Exercise";
-	
-	    console.log("Sending video UUID:", videoUuid);
-	
-	    return _axios2.default.post(url, {
-	      videoUuid: videoUuid
-	    }).then(function (response) {
-	      return response.data;
-	    }).then(function (json) {
-	      console.log(json);
-	      dispatch(receiveSendSms(videoUuid, json));
-	    }).catch(function (response) {
-	      console.log(response);
-	    });
-	  };
-	}
-
-/***/ },
-/* 797 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(483);
-	
-	var _sendSms = __webpack_require__(798);
-	
-	var _raisedButton = __webpack_require__(673);
-	
-	var _raisedButton2 = _interopRequireDefault(_raisedButton);
-	
-	var _fontIcon = __webpack_require__(662);
-	
-	var _fontIcon2 = _interopRequireDefault(_fontIcon);
-	
-	var _textsms = __webpack_require__(799);
-	
-	var _textsms2 = _interopRequireDefault(_textsms);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var CourseModuleReflection = function CourseModuleReflection(_ref) {
-	  var dispatch = _ref.dispatch;
-	
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h1',
-	      null,
-	      'Reflektion'
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ultrices commodo commodo. Suspendisse egestas, erat vel rutrum porta, sapien eros posuere nulla, id blandit metus odio a nibh.'
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { style: { textAlign: 'center' } },
-	      _react2.default.createElement(_raisedButton2.default, {
-	        label: 'Send SMS',
-	        labelPosition: 'after',
-	        primary: true,
-	        icon: _react2.default.createElement(_textsms2.default, null),
-	        onClick: function onClick(e) {
-	          e.preventDefault();
-	          dispatch((0, _sendSms.sendSms)(3));
-	        }
-	      })
-	    )
-	  );
-	};
-	CourseModuleReflection = (0, _reactRedux.connect)()(CourseModuleReflection);
-	
-	exports.default = CourseModuleReflection;
-
-/***/ },
-/* 798 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.RECEIVE_SEND_SMS = exports.REQUEST_SEND_SMS = undefined;
-	exports.sendSms = sendSms;
-	
-	var _axios = __webpack_require__(553);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var REQUEST_SEND_SMS = exports.REQUEST_SEND_SMS = 'REQUEST_SEND_SMS';
-	function requestSendSms(id) {
-	  return {
-	    type: REQUEST_SEND_SMS,
-	    id: id
-	  };
-	}
-	
-	var RECEIVE_SEND_SMS = exports.RECEIVE_SEND_SMS = 'RECEIVE_SEND_SMS';
-	function receiveSendSms(id, json) {
-	  return {
-	    type: RECEIVE_SEND_SMS,
-	    id: id,
-	    posts: json, //json.data.children.map(child => child.data),
-	    receivedAt: Date.now()
-	  };
-	}
-	
-	function sendSms(id) {
-	
-	  // Thunk middleware knows how to handle functions.
-	  // It passes the dispatch method as an argument to the function,
-	  // thus making it able to dispatch actions itself.
-	
-	  return function (dispatch) {
-	
-	    // First dispatch: the app state is updated to inform
-	    // that the API call is starting.
-	    dispatch(requestSendSms(id));
-	
-	    // Secondly invoke the remote API and return a promise
-	    return _axios2.default.get('http://betterways-api.azurewebsites.net/api/Notifications/' + id).then(function (response) {
-	      return response.data;
-	    }).then(function (json) {
-	      return(
-	
-	        // Final dispatch: Here, we update the app state with the results of the API call.
-	        // NOTE: We can dispatch many times!
-	        dispatch(receiveSendSms(id, json))
-	      );
-	    }).catch(function (response) {
-	      console.log(response);
-	    });
-	  };
-	}
-
-/***/ },
-/* 799 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactAddonsPureRenderMixin = __webpack_require__(634);
-	
-	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
-	
-	var _svgIcon = __webpack_require__(666);
-	
-	var _svgIcon2 = _interopRequireDefault(_svgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var CommunicationTextsms = _react2.default.createClass({
-	  displayName: 'CommunicationTextsms',
-	
-	  mixins: [_reactAddonsPureRenderMixin2.default],
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      _svgIcon2.default,
-	      this.props,
-	      _react2.default.createElement('path', { d: 'M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z' })
-	    );
-	  }
-	});
-	
-	exports.default = CommunicationTextsms;
-	module.exports = exports['default'];
-
-/***/ },
-/* 800 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(483);
-	
-	var _divider = __webpack_require__(740);
-	
-	var _divider2 = _interopRequireDefault(_divider);
-	
-	var _selectField = __webpack_require__(801);
-	
-	var _selectField2 = _interopRequireDefault(_selectField);
-	
-	var _menuItem = __webpack_require__(664);
-	
-	var _menuItem2 = _interopRequireDefault(_menuItem);
-	
-	var _flatButton = __webpack_require__(625);
-	
-	var _flatButton2 = _interopRequireDefault(_flatButton);
-	
-	var _raisedButton = __webpack_require__(673);
-	
-	var _raisedButton2 = _interopRequireDefault(_raisedButton);
-	
-	var _cardText = __webpack_require__(767);
-	
-	var _cardText2 = _interopRequireDefault(_cardText);
-	
-	var _paper = __webpack_require__(654);
-	
-	var _paper2 = _interopRequireDefault(_paper);
-	
-	var _circularProgress = __webpack_require__(746);
-	
-	var _circularProgress2 = _interopRequireDefault(_circularProgress);
-	
-	var _textField = __webpack_require__(777);
-	
-	var _textField2 = _interopRequireDefault(_textField);
-	
-	var _CourseModuleInfo = __webpack_require__(768);
-	
-	var _CourseModuleInfo2 = _interopRequireDefault(_CourseModuleInfo);
-	
-	var _CourseModuleExperiment = __webpack_require__(769);
-	
-	var _CourseModuleExperiment2 = _interopRequireDefault(_CourseModuleExperiment);
-	
-	var _CourseModuleReflection = __webpack_require__(797);
-	
-	var _CourseModuleReflection2 = _interopRequireDefault(_CourseModuleReflection);
-	
-	var _DropDownMenu = __webpack_require__(804);
-	
-	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
-	
-	var _IntroductionContentAdministration = __webpack_require__(808);
-	
-	var _IntroductionContentAdministration2 = _interopRequireDefault(_IntroductionContentAdministration);
-	
-	var _ExerciseContentAdministration = __webpack_require__(811);
-	
-	var _ExerciseContentAdministration2 = _interopRequireDefault(_ExerciseContentAdministration);
-	
-	var _api = __webpack_require__(552);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var _require = __webpack_require__(703);
-	
-	var Grid = _require.Grid;
-	var Row = _require.Row;
-	var Col = _require.Col;
-	
-	
-	var pageContainerStyle = {
-	  margin: '32px 20px'
-	};
-	
-	var courseContainerStyle = {
-	  background: 'white',
-	  marginTop: '32px'
-	};
-	
-	var paddingStyle = {
-	  padding: '32px'
-	};
-	
-	var resourceItems = [_react2.default.createElement(_menuItem2.default, { key: 1, value: 1, primaryText: 'Introduktion' }), _react2.default.createElement(_menuItem2.default, { key: 2, value: 2, primaryText: 'Eksperiment' }), _react2.default.createElement(_menuItem2.default, { key: 3, value: 3, primaryText: 'Reflektion' })];
-	
-	var AdministrationModule = _react2.default.createClass({
-	  displayName: 'AdministrationModule',
-	
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      courses: [],
-	      selectedCourse: null,
-	      modules: [],
-	      selectedModule: null,
-	      selectedResource: null,
-	      isLoadingCourses: false,
-	      isLoadingModules: false,
-	      currentResourceId: null,
-	      currentModuleId: null
-	    };
-	  },
-	
-	  resourceRevisionUpdated: function resourceRevisionUpdated(parentresourceId, updatedResouceId) {
-	    //See if resource is an list of resources, and update the reference
-	    if (this.state.modules[this.state.selectedModule].introduction === parentresourceId) this.state.modules[this.state.selectedModule].introduction = updatedResouceId;
-	  },
-	
-	  exerciseRevisionUpdate: function exerciseRevisionUpdate(parentresourceId, updatedResouceId) {
-	    //See if resource is an list of resources, and update the reference
-	    if (this.state.modules[this.state.selectedModule].exercise === parentresourceId) this.state.modules[this.state.selectedModule].exercise = updatedResouceId;
-	
-	    if (this.state.modules[this.state.selectedModule].reflection === parentresourceId) this.state.modules[this.state.selectedModule].reflection = updatedResouceId;
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    var _this = this;
-	
-	    this.setState({ isLoadingCourses: true });
-	    this.props.dispatch((0, _api.getAllCourses)()).then(function (json) {
-	      _this.setState({
-	        courses: json.courses,
-	        isLoadingCourses: false
-	      });
-	    });
-	  },
-	
-	  getCourseModules: function getCourseModules(courseId) {
-	    var _this2 = this;
-	
-	    this.setState({
-	      isLoadingModules: true
-	    });
-	    this.props.dispatch((0, _api.getAllCourseModules)(courseId)).then(function (json) {
-	      _this2.setState({
-	        modules: json.modules,
-	        isLoadingModules: false
-	      });
-	    });
-	  },
-	
-	  onCourseSelected: function onCourseSelected(event, index, value) {
-	    this.setState({ selectedCourse: value, selectedModule: null, selectedResource: null, htmlText: null, resultHtmlText: null, isTextDirty: false });
-	    this.getCourseModules(this.state.courses[index].id);
-	  },
-	
-	  onModuleSelected: function onModuleSelected(event, index, value) {
-	    this.setState({
-	      selectedModule: value,
-	      selectedResource: null,
-	      currentModuleId: this.state.modules[value].id,
-	      moduleDescription: this.state.modules[value].description
-	    });
-	  },
-	
-	  onResourceSelected: function onResourceSelected(event, index, value) {
-	    var resourceId = null;
-	    if (value === 1) resourceId = this.state.modules[this.state.selectedModule].introduction;else if (value === 2) resourceId = this.state.modules[this.state.selectedModule].exercise;else if (value === 3) resourceId = this.state.modules[this.state.selectedModule].reflection;
-	
-	    this.setState({
-	      selectedResource: value,
-	      selectedResourceId: resourceId,
-	      htmlText: null,
-	      resultHtmlText: null,
-	      isTextDirty: false });
-	  },
-	
-	  moduleDescriptionBlur: function moduleDescriptionBlur(event) {
-	    this.state.modules[this.state.selectedModule].description = this.state.moduleDescription;
-	
-	    this.props.dispatch((0, _api.putModuleDescription)(this.state.modules[this.state.selectedModule].id, this.state.modules[this.state.selectedModule].description));
-	  },
-	
-	  moduleDescriptionChanged: function moduleDescriptionChanged(event) {
-	    this.setState({ moduleDescription: event.target.value });
-	  },
-	
-	  render: function render() {
-	
-	    var CoursItems = this.state.courses.map(function (i, index) {
-	      return _react2.default.createElement(_menuItem2.default, { key: index, value: index, primaryText: i.name });
-	    });
-	
-	    var SelectCourses = _react2.default.createElement(
-	      _selectField2.default,
-	      {
-	        style: { width: '360px' },
-	        value: this.state.selectedCourse,
-	        onChange: this.onCourseSelected,
-	        floatingLabelText: this.state.isLoadingCourses ? "Henter..." : "Vælg kursus" },
-	      CoursItems
-	    );
-	
-	    var ModuleItems = this.state.modules.map(function (i, index) {
-	      return _react2.default.createElement(_menuItem2.default, { key: index, value: index, primaryText: i.name });
-	    });
-	
-	    var SelectModule = _react2.default.createElement(
-	      _selectField2.default,
-	      {
-	        style: { width: '360px', marginTop: -16 },
-	        value: this.state.selectedModule,
-	        onChange: this.onModuleSelected,
-	        floatingLabelText: this.state.isLoadingModules ? "Henter..." : "Vælg modul" },
-	      ModuleItems
-	    );
-	
-	    var SelectResource = this.state.selectedModule !== null ? _react2.default.createElement(
-	      _selectField2.default,
-	      {
-	        style: { width: '300px', marginTop: -16, marginBottom: 32 },
-	        value: this.state.selectedResource,
-	        onChange: this.onResourceSelected,
-	        floatingLabelText: 'Vælg resource' },
-	      resourceItems
-	    ) : null;
-	
-	    var ModuleConfiguration = this.state.selectedCourse !== null ? _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(_divider2.default, null),
-	      _react2.default.createElement(
-	        'div',
-	        { style: paddingStyle },
-	        _react2.default.createElement(
-	          'div',
-	          { style: { display: 'flex' } },
-	          SelectModule,
-	          this.state.isLoadingModules ? _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '20px' } }) : null
-	        ),
-	        this.state.selectedModule !== null ? _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'h5',
-	            { style: { marginBottom: 0, marginTop: 32 } },
-	            'Beskrivelse af modulet (vist på dashboard)'
-	          ),
-	          _react2.default.createElement(_textField2.default, {
-	            hintText: 'Skriv tekst',
-	            multiLine: true,
-	            fullWidth: true,
-	            value: this.state.moduleDescription,
-	            onChange: this.moduleDescriptionChanged,
-	            onBlur: this.moduleDescriptionBlur
-	          })
-	        ) : null
-	      )
-	    ) : null;
-	
-	    return _react2.default.createElement(
-	      'div',
-	      { style: pageContainerStyle },
-	      _react2.default.createElement(
-	        Row,
-	        null,
-	        _react2.default.createElement(Col, { xs: 0, sm: 0, md: 2, lg: 2 }),
-	        _react2.default.createElement(
-	          Col,
-	          { xs: 12, sm: 12, md: 8, lg: 8 },
-	          _react2.default.createElement(
-	            _paper2.default,
-	            { style: courseContainerStyle },
-	            _react2.default.createElement(
-	              'div',
-	              { style: paddingStyle },
-	              _react2.default.createElement(
-	                'h1',
-	                null,
-	                'Administration'
-	              ),
-	              _react2.default.createElement(
-	                'div',
-	                { style: { display: 'flex' } },
-	                SelectCourses,
-	                this.state.isLoadingCourses ? _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '20px' } }) : null
-	              )
-	            ),
-	            ModuleConfiguration,
-	            this.state.selectedModule !== null ? _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(_divider2.default, null),
-	              _react2.default.createElement(
-	                'div',
-	                { style: paddingStyle },
-	                SelectResource,
-	                _react2.default.createElement('br', null),
-	                this.state.selectedResource === 1 ? _react2.default.createElement(_IntroductionContentAdministration2.default, {
-	                  selectedModule: this.state.currentModuleId,
-	                  selectedResource: this.state.selectedResourceId,
-	                  resourceRevisionUpdated: this.resourceRevisionUpdated }) : this.state.selectedResource === 2 || this.state.selectedResource === 3 ? _react2.default.createElement(_ExerciseContentAdministration2.default, {
-	                  selectedModule: this.state.currentModuleId,
-	                  selectedResource: this.state.selectedResourceId,
-	                  resourceRevisionUpdated: this.exerciseRevisionUpdate }) : null
-	              )
-	            ) : null
-	          )
-	        ),
-	        _react2.default.createElement(Col, { xs: 0, sm: 0, md: 2, lg: 2 })
-	      )
-	    );
-	  }
-	});
-	
-	AdministrationModule = (0, _reactRedux.connect)()(AdministrationModule);
-	
-	exports.default = AdministrationModule;
-
-/***/ },
-/* 801 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _SelectField = __webpack_require__(802);
-	
-	var _SelectField2 = _interopRequireDefault(_SelectField);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _SelectField2.default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 802 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _SelectField = __webpack_require__(803);
-	
-	var _SelectField2 = _interopRequireDefault(_SelectField);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _SelectField2.default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 803 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _stylePropable = __webpack_require__(573);
-	
-	var _stylePropable2 = _interopRequireDefault(_stylePropable);
-	
-	var _textField = __webpack_require__(777);
-	
-	var _textField2 = _interopRequireDefault(_textField);
-	
-	var _DropDownMenu = __webpack_require__(804);
-	
-	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
-	
-	var _getMuiTheme = __webpack_require__(596);
-	
-	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
-	
-	var _contextPure = __webpack_require__(626);
-	
-	var _contextPure2 = _interopRequireDefault(_contextPure);
-	
-	var _deprecatedPropType = __webpack_require__(807);
-	
-	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	var SelectField = _react2.default.createClass({
-	  displayName: 'SelectField',
-	
-	  propTypes: {
-	    /**
-	     * The width will automatically be set according to the
-	     * items inside the menu. To control this width in css
-	     * instead, set this prop to `false`.
-	     */
-	    autoWidth: _react2.default.PropTypes.bool,
-	
-	    /**
-	     * The `MenuItem` elements to populate the `Menu` with.
-	     * If the MenuItems have the prop `label` that value will
-	     * be used to render the representation of that
-	     * item within the field.
-	     */
-	    children: _react2.default.PropTypes.node,
-	
-	    /**
-	     * Disables the select field if set to true.
-	     */
-	    disabled: _react2.default.PropTypes.bool,
-	
-	    /**
-	     * The style object to use to override error styles.
-	     */
-	    errorStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * The error content to display.
-	     */
-	    errorText: _react2.default.PropTypes.node,
-	
-	    /**
-	     * The style object to use to override floating label styles.
-	     */
-	    floatingLabelStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * The content to use for the floating label element.
-	     */
-	    floatingLabelText: _react2.default.PropTypes.node,
-	
-	    /**
-	     * If true, the field receives the property width 100%.
-	     */
-	    fullWidth: _react2.default.PropTypes.bool,
-	
-	    /**
-	     * The style object to use to override hint styles.
-	     */
-	    hintStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * The hint content to display.
-	     */
-	    hintText: _react2.default.PropTypes.node,
-	
-	    /**
-	     * Overrides the styles of the icon element.
-	     */
-	    iconStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * `SelectField` will use text as default value,
-	     * with this property you can choose another name.
-	     */
-	    labelMember: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.string, 'to promote composability.'),
-	
-	    /**
-	     * Overrides the styles of label when the `SelectField` is inactive.
-	     */
-	    labelStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * JSON data representing all menu items in the dropdown.
-	     */
-	    menuItems: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.array, 'to promote composability.'),
-	
-	    /**
-	     * Callback function that is fired when the `SelectField` loses focus.
-	     */
-	    onBlur: _react2.default.PropTypes.func,
-	
-	    /**
-	     * Callback function that is fired when the value changes.
-	     */
-	    onChange: _react2.default.PropTypes.func,
-	
-	    /**
-	     * Callback function that is fired when the `SelectField` gains focus.
-	     */
-	    onFocus: _react2.default.PropTypes.func,
-	
-	    /**
-	     * The style object to use to override the `DropDownMenu`.
-	     */
-	    selectFieldRoot: _react2.default.PropTypes.object, // Must be changed!
-	
-	    /**
-	     * Index of the item selected.
-	     */
-	    selectedIndex: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.number, 'with menuItems.'),
-	
-	    /**
-	     * Override the inline-styles of the root element.
-	     */
-	    style: _react2.default.PropTypes.object,
-	
-	    /**
-	     * Override the inline-styles of the underline element when disabled.
-	     */
-	    underlineDisabledStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * Override the inline-styles of the underline element when focused.
-	     */
-	    underlineFocusStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * Overrides the styles of the underline element.
-	     */
-	    underlineStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * The value that is currently selected.
-	     */
-	    value: _react2.default.PropTypes.any
-	  },
-	
-	  contextTypes: {
-	    muiTheme: _react2.default.PropTypes.object
-	  },
-	
-	  //for passing default theme context to children
-	  childContextTypes: {
-	    muiTheme: _react2.default.PropTypes.object
-	  },
-	
-	  mixins: [_stylePropable2.default, _contextPure2.default],
-	
-	  statics: {
-	    getChildrenClasses: function getChildrenClasses() {
-	      return [_textField2.default, _DropDownMenu2.default];
-	    }
-	  },
-	
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      autoWidth: false,
-	      disabled: false,
-	      fullWidth: false
-	    };
-	  },
-	  getInitialState: function getInitialState() {
-	    return {
-	      muiTheme: this.context.muiTheme || (0, _getMuiTheme2.default)()
-	    };
-	  },
-	  getChildContext: function getChildContext() {
-	    return {
-	      muiTheme: this.state.muiTheme
-	    };
-	  },
-	
-	  //to update theme inside state whenever a new theme is passed down
-	  //from the parent / owner using context
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
-	    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
-	    this.setState({ muiTheme: newMuiTheme });
-	  },
-	  getStyles: function getStyles() {
-	    var floatingLabelText = this.props.floatingLabelText;
-	
-	    return {
-	      label: {
-	        paddingLeft: 0,
-	        top: floatingLabelText ? 6 : -4
-	      },
-	      icon: {
-	        right: 0,
-	        top: floatingLabelText ? 22 : 14
-	      },
-	      hideDropDownUnderline: {
-	        borderTop: 'none'
-	      }
-	    };
-	  },
-	  render: function render() {
-	    var styles = this.getStyles();
-	    var _props = this.props;
-	    var autoWidth = _props.autoWidth;
-	    var children = _props.children;
-	    var style = _props.style;
-	    var labelStyle = _props.labelStyle;
-	    var iconStyle = _props.iconStyle;
-	    var underlineDisabledStyle = _props.underlineDisabledStyle;
-	    var underlineFocusStyle = _props.underlineFocusStyle;
-	    var underlineStyle = _props.underlineStyle;
-	    var errorStyle = _props.errorStyle;
-	    var selectFieldRoot = _props.selectFieldRoot;
-	    var disabled = _props.disabled;
-	    var floatingLabelText = _props.floatingLabelText;
-	    var floatingLabelStyle = _props.floatingLabelStyle;
-	    var hintStyle = _props.hintStyle;
-	    var hintText = _props.hintText;
-	    var fullWidth = _props.fullWidth;
-	    var errorText = _props.errorText;
-	    var onFocus = _props.onFocus;
-	    var onBlur = _props.onBlur;
-	    var onChange = _props.onChange;
-	    var value = _props.value;
-	
-	    var other = _objectWithoutProperties(_props, ['autoWidth', 'children', 'style', 'labelStyle', 'iconStyle', 'underlineDisabledStyle', 'underlineFocusStyle', 'underlineStyle', 'errorStyle', 'selectFieldRoot', 'disabled', 'floatingLabelText', 'floatingLabelStyle', 'hintStyle', 'hintText', 'fullWidth', 'errorText', 'onFocus', 'onBlur', 'onChange', 'value']);
-	
-	    return _react2.default.createElement(
-	      _textField2.default,
-	      {
-	        style: style,
-	        floatingLabelText: floatingLabelText,
-	        floatingLabelStyle: floatingLabelStyle,
-	        hintStyle: hintStyle,
-	        hintText: !hintText && !floatingLabelText ? ' ' : hintText,
-	        fullWidth: fullWidth,
-	        errorText: errorText,
-	        underlineStyle: underlineStyle,
-	        errorStyle: errorStyle,
-	        onFocus: onFocus,
-	        onBlur: onBlur,
-	        underlineDisabledStyle: underlineDisabledStyle,
-	        underlineFocusStyle: underlineFocusStyle
-	      },
-	      _react2.default.createElement(
-	        _DropDownMenu2.default,
-	        _extends({
-	          disabled: disabled,
-	          style: selectFieldRoot,
-	          labelStyle: this.mergeStyles(styles.label, labelStyle),
-	          iconStyle: this.mergeStyles(styles.icon, iconStyle),
-	          underlineStyle: styles.hideDropDownUnderline,
-	          autoWidth: autoWidth,
-	          value: value,
-	          onChange: onChange
-	        }, other),
-	        children
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = SelectField;
-	module.exports = exports['default'];
-
-/***/ },
-/* 804 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _DropDownMenu = __webpack_require__(805);
-	
-	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _DropDownMenu2.default;
-	module.exports = exports['default'];
-
-/***/ },
-/* 805 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _transitions = __webpack_require__(628);
-	
-	var _transitions2 = _interopRequireDefault(_transitions);
-	
-	var _arrowDropDown = __webpack_require__(669);
-	
-	var _arrowDropDown2 = _interopRequireDefault(_arrowDropDown);
-	
-	var _menu = __webpack_require__(651);
-	
-	var _menu2 = _interopRequireDefault(_menu);
-	
-	var _menuItem = __webpack_require__(664);
-	
-	var _menuItem2 = _interopRequireDefault(_menuItem);
-	
-	var _clearfix = __webpack_require__(788);
-	
-	var _clearfix2 = _interopRequireDefault(_clearfix);
-	
-	var _getMuiTheme = __webpack_require__(596);
-	
-	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
-	
-	var _popover = __webpack_require__(655);
-	
-	var _popover2 = _interopRequireDefault(_popover);
-	
-	var _popoverAnimationFromTop = __webpack_require__(806);
-	
-	var _popoverAnimationFromTop2 = _interopRequireDefault(_popoverAnimationFromTop);
-	
-	var _styles = __webpack_require__(574);
-	
-	var _warning = __webpack_require__(429);
-	
-	var _warning2 = _interopRequireDefault(_warning);
-	
-	var _deprecatedPropType = __webpack_require__(807);
-	
-	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	var DropDownMenu = _react2.default.createClass({
-	  displayName: 'DropDownMenu',
-	
-	  // The nested styles for drop-down-menu are modified by toolbar and possibly
-	  // other user components, so it will give full access to its js styles rather
-	  // than just the parent.
-	  propTypes: {
-	    /**
-	     * The width will automatically be set according to the items inside the menu.
-	     * To control this width in css instead, set this prop to false.
-	     */
-	    autoWidth: _react2.default.PropTypes.bool,
-	
-	    /**
-	     * The `MenuItem`s to populate the `Menu` with. If the `MenuItems` have the
-	     * prop `label` that value will be used to render the representation of that
-	     * item within the field.
-	     */
-	    children: _react2.default.PropTypes.node,
-	
-	    /**
-	     * The css class name of the root element.
-	     */
-	    className: _react2.default.PropTypes.string,
-	
-	    /**
-	     * Disables the menu.
-	     */
-	    disabled: _react2.default.PropTypes.bool,
-	
-	    /**
-	     * `DropDownMenu` will use this member to display
-	     * the name of the item.
-	     */
-	    displayMember: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.string, 'Instead, use composability.'),
-	
-	    /**
-	     * Overrides the styles of icon element.
-	     */
-	    iconStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * `DropDownMenu` will use this member to display
-	     * the name of the item on the label.
-	     */
-	    labelMember: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.string, 'Instead, use composability.'),
-	
-	    /**
-	     * Overrides the styles of label when the `DropDownMenu` is inactive.
-	     */
-	    labelStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * The maximum height of the `Menu` when it is displayed.
-	     */
-	    maxHeight: _react2.default.PropTypes.number,
-	
-	    /**
-	     * JSON data representing all menu items in the dropdown.
-	     */
-	    menuItems: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.array, 'Instead, use composability.'),
-	
-	    /**
-	     * Overrides the styles of `Menu` when the `DropDownMenu` is displayed.
-	     */
-	    menuStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * Fired when a menu item is clicked that is not the one currently selected.
-	     */
-	    onChange: _react2.default.PropTypes.func,
-	
-	    /**
-	     * Set to true to have the `DropDownMenu` automatically open on mount.
-	     */
-	    openImmediately: _react2.default.PropTypes.bool,
-	
-	    /**
-	     * Index of the item selected.
-	     */
-	    selectedIndex: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.number, 'Use value instead to control the component.'),
-	
-	    /**
-	     * Override the inline-styles of the root element.
-	     */
-	    style: _react2.default.PropTypes.object,
-	
-	    /**
-	     * Overrides the inline-styles of the underline.
-	     */
-	    underlineStyle: _react2.default.PropTypes.object,
-	
-	    /**
-	     * The value that is currently selected.
-	     */
-	    value: _react2.default.PropTypes.any,
-	
-	    /**
-	     * Two-way binding link.
-	     */
-	    valueLink: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.object, 'It\'s deprecated by React too.'),
-	
-	    /**
-	     * `DropDownMenu` will use this member as the value representing an item.
-	     */
-	    valueMember: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.string, 'Instead, use composability.')
-	  },
-	
-	  contextTypes: {
-	    muiTheme: _react2.default.PropTypes.object
-	  },
-	
-	  //for passing default theme context to children
-	  childContextTypes: {
-	    muiTheme: _react2.default.PropTypes.object
-	  },
-	
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      autoWidth: true,
-	      disabled: false,
-	      openImmediately: false,
-	      maxHeight: 500
-	    };
-	  },
-	  getInitialState: function getInitialState() {
-	    return {
-	      open: this.props.openImmediately,
-	      selectedIndex: this._isControlled() ? null : this.props.selectedIndex || 0,
-	      muiTheme: this.context.muiTheme || (0, _getMuiTheme2.default)()
-	    };
-	  },
-	  getChildContext: function getChildContext() {
-	    return {
-	      muiTheme: this.state.muiTheme
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    if (this.props.autoWidth) this._setWidth();
-	    if (this.props.hasOwnProperty('selectedIndex')) this._setSelectedIndex(this.props.selectedIndex);
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
-	    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
-	    this.setState({ muiTheme: newMuiTheme });
-	
-	    if (this.props.autoWidth) this._setWidth();
-	    if (nextProps.hasOwnProperty('value') || nextProps.hasOwnProperty('valueLink')) {
-	      return;
-	    } else if (nextProps.hasOwnProperty('selectedIndex')) {
-	      this._setSelectedIndex(nextProps.selectedIndex);
-	    }
-	  },
-	  getStyles: function getStyles() {
-	    var disabled = this.props.disabled;
-	
-	    var spacing = this.state.muiTheme.rawTheme.spacing;
-	    var palette = this.state.muiTheme.rawTheme.palette;
-	    var accentColor = this.state.muiTheme.dropDownMenu.accentColor;
-	    return {
-	      control: {
-	        cursor: disabled ? 'not-allowed' : 'pointer',
-	        height: '100%',
-	        position: 'relative',
-	        width: '100%'
-	      },
-	      icon: {
-	        fill: accentColor,
-	        position: 'absolute',
-	        right: spacing.desktopGutterLess,
-	        top: (spacing.desktopToolbarHeight - 24) / 2
-	      },
-	      label: {
-	        color: disabled ? palette.disabledColor : palette.textColor,
-	        lineHeight: spacing.desktopToolbarHeight + 'px',
-	        opacity: 1,
-	        position: 'relative',
-	        paddingLeft: spacing.desktopGutter,
-	        paddingRight: spacing.iconSize + spacing.desktopGutterLess + spacing.desktopGutterMini,
-	        top: 0
-	      },
-	      labelWhenOpen: {
-	        opacity: 0,
-	        top: spacing.desktopToolbarHeight / 8
-	      },
-	      rootWhenOpen: {
-	        opacity: 1
-	      },
-	      root: {
-	        display: 'inline-block',
-	        fontSize: spacing.desktopDropDownMenuFontSize,
-	        height: spacing.desktopSubheaderHeight,
-	        fontFamily: this.state.muiTheme.rawTheme.fontFamily,
-	        outline: 'none',
-	        position: 'relative',
-	        transition: _transitions2.default.easeOut()
-	      },
-	      underline: {
-	        borderTop: 'solid 1px ' + accentColor,
-	        bottom: 1,
-	        left: 0,
-	        margin: '-1px ' + spacing.desktopGutter + 'px',
-	        right: 0,
-	        position: 'absolute'
-	      }
-	    };
-	  },
-	
-	  /**
-	   * This method is deprecated but still here because the TextField
-	   * need it in order to work. That will be addressed later.
-	   */
-	  getInputNode: function getInputNode() {
-	    var _this = this;
-	
-	    var root = this.refs.root;
-	    var item = this.props.menuItems && this.props.menuItems[this.state.selectedIndex];
-	    if (item) {
-	      root.value = item[this.props.displayMember || 'text'];
-	    }
-	
-	    root.focus = function () {
-	      if (!_this.props.disabled) {
-	        _this.setState({
-	          open: !_this.state.open,
-	          anchorEl: _this.refs.root
-	        });
-	      }
-	    };
-	
-	    return root;
-	  },
-	  _setWidth: function _setWidth() {
-	    var el = this.refs.root;
-	    if (!this.props.style || !this.props.style.hasOwnProperty('width')) {
-	      el.style.width = 'auto';
-	    }
-	  },
-	  _setSelectedIndex: function _setSelectedIndex(index) {
-	    process.env.NODE_ENV !== "production" ? (0, _warning2.default)(index >= 0, 'Cannot set selectedIndex to a negative index.') : undefined;
-	    this.setState({ selectedIndex: index >= 0 ? index : 0 });
-	  },
-	  _onControlTouchTap: function _onControlTouchTap(event) {
-	    event.preventDefault();
-	    if (!this.props.disabled) {
-	      this.setState({
-	        open: !this.state.open,
-	        anchorEl: this.refs.root
-	      });
-	    }
-	  },
-	  _onMenuItemTouchTap: function _onMenuItemTouchTap(key, payload, e) {
-	    var _props = this.props;
-	    var onChange = _props.onChange;
-	    var menuItems = _props.menuItems;
-	    var value = _props.value;
-	    var valueLink = _props.valueLink;
-	    var valueMember = _props.valueMember;
-	
-	    if (menuItems && (this.state.selectedIndex !== key || e.target.value !== value)) {
-	      var selectedItem = menuItems[key];
-	      if (selectedItem) {
-	        e.target.value = selectedItem[valueMember || 'payload'];
-	      }
-	      this._onMenuRequestClose();
-	    }
-	
-	    if (valueLink) {
-	      valueLink.requestChange(e.target.value);
-	    } else if (onChange) {
-	      onChange(e, key, payload);
-	    }
-	
-	    this.setState({
-	      selectedIndex: key,
-	      open: false
-	    });
-	  },
-	  _onMenuRequestClose: function _onMenuRequestClose() {
-	    this.setState({
-	      open: false,
-	      anchorEl: null
-	    });
-	  },
-	  _isControlled: function _isControlled() {
-	    return this.props.hasOwnProperty('value') || this.props.hasOwnProperty('valueLink');
-	  },
-	  render: function render() {
-	    var _this2 = this;
-	
-	    var _props2 = this.props;
-	    var autoWidth = _props2.autoWidth;
-	    var children = _props2.children;
-	    var className = _props2.className;
-	    var displayMember = _props2.displayMember;
-	    var iconStyle = _props2.iconStyle;
-	    var labelMember = _props2.labelMember;
-	    var labelStyle = _props2.labelStyle;
-	    var maxHeight = _props2.maxHeight;
-	    var menuItems = _props2.menuItems;
-	    var menuStyle = _props2.menuStyle;
-	    var style = _props2.style;
-	    var underlineStyle = _props2.underlineStyle;
-	    var valueLink = _props2.valueLink;
-	    var _props2$valueMember = _props2.valueMember;
-	    var valueMember = _props2$valueMember === undefined ? 'payload' : _props2$valueMember;
-	
-	    var other = _objectWithoutProperties(_props2, ['autoWidth', 'children', 'className', 'displayMember', 'iconStyle', 'labelMember', 'labelStyle', 'maxHeight', 'menuItems', 'menuStyle', 'style', 'underlineStyle', 'valueLink', 'valueMember']);
-	
-	    var _state = this.state;
-	    var anchorEl = _state.anchorEl;
-	    var open = _state.open;
-	    var muiTheme = _state.muiTheme;
-	
-	    var styles = this.getStyles();
-	
-	    var value = undefined;
-	    var selectedIndex = this._isControlled() ? null : this.state.selectedIndex;
-	
-	    if (menuItems && typeof selectedIndex === 'number') {
-	      process.env.NODE_ENV !== "production" ? (0, _warning2.default)(menuItems[selectedIndex], 'SelectedIndex of ' + selectedIndex + ' does not exist in menuItems.') : undefined;
-	    }
-	
-	    if (valueMember && this._isControlled()) {
-	      value = this.props.hasOwnProperty('value') ? this.props.value : valueLink.value;
-	      if (menuItems && value !== null && value !== undefined) {
-	        for (var i = 0; i < menuItems.length; i++) {
-	          if (menuItems[i][valueMember] === value) {
-	            selectedIndex = i;
-	          }
-	        }
-	      }
-	    }
-	
-	    var displayValue = '';
-	    if (menuItems) {
-	      var selectedItem = menuItems[selectedIndex];
-	      if (selectedItem) {
-	        displayValue = selectedItem[labelMember || 'text'] || selectedItem[displayMember || 'text'];
-	      }
-	    } else {
-	      _react2.default.Children.forEach(children, function (child) {
-	        if (value === child.props.value) {
-	          // This will need to be improved (in case primaryText is a node)
-	          displayValue = child.props.label || child.props.primaryText;
-	        }
-	      });
-	    }
-	
-	    var index = 0;
-	    var menuItemElements = menuItems ? menuItems.map(function (item, idx) {
-	      return _react2.default.createElement(_menuItem2.default, {
-	        key: idx,
-	        primaryText: item[displayMember || 'text'],
-	        value: item[valueMember],
-	        onTouchTap: _this2._onMenuItemTouchTap.bind(_this2, idx, item)
-	      });
-	    }) : _react2.default.Children.map(children, function (child) {
-	      var clone = _react2.default.cloneElement(child, {
-	        onTouchTap: _this2._onMenuItemTouchTap.bind(_this2, index, child.props.value)
-	      }, child.props.children);
-	      index += 1;
-	      return clone;
-	    });
-	
-	    var popoverStyle = undefined;
-	    if (anchorEl && !autoWidth) {
-	      popoverStyle = { width: anchorEl.clientWidth };
-	    }
-	
-	    return _react2.default.createElement(
-	      'div',
-	      _extends({}, other, {
-	        ref: 'root',
-	        className: className,
-	        style: (0, _styles.prepareStyles)(muiTheme, (0, _styles.mergeStyles)(styles.root, open && styles.rootWhenOpen, style))
-	      }),
-	      _react2.default.createElement(
-	        _clearfix2.default,
-	        { style: (0, _styles.mergeStyles)(styles.control), onTouchTap: this._onControlTouchTap },
-	        _react2.default.createElement(
-	          'div',
-	          { style: (0, _styles.prepareStyles)(muiTheme, (0, _styles.mergeStyles)(styles.label, open && styles.labelWhenOpen, labelStyle)) },
-	          displayValue
-	        ),
-	        _react2.default.createElement(_arrowDropDown2.default, { style: (0, _styles.mergeStyles)(styles.icon, iconStyle) }),
-	        _react2.default.createElement('div', { style: (0, _styles.prepareStyles)(muiTheme, (0, _styles.mergeStyles)(styles.underline, underlineStyle)) })
-	      ),
-	      _react2.default.createElement(
-	        _popover2.default,
-	        {
-	          anchorOrigin: { horizontal: 'left', vertical: 'top' },
-	          anchorEl: anchorEl,
-	          style: popoverStyle,
-	          animation: _popoverAnimationFromTop2.default,
-	          open: open,
-	          onRequestClose: this._onMenuRequestClose
-	        },
-	        _react2.default.createElement(
-	          _menu2.default,
-	          {
-	            maxHeight: maxHeight,
-	            desktop: true,
-	            value: value,
-	            style: menuStyle
-	          },
-	          menuItemElements
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = DropDownMenu;
-	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
-
-/***/ },
-/* 806 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _transitions = __webpack_require__(628);
-	
-	var _transitions2 = _interopRequireDefault(_transitions);
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(650);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _stylePropable = __webpack_require__(573);
-	
-	var _stylePropable2 = _interopRequireDefault(_stylePropable);
-	
-	var _getMuiTheme = __webpack_require__(596);
-	
-	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
-	
-	var _paper = __webpack_require__(654);
-	
-	var _paper2 = _interopRequireDefault(_paper);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var PopoverAnimationFromTop = _react2.default.createClass({
-	  displayName: 'PopoverAnimationFromTop',
-	
-	  propTypes: {
-	    children: _react2.default.PropTypes.node,
-	    className: _react2.default.PropTypes.string,
-	    open: _react2.default.PropTypes.bool.isRequired,
-	
-	    /**
-	     * Override the inline-styles of the root element.
-	     */
-	    style: _react2.default.PropTypes.object,
-	    targetOrigin: _propTypes2.default.origin,
-	    zDepth: _propTypes2.default.zDepth
-	  },
-	
-	  contextTypes: {
-	    muiTheme: _react2.default.PropTypes.object
-	  },
-	
-	  //for passing default theme context to children
-	  childContextTypes: {
-	    muiTheme: _react2.default.PropTypes.object
-	  },
-	
-	  mixins: [_stylePropable2.default],
-	
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      style: {},
-	      zDepth: 1
-	    };
-	  },
-	  getInitialState: function getInitialState() {
-	    return {
-	      muiTheme: this.context.muiTheme || (0, _getMuiTheme2.default)(),
-	      open: false
-	    };
-	  },
-	  getChildContext: function getChildContext() {
-	    return {
-	      muiTheme: this.state.muiTheme
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    this.setState({ open: true }); //eslint-disable-line react/no-did-mount-set-state
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
-	    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
-	
-	    this.setState({
-	      open: nextProps.open,
-	      muiTheme: newMuiTheme
-	    });
-	  },
-	  getStyles: function getStyles() {
-	    var targetOrigin = this.props.targetOrigin;
-	
-	    var horizontal = targetOrigin.horizontal.replace('middle', 'vertical');
-	
-	    return {
-	      base: {
-	        opacity: 0,
-	        transform: 'scaleY(0)',
-	        transformOrigin: horizontal + ' ' + targetOrigin.vertical,
-	        position: 'fixed',
-	        zIndex: this.state.muiTheme.zIndex.popover,
-	        transition: _transitions2.default.easeOut('450ms', ['transform', 'opacity']),
-	        maxHeight: '100%'
-	      }
-	
-	    };
-	  },
-	  getOpenStyles: function getOpenStyles() {
-	    return {
-	      base: {
-	        opacity: 1,
-	        transform: 'scaleY(1)'
-	      }
-	    };
-	  },
-	  render: function render() {
-	    var _props = this.props;
-	    var className = _props.className;
-	    var style = _props.style;
-	    var zDepth = _props.zDepth;
-	
-	    var styles = this.getStyles();
-	    var openStyles = {};
-	    if (this.state.open) openStyles = this.getOpenStyles();
-	
-	    return _react2.default.createElement(
-	      _paper2.default,
-	      {
-	        style: this.mergeStyles(styles.base, style, openStyles.base),
-	        zDepth: zDepth,
-	        className: className
-	      },
-	      this.props.children
-	    );
-	  }
-	});
-	
-	exports.default = PopoverAnimationFromTop;
-	module.exports = exports['default'];
-
-/***/ },
-/* 807 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = deprecated;
-	
-	var _warning = __webpack_require__(429);
-	
-	var _warning2 = _interopRequireDefault(_warning);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function deprecated(propType, explanation) {
-	  return function validate(props, propName, componentName) {
-	    if (props[propName] != null) {
-	      process.env.NODE_ENV !== "production" ? (0, _warning2.default)(false, '"' + propName + '" property of "' + componentName + '" has been deprecated.\n' + explanation) : undefined;
-	    }
-	
-	    return propType(props, propName, componentName);
-	  };
-	}
-	module.exports = exports['default'];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
-
-/***/ },
-/* 808 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(483);
-	
-	var _toolbar = __webpack_require__(572);
-	
-	var _toolbar2 = _interopRequireDefault(_toolbar);
-	
-	var _toolbarGroup = __webpack_require__(624);
-	
-	var _toolbarGroup2 = _interopRequireDefault(_toolbarGroup);
-	
-	var _toolbarSeparator = __webpack_require__(672);
-	
-	var _toolbarSeparator2 = _interopRequireDefault(_toolbarSeparator);
-	
-	var _toolbarTitle = __webpack_require__(809);
-	
-	var _toolbarTitle2 = _interopRequireDefault(_toolbarTitle);
-	
-	var _DropDownMenu = __webpack_require__(804);
-	
-	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
-	
-	var _divider = __webpack_require__(740);
-	
-	var _divider2 = _interopRequireDefault(_divider);
-	
-	var _menuItem = __webpack_require__(664);
-	
-	var _menuItem2 = _interopRequireDefault(_menuItem);
-	
-	var _raisedButton = __webpack_require__(673);
-	
-	var _raisedButton2 = _interopRequireDefault(_raisedButton);
-	
-	var _flatButton = __webpack_require__(625);
-	
-	var _flatButton2 = _interopRequireDefault(_flatButton);
-	
-	var _api = __webpack_require__(552);
-	
-	var _CKEditor = __webpack_require__(810);
-	
-	var _CKEditor2 = _interopRequireDefault(_CKEditor);
-	
-	var _circularProgress = __webpack_require__(746);
-	
-	var _circularProgress2 = _interopRequireDefault(_circularProgress);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var htmlStyle = {
-	  padding: '32px 32px 32px 32px',
-	  color: '#888888'
-	};
-	
-	var IntroductionContentAdministration = _react2.default.createClass({
-	  displayName: 'IntroductionContentAdministration',
-	
-	  currentResourceId: null,
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      isHTMLViewOpen: false,
-	      htmlText: null,
-	      resultHtmlText: null,
-	      selectedCourse: null,
-	      selectedResource: null,
-	      isTextDirty: false,
-	      resourceVersion: null,
-	      isSavingResource: false,
-	      isLoadingResource: false,
-	      isEditing: false
-	    };
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    this.setState({ selectedResource: this.props.selectedResource });
-	    this.getResource(this.props.selectedResource);
-	  },
-	
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (nextProps.selectedResource !== this.props.selectedResource) {
-	      this.setState({ selectedResource: nextProps.selectedResource });
-	      this.getResource(nextProps.selectedResource);
-	    }
-	  },
-	
-	  getResource: function getResource(resourceId) {
-	    var _this = this;
-	
-	    if (resourceId === undefined || resourceId === null) return;
-	
-	    this.setState({ isLoadingResource: true });
-	    this.props.dispatch((0, _api.getResourceById)(resourceId)).then(function (json) {
-	      _this.setState({
-	        htmlText: json.resource.content,
-	        resultHtmlText: json.resource.content,
-	        resourceVersion: json.resource.version,
-	        isLoadingResource: false
-	      });
-	      _this.currentResourceId = json.resource.id;
-	    });
-	  },
-	
-	  saveResource: function saveResource() {
-	    var _this2 = this;
-	
-	    this.setState({ isTextDirty: false, isSavingResource: true });
-	    var that = this;
-	    this.props.dispatch((0, _api.putResourceById)(this.currentResourceId, this.props.selectedModule, this.state.resultHtmlText)).then(function (json) {
-	      that.setState({
-	        resourceVersion: json.response.updatedResouceVersion,
-	        isSavingResource: false
-	      });
-	      that.currentResourceId = json.response.updatedResouceId;
-	      _this2.props.resourceRevisionUpdated(json.response.parentResourceId, json.response.updatedResouceId);
-	    });
-	  },
-	
-	  onTextChaged: function onTextChaged(newHtml) {
-	    if (this.state.resultHtmlText !== newHtml) this.setState({ resultHtmlText: newHtml, isTextDirty: true });
-	  },
-	
-	  toggleHtml: function toggleHtml() {
-	    this.setState({ isHTMLViewOpen: !this.state.isHTMLViewOpen });
-	  },
-	
-	  toggleEditing: function toggleEditing() {
-	    var isCurrentlyEditign = !this.state.isEditing;
-	    this.setState({
-	      isEditing: isCurrentlyEditign,
-	      isTextDirty: false
-	    });
-	
-	    if (!isCurrentlyEditign) {
-	      if (this.state.isTextDirty) //We are discarding changes
-	        this.state.resultHtmlText = this.state.htmlText;else this.state.htmlText = this.state.resultHtmlText;
-	    }
-	  },
-	
-	  render: function render() {
-	    var HtmlDisplayArea = this.state.isHTMLViewOpen ? _react2.default.createElement(
-	      'div',
-	      { style: htmlStyle },
-	      _react2.default.createElement(
-	        'pre',
-	        { style: { whiteSpace: 'pre-line' } },
-	        this.state.resultHtmlText
-	      )
-	    ) : null;
-	    var HtmlButtonLabel = this.state.isHTMLViewOpen ? 'Skjul html' : 'Vis html';
-	    var VersionText = "Version: " + this.state.resourceVersion;
-	    var editText = this.state.isEditing ? this.state.isTextDirty ? "Afslut uden at gemme" : "Afslut redigering" : "Redigér indhold";
-	
-	    var Editor = this.state.htmlText !== null ? _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _toolbar2.default,
-	          { style: { background: 'transparent', padding: '0', marginBottom: '8px' } },
-	          _react2.default.createElement(
-	            _toolbarGroup2.default,
-	            { firstChild: true, float: 'left' },
-	            _react2.default.createElement(
-	              _DropDownMenu2.default,
-	              { value: 1, style: { marginRight: '0px' } },
-	              _react2.default.createElement(_menuItem2.default, { value: 1, primaryText: VersionText }),
-	              _react2.default.createElement(_menuItem2.default, { value: 2, primaryText: 'Vælg en anden version' })
-	            ),
-	            this.state.isSavingResource ? _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '6px' } }) : null
-	          ),
-	          _react2.default.createElement(
-	            _toolbarGroup2.default,
-	            null,
-	            _react2.default.createElement(_raisedButton2.default, { secondary: true, style: { marginRight: '0' }, label: editText, onClick: this.toggleEditing }),
-	            this.state.isTextDirty && this.state.isEditing ? _react2.default.createElement(_raisedButton2.default, { primary: true, style: { marginLeft: '8px', marginRight: '0' }, label: 'Gem ændringer', onClick: this.saveResource }) : null
-	          )
-	        ),
-	        this.state.isEditing ? _react2.default.createElement(_CKEditor2.default, { text: this.state.htmlText, onTextChangedCallback: this.onTextChaged }) : _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(_divider2.default, { style: { marginBottom: 54 } }),
-	          _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: this.state.resultHtmlText } })
-	        )
-	      )
-	    ) : null;
-	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      this.state.isLoadingResource ? _react2.default.createElement(
-	        'div',
-	        { style: { textAlign: 'center' } },
-	        _react2.default.createElement(_divider2.default, { style: { marginBottom: 54 } }),
-	        _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '20px', marginBottom: '20px' } })
-	      ) : null,
-	      Editor,
-	      _react2.default.createElement(_divider2.default, null),
-	      this.state.htmlText !== null ? _react2.default.createElement(_flatButton2.default, { label: HtmlButtonLabel, secondary: true, onClick: this.toggleHtml }) : null,
-	      HtmlDisplayArea
-	    );
-	  }
-	});
-	
-	IntroductionContentAdministration = (0, _reactRedux.connect)()(IntroductionContentAdministration);
-	
-	exports.default = IntroductionContentAdministration;
-
-/***/ },
-/* 809 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _stylePropable = __webpack_require__(573);
-	
-	var _stylePropable2 = _interopRequireDefault(_stylePropable);
-	
-	var _getMuiTheme = __webpack_require__(596);
-	
-	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	var ToolbarTitle = _react2.default.createClass({
-	  displayName: 'ToolbarTitle',
-	
-	  propTypes: {
-	    /**
-	     * The css class name of the root element.
-	     */
-	    className: _react2.default.PropTypes.string,
-	
-	    /**
-	     * Override the inline-styles of the root element.
-	     */
-	    style: _react2.default.PropTypes.object,
-	
-	    /**
-	     * The text to be displayed.
-	     */
-	    text: _react2.default.PropTypes.string
-	  },
-	
-	  contextTypes: {
-	    muiTheme: _react2.default.PropTypes.object
-	  },
-	
-	  //for passing default theme context to children
-	  childContextTypes: {
-	    muiTheme: _react2.default.PropTypes.object
-	  },
-	
-	  mixins: [_stylePropable2.default],
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      muiTheme: this.context.muiTheme || (0, _getMuiTheme2.default)()
-	    };
-	  },
-	  getChildContext: function getChildContext() {
-	    return {
-	      muiTheme: this.state.muiTheme
-	    };
-	  },
-	
-	  //to update theme inside state whenever a new theme is passed down
-	  //from the parent / owner using context
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
-	    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
-	    this.setState({ muiTheme: newMuiTheme });
-	  },
-	  getTheme: function getTheme() {
-	    return this.state.muiTheme.toolbar;
-	  },
-	  getSpacing: function getSpacing() {
-	    return this.state.muiTheme.rawTheme.spacing;
-	  },
-	  getStyles: function getStyles() {
-	    return {
-	      root: {
-	        paddingRight: this.getSpacing().desktopGutterLess,
-	        lineHeight: this.getTheme().height + 'px',
-	        fontSize: this.getTheme().titleFontSize + 'px',
-	        display: 'inline-block',
-	        position: 'relative'
-	      }
-	    };
-	  },
-	  render: function render() {
-	    var _props = this.props;
-	    var className = _props.className;
-	    var style = _props.style;
-	    var text = _props.text;
-	
-	    var other = _objectWithoutProperties(_props, ['className', 'style', 'text']);
-	
-	    var styles = this.getStyles();
-	
-	    return _react2.default.createElement(
-	      'span',
-	      _extends({}, other, { className: className, style: this.prepareStyles(styles.root, style) }),
-	      text
-	    );
-	  }
-	});
-	
-	exports.default = ToolbarTitle;
-	module.exports = exports['default'];
-
-/***/ },
-/* 810 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var textareaStyle = {
-	  minHeight: '800px'
-	};
-	
-	var CKEditor = _react2.default.createClass({
-	  displayName: 'CKEditor',
-	
-	
-	  isComponentInitialized: false,
-	  ckEditor: null,
-	  shouldComponentUpdate: function shouldComponentUpdate() {
-	    return true;
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    var initialText = this.props.text;
-	    var textChanged = this.props.onTextChangedCallback;
-	    var isDataSet = false;
-	
-	    this.ckEditor = CKEDITOR.replace(this.refs.editor, {
-	      height: 600,
-	      contentsCss: [CKEDITOR.getUrl('https://fonts.googleapis.com/css?family=Roboto:400,300,500'),
-	      // Add CSS for widget styles.
-	      'https://fonts.googleapis.com/css?family=Roboto:400,300,500', 'ckEditor.css']
-	    });
-	    var ckEditor = this.ckEditor;
-	
-	    this.ckEditor.on('instanceReady', function () {
-	      ckEditor.setData(initialText);
-	      this.isDataSet = true;
-	    });
-	
-	    function updateModel(event) {
-	      if (this.isComponentInitialized) {
-	        var newText = ckEditor.getData();
-	        if (textChanged !== undefined && newText !== initialText) textChanged(newText);
-	      } else if (this.isDataSet && event.name === 'dataReady') this.isComponentInitialized = true;
-	    };
-	
-	    function dataReady(event) {
-	      this.updateModel(event);
-	    };
-	
-	    function change(evnet) {
-	      this.updateModel(event);
-	    };
-	
-	    this.ckEditor.on('change', updateModel);
-	    this.ckEditor.on('key', updateModel);
-	    this.ckEditor.on('dataReady', updateModel);
-	  },
-	
-	  componentWillUnmount: function componentWillUnmount() {
-	    var foo = 3;
-	    console.log("CK-editor unmount");
-	    this.ckEditor.destroy();
-	  },
-	
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (nextProps.text === null) {
-	      this.ckEditor.setData("");
-	    } else if (nextProps.text !== this.props.text) {
-	      this.ckEditor.setData(nextProps.text);
-	    }
-	  },
-	
-	  render: function render() {
-	    return _react2.default.createElement('textarea', { style: textareaStyle, ref: 'editor' });
-	  }
-	});
-	
-	exports.default = CKEditor;
-
-/***/ },
-/* 811 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(483);
-	
-	var _toolbar = __webpack_require__(572);
-	
-	var _toolbar2 = _interopRequireDefault(_toolbar);
-	
-	var _toolbarGroup = __webpack_require__(624);
-	
-	var _toolbarGroup2 = _interopRequireDefault(_toolbarGroup);
-	
-	var _toolbarSeparator = __webpack_require__(672);
-	
-	var _toolbarSeparator2 = _interopRequireDefault(_toolbarSeparator);
-	
-	var _toolbarTitle = __webpack_require__(809);
-	
-	var _toolbarTitle2 = _interopRequireDefault(_toolbarTitle);
-	
-	var _DropDownMenu = __webpack_require__(804);
-	
-	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
-	
-	var _divider = __webpack_require__(740);
-	
-	var _divider2 = _interopRequireDefault(_divider);
-	
-	var _menuItem = __webpack_require__(664);
-	
-	var _menuItem2 = _interopRequireDefault(_menuItem);
-	
-	var _raisedButton = __webpack_require__(673);
-	
-	var _raisedButton2 = _interopRequireDefault(_raisedButton);
-	
-	var _flatButton = __webpack_require__(625);
-	
-	var _flatButton2 = _interopRequireDefault(_flatButton);
-	
-	var _api = __webpack_require__(552);
-	
-	var _CKEditor = __webpack_require__(810);
-	
-	var _CKEditor2 = _interopRequireDefault(_CKEditor);
-	
-	var _circularProgress = __webpack_require__(746);
-	
-	var _circularProgress2 = _interopRequireDefault(_circularProgress);
-	
-	var _ExerciseDialog = __webpack_require__(812);
-	
-	var _ExerciseDialog2 = _interopRequireDefault(_ExerciseDialog);
-	
-	var _ExerciseSelector = __webpack_require__(770);
-	
-	var _ExerciseSelector2 = _interopRequireDefault(_ExerciseSelector);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var htmlStyle = {
-	  padding: '32px 32px 32px 32px',
-	  color: '#888888'
-	};
-	
-	var ExerciseElement = _react2.default.createClass({
-	  displayName: 'ExerciseElement',
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      isEditing: false,
-	      isTextDirty: false,
-	      editedText: this.props.model.content,
-	      originalText: this.props.model.content,
-	      isExerciseDialogOpen: false,
-	      exerciseSelection: {
-	        className: this.props.model.className,
-	        configuration: this.props.model.configuration,
-	        description: this.props.model.description,
-	        instrunctionContent: this.props.model.instrunctionContent
-	      }
-	    };
-	  },
-	
-	  toggleEditing: function toggleEditing() {
-	    var isCurrentlyEditign = !this.state.isEditing;
-	    this.setState({
-	      isEditing: isCurrentlyEditign,
-	      isTextDirty: false
-	    });
-	
-	    if (!isCurrentlyEditign) {
-	      if (this.state.isTextDirty) //We are discarding changes
-	        this.state.editedText = this.state.originalText;else this.state.originalText = this.state.editedText;
-	    };
-	  },
-	
-	  saveResource: function saveResource() {
-	    this.setState({ isTextDirty: false });
-	    this.props.model.content = this.state.editedText;
-	    if (this.state.exerciseSelection !== null && this.state.exerciseSelection !== undefined) {
-	      this.props.model.className = this.state.exerciseSelection.className;
-	      this.props.model.configuration = this.state.exerciseSelection.configuration;
-	      this.props.model.description = this.state.exerciseSelection.description;
-	      this.props.model.instrunctionContent = this.state.exerciseSelection.instrunctionContent;
-	    } else {
-	      this.props.model.className = '';
-	      this.props.model.configuration = '';
-	      this.props.model.description = '';
-	      this.props.model.instrunctionContent = [];
-	    }
-	    this.state.originalText = this.state.editedText;
-	    this.props.initiateSave();
-	  },
-	
-	  onTextChaged: function onTextChaged(newHtml) {
-	    if (this.state.editedText !== newHtml) {
-	      this.setState({ editedText: newHtml, isTextDirty: true });
-	      this.props.onDirtyFlagRaised();
-	    }
-	  },
-	
-	  removeItem: function removeItem() {
-	    this.props.removeItem(this.props.model);
-	  },
-	
-	  openExerciseDialog: function openExerciseDialog() {
-	    this.setState({ isExerciseDialogOpen: true });
-	  },
-	
-	  submitExerciseDialog: function submitExerciseDialog(exerciseSelection) {
-	    this.setState({
-	      isExerciseDialogOpen: false,
-	      exerciseSelection: exerciseSelection
-	    }, function () {
-	      this.saveResource();
-	    });
-	  },
-	
-	  cancelExerciseDialog: function cancelExerciseDialog(exerciseSelection) {
-	    this.setState({
-	      isExerciseDialogOpen: false
-	    });
-	  },
-	
-	  render: function render() {
-	    var editText = this.state.isEditing ? this.state.isTextDirty ? "Afslut uden at gemme" : "Afslut redigering" : "Redigér indhold";
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      !this.props.firstElement && this.props.isEditEnabled ? _react2.default.createElement(_divider2.default, { style: { marginTop: '12px' } }) : null,
-	      this.state.isEditing && this.props.isEditEnabled ? _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_raisedButton2.default, { secondary: true, style: { marginRight: '0', marginTop: '12px', marginBottom: '12px' }, label: editText, onClick: this.toggleEditing }),
-	        this.state.isTextDirty && this.state.isEditing ? _react2.default.createElement(_raisedButton2.default, { primary: true, style: { textAlign: 'right', marginRight: '0', marginTop: '12px', marginBottom: '12px', marginLeft: '8px' }, label: 'Gem ændringer', onClick: this.saveResource }) : null,
-	        _react2.default.createElement(_CKEditor2.default, { text: this.state.originalText, onTextChangedCallback: this.onTextChaged })
-	      ) : _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: this.state.originalText } }),
-	        _react2.default.createElement(_ExerciseSelector2.default, { exerciseSelection: this.state.exerciseSelection }),
-	        this.props.isEditEnabled ? _react2.default.createElement(
-	          'div',
-	          null,
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'span',
-	              { style: { color: '#666666' } },
-	              'Foretag ændringer: '
-	            ),
-	            _react2.default.createElement(_flatButton2.default, { onClick: this.toggleEditing, style: { padding: '0' }, secondary: true, label: 'Redigér opgavetekst' }),
-	            _react2.default.createElement(_flatButton2.default, { onClick: this.openExerciseDialog, secondary: true, style: { marginLeft: '8px', padding: '0' }, label: 'Vælg opgavetype' }),
-	            _react2.default.createElement(_ExerciseDialog2.default, { selected: this.state.exerciseSelection, open: this.state.isExerciseDialogOpen, onCancel: this.cancelExerciseDialog, onSubmit: this.submitExerciseDialog }),
-	            !this.props.firstElement ? _react2.default.createElement(_flatButton2.default, { onClick: this.removeItem, secondary: true, style: { marginLeft: '8px', padding: '0' }, label: 'Fjern' }) : null
-	          )
-	        ) : null
-	      )
-	    );
-	  }
-	});
-	
-	var ExerciseContentAdministration = _react2.default.createClass({
-	  displayName: 'ExerciseContentAdministration',
-	
-	  currentResourceId: null,
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      exerciseElements: [],
-	      isHTMLViewOpen: false,
-	      htmlText: null,
-	      resultHtmlText: null,
-	      selectedCourse: null,
-	      selectedResource: null,
-	      isDirty: false,
-	      resourceVersion: null,
-	      isSavingResource: false,
-	      isLoadingResource: false,
-	      isEditing: false
-	    };
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    this.setState({ selectedResource: this.props.selectedResource });
-	    this.getResource(this.props.selectedResource);
-	  },
-	
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (nextProps.selectedResource !== this.props.selectedResource) {
-	      this.setState({ selectedResource: nextProps.selectedResource });
-	      this.getResource(nextProps.selectedResource);
-	    }
-	  },
-	
-	  componentDidUpdate: function componentDidUpdate() {
-	    if (this.shouldScrollBottom) {
-	      window.scrollTo(0, document.body.scrollHeight);
-	      this.shouldScrollBottom = false;
-	    }
-	  },
-	
-	  getResource: function getResource(resourceId) {
-	    var _this = this;
-	
-	    if (resourceId === undefined || resourceId === null) return;
-	
-	    this.setState({ isLoadingResource: true, exerciseElements: [] });
-	    this.props.dispatch((0, _api.getExerciseResourceById)(resourceId)).then(function (json) {
-	      _this.setState({
-	        exerciseElements: json.resource.elements,
-	        resourceVersion: json.resource.version,
-	        isLoadingResource: false
-	      });
-	      _this.currentResourceId = json.resource.id;
-	    });
-	  },
-	
-	  saveResource: function saveResource() {
-	    var _this2 = this;
-	
-	    this.setState({ isDirty: false, isSavingResource: true });
-	    var that = this;
-	    this.props.dispatch((0, _api.putExerciseResourceById)(this.currentResourceId, this.props.selectedModule, this.state.exerciseElements)).then(function (json) {
-	      that.setState({
-	        resourceVersion: json.response.updatedResouceVersion,
-	        isSavingResource: false
-	      });
-	      that.currentResourceId = json.response.updatedResouceId;
-	      _this2.props.resourceRevisionUpdated(json.response.parentResourceId, json.response.updatedResouceId);
-	    });
-	  },
-	
-	  toggleHtml: function toggleHtml() {
-	    this.setState({ isHTMLViewOpen: !this.state.isHTMLViewOpen });
-	  },
-	
-	  onDirtyFlagRaised: function onDirtyFlagRaised() {
-	    this.setState({ isDirty: true });
-	  },
-	
-	  addExerciseElement: function addExerciseElement() {
-	    if (!this.state.isEditing) this.toggleEditing();
-	
-	    this.setState({
-	      exerciseElements: this.state.exerciseElements.concat([{
-	        content: this.state.exerciseElements.length > 0 ? '<h3>&lt;Underoverskrift her&gt;</h3> <p>&lt;Kort tekst her, evt. efterfulgt af opgave: &gt;</p>' : '<h1>&lt;Overskrift her&gt;</h1> <p>&lt;Kort tekst her, evt. efterfulgt af opgave: &gt;</p>',
-	
-	        className: 'None',
-	        configuration: '',
-	        description: '',
-	        instrunctionContent: []
-	      }])
-	    }, function () {
-	      //State change has taken effect
-	      this.saveResource();
-	
-	      var node = this.getDOMNode();
-	      this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
-	    });
-	  },
-	
-	  removeExerciseElement: function removeExerciseElement(element) {
-	    var index = this.state.exerciseElements.indexOf(element);
-	    if (index > -1) {
-	      this.state.exerciseElements.splice(index, 1);
-	    }
-	
-	    this.setState({
-	      exerciseElements: this.state.exerciseElements
-	    }, function () {
-	      //The state change has taken effect
-	      this.saveResource();
-	    });
-	  },
-	
-	  toggleEditing: function toggleEditing() {
-	    this.setState({ isEditing: !this.state.isEditing });
-	  },
-	
-	  render: function render() {
-	    var _this3 = this;
-	
-	    var VersionText = "Version: " + this.state.resourceVersion;
-	    var editText = this.state.isEditing ? this.state.isDirty ? "Afslut uden at gemme" : "Afslut redigering" : "Redigér indhold";
-	
-	    var Elements = this.state.exerciseElements.map(function (i, index) {
-	      return _react2.default.createElement(ExerciseElement, { key: index, firstElement: index === 0, isEditEnabled: _this3.state.isEditing, removeItem: _this3.removeExerciseElement, model: i, initiateSave: _this3.saveResource, onDirtyFlagRaised: _this3.onDirtyFlagRaised });
-	    });
-	
-	    var Editor = this.state.exerciseElements.length > 0 ? _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _toolbar2.default,
-	          { style: { background: 'transparent', padding: '0', marginBottom: '8px' } },
-	          _react2.default.createElement(
-	            _toolbarGroup2.default,
-	            { firstChild: true, float: 'left' },
-	            _react2.default.createElement(
-	              _DropDownMenu2.default,
-	              { value: 1, style: { marginRight: '0px' } },
-	              _react2.default.createElement(_menuItem2.default, { value: 1, primaryText: VersionText }),
-	              _react2.default.createElement(_menuItem2.default, { value: 2, primaryText: 'Vælg en anden version' })
-	            ),
-	            this.state.isSavingResource ? _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '6px' } }) : null
-	          ),
-	          _react2.default.createElement(
-	            _toolbarGroup2.default,
-	            null,
-	            _react2.default.createElement(_raisedButton2.default, { secondary: true, style: { marginRight: '0' }, label: editText, onClick: this.toggleEditing }),
-	            _react2.default.createElement(_raisedButton2.default, { secondary: true, style: { marginLeft: '8px' }, label: 'Tilføj ny opgave', onClick: this.addExerciseElement })
-	          )
-	        ),
-	        _react2.default.createElement(_divider2.default, { style: { marginBottom: 54 } }),
-	        Elements
-	      )
-	    ) : null;
-	
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      this.state.isLoadingResource ? _react2.default.createElement(
-	        'div',
-	        { style: { textAlign: 'center' } },
-	        _react2.default.createElement(_divider2.default, null),
-	        _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '20px', marginBottom: '20px' } })
-	      ) : null,
-	      Editor
-	    );
-	  }
-	});
-	
-	ExerciseContentAdministration = (0, _reactRedux.connect)()(ExerciseContentAdministration);
-	
-	exports.default = ExerciseContentAdministration;
-
-/***/ },
-/* 812 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _flatButton = __webpack_require__(625);
-	
-	var _flatButton2 = _interopRequireDefault(_flatButton);
-	
-	var _raisedButton = __webpack_require__(673);
-	
-	var _raisedButton2 = _interopRequireDefault(_raisedButton);
-	
-	var _selectField = __webpack_require__(801);
-	
-	var _selectField2 = _interopRequireDefault(_selectField);
-	
-	var _menuItem = __webpack_require__(664);
-	
-	var _menuItem2 = _interopRequireDefault(_menuItem);
-	
-	var _textField = __webpack_require__(777);
-	
-	var _textField2 = _interopRequireDefault(_textField);
-	
-	var _divider = __webpack_require__(740);
-	
-	var _divider2 = _interopRequireDefault(_divider);
-	
-	var _CKEditor = __webpack_require__(810);
-	
-	var _CKEditor2 = _interopRequireDefault(_CKEditor);
-	
-	var _dialog = __webpack_require__(813);
-	
-	var _dialog2 = _interopRequireDefault(_dialog);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var items = [_react2.default.createElement(_menuItem2.default, { key: 0, value: 'None', primaryText: 'Ingen' }), _react2.default.createElement(_menuItem2.default, { key: 1, value: 'SortAndEvaluate', primaryText: 'Sortér og bedøm' }), _react2.default.createElement(_menuItem2.default, { key: 2, value: 'VideoExercise', primaryText: 'Videoøvelse' }), _react2.default.createElement(_menuItem2.default, { key: 3, value: 'KPExplorerQuestionnaire', primaryText: 'KP explorer' }), _react2.default.createElement(_menuItem2.default, { key: 4, value: 'Promise', primaryText: 'Reflektion' }), _react2.default.createElement(_menuItem2.default, { key: 5, value: 'Goal', primaryText: 'Mål for øvelse' })];
-	
-	var ConfigureExerciseDialog = _react2.default.createClass({
-	  displayName: 'ConfigureExerciseDialog',
-	
-	  resultingExercise: {},
-	
-	  getInitialState: function getInitialState() {
-	    return {
-	      open: this.props.open,
-	      selectedExercise: this.props.selected.className,
-	      configuration: this.props.selected !== undefined ? this.props.selected.configuration : '',
-	      description: this.props.selected !== undefined ? this.props.selected.description : '',
-	      instrunctionContent: this.props.selected !== undefined ? this.props.selected.instrunctionContent : []
-	    };
-	  },
-	
-	  componentDidMount: function componentDidMount() {
-	    this.resultingExercise = this.props.selected;
-	  },
-	
-	  componentWillUnmount: function componentWillUnmount() {},
-	
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    this.setState({ open: nextProps.open });
-	  },
-	
-	  handleCancel: function handleCancel() {
-	    this.props.onCancel();
-	  },
-	
-	  handleSubmit: function handleSubmit() {
-	    this.props.onSubmit({
-	      configuration: this.state.configuration,
-	      instrunctionContent: this.state.instrunctionContent,
-	      className: this.state.selectedExercise,
-	      description: this.state.description,
-	      isTekstEditorOpen: false
-	    });
-	  },
-	
-	  exerciseSelected: function exerciseSelected(event, index, value) {
-	    this.setState({ selectedExercise: value });
-	  },
-	
-	  configurationChanged: function configurationChanged(event) {
-	    this.setState({ configuration: event.target.value });
-	  },
-	
-	  descrptionChanged: function descrptionChanged(event) {
-	    this.setState({ description: event.target.value });
-	  },
-	  openEditText: function openEditText(textItem) {
-	    this.setState({
-	      isTekstEditorOpen: true,
-	      currentLyEditedTextItem: textItem,
-	      htmlText: this.state.instrunctionContent[textItem],
-	      resultText: this.state.instrunctionContent[textItem]
-	    });
-	  },
-	  handleCloseEditor: function handleCloseEditor() {
-	    this.setState({ isTekstEditorOpen: false });
-	  },
-	  handleSubmitTekst: function handleSubmitTekst() {
-	    this.state.instrunctionContent[this.state.currentLyEditedTextItem] = this.state.resultText;
-	    this.setState({ isTekstEditorOpen: false });
-	  },
-	
-	  onTextChaged: function onTextChaged(newHtml) {
-	    this.setState({ resultText: newHtml });
-	  },
-	
-	  getHtmlText: function getHtmlText(textIndex) {
-	    var text = this.state.instrunctionContent.length > textIndex ? this.state.instrunctionContent[textIndex] : "";
-	
-	    return { __html: text };
-	  },
-	
-	  render: function render() {
-	    var editorAction = [_react2.default.createElement(_raisedButton2.default, {
-	      label: 'Ok',
-	      primary: true,
-	      onTouchTap: this.handleSubmitTekst
-	    }), _react2.default.createElement(_flatButton2.default, {
-	      style: { marginLeft: '8px' },
-	      label: 'Fortryd',
-	      secondary: true,
-	      onTouchTap: this.handleCloseEditor
-	    })];
-	    var actions = [_react2.default.createElement(_raisedButton2.default, {
-	      label: 'Ok',
-	      primary: true,
-	      onTouchTap: this.handleSubmit
-	    }), _react2.default.createElement(_flatButton2.default, {
-	      style: { marginLeft: '8px' },
-	      label: 'Fortryd',
-	      secondary: true,
-	      onTouchTap: this.handleCancel
-	    })];
-	    return _react2.default.createElement(
-	      _dialog2.default,
-	      {
-	        title: 'Vælg opgavetype',
-	        actions: actions,
-	        modal: false,
-	        open: this.state.open,
-	        bodyStyle: { overflow: 'overlay' },
-	        style: { overflow: 'overlay' },
-	        onRequestClose: this.handleCancel },
-	      _react2.default.createElement(
-	        _selectField2.default,
-	        {
-	          value: this.state.selectedExercise,
-	          onChange: this.exerciseSelected,
-	          floatingLabelText: 'Vælg en øvelse' },
-	        items
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h4',
-	          { style: { marginBottom: 0 } },
-	          'Beskrivelse (vist på dahboard)'
-	        ),
-	        _react2.default.createElement(_textField2.default, {
-	          hintText: 'Kan undlades',
-	          multiLine: true,
-	          fullWidth: true,
-	          rowsMax: 4,
-	          value: this.state.description,
-	          onChange: this.descrptionChanged
-	        })
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        {
-	          'SortAndEvaluate': _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'h4',
-	              { style: { marginBottom: 0 } },
-	              'Indtast kategorier'
-	            ),
-	            _react2.default.createElement(_textField2.default, {
-	              hintText: 'Indtast kategorier adskildt med semikolon \';\'',
-	              multiLine: true,
-	              fullWidth: true,
-	              rowsMax: 4,
-	              value: this.state.configuration,
-	              onChange: this.configurationChanged
-	            }),
-	            _react2.default.createElement(
-	              'h4',
-	              { style: { marginBottom: 0 } },
-	              'Opgavetekser:'
-	            ),
-	            _react2.default.createElement(
-	              'h5',
-	              { style: { marginBottom: 0 } },
-	              'Indledende opgavetekst'
-	            ),
-	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
-	            _react2.default.createElement(_flatButton2.default, {
-	              label: 'Redigér',
-	              secondary: true,
-	              style: { marginBottom: 21 },
-	              onClick: this.openEditText.bind(this, 0)
-	            }),
-	            _react2.default.createElement(_divider2.default, null),
-	            _react2.default.createElement(
-	              'h5',
-	              { style: { marginBottom: 0 } },
-	              'Tekst ved sortering'
-	            ),
-	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(1) }),
-	            _react2.default.createElement(_flatButton2.default, {
-	              label: 'Redigér',
-	              secondary: true,
-	              style: { marginBottom: 21 },
-	              onClick: this.openEditText.bind(this, 1)
-	            }),
-	            _react2.default.createElement(_divider2.default, null),
-	            _react2.default.createElement(
-	              'h5',
-	              { style: { marginBottom: 0 } },
-	              'Instruktion til evaluering'
-	            ),
-	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(2) }),
-	            _react2.default.createElement(_flatButton2.default, {
-	              label: 'Redigér',
-	              secondary: true,
-	              style: { marginBottom: 21 },
-	              onClick: this.openEditText.bind(this, 2)
-	            }),
-	            _react2.default.createElement(_divider2.default, null),
-	            _react2.default.createElement(
-	              'h5',
-	              { style: { marginBottom: 0 } },
-	              'Tekst ved evaluering'
-	            ),
-	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(3) }),
-	            _react2.default.createElement(_flatButton2.default, {
-	              label: 'Redigér',
-	              secondary: true,
-	              style: { marginBottom: 21 },
-	              onClick: this.openEditText.bind(this, 3)
-	            }),
-	            _react2.default.createElement(_divider2.default, null),
-	            _react2.default.createElement(
-	              'h5',
-	              { style: { marginBottom: 0 } },
-	              'Afslut tekst'
-	            ),
-	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(4) }),
-	            _react2.default.createElement(_flatButton2.default, {
-	              label: 'Redigér',
-	              secondary: true,
-	              style: { marginBottom: 21 },
-	              onClick: this.openEditText.bind(this, 4)
-	            })
-	          ),
-	          'VideoExercise': _react2.default.createElement(
-	            'h1',
-	            null,
-	            'Videoøvelse'
-	          ),
-	          'KPExplorerQuestionnaire': _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'h4',
-	              { style: { marginBottom: 0 } },
-	              'Indtast spørgsmål'
-	            ),
-	            _react2.default.createElement(_textField2.default, {
-	              hintText: 'Indtast spørgsmål adskildt med semikolon \';\'',
-	              multiLine: true,
-	              fullWidth: true,
-	              rowsMax: 4,
-	              value: this.state.configuration,
-	              onChange: this.configurationChanged
-	            }),
-	            _react2.default.createElement(
-	              'h4',
-	              { style: { marginBottom: 0 } },
-	              'Opgavetekser:'
-	            ),
-	            _react2.default.createElement(
-	              'h5',
-	              { style: { marginBottom: 0 } },
-	              'Indledende opgavetekst'
-	            ),
-	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
-	            _react2.default.createElement(_flatButton2.default, {
-	              label: 'Redigér',
-	              secondary: true,
-	              style: { marginBottom: 21 },
-	              onClick: this.openEditText.bind(this, 0)
-	            }),
-	            _react2.default.createElement(_divider2.default, null),
-	            _react2.default.createElement(
-	              'h5',
-	              { style: { marginBottom: 0 } },
-	              'Afslut tekst'
-	            ),
-	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(1) }),
-	            _react2.default.createElement(_flatButton2.default, {
-	              label: 'Redigér',
-	              secondary: true,
-	              style: { marginBottom: 21 },
-	              onClick: this.openEditText.bind(this, 1)
-	            })
-	          ),
-	          'Goal': _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'h5',
-	              { style: { marginBottom: 0 } },
-	              'Informationstekst'
-	            ),
-	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
-	            _react2.default.createElement(_flatButton2.default, {
-	              label: 'Redigér',
-	              secondary: true,
-	              style: { marginBottom: 21 },
-	              onClick: this.openEditText.bind(this, 0)
-	            })
-	          ),
-	          'Promise': _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'h4',
-	              { style: { marginBottom: 0 } },
-	              'Indtast kategorier'
-	            ),
-	            _react2.default.createElement(_textField2.default, {
-	              hintText: 'Indtast reflektionsspørgsmål adskildt med semikolon \';\'',
-	              multiLine: true,
-	              fullWidth: true,
-	              rowsMax: 4,
-	              value: this.state.configuration,
-	              onChange: this.configurationChanged
-	            }),
-	            _react2.default.createElement(
-	              'h5',
-	              { style: { marginBottom: 0 } },
-	              'Informationstekst til løfte'
-	            ),
-	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
-	            _react2.default.createElement(_flatButton2.default, {
-	              label: 'Redigér',
-	              secondary: true,
-	              style: { marginBottom: 21 },
-	              onClick: this.openEditText.bind(this, 0)
-	            })
-	          ),
-	          'none': null
-	        }[this.state.selectedExercise],
-	        _react2.default.createElement(
-	          _dialog2.default,
-	          {
-	            title: 'Redigér opgavetekst',
-	            actions: editorAction,
-	            modal: false,
-	            open: this.state.isTekstEditorOpen,
-	            onRequestClose: this.handleCloseEditor },
-	          _react2.default.createElement(_CKEditor2.default, { text: this.state.htmlText, onTextChangedCallback: this.onTextChaged })
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	exports.default = ConfigureExerciseDialog;
-
-/***/ },
-/* 813 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -69420,7 +66307,7 @@
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
 	
-	var _overlay = __webpack_require__(814);
+	var _overlay = __webpack_require__(794);
 	
 	var _overlay2 = _interopRequireDefault(_overlay);
 	
@@ -69440,7 +66327,7 @@
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _deprecatedPropType = __webpack_require__(807);
+	var _deprecatedPropType = __webpack_require__(795);
 	
 	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
 	
@@ -70037,7 +66924,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 814 */
+/* 794 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70182,6 +67069,3055 @@
 	module.exports = exports['default'];
 
 /***/ },
+/* 795 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = deprecated;
+	
+	var _warning = __webpack_require__(429);
+	
+	var _warning2 = _interopRequireDefault(_warning);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function deprecated(propType, explanation) {
+	  return function validate(props, propName, componentName) {
+	    if (props[propName] != null) {
+	      process.env.NODE_ENV !== "production" ? (0, _warning2.default)(false, '"' + propName + '" property of "' + componentName + '" has been deprecated.\n' + explanation) : undefined;
+	    }
+	
+	    return propType(props, propName, componentName);
+	  };
+	}
+	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
+
+/***/ },
+/* 796 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAddonsPureRenderMixin = __webpack_require__(634);
+	
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+	
+	var _svgIcon = __webpack_require__(666);
+	
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ImageTimer = _react2.default.createClass({
+	  displayName: 'ImageTimer',
+	
+	  mixins: [_reactAddonsPureRenderMixin2.default],
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      _svgIcon2.default,
+	      this.props,
+	      _react2.default.createElement('path', { d: 'M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42C16.07 4.74 14.12 4 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z' })
+	    );
+	  }
+	});
+	
+	exports.default = ImageTimer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 797 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(483);
+	
+	var _raisedButton = __webpack_require__(673);
+	
+	var _raisedButton2 = _interopRequireDefault(_raisedButton);
+	
+	var _playArrow = __webpack_require__(744);
+	
+	var _playArrow2 = _interopRequireDefault(_playArrow);
+	
+	var _arrowForward = __webpack_require__(776);
+	
+	var _arrowForward2 = _interopRequireDefault(_arrowForward);
+	
+	var _done = __webpack_require__(775);
+	
+	var _done2 = _interopRequireDefault(_done);
+	
+	var _textField = __webpack_require__(778);
+	
+	var _textField2 = _interopRequireDefault(_textField);
+	
+	var _circularProgress = __webpack_require__(746);
+	
+	var _circularProgress2 = _interopRequireDefault(_circularProgress);
+	
+	var _api = __webpack_require__(552);
+	
+	var _Theme = __webpack_require__(713);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var GoalExercise = _react2.default.createClass({
+	  displayName: 'GoalExercise',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      isLoading: false,
+	      instrunctionContent: this.props.exercise.instrunctionContent,
+	      phase: 0
+	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
+	    //Update server
+	    if (this.props.liveExercise && this.props.scoreCard === undefined) {
+	      this.setState({ isLoading: true });
+	      this.props.dispatch((0, _api.getExerciseResult)(this.props.exerciseId)).then(function (json) {
+	        _this.setScoreCard(json.result);
+	
+	        _this.props.exercisesStatusChanged(json.result.isCompleted, _this.props.exercise);
+	      });
+	    } else if (this.props.scoreCard !== undefined) this.setScoreCard(this.props.scoreCard);
+	  },
+	
+	  setScoreCard: function setScoreCard(scoreCard) {
+	    this.setState({
+	      isLoading: false,
+	      phase: scoreCard.isCompleted ? 1 : this.state.phase,
+	      goalText: scoreCard.goalText,
+	      previousModulePromiseText: scoreCard.previousModulePromiseText
+	    });
+	  },
+	
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    this.setState({
+	      instrunctionContent: nextProps.exercise.instrunctionContent
+	    });
+	  },
+	
+	  onGoalTextChanged: function onGoalTextChanged(evt) {
+	    this.setState({
+	      goalText: evt.target.value
+	    });
+	  },
+	
+	  onFinished: function onFinished() {
+	    this.setState({
+	      phase: 1
+	    });
+	
+	    if (this.props.onFinished !== undefined) this.props.onFinished(items);
+	
+	    if (this.props.onGoalUpdated !== null) this.props.onExerciseGoalUpdated(this.state.goalText);
+	
+	    //Update server
+	    if (this.props.liveExercise) {
+	      this.props.dispatch((0, _api.putExerciseGoalResultById)(this.props.exerciseId, { goalText: this.state.goalText, exerciseId: this.props.exerciseId, isCompleted: true }));
+	      this.props.exercisesStatusChanged(true, this.props.exercise);
+	    }
+	  },
+	
+	  getHtmlText: function getHtmlText(textIndex) {
+	    var text = this.state.instrunctionContent.length > textIndex ? this.state.instrunctionContent[textIndex] : "";
+	
+	    return { __html: text };
+	  },
+	
+	  render: function render() {
+	
+	    var mainContent;
+	    if (this.state.isLoading) mainContent = _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '6px' } });else if (this.state.phase === 0) {
+	      mainContent = _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
+	        _react2.default.createElement(_textField2.default, { style: { width: 400 },
+	          hintText: 'Mit mål er...', value: this.state.goalText, onChange: this.onGoalTextChanged
+	        }),
+	        _react2.default.createElement(_raisedButton2.default, { primary: true, style: { marginLeft: 16 },
+	          label: 'Ok', icon: _react2.default.createElement(_done2.default, null), onClick: this.onFinished })
+	      );
+	    } else if (this.state.phase === 1) {
+	      mainContent = _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          _react2.default.createElement(
+	            'span',
+	            { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
+	            'Dit mål for øvelsen:'
+	          ),
+	          _react2.default.createElement('br', null),
+	          this.state.goalText
+	        )
+	      );
+	    }
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { style: { background: _Theme2.default.palette.backgroundColor, padding: '32px' } },
+	      this.state.previousModulePromiseText !== undefined && this.state.previousModulePromiseText !== "" ? _react2.default.createElement(
+	        'p',
+	        null,
+	        _react2.default.createElement(
+	          'span',
+	          { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
+	          'I sidste modul, lovede du dig selv:'
+	        ),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          this.state.previousModulePromiseText
+	        )
+	      ) : null,
+	      mainContent
+	    );
+	  }
+	});
+	
+	GoalExercise = (0, _reactRedux.connect)()(GoalExercise);
+	
+	exports.default = GoalExercise;
+
+/***/ },
+/* 798 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(483);
+	
+	var _raisedButton = __webpack_require__(673);
+	
+	var _raisedButton2 = _interopRequireDefault(_raisedButton);
+	
+	var _radioButton = __webpack_require__(787);
+	
+	var _radioButton2 = _interopRequireDefault(_radioButton);
+	
+	var _playArrow = __webpack_require__(744);
+	
+	var _playArrow2 = _interopRequireDefault(_playArrow);
+	
+	var _arrowForward = __webpack_require__(776);
+	
+	var _arrowForward2 = _interopRequireDefault(_arrowForward);
+	
+	var _done = __webpack_require__(775);
+	
+	var _done2 = _interopRequireDefault(_done);
+	
+	var _textField = __webpack_require__(778);
+	
+	var _textField2 = _interopRequireDefault(_textField);
+	
+	var _circularProgress = __webpack_require__(746);
+	
+	var _circularProgress2 = _interopRequireDefault(_circularProgress);
+	
+	var _api = __webpack_require__(552);
+	
+	var _Theme = __webpack_require__(713);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var styles = {
+	  radioButton: {
+	    marginTop: 8,
+	    width: 24,
+	    marginLeft: 'auto',
+	    marginRight: 'auto'
+	  },
+	  scoreIndicator: {
+	    paddingRight: 24,
+	    display: 'table-cell'
+	  }
+	};
+	
+	var PromiseExercise = _react2.default.createClass({
+	  displayName: 'PromiseExercise',
+	
+	  getInitialState: function getInitialState() {
+	    var items = this.props.exercise.configuration.split(';');
+	    return {
+	      isLoading: false,
+	      items: items,
+	      phase: 0,
+	      resultItems: this.mapItems(items),
+	      instrunctionContent: this.props.exercise.instrunctionContent
+	    };
+	  },
+	
+	  mapItems: function mapItems(items) {
+	    var that = this;
+	    return items.map(function (i, index) {
+	      var existingItem = that.state !== null && that.state.resultItems !== undefined && that.state.resultItems !== null ? that.state.resultItems[index] : null;
+	
+	      if (existingItem === null || existingItem === undefined) {
+	        return {
+	          question: i,
+	          score: -1
+	        };
+	      } else {
+	        return {
+	          question: i,
+	          score: existingItem.score
+	        };
+	      }
+	    });
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
+	    //Update server
+	    if (this.props.liveExercise && this.props.scoreCard === undefined) {
+	      this.setState({ isLoading: true });
+	      this.props.dispatch((0, _api.getExerciseResult)(this.props.exerciseId)).then(function (json) {
+	        _this.setScoreCard(json.result);
+	
+	        _this.props.exercisesStatusChanged(json.result.isCompleted, _this.props.exercise);
+	      });
+	    } else if (this.props.scoreCard !== undefined) this.setScoreCard(this.props.scoreCard);
+	  },
+	
+	  setScoreCard: function setScoreCard(scoreCard) {
+	    var resultItems = scoreCard.responses !== null ? this.state.resultItems.map(function (i, index) {
+	      i.score = scoreCard.responses[index].score;
+	      return i;
+	    }) : this.state.resultItems;
+	
+	    this.setState({
+	      isLoading: false,
+	      phase: scoreCard.isCompleted ? 1 : this.state.phase,
+	      promiseText: scoreCard.promiseText,
+	      exerciseGoalText: scoreCard.exerciseGoalText,
+	      resultItems: resultItems
+	    });
+	  },
+	
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var items = nextProps.exercise.configuration.split(';');
+	    this.setState({
+	      items: items,
+	      resultItems: this.mapItems(items),
+	      instrunctionContent: nextProps.exercise.instrunctionContent
+	    });
+	  },
+	
+	  onPromiseTextChanged: function onPromiseTextChanged(evt) {
+	    this.setState({
+	      promiseText: evt.target.value
+	    });
+	  },
+	
+	  onFinished: function onFinished() {
+	    this.setState({
+	      phase: 1
+	    });
+	
+	    if (this.props.onFinished !== undefined) this.props.onFinished(items);
+	
+	    //Update server
+	    if (this.props.liveExercise) {
+	      this.props.dispatch((0, _api.putModulePromiseResultById)(this.props.exerciseId, { responses: this.state.resultItems, promiseText: this.state.promiseText, exerciseId: this.props.exerciseId, isCompleted: true }));
+	    }
+	  },
+	
+	  onScoreChanged: function onScoreChanged(score, item) {
+	    item.score = score;
+	    this.setState({ resultItems: this.state.resultItems });
+	  },
+	
+	  getHtmlText: function getHtmlText(textIndex) {
+	    var text = this.state.instrunctionContent.length > textIndex ? this.state.instrunctionContent[textIndex] : "";
+	
+	    return { __html: text };
+	  },
+	
+	  render: function render() {
+	    var that = this;
+	    var questions = this.state.resultItems.map(function (i, index) {
+	      return _react2.default.createElement(
+	        'div',
+	        { style: { display: 'table' } },
+	        _react2.default.createElement(
+	          'div',
+	          { style: { display: 'table-row' } },
+	          _react2.default.createElement(
+	            'div',
+	            { style: { display: 'table-cell' } },
+	            that.state.phase === 0 ? _react2.default.createElement(
+	              'div',
+	              null,
+	              _react2.default.createElement(
+	                'h4',
+	                { style: { marginTop: 32 } },
+	                i.question
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { style: { display: 'table' } },
+	                _react2.default.createElement(
+	                  'div',
+	                  { style: { display: 'table-row' } },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: styles.scoreIndicator },
+	                    _react2.default.createElement(
+	                      'span',
+	                      null,
+	                      'Fuldstændig forkert'
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: styles.scoreIndicator },
+	                    _react2.default.createElement(
+	                      'span',
+	                      null,
+	                      'Delvis forkert'
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: styles.scoreIndicator },
+	                    _react2.default.createElement(
+	                      'span',
+	                      null,
+	                      'Hverken rigtigt eller forkert'
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: styles.scoreIndicator },
+	                    _react2.default.createElement(
+	                      'span',
+	                      null,
+	                      'Delvis rigtigt'
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: styles.scoreIndicator },
+	                    _react2.default.createElement(
+	                      'span',
+	                      null,
+	                      'Fuldstændig rigtigt'
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { style: { display: 'table-row' } },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: { display: 'table-cell' } },
+	                    _react2.default.createElement(_radioButton2.default, {
+	                      value: '1',
+	                      style: styles.radioButton,
+	                      checked: i.score === 1,
+	                      onCheck: that.onScoreChanged.bind(that, 1, i)
+	                    })
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: { display: 'table-cell' } },
+	                    _react2.default.createElement(_radioButton2.default, {
+	                      value: '2',
+	                      style: styles.radioButton,
+	                      checked: i.score === 2,
+	                      onCheck: that.onScoreChanged.bind(that, 2, i)
+	                    })
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: { display: 'table-cell' } },
+	                    _react2.default.createElement(_radioButton2.default, {
+	                      value: '3',
+	                      style: styles.radioButton,
+	                      checked: i.score === 3,
+	                      onCheck: that.onScoreChanged.bind(that, 3, i)
+	                    })
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: { display: 'table-cell' } },
+	                    _react2.default.createElement(_radioButton2.default, {
+	                      value: '4',
+	                      style: styles.radioButton,
+	                      checked: i.score === 4,
+	                      onCheck: that.onScoreChanged.bind(that, 4, i)
+	                    })
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: { display: 'table-cell' } },
+	                    _react2.default.createElement(_radioButton2.default, {
+	                      value: '5',
+	                      style: styles.radioButton,
+	                      labelStyle: { display: 'none' },
+	                      checked: i.score === 5,
+	                      onCheck: that.onScoreChanged.bind(that, 5, i)
+	                    })
+	                  )
+	                )
+	              )
+	            ) : _react2.default.createElement(
+	              'div',
+	              { style: { marginTop: 40 } },
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                _react2.default.createElement(
+	                  'span',
+	                  { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
+	                  i.question,
+	                  ' '
+	                ),
+	                _react2.default.createElement('br', null),
+	                {
+	                  '1': _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    'Fuldstændig forkert'
+	                  ),
+	                  '2': _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    'Delvis forkert'
+	                  ),
+	                  '3': _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    'Hverken rigtigt eller forkert'
+	                  ),
+	                  '4': _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    'Delvis rigtigt'
+	                  ),
+	                  '5': _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    'Fuldstændig rigtigt'
+	                  )
+	                }[i.score]
+	              )
+	            )
+	          )
+	        )
+	      );
+	    });
+	
+	    var mainContent;
+	    if (this.state.phase === 0) {
+	      mainContent = _react2.default.createElement(
+	        'div',
+	        { style: { marginTop: 40 } },
+	        _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
+	        _react2.default.createElement(_textField2.default, { style: { width: 400 },
+	          hintText: 'Dit mål..', value: this.state.promiseText, onChange: this.onPromiseTextChanged
+	        }),
+	        _react2.default.createElement(_raisedButton2.default, { primary: true, style: { marginLeft: 16 },
+	          label: 'Ok', icon: _react2.default.createElement(_done2.default, null), onClick: this.onFinished })
+	      );
+	    } else if (this.state.phase === 1) {
+	      mainContent = _react2.default.createElement(
+	        'div',
+	        { style: { marginTop: 40 } },
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          _react2.default.createElement(
+	            'span',
+	            { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
+	            'Jeg lover mig selv:'
+	          ),
+	          _react2.default.createElement('br', null),
+	          ' ',
+	          this.state.promiseText
+	        )
+	      );
+	    }
+	
+	    if (this.state.isLoading) return _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '6px' } });else return _react2.default.createElement(
+	      'div',
+	      { style: { background: _Theme2.default.palette.backgroundColor, padding: '32px' } },
+	      _react2.default.createElement(
+	        'p',
+	        { style: { marginBottom: 0 } },
+	        _react2.default.createElement(
+	          'span',
+	          { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
+	          'Dit mål for øvelsen var:'
+	        ),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          this.state.exerciseGoalText
+	        )
+	      ),
+	      questions,
+	      mainContent
+	    );
+	  }
+	});
+	
+	PromiseExercise = (0, _reactRedux.connect)()(PromiseExercise);
+	
+	exports.default = PromiseExercise;
+
+/***/ },
+/* 799 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Camera = _react2.default.createClass({
+	  displayName: 'Camera',
+	
+	  getInitialState: function getInitialState() {
+	    return { test: 'Weee' };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    console.log("componentDidMount");
+	
+	    $(this.refs.placeholder).append($('<camera id="VideoPresentationCamera" data-app-id="a-d90a5c50-c1dc-0133-453d-0a121b885d5b"></camera>'));
+	
+	    console.log(CameraTag);
+	
+	    var ctx = this;
+	
+	    CameraTag.observe("VideoPresentationCamera", "initialized", function () {
+	      console.log("Camera initialized");
+	    });
+	
+	    CameraTag.observe("VideoPresentationCamera", "published", function () {
+	      console.log("Video published");
+	
+	      var camera = CameraTag.cameras["VideoPresentationCamera"];
+	      var video = camera.getVideo();
+	
+	      console.log(video.uuid);
+	
+	      ctx.props.onPublish(video.uuid);
+	    });
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    // Clean up work here.
+	  },
+	
+	  shouldComponentUpdate: function shouldComponentUpdate() {
+	    // Let's just never update this component again.
+	    return true;
+	  },
+	
+	  render: function render() {
+	    console.log("render");
+	
+	    return _react2.default.createElement('div', { ref: 'placeholder' });
+	  }
+	});
+	
+	exports.default = Camera;
+
+/***/ },
+/* 800 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.RECEIVE_SHARE_VIDEO = exports.REQUEST_SHARE_VIDEO = undefined;
+	exports.shareVideo = shareVideo;
+	
+	var _axios = __webpack_require__(553);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var REQUEST_SHARE_VIDEO = exports.REQUEST_SHARE_VIDEO = 'REQUEST_SHARE_VIDEO';
+	function requestShareVideo(videoUuid) {
+	  return {
+	    type: REQUEST_SHARE_VIDEO,
+	    videoUuid: videoUuid
+	  };
+	}
+	
+	var RECEIVE_SHARE_VIDEO = exports.RECEIVE_SHARE_VIDEO = 'RECEIVE_SHARE_VIDEO';
+	function receiveShareVideo(videoUuid, result) {
+	  return {
+	    type: RECEIVE_SHARE_VIDEO,
+	    videoUuid: videoUuid,
+	    result: result,
+	    receivedAt: Date.now()
+	  };
+	}
+	
+	function shareVideo(videoUuid) {
+	  return function (dispatch) {
+	
+	    // First dispatch: the app state is updated to inform
+	    // that the API call is starting.
+	    dispatch(requestShareVideo(videoUuid));
+	
+	    // Secondly invoke the remote API and return a promise
+	    //var url = "http://localhost:58982/api/Exercise";
+	    var url = "http://betterways-api.azurewebsites.net/api/Exercise";
+	
+	    console.log("Sending video UUID:", videoUuid);
+	
+	    return _axios2.default.post(url, {
+	      videoUuid: videoUuid
+	    }).then(function (response) {
+	      return response.data;
+	    }).then(function (json) {
+	      console.log(json);
+	      dispatch(receiveSendSms(videoUuid, json));
+	    }).catch(function (response) {
+	      console.log(response);
+	    });
+	  };
+	}
+
+/***/ },
+/* 801 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(483);
+	
+	var _sendSms = __webpack_require__(802);
+	
+	var _raisedButton = __webpack_require__(673);
+	
+	var _raisedButton2 = _interopRequireDefault(_raisedButton);
+	
+	var _fontIcon = __webpack_require__(662);
+	
+	var _fontIcon2 = _interopRequireDefault(_fontIcon);
+	
+	var _textsms = __webpack_require__(803);
+	
+	var _textsms2 = _interopRequireDefault(_textsms);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var CourseModuleReflection = function CourseModuleReflection(_ref) {
+	  var dispatch = _ref.dispatch;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h1',
+	      null,
+	      'Reflektion'
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ultrices commodo commodo. Suspendisse egestas, erat vel rutrum porta, sapien eros posuere nulla, id blandit metus odio a nibh.'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { style: { textAlign: 'center' } },
+	      _react2.default.createElement(_raisedButton2.default, {
+	        label: 'Send SMS',
+	        labelPosition: 'after',
+	        primary: true,
+	        icon: _react2.default.createElement(_textsms2.default, null),
+	        onClick: function onClick(e) {
+	          e.preventDefault();
+	          dispatch((0, _sendSms.sendSms)(3));
+	        }
+	      })
+	    )
+	  );
+	};
+	CourseModuleReflection = (0, _reactRedux.connect)()(CourseModuleReflection);
+	
+	exports.default = CourseModuleReflection;
+
+/***/ },
+/* 802 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.RECEIVE_SEND_SMS = exports.REQUEST_SEND_SMS = undefined;
+	exports.sendSms = sendSms;
+	
+	var _axios = __webpack_require__(553);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var REQUEST_SEND_SMS = exports.REQUEST_SEND_SMS = 'REQUEST_SEND_SMS';
+	function requestSendSms(id) {
+	  return {
+	    type: REQUEST_SEND_SMS,
+	    id: id
+	  };
+	}
+	
+	var RECEIVE_SEND_SMS = exports.RECEIVE_SEND_SMS = 'RECEIVE_SEND_SMS';
+	function receiveSendSms(id, json) {
+	  return {
+	    type: RECEIVE_SEND_SMS,
+	    id: id,
+	    posts: json, //json.data.children.map(child => child.data),
+	    receivedAt: Date.now()
+	  };
+	}
+	
+	function sendSms(id) {
+	
+	  // Thunk middleware knows how to handle functions.
+	  // It passes the dispatch method as an argument to the function,
+	  // thus making it able to dispatch actions itself.
+	
+	  return function (dispatch) {
+	
+	    // First dispatch: the app state is updated to inform
+	    // that the API call is starting.
+	    dispatch(requestSendSms(id));
+	
+	    // Secondly invoke the remote API and return a promise
+	    return _axios2.default.get('http://betterways-api.azurewebsites.net/api/Notifications/' + id).then(function (response) {
+	      return response.data;
+	    }).then(function (json) {
+	      return(
+	
+	        // Final dispatch: Here, we update the app state with the results of the API call.
+	        // NOTE: We can dispatch many times!
+	        dispatch(receiveSendSms(id, json))
+	      );
+	    }).catch(function (response) {
+	      console.log(response);
+	    });
+	  };
+	}
+
+/***/ },
+/* 803 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAddonsPureRenderMixin = __webpack_require__(634);
+	
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+	
+	var _svgIcon = __webpack_require__(666);
+	
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var CommunicationTextsms = _react2.default.createClass({
+	  displayName: 'CommunicationTextsms',
+	
+	  mixins: [_reactAddonsPureRenderMixin2.default],
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      _svgIcon2.default,
+	      this.props,
+	      _react2.default.createElement('path', { d: 'M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z' })
+	    );
+	  }
+	});
+	
+	exports.default = CommunicationTextsms;
+	module.exports = exports['default'];
+
+/***/ },
+/* 804 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(483);
+	
+	var _divider = __webpack_require__(740);
+	
+	var _divider2 = _interopRequireDefault(_divider);
+	
+	var _selectField = __webpack_require__(805);
+	
+	var _selectField2 = _interopRequireDefault(_selectField);
+	
+	var _menuItem = __webpack_require__(664);
+	
+	var _menuItem2 = _interopRequireDefault(_menuItem);
+	
+	var _flatButton = __webpack_require__(625);
+	
+	var _flatButton2 = _interopRequireDefault(_flatButton);
+	
+	var _raisedButton = __webpack_require__(673);
+	
+	var _raisedButton2 = _interopRequireDefault(_raisedButton);
+	
+	var _cardText = __webpack_require__(768);
+	
+	var _cardText2 = _interopRequireDefault(_cardText);
+	
+	var _paper = __webpack_require__(654);
+	
+	var _paper2 = _interopRequireDefault(_paper);
+	
+	var _circularProgress = __webpack_require__(746);
+	
+	var _circularProgress2 = _interopRequireDefault(_circularProgress);
+	
+	var _textField = __webpack_require__(778);
+	
+	var _textField2 = _interopRequireDefault(_textField);
+	
+	var _CourseModuleInfo = __webpack_require__(769);
+	
+	var _CourseModuleInfo2 = _interopRequireDefault(_CourseModuleInfo);
+	
+	var _CourseModuleExperiment = __webpack_require__(770);
+	
+	var _CourseModuleExperiment2 = _interopRequireDefault(_CourseModuleExperiment);
+	
+	var _CourseModuleReflection = __webpack_require__(801);
+	
+	var _CourseModuleReflection2 = _interopRequireDefault(_CourseModuleReflection);
+	
+	var _DropDownMenu = __webpack_require__(808);
+	
+	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
+	
+	var _IntroductionContentAdministration = __webpack_require__(811);
+	
+	var _IntroductionContentAdministration2 = _interopRequireDefault(_IntroductionContentAdministration);
+	
+	var _ExerciseContentAdministration = __webpack_require__(814);
+	
+	var _ExerciseContentAdministration2 = _interopRequireDefault(_ExerciseContentAdministration);
+	
+	var _api = __webpack_require__(552);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _require = __webpack_require__(703);
+	
+	var Grid = _require.Grid;
+	var Row = _require.Row;
+	var Col = _require.Col;
+	
+	
+	var pageContainerStyle = {
+	  margin: '32px 20px'
+	};
+	
+	var courseContainerStyle = {
+	  background: 'white',
+	  marginTop: '32px'
+	};
+	
+	var paddingStyle = {
+	  padding: '32px'
+	};
+	
+	var resourceItems = [_react2.default.createElement(_menuItem2.default, { key: 1, value: 1, primaryText: 'Introduktion' }), _react2.default.createElement(_menuItem2.default, { key: 2, value: 2, primaryText: 'Eksperiment' }), _react2.default.createElement(_menuItem2.default, { key: 3, value: 3, primaryText: 'Reflektion' })];
+	
+	var AdministrationModule = _react2.default.createClass({
+	  displayName: 'AdministrationModule',
+	
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      courses: [],
+	      selectedCourse: null,
+	      modules: [],
+	      selectedModule: null,
+	      selectedResource: null,
+	      isLoadingCourses: false,
+	      isLoadingModules: false,
+	      currentResourceId: null,
+	      currentModuleId: null
+	    };
+	  },
+	
+	  resourceRevisionUpdated: function resourceRevisionUpdated(parentresourceId, updatedResouceId) {
+	    //See if resource is an list of resources, and update the reference
+	    if (this.state.modules[this.state.selectedModule].introduction === parentresourceId) this.state.modules[this.state.selectedModule].introduction = updatedResouceId;
+	  },
+	
+	  exerciseRevisionUpdate: function exerciseRevisionUpdate(parentresourceId, updatedResouceId) {
+	    //See if resource is an list of resources, and update the reference
+	    if (this.state.modules[this.state.selectedModule].exercise === parentresourceId) this.state.modules[this.state.selectedModule].exercise = updatedResouceId;
+	
+	    if (this.state.modules[this.state.selectedModule].reflection === parentresourceId) this.state.modules[this.state.selectedModule].reflection = updatedResouceId;
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
+	    this.setState({ isLoadingCourses: true });
+	    this.props.dispatch((0, _api.getAllCourses)()).then(function (json) {
+	      _this.setState({
+	        courses: json.courses,
+	        isLoadingCourses: false
+	      });
+	    });
+	  },
+	
+	  getCourseModules: function getCourseModules(courseId) {
+	    var _this2 = this;
+	
+	    this.setState({
+	      isLoadingModules: true
+	    });
+	    this.props.dispatch((0, _api.getAllCourseModules)(courseId)).then(function (json) {
+	      _this2.setState({
+	        modules: json.modules,
+	        isLoadingModules: false
+	      });
+	    });
+	  },
+	
+	  onCourseSelected: function onCourseSelected(event, index, value) {
+	    this.setState({ selectedCourse: value, selectedModule: null, selectedResource: null, htmlText: null, resultHtmlText: null, isTextDirty: false });
+	    this.getCourseModules(this.state.courses[index].id);
+	  },
+	
+	  onModuleSelected: function onModuleSelected(event, index, value) {
+	    this.setState({
+	      selectedModule: value,
+	      selectedResource: null,
+	      currentModuleId: this.state.modules[value].id,
+	      moduleDescription: this.state.modules[value].description
+	    });
+	  },
+	
+	  onResourceSelected: function onResourceSelected(event, index, value) {
+	    var resourceId = null;
+	    if (value === 1) resourceId = this.state.modules[this.state.selectedModule].introduction;else if (value === 2) resourceId = this.state.modules[this.state.selectedModule].exercise;else if (value === 3) resourceId = this.state.modules[this.state.selectedModule].reflection;
+	
+	    this.setState({
+	      selectedResource: value,
+	      selectedResourceId: resourceId,
+	      htmlText: null,
+	      resultHtmlText: null,
+	      isTextDirty: false });
+	  },
+	
+	  moduleDescriptionBlur: function moduleDescriptionBlur(event) {
+	    this.state.modules[this.state.selectedModule].description = this.state.moduleDescription;
+	
+	    this.props.dispatch((0, _api.putModuleDescription)(this.state.modules[this.state.selectedModule].id, this.state.modules[this.state.selectedModule].description));
+	  },
+	
+	  moduleDescriptionChanged: function moduleDescriptionChanged(event) {
+	    this.setState({ moduleDescription: event.target.value });
+	  },
+	
+	  render: function render() {
+	
+	    var CoursItems = this.state.courses.map(function (i, index) {
+	      return _react2.default.createElement(_menuItem2.default, { key: index, value: index, primaryText: i.name });
+	    });
+	
+	    var SelectCourses = _react2.default.createElement(
+	      _selectField2.default,
+	      {
+	        style: { width: '360px' },
+	        value: this.state.selectedCourse,
+	        onChange: this.onCourseSelected,
+	        floatingLabelText: this.state.isLoadingCourses ? "Henter..." : "Vælg kursus" },
+	      CoursItems
+	    );
+	
+	    var ModuleItems = this.state.modules.map(function (i, index) {
+	      return _react2.default.createElement(_menuItem2.default, { key: index, value: index, primaryText: i.name });
+	    });
+	
+	    var SelectModule = _react2.default.createElement(
+	      _selectField2.default,
+	      {
+	        style: { width: '360px', marginTop: -16 },
+	        value: this.state.selectedModule,
+	        onChange: this.onModuleSelected,
+	        floatingLabelText: this.state.isLoadingModules ? "Henter..." : "Vælg modul" },
+	      ModuleItems
+	    );
+	
+	    var SelectResource = this.state.selectedModule !== null ? _react2.default.createElement(
+	      _selectField2.default,
+	      {
+	        style: { width: '300px', marginTop: -16, marginBottom: 32 },
+	        value: this.state.selectedResource,
+	        onChange: this.onResourceSelected,
+	        floatingLabelText: 'Vælg resource' },
+	      resourceItems
+	    ) : null;
+	
+	    var ModuleConfiguration = this.state.selectedCourse !== null ? _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(_divider2.default, null),
+	      _react2.default.createElement(
+	        'div',
+	        { style: paddingStyle },
+	        _react2.default.createElement(
+	          'div',
+	          { style: { display: 'flex' } },
+	          SelectModule,
+	          this.state.isLoadingModules ? _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '20px' } }) : null
+	        ),
+	        this.state.selectedModule !== null ? _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'h5',
+	            { style: { marginBottom: 0, marginTop: 32 } },
+	            'Beskrivelse af modulet (vist på dashboard)'
+	          ),
+	          _react2.default.createElement(_textField2.default, {
+	            hintText: 'Skriv tekst',
+	            multiLine: true,
+	            fullWidth: true,
+	            value: this.state.moduleDescription,
+	            onChange: this.moduleDescriptionChanged,
+	            onBlur: this.moduleDescriptionBlur
+	          })
+	        ) : null
+	      )
+	    ) : null;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      { style: pageContainerStyle },
+	      _react2.default.createElement(
+	        Row,
+	        null,
+	        _react2.default.createElement(Col, { xs: 0, sm: 0, md: 2, lg: 2 }),
+	        _react2.default.createElement(
+	          Col,
+	          { xs: 12, sm: 12, md: 8, lg: 8 },
+	          _react2.default.createElement(
+	            _paper2.default,
+	            { style: courseContainerStyle },
+	            _react2.default.createElement(
+	              'div',
+	              { style: paddingStyle },
+	              _react2.default.createElement(
+	                'h1',
+	                null,
+	                'Administration'
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { style: { display: 'flex' } },
+	                SelectCourses,
+	                this.state.isLoadingCourses ? _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '20px' } }) : null
+	              )
+	            ),
+	            ModuleConfiguration,
+	            this.state.selectedModule !== null ? _react2.default.createElement(
+	              'div',
+	              null,
+	              _react2.default.createElement(_divider2.default, null),
+	              _react2.default.createElement(
+	                'div',
+	                { style: paddingStyle },
+	                SelectResource,
+	                _react2.default.createElement('br', null),
+	                this.state.selectedResource === 1 ? _react2.default.createElement(_IntroductionContentAdministration2.default, {
+	                  selectedModule: this.state.currentModuleId,
+	                  selectedResource: this.state.selectedResourceId,
+	                  resourceRevisionUpdated: this.resourceRevisionUpdated }) : this.state.selectedResource === 2 || this.state.selectedResource === 3 ? _react2.default.createElement(_ExerciseContentAdministration2.default, {
+	                  selectedModule: this.state.currentModuleId,
+	                  selectedResource: this.state.selectedResourceId,
+	                  resourceRevisionUpdated: this.exerciseRevisionUpdate }) : null
+	              )
+	            ) : null
+	          )
+	        ),
+	        _react2.default.createElement(Col, { xs: 0, sm: 0, md: 2, lg: 2 })
+	      )
+	    );
+	  }
+	});
+	
+	AdministrationModule = (0, _reactRedux.connect)()(AdministrationModule);
+	
+	exports.default = AdministrationModule;
+
+/***/ },
+/* 805 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _SelectField = __webpack_require__(806);
+	
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _SelectField2.default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 806 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _SelectField = __webpack_require__(807);
+	
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _SelectField2.default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 807 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _stylePropable = __webpack_require__(573);
+	
+	var _stylePropable2 = _interopRequireDefault(_stylePropable);
+	
+	var _textField = __webpack_require__(778);
+	
+	var _textField2 = _interopRequireDefault(_textField);
+	
+	var _DropDownMenu = __webpack_require__(808);
+	
+	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
+	
+	var _getMuiTheme = __webpack_require__(596);
+	
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+	
+	var _contextPure = __webpack_require__(626);
+	
+	var _contextPure2 = _interopRequireDefault(_contextPure);
+	
+	var _deprecatedPropType = __webpack_require__(795);
+	
+	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	var SelectField = _react2.default.createClass({
+	  displayName: 'SelectField',
+	
+	  propTypes: {
+	    /**
+	     * The width will automatically be set according to the
+	     * items inside the menu. To control this width in css
+	     * instead, set this prop to `false`.
+	     */
+	    autoWidth: _react2.default.PropTypes.bool,
+	
+	    /**
+	     * The `MenuItem` elements to populate the `Menu` with.
+	     * If the MenuItems have the prop `label` that value will
+	     * be used to render the representation of that
+	     * item within the field.
+	     */
+	    children: _react2.default.PropTypes.node,
+	
+	    /**
+	     * Disables the select field if set to true.
+	     */
+	    disabled: _react2.default.PropTypes.bool,
+	
+	    /**
+	     * The style object to use to override error styles.
+	     */
+	    errorStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * The error content to display.
+	     */
+	    errorText: _react2.default.PropTypes.node,
+	
+	    /**
+	     * The style object to use to override floating label styles.
+	     */
+	    floatingLabelStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * The content to use for the floating label element.
+	     */
+	    floatingLabelText: _react2.default.PropTypes.node,
+	
+	    /**
+	     * If true, the field receives the property width 100%.
+	     */
+	    fullWidth: _react2.default.PropTypes.bool,
+	
+	    /**
+	     * The style object to use to override hint styles.
+	     */
+	    hintStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * The hint content to display.
+	     */
+	    hintText: _react2.default.PropTypes.node,
+	
+	    /**
+	     * Overrides the styles of the icon element.
+	     */
+	    iconStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * `SelectField` will use text as default value,
+	     * with this property you can choose another name.
+	     */
+	    labelMember: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.string, 'to promote composability.'),
+	
+	    /**
+	     * Overrides the styles of label when the `SelectField` is inactive.
+	     */
+	    labelStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * JSON data representing all menu items in the dropdown.
+	     */
+	    menuItems: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.array, 'to promote composability.'),
+	
+	    /**
+	     * Callback function that is fired when the `SelectField` loses focus.
+	     */
+	    onBlur: _react2.default.PropTypes.func,
+	
+	    /**
+	     * Callback function that is fired when the value changes.
+	     */
+	    onChange: _react2.default.PropTypes.func,
+	
+	    /**
+	     * Callback function that is fired when the `SelectField` gains focus.
+	     */
+	    onFocus: _react2.default.PropTypes.func,
+	
+	    /**
+	     * The style object to use to override the `DropDownMenu`.
+	     */
+	    selectFieldRoot: _react2.default.PropTypes.object, // Must be changed!
+	
+	    /**
+	     * Index of the item selected.
+	     */
+	    selectedIndex: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.number, 'with menuItems.'),
+	
+	    /**
+	     * Override the inline-styles of the root element.
+	     */
+	    style: _react2.default.PropTypes.object,
+	
+	    /**
+	     * Override the inline-styles of the underline element when disabled.
+	     */
+	    underlineDisabledStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * Override the inline-styles of the underline element when focused.
+	     */
+	    underlineFocusStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * Overrides the styles of the underline element.
+	     */
+	    underlineStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * The value that is currently selected.
+	     */
+	    value: _react2.default.PropTypes.any
+	  },
+	
+	  contextTypes: {
+	    muiTheme: _react2.default.PropTypes.object
+	  },
+	
+	  //for passing default theme context to children
+	  childContextTypes: {
+	    muiTheme: _react2.default.PropTypes.object
+	  },
+	
+	  mixins: [_stylePropable2.default, _contextPure2.default],
+	
+	  statics: {
+	    getChildrenClasses: function getChildrenClasses() {
+	      return [_textField2.default, _DropDownMenu2.default];
+	    }
+	  },
+	
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      autoWidth: false,
+	      disabled: false,
+	      fullWidth: false
+	    };
+	  },
+	  getInitialState: function getInitialState() {
+	    return {
+	      muiTheme: this.context.muiTheme || (0, _getMuiTheme2.default)()
+	    };
+	  },
+	  getChildContext: function getChildContext() {
+	    return {
+	      muiTheme: this.state.muiTheme
+	    };
+	  },
+	
+	  //to update theme inside state whenever a new theme is passed down
+	  //from the parent / owner using context
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+	    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+	    this.setState({ muiTheme: newMuiTheme });
+	  },
+	  getStyles: function getStyles() {
+	    var floatingLabelText = this.props.floatingLabelText;
+	
+	    return {
+	      label: {
+	        paddingLeft: 0,
+	        top: floatingLabelText ? 6 : -4
+	      },
+	      icon: {
+	        right: 0,
+	        top: floatingLabelText ? 22 : 14
+	      },
+	      hideDropDownUnderline: {
+	        borderTop: 'none'
+	      }
+	    };
+	  },
+	  render: function render() {
+	    var styles = this.getStyles();
+	    var _props = this.props;
+	    var autoWidth = _props.autoWidth;
+	    var children = _props.children;
+	    var style = _props.style;
+	    var labelStyle = _props.labelStyle;
+	    var iconStyle = _props.iconStyle;
+	    var underlineDisabledStyle = _props.underlineDisabledStyle;
+	    var underlineFocusStyle = _props.underlineFocusStyle;
+	    var underlineStyle = _props.underlineStyle;
+	    var errorStyle = _props.errorStyle;
+	    var selectFieldRoot = _props.selectFieldRoot;
+	    var disabled = _props.disabled;
+	    var floatingLabelText = _props.floatingLabelText;
+	    var floatingLabelStyle = _props.floatingLabelStyle;
+	    var hintStyle = _props.hintStyle;
+	    var hintText = _props.hintText;
+	    var fullWidth = _props.fullWidth;
+	    var errorText = _props.errorText;
+	    var onFocus = _props.onFocus;
+	    var onBlur = _props.onBlur;
+	    var onChange = _props.onChange;
+	    var value = _props.value;
+	
+	    var other = _objectWithoutProperties(_props, ['autoWidth', 'children', 'style', 'labelStyle', 'iconStyle', 'underlineDisabledStyle', 'underlineFocusStyle', 'underlineStyle', 'errorStyle', 'selectFieldRoot', 'disabled', 'floatingLabelText', 'floatingLabelStyle', 'hintStyle', 'hintText', 'fullWidth', 'errorText', 'onFocus', 'onBlur', 'onChange', 'value']);
+	
+	    return _react2.default.createElement(
+	      _textField2.default,
+	      {
+	        style: style,
+	        floatingLabelText: floatingLabelText,
+	        floatingLabelStyle: floatingLabelStyle,
+	        hintStyle: hintStyle,
+	        hintText: !hintText && !floatingLabelText ? ' ' : hintText,
+	        fullWidth: fullWidth,
+	        errorText: errorText,
+	        underlineStyle: underlineStyle,
+	        errorStyle: errorStyle,
+	        onFocus: onFocus,
+	        onBlur: onBlur,
+	        underlineDisabledStyle: underlineDisabledStyle,
+	        underlineFocusStyle: underlineFocusStyle
+	      },
+	      _react2.default.createElement(
+	        _DropDownMenu2.default,
+	        _extends({
+	          disabled: disabled,
+	          style: selectFieldRoot,
+	          labelStyle: this.mergeStyles(styles.label, labelStyle),
+	          iconStyle: this.mergeStyles(styles.icon, iconStyle),
+	          underlineStyle: styles.hideDropDownUnderline,
+	          autoWidth: autoWidth,
+	          value: value,
+	          onChange: onChange
+	        }, other),
+	        children
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = SelectField;
+	module.exports = exports['default'];
+
+/***/ },
+/* 808 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _DropDownMenu = __webpack_require__(809);
+	
+	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = _DropDownMenu2.default;
+	module.exports = exports['default'];
+
+/***/ },
+/* 809 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _transitions = __webpack_require__(628);
+	
+	var _transitions2 = _interopRequireDefault(_transitions);
+	
+	var _arrowDropDown = __webpack_require__(669);
+	
+	var _arrowDropDown2 = _interopRequireDefault(_arrowDropDown);
+	
+	var _menu = __webpack_require__(651);
+	
+	var _menu2 = _interopRequireDefault(_menu);
+	
+	var _menuItem = __webpack_require__(664);
+	
+	var _menuItem2 = _interopRequireDefault(_menuItem);
+	
+	var _clearfix = __webpack_require__(789);
+	
+	var _clearfix2 = _interopRequireDefault(_clearfix);
+	
+	var _getMuiTheme = __webpack_require__(596);
+	
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+	
+	var _popover = __webpack_require__(655);
+	
+	var _popover2 = _interopRequireDefault(_popover);
+	
+	var _popoverAnimationFromTop = __webpack_require__(810);
+	
+	var _popoverAnimationFromTop2 = _interopRequireDefault(_popoverAnimationFromTop);
+	
+	var _styles = __webpack_require__(574);
+	
+	var _warning = __webpack_require__(429);
+	
+	var _warning2 = _interopRequireDefault(_warning);
+	
+	var _deprecatedPropType = __webpack_require__(795);
+	
+	var _deprecatedPropType2 = _interopRequireDefault(_deprecatedPropType);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	var DropDownMenu = _react2.default.createClass({
+	  displayName: 'DropDownMenu',
+	
+	  // The nested styles for drop-down-menu are modified by toolbar and possibly
+	  // other user components, so it will give full access to its js styles rather
+	  // than just the parent.
+	  propTypes: {
+	    /**
+	     * The width will automatically be set according to the items inside the menu.
+	     * To control this width in css instead, set this prop to false.
+	     */
+	    autoWidth: _react2.default.PropTypes.bool,
+	
+	    /**
+	     * The `MenuItem`s to populate the `Menu` with. If the `MenuItems` have the
+	     * prop `label` that value will be used to render the representation of that
+	     * item within the field.
+	     */
+	    children: _react2.default.PropTypes.node,
+	
+	    /**
+	     * The css class name of the root element.
+	     */
+	    className: _react2.default.PropTypes.string,
+	
+	    /**
+	     * Disables the menu.
+	     */
+	    disabled: _react2.default.PropTypes.bool,
+	
+	    /**
+	     * `DropDownMenu` will use this member to display
+	     * the name of the item.
+	     */
+	    displayMember: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.string, 'Instead, use composability.'),
+	
+	    /**
+	     * Overrides the styles of icon element.
+	     */
+	    iconStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * `DropDownMenu` will use this member to display
+	     * the name of the item on the label.
+	     */
+	    labelMember: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.string, 'Instead, use composability.'),
+	
+	    /**
+	     * Overrides the styles of label when the `DropDownMenu` is inactive.
+	     */
+	    labelStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * The maximum height of the `Menu` when it is displayed.
+	     */
+	    maxHeight: _react2.default.PropTypes.number,
+	
+	    /**
+	     * JSON data representing all menu items in the dropdown.
+	     */
+	    menuItems: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.array, 'Instead, use composability.'),
+	
+	    /**
+	     * Overrides the styles of `Menu` when the `DropDownMenu` is displayed.
+	     */
+	    menuStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * Fired when a menu item is clicked that is not the one currently selected.
+	     */
+	    onChange: _react2.default.PropTypes.func,
+	
+	    /**
+	     * Set to true to have the `DropDownMenu` automatically open on mount.
+	     */
+	    openImmediately: _react2.default.PropTypes.bool,
+	
+	    /**
+	     * Index of the item selected.
+	     */
+	    selectedIndex: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.number, 'Use value instead to control the component.'),
+	
+	    /**
+	     * Override the inline-styles of the root element.
+	     */
+	    style: _react2.default.PropTypes.object,
+	
+	    /**
+	     * Overrides the inline-styles of the underline.
+	     */
+	    underlineStyle: _react2.default.PropTypes.object,
+	
+	    /**
+	     * The value that is currently selected.
+	     */
+	    value: _react2.default.PropTypes.any,
+	
+	    /**
+	     * Two-way binding link.
+	     */
+	    valueLink: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.object, 'It\'s deprecated by React too.'),
+	
+	    /**
+	     * `DropDownMenu` will use this member as the value representing an item.
+	     */
+	    valueMember: (0, _deprecatedPropType2.default)(_react2.default.PropTypes.string, 'Instead, use composability.')
+	  },
+	
+	  contextTypes: {
+	    muiTheme: _react2.default.PropTypes.object
+	  },
+	
+	  //for passing default theme context to children
+	  childContextTypes: {
+	    muiTheme: _react2.default.PropTypes.object
+	  },
+	
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      autoWidth: true,
+	      disabled: false,
+	      openImmediately: false,
+	      maxHeight: 500
+	    };
+	  },
+	  getInitialState: function getInitialState() {
+	    return {
+	      open: this.props.openImmediately,
+	      selectedIndex: this._isControlled() ? null : this.props.selectedIndex || 0,
+	      muiTheme: this.context.muiTheme || (0, _getMuiTheme2.default)()
+	    };
+	  },
+	  getChildContext: function getChildContext() {
+	    return {
+	      muiTheme: this.state.muiTheme
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    if (this.props.autoWidth) this._setWidth();
+	    if (this.props.hasOwnProperty('selectedIndex')) this._setSelectedIndex(this.props.selectedIndex);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+	    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+	    this.setState({ muiTheme: newMuiTheme });
+	
+	    if (this.props.autoWidth) this._setWidth();
+	    if (nextProps.hasOwnProperty('value') || nextProps.hasOwnProperty('valueLink')) {
+	      return;
+	    } else if (nextProps.hasOwnProperty('selectedIndex')) {
+	      this._setSelectedIndex(nextProps.selectedIndex);
+	    }
+	  },
+	  getStyles: function getStyles() {
+	    var disabled = this.props.disabled;
+	
+	    var spacing = this.state.muiTheme.rawTheme.spacing;
+	    var palette = this.state.muiTheme.rawTheme.palette;
+	    var accentColor = this.state.muiTheme.dropDownMenu.accentColor;
+	    return {
+	      control: {
+	        cursor: disabled ? 'not-allowed' : 'pointer',
+	        height: '100%',
+	        position: 'relative',
+	        width: '100%'
+	      },
+	      icon: {
+	        fill: accentColor,
+	        position: 'absolute',
+	        right: spacing.desktopGutterLess,
+	        top: (spacing.desktopToolbarHeight - 24) / 2
+	      },
+	      label: {
+	        color: disabled ? palette.disabledColor : palette.textColor,
+	        lineHeight: spacing.desktopToolbarHeight + 'px',
+	        opacity: 1,
+	        position: 'relative',
+	        paddingLeft: spacing.desktopGutter,
+	        paddingRight: spacing.iconSize + spacing.desktopGutterLess + spacing.desktopGutterMini,
+	        top: 0
+	      },
+	      labelWhenOpen: {
+	        opacity: 0,
+	        top: spacing.desktopToolbarHeight / 8
+	      },
+	      rootWhenOpen: {
+	        opacity: 1
+	      },
+	      root: {
+	        display: 'inline-block',
+	        fontSize: spacing.desktopDropDownMenuFontSize,
+	        height: spacing.desktopSubheaderHeight,
+	        fontFamily: this.state.muiTheme.rawTheme.fontFamily,
+	        outline: 'none',
+	        position: 'relative',
+	        transition: _transitions2.default.easeOut()
+	      },
+	      underline: {
+	        borderTop: 'solid 1px ' + accentColor,
+	        bottom: 1,
+	        left: 0,
+	        margin: '-1px ' + spacing.desktopGutter + 'px',
+	        right: 0,
+	        position: 'absolute'
+	      }
+	    };
+	  },
+	
+	  /**
+	   * This method is deprecated but still here because the TextField
+	   * need it in order to work. That will be addressed later.
+	   */
+	  getInputNode: function getInputNode() {
+	    var _this = this;
+	
+	    var root = this.refs.root;
+	    var item = this.props.menuItems && this.props.menuItems[this.state.selectedIndex];
+	    if (item) {
+	      root.value = item[this.props.displayMember || 'text'];
+	    }
+	
+	    root.focus = function () {
+	      if (!_this.props.disabled) {
+	        _this.setState({
+	          open: !_this.state.open,
+	          anchorEl: _this.refs.root
+	        });
+	      }
+	    };
+	
+	    return root;
+	  },
+	  _setWidth: function _setWidth() {
+	    var el = this.refs.root;
+	    if (!this.props.style || !this.props.style.hasOwnProperty('width')) {
+	      el.style.width = 'auto';
+	    }
+	  },
+	  _setSelectedIndex: function _setSelectedIndex(index) {
+	    process.env.NODE_ENV !== "production" ? (0, _warning2.default)(index >= 0, 'Cannot set selectedIndex to a negative index.') : undefined;
+	    this.setState({ selectedIndex: index >= 0 ? index : 0 });
+	  },
+	  _onControlTouchTap: function _onControlTouchTap(event) {
+	    event.preventDefault();
+	    if (!this.props.disabled) {
+	      this.setState({
+	        open: !this.state.open,
+	        anchorEl: this.refs.root
+	      });
+	    }
+	  },
+	  _onMenuItemTouchTap: function _onMenuItemTouchTap(key, payload, e) {
+	    var _props = this.props;
+	    var onChange = _props.onChange;
+	    var menuItems = _props.menuItems;
+	    var value = _props.value;
+	    var valueLink = _props.valueLink;
+	    var valueMember = _props.valueMember;
+	
+	    if (menuItems && (this.state.selectedIndex !== key || e.target.value !== value)) {
+	      var selectedItem = menuItems[key];
+	      if (selectedItem) {
+	        e.target.value = selectedItem[valueMember || 'payload'];
+	      }
+	      this._onMenuRequestClose();
+	    }
+	
+	    if (valueLink) {
+	      valueLink.requestChange(e.target.value);
+	    } else if (onChange) {
+	      onChange(e, key, payload);
+	    }
+	
+	    this.setState({
+	      selectedIndex: key,
+	      open: false
+	    });
+	  },
+	  _onMenuRequestClose: function _onMenuRequestClose() {
+	    this.setState({
+	      open: false,
+	      anchorEl: null
+	    });
+	  },
+	  _isControlled: function _isControlled() {
+	    return this.props.hasOwnProperty('value') || this.props.hasOwnProperty('valueLink');
+	  },
+	  render: function render() {
+	    var _this2 = this;
+	
+	    var _props2 = this.props;
+	    var autoWidth = _props2.autoWidth;
+	    var children = _props2.children;
+	    var className = _props2.className;
+	    var displayMember = _props2.displayMember;
+	    var iconStyle = _props2.iconStyle;
+	    var labelMember = _props2.labelMember;
+	    var labelStyle = _props2.labelStyle;
+	    var maxHeight = _props2.maxHeight;
+	    var menuItems = _props2.menuItems;
+	    var menuStyle = _props2.menuStyle;
+	    var style = _props2.style;
+	    var underlineStyle = _props2.underlineStyle;
+	    var valueLink = _props2.valueLink;
+	    var _props2$valueMember = _props2.valueMember;
+	    var valueMember = _props2$valueMember === undefined ? 'payload' : _props2$valueMember;
+	
+	    var other = _objectWithoutProperties(_props2, ['autoWidth', 'children', 'className', 'displayMember', 'iconStyle', 'labelMember', 'labelStyle', 'maxHeight', 'menuItems', 'menuStyle', 'style', 'underlineStyle', 'valueLink', 'valueMember']);
+	
+	    var _state = this.state;
+	    var anchorEl = _state.anchorEl;
+	    var open = _state.open;
+	    var muiTheme = _state.muiTheme;
+	
+	    var styles = this.getStyles();
+	
+	    var value = undefined;
+	    var selectedIndex = this._isControlled() ? null : this.state.selectedIndex;
+	
+	    if (menuItems && typeof selectedIndex === 'number') {
+	      process.env.NODE_ENV !== "production" ? (0, _warning2.default)(menuItems[selectedIndex], 'SelectedIndex of ' + selectedIndex + ' does not exist in menuItems.') : undefined;
+	    }
+	
+	    if (valueMember && this._isControlled()) {
+	      value = this.props.hasOwnProperty('value') ? this.props.value : valueLink.value;
+	      if (menuItems && value !== null && value !== undefined) {
+	        for (var i = 0; i < menuItems.length; i++) {
+	          if (menuItems[i][valueMember] === value) {
+	            selectedIndex = i;
+	          }
+	        }
+	      }
+	    }
+	
+	    var displayValue = '';
+	    if (menuItems) {
+	      var selectedItem = menuItems[selectedIndex];
+	      if (selectedItem) {
+	        displayValue = selectedItem[labelMember || 'text'] || selectedItem[displayMember || 'text'];
+	      }
+	    } else {
+	      _react2.default.Children.forEach(children, function (child) {
+	        if (value === child.props.value) {
+	          // This will need to be improved (in case primaryText is a node)
+	          displayValue = child.props.label || child.props.primaryText;
+	        }
+	      });
+	    }
+	
+	    var index = 0;
+	    var menuItemElements = menuItems ? menuItems.map(function (item, idx) {
+	      return _react2.default.createElement(_menuItem2.default, {
+	        key: idx,
+	        primaryText: item[displayMember || 'text'],
+	        value: item[valueMember],
+	        onTouchTap: _this2._onMenuItemTouchTap.bind(_this2, idx, item)
+	      });
+	    }) : _react2.default.Children.map(children, function (child) {
+	      var clone = _react2.default.cloneElement(child, {
+	        onTouchTap: _this2._onMenuItemTouchTap.bind(_this2, index, child.props.value)
+	      }, child.props.children);
+	      index += 1;
+	      return clone;
+	    });
+	
+	    var popoverStyle = undefined;
+	    if (anchorEl && !autoWidth) {
+	      popoverStyle = { width: anchorEl.clientWidth };
+	    }
+	
+	    return _react2.default.createElement(
+	      'div',
+	      _extends({}, other, {
+	        ref: 'root',
+	        className: className,
+	        style: (0, _styles.prepareStyles)(muiTheme, (0, _styles.mergeStyles)(styles.root, open && styles.rootWhenOpen, style))
+	      }),
+	      _react2.default.createElement(
+	        _clearfix2.default,
+	        { style: (0, _styles.mergeStyles)(styles.control), onTouchTap: this._onControlTouchTap },
+	        _react2.default.createElement(
+	          'div',
+	          { style: (0, _styles.prepareStyles)(muiTheme, (0, _styles.mergeStyles)(styles.label, open && styles.labelWhenOpen, labelStyle)) },
+	          displayValue
+	        ),
+	        _react2.default.createElement(_arrowDropDown2.default, { style: (0, _styles.mergeStyles)(styles.icon, iconStyle) }),
+	        _react2.default.createElement('div', { style: (0, _styles.prepareStyles)(muiTheme, (0, _styles.mergeStyles)(styles.underline, underlineStyle)) })
+	      ),
+	      _react2.default.createElement(
+	        _popover2.default,
+	        {
+	          anchorOrigin: { horizontal: 'left', vertical: 'top' },
+	          anchorEl: anchorEl,
+	          style: popoverStyle,
+	          animation: _popoverAnimationFromTop2.default,
+	          open: open,
+	          onRequestClose: this._onMenuRequestClose
+	        },
+	        _react2.default.createElement(
+	          _menu2.default,
+	          {
+	            maxHeight: maxHeight,
+	            desktop: true,
+	            value: value,
+	            style: menuStyle
+	          },
+	          menuItemElements
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = DropDownMenu;
+	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
+
+/***/ },
+/* 810 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _transitions = __webpack_require__(628);
+	
+	var _transitions2 = _interopRequireDefault(_transitions);
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(650);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _stylePropable = __webpack_require__(573);
+	
+	var _stylePropable2 = _interopRequireDefault(_stylePropable);
+	
+	var _getMuiTheme = __webpack_require__(596);
+	
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+	
+	var _paper = __webpack_require__(654);
+	
+	var _paper2 = _interopRequireDefault(_paper);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var PopoverAnimationFromTop = _react2.default.createClass({
+	  displayName: 'PopoverAnimationFromTop',
+	
+	  propTypes: {
+	    children: _react2.default.PropTypes.node,
+	    className: _react2.default.PropTypes.string,
+	    open: _react2.default.PropTypes.bool.isRequired,
+	
+	    /**
+	     * Override the inline-styles of the root element.
+	     */
+	    style: _react2.default.PropTypes.object,
+	    targetOrigin: _propTypes2.default.origin,
+	    zDepth: _propTypes2.default.zDepth
+	  },
+	
+	  contextTypes: {
+	    muiTheme: _react2.default.PropTypes.object
+	  },
+	
+	  //for passing default theme context to children
+	  childContextTypes: {
+	    muiTheme: _react2.default.PropTypes.object
+	  },
+	
+	  mixins: [_stylePropable2.default],
+	
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      style: {},
+	      zDepth: 1
+	    };
+	  },
+	  getInitialState: function getInitialState() {
+	    return {
+	      muiTheme: this.context.muiTheme || (0, _getMuiTheme2.default)(),
+	      open: false
+	    };
+	  },
+	  getChildContext: function getChildContext() {
+	    return {
+	      muiTheme: this.state.muiTheme
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    this.setState({ open: true }); //eslint-disable-line react/no-did-mount-set-state
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+	    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+	
+	    this.setState({
+	      open: nextProps.open,
+	      muiTheme: newMuiTheme
+	    });
+	  },
+	  getStyles: function getStyles() {
+	    var targetOrigin = this.props.targetOrigin;
+	
+	    var horizontal = targetOrigin.horizontal.replace('middle', 'vertical');
+	
+	    return {
+	      base: {
+	        opacity: 0,
+	        transform: 'scaleY(0)',
+	        transformOrigin: horizontal + ' ' + targetOrigin.vertical,
+	        position: 'fixed',
+	        zIndex: this.state.muiTheme.zIndex.popover,
+	        transition: _transitions2.default.easeOut('450ms', ['transform', 'opacity']),
+	        maxHeight: '100%'
+	      }
+	
+	    };
+	  },
+	  getOpenStyles: function getOpenStyles() {
+	    return {
+	      base: {
+	        opacity: 1,
+	        transform: 'scaleY(1)'
+	      }
+	    };
+	  },
+	  render: function render() {
+	    var _props = this.props;
+	    var className = _props.className;
+	    var style = _props.style;
+	    var zDepth = _props.zDepth;
+	
+	    var styles = this.getStyles();
+	    var openStyles = {};
+	    if (this.state.open) openStyles = this.getOpenStyles();
+	
+	    return _react2.default.createElement(
+	      _paper2.default,
+	      {
+	        style: this.mergeStyles(styles.base, style, openStyles.base),
+	        zDepth: zDepth,
+	        className: className
+	      },
+	      this.props.children
+	    );
+	  }
+	});
+	
+	exports.default = PopoverAnimationFromTop;
+	module.exports = exports['default'];
+
+/***/ },
+/* 811 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(483);
+	
+	var _toolbar = __webpack_require__(572);
+	
+	var _toolbar2 = _interopRequireDefault(_toolbar);
+	
+	var _toolbarGroup = __webpack_require__(624);
+	
+	var _toolbarGroup2 = _interopRequireDefault(_toolbarGroup);
+	
+	var _toolbarSeparator = __webpack_require__(672);
+	
+	var _toolbarSeparator2 = _interopRequireDefault(_toolbarSeparator);
+	
+	var _toolbarTitle = __webpack_require__(812);
+	
+	var _toolbarTitle2 = _interopRequireDefault(_toolbarTitle);
+	
+	var _DropDownMenu = __webpack_require__(808);
+	
+	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
+	
+	var _divider = __webpack_require__(740);
+	
+	var _divider2 = _interopRequireDefault(_divider);
+	
+	var _menuItem = __webpack_require__(664);
+	
+	var _menuItem2 = _interopRequireDefault(_menuItem);
+	
+	var _raisedButton = __webpack_require__(673);
+	
+	var _raisedButton2 = _interopRequireDefault(_raisedButton);
+	
+	var _flatButton = __webpack_require__(625);
+	
+	var _flatButton2 = _interopRequireDefault(_flatButton);
+	
+	var _api = __webpack_require__(552);
+	
+	var _CKEditor = __webpack_require__(813);
+	
+	var _CKEditor2 = _interopRequireDefault(_CKEditor);
+	
+	var _circularProgress = __webpack_require__(746);
+	
+	var _circularProgress2 = _interopRequireDefault(_circularProgress);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var htmlStyle = {
+	  padding: '32px 32px 32px 32px',
+	  color: '#888888'
+	};
+	
+	var IntroductionContentAdministration = _react2.default.createClass({
+	  displayName: 'IntroductionContentAdministration',
+	
+	  currentResourceId: null,
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      isHTMLViewOpen: false,
+	      htmlText: null,
+	      resultHtmlText: null,
+	      selectedCourse: null,
+	      selectedResource: null,
+	      isTextDirty: false,
+	      resourceVersion: null,
+	      isSavingResource: false,
+	      isLoadingResource: false,
+	      isEditing: false
+	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    this.setState({ selectedResource: this.props.selectedResource });
+	    this.getResource(this.props.selectedResource);
+	  },
+	
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (nextProps.selectedResource !== this.props.selectedResource) {
+	      this.setState({ selectedResource: nextProps.selectedResource });
+	      this.getResource(nextProps.selectedResource);
+	    }
+	  },
+	
+	  getResource: function getResource(resourceId) {
+	    var _this = this;
+	
+	    if (resourceId === undefined || resourceId === null) return;
+	
+	    this.setState({ isLoadingResource: true });
+	    this.props.dispatch((0, _api.getResourceById)(resourceId)).then(function (json) {
+	      _this.setState({
+	        htmlText: json.resource.content,
+	        resultHtmlText: json.resource.content,
+	        resourceVersion: json.resource.version,
+	        isLoadingResource: false
+	      });
+	      _this.currentResourceId = json.resource.id;
+	    });
+	  },
+	
+	  saveResource: function saveResource() {
+	    var _this2 = this;
+	
+	    this.setState({ isTextDirty: false, isSavingResource: true });
+	    var that = this;
+	    this.props.dispatch((0, _api.putResourceById)(this.currentResourceId, this.props.selectedModule, this.state.resultHtmlText)).then(function (json) {
+	      that.setState({
+	        resourceVersion: json.response.updatedResouceVersion,
+	        isSavingResource: false
+	      });
+	      that.currentResourceId = json.response.updatedResouceId;
+	      _this2.props.resourceRevisionUpdated(json.response.parentResourceId, json.response.updatedResouceId);
+	    });
+	  },
+	
+	  onTextChaged: function onTextChaged(newHtml) {
+	    if (this.state.resultHtmlText !== newHtml) this.setState({ resultHtmlText: newHtml, isTextDirty: true });
+	  },
+	
+	  toggleHtml: function toggleHtml() {
+	    this.setState({ isHTMLViewOpen: !this.state.isHTMLViewOpen });
+	  },
+	
+	  toggleEditing: function toggleEditing() {
+	    var isCurrentlyEditign = !this.state.isEditing;
+	    this.setState({
+	      isEditing: isCurrentlyEditign,
+	      isTextDirty: false
+	    });
+	
+	    if (!isCurrentlyEditign) {
+	      if (this.state.isTextDirty) //We are discarding changes
+	        this.state.resultHtmlText = this.state.htmlText;else this.state.htmlText = this.state.resultHtmlText;
+	    }
+	  },
+	
+	  render: function render() {
+	    var HtmlDisplayArea = this.state.isHTMLViewOpen ? _react2.default.createElement(
+	      'div',
+	      { style: htmlStyle },
+	      _react2.default.createElement(
+	        'pre',
+	        { style: { whiteSpace: 'pre-line' } },
+	        this.state.resultHtmlText
+	      )
+	    ) : null;
+	    var HtmlButtonLabel = this.state.isHTMLViewOpen ? 'Skjul html' : 'Vis html';
+	    var VersionText = "Version: " + this.state.resourceVersion;
+	    var editText = this.state.isEditing ? this.state.isTextDirty ? "Afslut uden at gemme" : "Afslut redigering" : "Redigér indhold";
+	
+	    var Editor = this.state.htmlText !== null ? _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          _toolbar2.default,
+	          { style: { background: 'transparent', padding: '0', marginBottom: '8px' } },
+	          _react2.default.createElement(
+	            _toolbarGroup2.default,
+	            { firstChild: true, float: 'left' },
+	            _react2.default.createElement(
+	              _DropDownMenu2.default,
+	              { value: 1, style: { marginRight: '0px' } },
+	              _react2.default.createElement(_menuItem2.default, { value: 1, primaryText: VersionText }),
+	              _react2.default.createElement(_menuItem2.default, { value: 2, primaryText: 'Vælg en anden version' })
+	            ),
+	            this.state.isSavingResource ? _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '6px' } }) : null
+	          ),
+	          _react2.default.createElement(
+	            _toolbarGroup2.default,
+	            null,
+	            _react2.default.createElement(_raisedButton2.default, { secondary: true, style: { marginRight: '0' }, label: editText, onClick: this.toggleEditing }),
+	            this.state.isTextDirty && this.state.isEditing ? _react2.default.createElement(_raisedButton2.default, { primary: true, style: { marginLeft: '8px', marginRight: '0' }, label: 'Gem ændringer', onClick: this.saveResource }) : null
+	          )
+	        ),
+	        this.state.isEditing ? _react2.default.createElement(_CKEditor2.default, { text: this.state.htmlText, onTextChangedCallback: this.onTextChaged }) : _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(_divider2.default, { style: { marginBottom: 54 } }),
+	          _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: this.state.resultHtmlText } })
+	        )
+	      )
+	    ) : null;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      this.state.isLoadingResource ? _react2.default.createElement(
+	        'div',
+	        { style: { textAlign: 'center' } },
+	        _react2.default.createElement(_divider2.default, { style: { marginBottom: 54 } }),
+	        _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '20px', marginBottom: '20px' } })
+	      ) : null,
+	      Editor,
+	      _react2.default.createElement(_divider2.default, null),
+	      this.state.htmlText !== null ? _react2.default.createElement(_flatButton2.default, { label: HtmlButtonLabel, secondary: true, onClick: this.toggleHtml }) : null,
+	      HtmlDisplayArea
+	    );
+	  }
+	});
+	
+	IntroductionContentAdministration = (0, _reactRedux.connect)()(IntroductionContentAdministration);
+	
+	exports.default = IntroductionContentAdministration;
+
+/***/ },
+/* 812 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _stylePropable = __webpack_require__(573);
+	
+	var _stylePropable2 = _interopRequireDefault(_stylePropable);
+	
+	var _getMuiTheme = __webpack_require__(596);
+	
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	var ToolbarTitle = _react2.default.createClass({
+	  displayName: 'ToolbarTitle',
+	
+	  propTypes: {
+	    /**
+	     * The css class name of the root element.
+	     */
+	    className: _react2.default.PropTypes.string,
+	
+	    /**
+	     * Override the inline-styles of the root element.
+	     */
+	    style: _react2.default.PropTypes.object,
+	
+	    /**
+	     * The text to be displayed.
+	     */
+	    text: _react2.default.PropTypes.string
+	  },
+	
+	  contextTypes: {
+	    muiTheme: _react2.default.PropTypes.object
+	  },
+	
+	  //for passing default theme context to children
+	  childContextTypes: {
+	    muiTheme: _react2.default.PropTypes.object
+	  },
+	
+	  mixins: [_stylePropable2.default],
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      muiTheme: this.context.muiTheme || (0, _getMuiTheme2.default)()
+	    };
+	  },
+	  getChildContext: function getChildContext() {
+	    return {
+	      muiTheme: this.state.muiTheme
+	    };
+	  },
+	
+	  //to update theme inside state whenever a new theme is passed down
+	  //from the parent / owner using context
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps, nextContext) {
+	    var newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
+	    this.setState({ muiTheme: newMuiTheme });
+	  },
+	  getTheme: function getTheme() {
+	    return this.state.muiTheme.toolbar;
+	  },
+	  getSpacing: function getSpacing() {
+	    return this.state.muiTheme.rawTheme.spacing;
+	  },
+	  getStyles: function getStyles() {
+	    return {
+	      root: {
+	        paddingRight: this.getSpacing().desktopGutterLess,
+	        lineHeight: this.getTheme().height + 'px',
+	        fontSize: this.getTheme().titleFontSize + 'px',
+	        display: 'inline-block',
+	        position: 'relative'
+	      }
+	    };
+	  },
+	  render: function render() {
+	    var _props = this.props;
+	    var className = _props.className;
+	    var style = _props.style;
+	    var text = _props.text;
+	
+	    var other = _objectWithoutProperties(_props, ['className', 'style', 'text']);
+	
+	    var styles = this.getStyles();
+	
+	    return _react2.default.createElement(
+	      'span',
+	      _extends({}, other, { className: className, style: this.prepareStyles(styles.root, style) }),
+	      text
+	    );
+	  }
+	});
+	
+	exports.default = ToolbarTitle;
+	module.exports = exports['default'];
+
+/***/ },
+/* 813 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var textareaStyle = {
+	  minHeight: '800px'
+	};
+	
+	var CKEditor = _react2.default.createClass({
+	  displayName: 'CKEditor',
+	
+	
+	  isComponentInitialized: false,
+	  ckEditor: null,
+	  shouldComponentUpdate: function shouldComponentUpdate() {
+	    return true;
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    var initialText = this.props.text;
+	    var textChanged = this.props.onTextChangedCallback;
+	    var isDataSet = false;
+	
+	    this.ckEditor = CKEDITOR.replace(this.refs.editor, {
+	      height: 600,
+	      contentsCss: [CKEDITOR.getUrl('https://fonts.googleapis.com/css?family=Roboto:400,300,500'),
+	      // Add CSS for widget styles.
+	      'https://fonts.googleapis.com/css?family=Roboto:400,300,500', 'ckEditor.css']
+	    });
+	    var ckEditor = this.ckEditor;
+	
+	    this.ckEditor.on('instanceReady', function () {
+	      ckEditor.setData(initialText);
+	      this.isDataSet = true;
+	    });
+	
+	    function updateModel(event) {
+	      if (this.isComponentInitialized) {
+	        var newText = ckEditor.getData();
+	        if (textChanged !== undefined && newText !== initialText) textChanged(newText);
+	      } else if (this.isDataSet && event.name === 'dataReady') this.isComponentInitialized = true;
+	    };
+	
+	    function dataReady(event) {
+	      this.updateModel(event);
+	    };
+	
+	    function change(evnet) {
+	      this.updateModel(event);
+	    };
+	
+	    this.ckEditor.on('change', updateModel);
+	    this.ckEditor.on('key', updateModel);
+	    this.ckEditor.on('dataReady', updateModel);
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {
+	    var foo = 3;
+	    console.log("CK-editor unmount");
+	    this.ckEditor.destroy();
+	  },
+	
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (nextProps.text === null) {
+	      this.ckEditor.setData("");
+	    } else if (nextProps.text !== this.props.text) {
+	      this.ckEditor.setData(nextProps.text);
+	    }
+	  },
+	
+	  render: function render() {
+	    return _react2.default.createElement('textarea', { style: textareaStyle, ref: 'editor' });
+	  }
+	});
+	
+	exports.default = CKEditor;
+
+/***/ },
+/* 814 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(483);
+	
+	var _toolbar = __webpack_require__(572);
+	
+	var _toolbar2 = _interopRequireDefault(_toolbar);
+	
+	var _toolbarGroup = __webpack_require__(624);
+	
+	var _toolbarGroup2 = _interopRequireDefault(_toolbarGroup);
+	
+	var _toolbarSeparator = __webpack_require__(672);
+	
+	var _toolbarSeparator2 = _interopRequireDefault(_toolbarSeparator);
+	
+	var _toolbarTitle = __webpack_require__(812);
+	
+	var _toolbarTitle2 = _interopRequireDefault(_toolbarTitle);
+	
+	var _DropDownMenu = __webpack_require__(808);
+	
+	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
+	
+	var _divider = __webpack_require__(740);
+	
+	var _divider2 = _interopRequireDefault(_divider);
+	
+	var _menuItem = __webpack_require__(664);
+	
+	var _menuItem2 = _interopRequireDefault(_menuItem);
+	
+	var _raisedButton = __webpack_require__(673);
+	
+	var _raisedButton2 = _interopRequireDefault(_raisedButton);
+	
+	var _flatButton = __webpack_require__(625);
+	
+	var _flatButton2 = _interopRequireDefault(_flatButton);
+	
+	var _api = __webpack_require__(552);
+	
+	var _CKEditor = __webpack_require__(813);
+	
+	var _CKEditor2 = _interopRequireDefault(_CKEditor);
+	
+	var _circularProgress = __webpack_require__(746);
+	
+	var _circularProgress2 = _interopRequireDefault(_circularProgress);
+	
+	var _ExerciseDialog = __webpack_require__(815);
+	
+	var _ExerciseDialog2 = _interopRequireDefault(_ExerciseDialog);
+	
+	var _ExerciseSelector = __webpack_require__(771);
+	
+	var _ExerciseSelector2 = _interopRequireDefault(_ExerciseSelector);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var htmlStyle = {
+	  padding: '32px 32px 32px 32px',
+	  color: '#888888'
+	};
+	
+	var ExerciseElement = _react2.default.createClass({
+	  displayName: 'ExerciseElement',
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      isEditing: false,
+	      isTextDirty: false,
+	      editedText: this.props.model.content,
+	      originalText: this.props.model.content,
+	      isExerciseDialogOpen: false,
+	      exerciseSelection: {
+	        className: this.props.model.className,
+	        configuration: this.props.model.configuration,
+	        description: this.props.model.description,
+	        instrunctionContent: this.props.model.instrunctionContent
+	      }
+	    };
+	  },
+	
+	  toggleEditing: function toggleEditing() {
+	    var isCurrentlyEditign = !this.state.isEditing;
+	    this.setState({
+	      isEditing: isCurrentlyEditign,
+	      isTextDirty: false
+	    });
+	
+	    if (!isCurrentlyEditign) {
+	      if (this.state.isTextDirty) //We are discarding changes
+	        this.state.editedText = this.state.originalText;else this.state.originalText = this.state.editedText;
+	    };
+	  },
+	
+	  saveResource: function saveResource() {
+	    this.setState({ isTextDirty: false });
+	    this.props.model.content = this.state.editedText;
+	    if (this.state.exerciseSelection !== null && this.state.exerciseSelection !== undefined) {
+	      this.props.model.className = this.state.exerciseSelection.className;
+	      this.props.model.configuration = this.state.exerciseSelection.configuration;
+	      this.props.model.description = this.state.exerciseSelection.description;
+	      this.props.model.instrunctionContent = this.state.exerciseSelection.instrunctionContent;
+	    } else {
+	      this.props.model.className = '';
+	      this.props.model.configuration = '';
+	      this.props.model.description = '';
+	      this.props.model.instrunctionContent = [];
+	    }
+	    this.state.originalText = this.state.editedText;
+	    this.props.initiateSave();
+	  },
+	
+	  onTextChaged: function onTextChaged(newHtml) {
+	    if (this.state.editedText !== newHtml) {
+	      this.setState({ editedText: newHtml, isTextDirty: true });
+	      this.props.onDirtyFlagRaised();
+	    }
+	  },
+	
+	  removeItem: function removeItem() {
+	    this.props.removeItem(this.props.model);
+	  },
+	
+	  openExerciseDialog: function openExerciseDialog() {
+	    this.setState({ isExerciseDialogOpen: true });
+	  },
+	
+	  submitExerciseDialog: function submitExerciseDialog(exerciseSelection) {
+	    this.setState({
+	      isExerciseDialogOpen: false,
+	      exerciseSelection: exerciseSelection
+	    }, function () {
+	      this.saveResource();
+	    });
+	  },
+	
+	  cancelExerciseDialog: function cancelExerciseDialog(exerciseSelection) {
+	    this.setState({
+	      isExerciseDialogOpen: false
+	    });
+	  },
+	
+	  render: function render() {
+	    var editText = this.state.isEditing ? this.state.isTextDirty ? "Afslut uden at gemme" : "Afslut redigering" : "Redigér indhold";
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      !this.props.firstElement && this.props.isEditEnabled ? _react2.default.createElement(_divider2.default, { style: { marginTop: '12px' } }) : null,
+	      this.state.isEditing && this.props.isEditEnabled ? _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_raisedButton2.default, { secondary: true, style: { marginRight: '0', marginTop: '12px', marginBottom: '12px' }, label: editText, onClick: this.toggleEditing }),
+	        this.state.isTextDirty && this.state.isEditing ? _react2.default.createElement(_raisedButton2.default, { primary: true, style: { textAlign: 'right', marginRight: '0', marginTop: '12px', marginBottom: '12px', marginLeft: '8px' }, label: 'Gem ændringer', onClick: this.saveResource }) : null,
+	        _react2.default.createElement(_CKEditor2.default, { text: this.state.originalText, onTextChangedCallback: this.onTextChaged })
+	      ) : _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: this.state.originalText } }),
+	        _react2.default.createElement(_ExerciseSelector2.default, { exerciseSelection: this.state.exerciseSelection }),
+	        this.props.isEditEnabled ? _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'span',
+	              { style: { color: '#666666' } },
+	              'Foretag ændringer: '
+	            ),
+	            _react2.default.createElement(_flatButton2.default, { onClick: this.toggleEditing, style: { padding: '0' }, secondary: true, label: 'Redigér opgavetekst' }),
+	            _react2.default.createElement(_flatButton2.default, { onClick: this.openExerciseDialog, secondary: true, style: { marginLeft: '8px', padding: '0' }, label: 'Vælg opgavetype' }),
+	            _react2.default.createElement(_ExerciseDialog2.default, { selected: this.state.exerciseSelection, open: this.state.isExerciseDialogOpen, onCancel: this.cancelExerciseDialog, onSubmit: this.submitExerciseDialog }),
+	            !this.props.firstElement ? _react2.default.createElement(_flatButton2.default, { onClick: this.removeItem, secondary: true, style: { marginLeft: '8px', padding: '0' }, label: 'Fjern' }) : null
+	          )
+	        ) : null
+	      )
+	    );
+	  }
+	});
+	
+	var ExerciseContentAdministration = _react2.default.createClass({
+	  displayName: 'ExerciseContentAdministration',
+	
+	  currentResourceId: null,
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      exerciseElements: [],
+	      isHTMLViewOpen: false,
+	      htmlText: null,
+	      resultHtmlText: null,
+	      selectedCourse: null,
+	      selectedResource: null,
+	      isDirty: false,
+	      resourceVersion: null,
+	      isSavingResource: false,
+	      isLoadingResource: false,
+	      isEditing: false
+	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    this.setState({ selectedResource: this.props.selectedResource });
+	    this.getResource(this.props.selectedResource);
+	  },
+	
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (nextProps.selectedResource !== this.props.selectedResource) {
+	      this.setState({ selectedResource: nextProps.selectedResource });
+	      this.getResource(nextProps.selectedResource);
+	    }
+	  },
+	
+	  componentDidUpdate: function componentDidUpdate() {
+	    if (this.shouldScrollBottom) {
+	      window.scrollTo(0, document.body.scrollHeight);
+	      this.shouldScrollBottom = false;
+	    }
+	  },
+	
+	  getResource: function getResource(resourceId) {
+	    var _this = this;
+	
+	    if (resourceId === undefined || resourceId === null) return;
+	
+	    this.setState({ isLoadingResource: true, exerciseElements: [] });
+	    this.props.dispatch((0, _api.getExerciseResourceById)(resourceId)).then(function (json) {
+	      _this.setState({
+	        exerciseElements: json.resource.elements,
+	        resourceVersion: json.resource.version,
+	        isLoadingResource: false
+	      });
+	      _this.currentResourceId = json.resource.id;
+	    });
+	  },
+	
+	  saveResource: function saveResource() {
+	    var _this2 = this;
+	
+	    this.setState({ isDirty: false, isSavingResource: true });
+	    var that = this;
+	    this.props.dispatch((0, _api.putExerciseResourceById)(this.currentResourceId, this.props.selectedModule, this.state.exerciseElements)).then(function (json) {
+	      that.setState({
+	        resourceVersion: json.response.updatedResouceVersion,
+	        isSavingResource: false
+	      });
+	      that.currentResourceId = json.response.updatedResouceId;
+	      _this2.props.resourceRevisionUpdated(json.response.parentResourceId, json.response.updatedResouceId);
+	    });
+	  },
+	
+	  toggleHtml: function toggleHtml() {
+	    this.setState({ isHTMLViewOpen: !this.state.isHTMLViewOpen });
+	  },
+	
+	  onDirtyFlagRaised: function onDirtyFlagRaised() {
+	    this.setState({ isDirty: true });
+	  },
+	
+	  addExerciseElement: function addExerciseElement() {
+	    if (!this.state.isEditing) this.toggleEditing();
+	
+	    this.setState({
+	      exerciseElements: this.state.exerciseElements.concat([{
+	        content: this.state.exerciseElements.length > 0 ? '<h3>&lt;Underoverskrift her&gt;</h3> <p>&lt;Kort tekst her, evt. efterfulgt af opgave: &gt;</p>' : '<h1>&lt;Overskrift her&gt;</h1> <p>&lt;Kort tekst her, evt. efterfulgt af opgave: &gt;</p>',
+	
+	        className: 'None',
+	        configuration: '',
+	        description: '',
+	        instrunctionContent: []
+	      }])
+	    }, function () {
+	      //State change has taken effect
+	      this.saveResource();
+	
+	      var node = this.getDOMNode();
+	      this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
+	    });
+	  },
+	
+	  removeExerciseElement: function removeExerciseElement(element) {
+	    var index = this.state.exerciseElements.indexOf(element);
+	    if (index > -1) {
+	      this.state.exerciseElements.splice(index, 1);
+	    }
+	
+	    this.setState({
+	      exerciseElements: this.state.exerciseElements
+	    }, function () {
+	      //The state change has taken effect
+	      this.saveResource();
+	    });
+	  },
+	
+	  toggleEditing: function toggleEditing() {
+	    this.setState({ isEditing: !this.state.isEditing });
+	  },
+	
+	  render: function render() {
+	    var _this3 = this;
+	
+	    var VersionText = "Version: " + this.state.resourceVersion;
+	    var editText = this.state.isEditing ? this.state.isDirty ? "Afslut uden at gemme" : "Afslut redigering" : "Redigér indhold";
+	
+	    var Elements = this.state.exerciseElements.map(function (i, index) {
+	      return _react2.default.createElement(ExerciseElement, { key: index, firstElement: index === 0, isEditEnabled: _this3.state.isEditing, removeItem: _this3.removeExerciseElement, model: i, initiateSave: _this3.saveResource, onDirtyFlagRaised: _this3.onDirtyFlagRaised });
+	    });
+	
+	    var Editor = this.state.exerciseElements.length > 0 ? _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          _toolbar2.default,
+	          { style: { background: 'transparent', padding: '0', marginBottom: '8px' } },
+	          _react2.default.createElement(
+	            _toolbarGroup2.default,
+	            { firstChild: true, float: 'left' },
+	            _react2.default.createElement(
+	              _DropDownMenu2.default,
+	              { value: 1, style: { marginRight: '0px' } },
+	              _react2.default.createElement(_menuItem2.default, { value: 1, primaryText: VersionText }),
+	              _react2.default.createElement(_menuItem2.default, { value: 2, primaryText: 'Vælg en anden version' })
+	            ),
+	            this.state.isSavingResource ? _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '6px' } }) : null
+	          ),
+	          _react2.default.createElement(
+	            _toolbarGroup2.default,
+	            null,
+	            _react2.default.createElement(_raisedButton2.default, { secondary: true, style: { marginRight: '0' }, label: editText, onClick: this.toggleEditing }),
+	            _react2.default.createElement(_raisedButton2.default, { secondary: true, style: { marginLeft: '8px' }, label: 'Tilføj ny opgave', onClick: this.addExerciseElement })
+	          )
+	        ),
+	        _react2.default.createElement(_divider2.default, { style: { marginBottom: 54 } }),
+	        Elements
+	      )
+	    ) : null;
+	
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      this.state.isLoadingResource ? _react2.default.createElement(
+	        'div',
+	        { style: { textAlign: 'center' } },
+	        _react2.default.createElement(_divider2.default, null),
+	        _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '20px', marginBottom: '20px' } })
+	      ) : null,
+	      Editor
+	    );
+	  }
+	});
+	
+	ExerciseContentAdministration = (0, _reactRedux.connect)()(ExerciseContentAdministration);
+	
+	exports.default = ExerciseContentAdministration;
+
+/***/ },
 /* 815 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -70195,11 +70131,399 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _tabs = __webpack_require__(756);
+	var _flatButton = __webpack_require__(625);
+	
+	var _flatButton2 = _interopRequireDefault(_flatButton);
+	
+	var _raisedButton = __webpack_require__(673);
+	
+	var _raisedButton2 = _interopRequireDefault(_raisedButton);
+	
+	var _selectField = __webpack_require__(805);
+	
+	var _selectField2 = _interopRequireDefault(_selectField);
+	
+	var _menuItem = __webpack_require__(664);
+	
+	var _menuItem2 = _interopRequireDefault(_menuItem);
+	
+	var _textField = __webpack_require__(778);
+	
+	var _textField2 = _interopRequireDefault(_textField);
+	
+	var _divider = __webpack_require__(740);
+	
+	var _divider2 = _interopRequireDefault(_divider);
+	
+	var _CKEditor = __webpack_require__(813);
+	
+	var _CKEditor2 = _interopRequireDefault(_CKEditor);
+	
+	var _dialog = __webpack_require__(793);
+	
+	var _dialog2 = _interopRequireDefault(_dialog);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var items = [_react2.default.createElement(_menuItem2.default, { key: 0, value: 'None', primaryText: 'Ingen' }), _react2.default.createElement(_menuItem2.default, { key: 1, value: 'SortAndEvaluate', primaryText: 'Sortér og bedøm' }), _react2.default.createElement(_menuItem2.default, { key: 2, value: 'VideoExercise', primaryText: 'Videoøvelse' }), _react2.default.createElement(_menuItem2.default, { key: 3, value: 'KPExplorerQuestionnaire', primaryText: 'KP explorer' }), _react2.default.createElement(_menuItem2.default, { key: 4, value: 'Promise', primaryText: 'Reflektion' }), _react2.default.createElement(_menuItem2.default, { key: 5, value: 'Goal', primaryText: 'Mål for øvelse' })];
+	
+	var ConfigureExerciseDialog = _react2.default.createClass({
+	  displayName: 'ConfigureExerciseDialog',
+	
+	  resultingExercise: {},
+	
+	  getInitialState: function getInitialState() {
+	    return {
+	      open: this.props.open,
+	      selectedExercise: this.props.selected.className,
+	      configuration: this.props.selected !== undefined ? this.props.selected.configuration : '',
+	      description: this.props.selected !== undefined ? this.props.selected.description : '',
+	      instrunctionContent: this.props.selected !== undefined ? this.props.selected.instrunctionContent : []
+	    };
+	  },
+	
+	  componentDidMount: function componentDidMount() {
+	    this.resultingExercise = this.props.selected;
+	  },
+	
+	  componentWillUnmount: function componentWillUnmount() {},
+	
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    this.setState({ open: nextProps.open });
+	  },
+	
+	  handleCancel: function handleCancel() {
+	    this.props.onCancel();
+	  },
+	
+	  handleSubmit: function handleSubmit() {
+	    this.props.onSubmit({
+	      configuration: this.state.configuration,
+	      instrunctionContent: this.state.instrunctionContent,
+	      className: this.state.selectedExercise,
+	      description: this.state.description,
+	      isTekstEditorOpen: false
+	    });
+	  },
+	
+	  exerciseSelected: function exerciseSelected(event, index, value) {
+	    this.setState({ selectedExercise: value });
+	  },
+	
+	  configurationChanged: function configurationChanged(event) {
+	    this.setState({ configuration: event.target.value });
+	  },
+	
+	  descrptionChanged: function descrptionChanged(event) {
+	    this.setState({ description: event.target.value });
+	  },
+	  openEditText: function openEditText(textItem) {
+	    this.setState({
+	      isTekstEditorOpen: true,
+	      currentLyEditedTextItem: textItem,
+	      htmlText: this.state.instrunctionContent[textItem],
+	      resultText: this.state.instrunctionContent[textItem]
+	    });
+	  },
+	  handleCloseEditor: function handleCloseEditor() {
+	    this.setState({ isTekstEditorOpen: false });
+	  },
+	  handleSubmitTekst: function handleSubmitTekst() {
+	    this.state.instrunctionContent[this.state.currentLyEditedTextItem] = this.state.resultText;
+	    this.setState({ isTekstEditorOpen: false });
+	  },
+	
+	  onTextChaged: function onTextChaged(newHtml) {
+	    this.setState({ resultText: newHtml });
+	  },
+	
+	  getHtmlText: function getHtmlText(textIndex) {
+	    var text = this.state.instrunctionContent.length > textIndex ? this.state.instrunctionContent[textIndex] : "";
+	
+	    return { __html: text };
+	  },
+	
+	  render: function render() {
+	    var editorAction = [_react2.default.createElement(_raisedButton2.default, {
+	      label: 'Ok',
+	      primary: true,
+	      onTouchTap: this.handleSubmitTekst
+	    }), _react2.default.createElement(_flatButton2.default, {
+	      style: { marginLeft: '8px' },
+	      label: 'Fortryd',
+	      secondary: true,
+	      onTouchTap: this.handleCloseEditor
+	    })];
+	    var actions = [_react2.default.createElement(_raisedButton2.default, {
+	      label: 'Ok',
+	      primary: true,
+	      onTouchTap: this.handleSubmit
+	    }), _react2.default.createElement(_flatButton2.default, {
+	      style: { marginLeft: '8px' },
+	      label: 'Fortryd',
+	      secondary: true,
+	      onTouchTap: this.handleCancel
+	    })];
+	    return _react2.default.createElement(
+	      _dialog2.default,
+	      {
+	        title: 'Vælg opgavetype',
+	        actions: actions,
+	        modal: false,
+	        open: this.state.open,
+	        bodyStyle: { overflow: 'overlay' },
+	        style: { overflow: 'overlay' },
+	        onRequestClose: this.handleCancel },
+	      _react2.default.createElement(
+	        _selectField2.default,
+	        {
+	          value: this.state.selectedExercise,
+	          onChange: this.exerciseSelected,
+	          floatingLabelText: 'Vælg en øvelse' },
+	        items
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h4',
+	          { style: { marginBottom: 0 } },
+	          'Beskrivelse (vist på dahboard)'
+	        ),
+	        _react2.default.createElement(_textField2.default, {
+	          hintText: 'Kan undlades',
+	          multiLine: true,
+	          fullWidth: true,
+	          rowsMax: 4,
+	          value: this.state.description,
+	          onChange: this.descrptionChanged
+	        })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        {
+	          'SortAndEvaluate': _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h4',
+	              { style: { marginBottom: 0 } },
+	              'Indtast kategorier'
+	            ),
+	            _react2.default.createElement(_textField2.default, {
+	              hintText: 'Indtast kategorier adskildt med semikolon \';\'',
+	              multiLine: true,
+	              fullWidth: true,
+	              rowsMax: 4,
+	              value: this.state.configuration,
+	              onChange: this.configurationChanged
+	            }),
+	            _react2.default.createElement(
+	              'h4',
+	              { style: { marginBottom: 0 } },
+	              'Opgavetekser:'
+	            ),
+	            _react2.default.createElement(
+	              'h5',
+	              { style: { marginBottom: 0 } },
+	              'Indledende opgavetekst'
+	            ),
+	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
+	            _react2.default.createElement(_flatButton2.default, {
+	              label: 'Redigér',
+	              secondary: true,
+	              style: { marginBottom: 21 },
+	              onClick: this.openEditText.bind(this, 0)
+	            }),
+	            _react2.default.createElement(_divider2.default, null),
+	            _react2.default.createElement(
+	              'h5',
+	              { style: { marginBottom: 0 } },
+	              'Tekst ved sortering'
+	            ),
+	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(1) }),
+	            _react2.default.createElement(_flatButton2.default, {
+	              label: 'Redigér',
+	              secondary: true,
+	              style: { marginBottom: 21 },
+	              onClick: this.openEditText.bind(this, 1)
+	            }),
+	            _react2.default.createElement(_divider2.default, null),
+	            _react2.default.createElement(
+	              'h5',
+	              { style: { marginBottom: 0 } },
+	              'Instruktion til evaluering'
+	            ),
+	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(2) }),
+	            _react2.default.createElement(_flatButton2.default, {
+	              label: 'Redigér',
+	              secondary: true,
+	              style: { marginBottom: 21 },
+	              onClick: this.openEditText.bind(this, 2)
+	            }),
+	            _react2.default.createElement(_divider2.default, null),
+	            _react2.default.createElement(
+	              'h5',
+	              { style: { marginBottom: 0 } },
+	              'Tekst ved evaluering'
+	            ),
+	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(3) }),
+	            _react2.default.createElement(_flatButton2.default, {
+	              label: 'Redigér',
+	              secondary: true,
+	              style: { marginBottom: 21 },
+	              onClick: this.openEditText.bind(this, 3)
+	            }),
+	            _react2.default.createElement(_divider2.default, null),
+	            _react2.default.createElement(
+	              'h5',
+	              { style: { marginBottom: 0 } },
+	              'Afslut tekst'
+	            ),
+	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(4) }),
+	            _react2.default.createElement(_flatButton2.default, {
+	              label: 'Redigér',
+	              secondary: true,
+	              style: { marginBottom: 21 },
+	              onClick: this.openEditText.bind(this, 4)
+	            })
+	          ),
+	          'VideoExercise': _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Videoøvelse'
+	          ),
+	          'KPExplorerQuestionnaire': _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h4',
+	              { style: { marginBottom: 0 } },
+	              'Indtast spørgsmål'
+	            ),
+	            _react2.default.createElement(_textField2.default, {
+	              hintText: 'Indtast spørgsmål adskildt med semikolon \';\'',
+	              multiLine: true,
+	              fullWidth: true,
+	              rowsMax: 4,
+	              value: this.state.configuration,
+	              onChange: this.configurationChanged
+	            }),
+	            _react2.default.createElement(
+	              'h4',
+	              { style: { marginBottom: 0 } },
+	              'Opgavetekser:'
+	            ),
+	            _react2.default.createElement(
+	              'h5',
+	              { style: { marginBottom: 0 } },
+	              'Indledende opgavetekst'
+	            ),
+	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
+	            _react2.default.createElement(_flatButton2.default, {
+	              label: 'Redigér',
+	              secondary: true,
+	              style: { marginBottom: 21 },
+	              onClick: this.openEditText.bind(this, 0)
+	            }),
+	            _react2.default.createElement(_divider2.default, null),
+	            _react2.default.createElement(
+	              'h5',
+	              { style: { marginBottom: 0 } },
+	              'Afslut tekst'
+	            ),
+	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(1) }),
+	            _react2.default.createElement(_flatButton2.default, {
+	              label: 'Redigér',
+	              secondary: true,
+	              style: { marginBottom: 21 },
+	              onClick: this.openEditText.bind(this, 1)
+	            })
+	          ),
+	          'Goal': _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h5',
+	              { style: { marginBottom: 0 } },
+	              'Informationstekst'
+	            ),
+	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
+	            _react2.default.createElement(_flatButton2.default, {
+	              label: 'Redigér',
+	              secondary: true,
+	              style: { marginBottom: 21 },
+	              onClick: this.openEditText.bind(this, 0)
+	            })
+	          ),
+	          'Promise': _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              'h4',
+	              { style: { marginBottom: 0 } },
+	              'Indtast kategorier'
+	            ),
+	            _react2.default.createElement(_textField2.default, {
+	              hintText: 'Indtast reflektionsspørgsmål adskildt med semikolon \';\'',
+	              multiLine: true,
+	              fullWidth: true,
+	              rowsMax: 4,
+	              value: this.state.configuration,
+	              onChange: this.configurationChanged
+	            }),
+	            _react2.default.createElement(
+	              'h5',
+	              { style: { marginBottom: 0 } },
+	              'Informationstekst til løfte'
+	            ),
+	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
+	            _react2.default.createElement(_flatButton2.default, {
+	              label: 'Redigér',
+	              secondary: true,
+	              style: { marginBottom: 21 },
+	              onClick: this.openEditText.bind(this, 0)
+	            })
+	          ),
+	          'none': null
+	        }[this.state.selectedExercise],
+	        _react2.default.createElement(
+	          _dialog2.default,
+	          {
+	            title: 'Redigér opgavetekst',
+	            actions: editorAction,
+	            modal: false,
+	            open: this.state.isTekstEditorOpen,
+	            onRequestClose: this.handleCloseEditor },
+	          _react2.default.createElement(_CKEditor2.default, { text: this.state.htmlText, onTextChangedCallback: this.onTextChaged })
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	exports.default = ConfigureExerciseDialog;
+
+/***/ },
+/* 816 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _tabs = __webpack_require__(757);
 	
 	var _tabs2 = _interopRequireDefault(_tabs);
 	
-	var _tab = __webpack_require__(759);
+	var _tab = __webpack_require__(760);
 	
 	var _tab2 = _interopRequireDefault(_tab);
 	
@@ -70207,19 +70531,19 @@
 	
 	var _fontIcon2 = _interopRequireDefault(_fontIcon);
 	
-	var _flightTakeoff = __webpack_require__(760);
+	var _flightTakeoff = __webpack_require__(761);
 	
 	var _flightTakeoff2 = _interopRequireDefault(_flightTakeoff);
 	
-	var _card = __webpack_require__(761);
+	var _card = __webpack_require__(762);
 	
 	var _card2 = _interopRequireDefault(_card);
 	
-	var _cardActions = __webpack_require__(765);
+	var _cardActions = __webpack_require__(766);
 	
 	var _cardActions2 = _interopRequireDefault(_cardActions);
 	
-	var _cardHeader = __webpack_require__(766);
+	var _cardHeader = __webpack_require__(767);
 	
 	var _cardHeader2 = _interopRequireDefault(_cardHeader);
 	
@@ -70227,11 +70551,11 @@
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
 	
-	var _cardText = __webpack_require__(767);
+	var _cardText = __webpack_require__(768);
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
 	
-	var _textField = __webpack_require__(777);
+	var _textField = __webpack_require__(778);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
@@ -70243,15 +70567,15 @@
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _CourseModuleInfo = __webpack_require__(768);
+	var _CourseModuleInfo = __webpack_require__(769);
 	
 	var _CourseModuleInfo2 = _interopRequireDefault(_CourseModuleInfo);
 	
-	var _CourseModuleExperiment = __webpack_require__(769);
+	var _CourseModuleExperiment = __webpack_require__(770);
 	
 	var _CourseModuleExperiment2 = _interopRequireDefault(_CourseModuleExperiment);
 	
-	var _Video = __webpack_require__(816);
+	var _Video = __webpack_require__(817);
 	
 	var _Video2 = _interopRequireDefault(_Video);
 	
@@ -70370,7 +70694,7 @@
 	exports.default = VideoReview;
 
 /***/ },
-/* 816 */
+/* 817 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70423,7 +70747,7 @@
 	exports.default = Video;
 
 /***/ },
-/* 817 */
+/* 818 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70438,11 +70762,11 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _AddTodo = __webpack_require__(818);
+	var _AddTodo = __webpack_require__(819);
 	
 	var _AddTodo2 = _interopRequireDefault(_AddTodo);
 	
-	var _VisibleTodoList = __webpack_require__(819);
+	var _VisibleTodoList = __webpack_require__(820);
 	
 	var _VisibleTodoList2 = _interopRequireDefault(_VisibleTodoList);
 	
@@ -70453,6 +70777,10 @@
 	var _flatButton = __webpack_require__(625);
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
+	
+	var _iconButton = __webpack_require__(661);
+	
+	var _iconButton2 = _interopRequireDefault(_iconButton);
 	
 	var _paper = __webpack_require__(654);
 	
@@ -70466,7 +70794,7 @@
 	
 	var _listItem2 = _interopRequireDefault(_listItem);
 	
-	var _info = __webpack_require__(822);
+	var _info = __webpack_require__(823);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
@@ -70478,13 +70806,13 @@
 	
 	var _avatar2 = _interopRequireDefault(_avatar);
 	
-	var _folder = __webpack_require__(823);
+	var _folder = __webpack_require__(824);
 	
 	var _folder2 = _interopRequireDefault(_folder);
 	
-	var _assignment = __webpack_require__(824);
+	var _openInNew = __webpack_require__(825);
 	
-	var _assignment2 = _interopRequireDefault(_assignment);
+	var _openInNew2 = _interopRequireDefault(_openInNew);
 	
 	var _colors = __webpack_require__(614);
 	
@@ -70514,53 +70842,53 @@
 	
 	var _chevronLeft2 = _interopRequireDefault(_chevronLeft);
 	
-	var _iconButton = __webpack_require__(661);
-	
-	var _iconButton2 = _interopRequireDefault(_iconButton);
-	
 	var _check = __webpack_require__(665);
 	
 	var _check2 = _interopRequireDefault(_check);
 	
-	var _send = __webpack_require__(825);
+	var _send = __webpack_require__(826);
 	
 	var _send2 = _interopRequireDefault(_send);
 	
-	var _attachFile = __webpack_require__(826);
+	var _attachFile = __webpack_require__(827);
 	
 	var _attachFile2 = _interopRequireDefault(_attachFile);
 	
-	var _chatBubble = __webpack_require__(827);
+	var _chatBubble = __webpack_require__(828);
 	
 	var _chatBubble2 = _interopRequireDefault(_chatBubble);
 	
-	var _textField = __webpack_require__(777);
+	var _textField = __webpack_require__(778);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
-	var _card = __webpack_require__(761);
+	var _card = __webpack_require__(762);
 	
 	var _card2 = _interopRequireDefault(_card);
 	
-	var _cardActions = __webpack_require__(765);
+	var _cardActions = __webpack_require__(766);
 	
 	var _cardActions2 = _interopRequireDefault(_cardActions);
 	
-	var _cardHeader = __webpack_require__(766);
+	var _cardHeader = __webpack_require__(767);
 	
 	var _cardHeader2 = _interopRequireDefault(_cardHeader);
 	
-	var _cardMedia = __webpack_require__(828);
+	var _cardMedia = __webpack_require__(829);
 	
 	var _cardMedia2 = _interopRequireDefault(_cardMedia);
 	
-	var _cardTitle = __webpack_require__(829);
+	var _cardTitle = __webpack_require__(830);
 	
 	var _cardTitle2 = _interopRequireDefault(_cardTitle);
 	
-	var _cardText = __webpack_require__(767);
+	var _cardText = __webpack_require__(768);
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
+	
+	var _Theme = __webpack_require__(713);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -70632,9 +70960,10 @@
 	};
 	
 	var widgedStyle = {
-	  margin: '8px',
-	  backgroundColor: '#f9f9f9',
-	  padding: '20px 30px'
+	  backgroundColor: _Theme2.default.palette.backgroundColor,
+	  padding: '20px 30px',
+	  height: 500,
+	  overflowY: 'auto'
 	};
 	
 	var transparentBackground = {
@@ -70648,10 +70977,136 @@
 	var DialogModule = _react2.default.createClass({
 	  displayName: 'DialogModule',
 	
+	  that: undefined,
 	  getInitialState: function getInitialState() {
-	    return {};
+	    return {
+	      isLoadingDialog: true,
+	      newMessageValue: ""
+	    };
 	  },
+	  componentDidUpdate: function componentDidUpdate() {
+	    if (this.shouldScrollBottom) {
+	      var node = this.refs['dialogEntriesContainer'];
+	      node.scrollTop = node.scrollHeight;
+	    }
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var _this = this;
+	
+	    this.setState({
+	      isLoadingDialog: true
+	    });
+	
+	    //Load dialogs
+	    this.props.dispatch((0, _api.getUserDialogs)()).then(function (json) {
+	      //Format dates and username
+	      for (var i = 0; i < json.dialogs.userDialogs.length; i++) {
+	        var dialog = json.dialogs.userDialogs[i];
+	        for (var j = 0; j < dialog.entries.length; j++) {
+	          dialog.entries[j].timeStamp = new Date(dialog.entries[j].timeStamp);
+	          dialog.entries[j].displayName = dialog.entries[j].senderId === sessionStorage.sessionUser ? 'Dig' : dialog.entries[j].senderName;
+	        }
+	      }
+	
+	      var that = _this;
+	
+	      _this.setState({
+	        isLoadingDialog: false,
+	        userDialogs: json.dialogs.userDialogs,
+	        currentDialog: json.dialogs.userDialogs[0]
+	      }, function () {
+	
+	        var node = this.refs['dialogEntriesContainer'];
+	        node.scrollTop = node.scrollHeight;
+	      });
+	    });
+	  },
+	
+	  handleNewMessageChange: function handleNewMessageChange(event) {
+	    this.setState({
+	      newMessageValue: event.target.value
+	    });
+	  },
+	
+	  selectDialog: function selectDialog(index) {
+	    this.setState({
+	      currentDialog: this.state.userDialogs[index]
+	    });
+	    this.shouldScrollBottom = true;
+	  },
+	
+	  openUserResults: function openUserResults(user) {
+	    window.location.assign("/#/exerciseResult/" + user);
+	  },
+	
+	  handleSend: function handleSend(event) {
+	
+	    this.state.currentDialog.entries.push({
+	      senderName: sessionStorage.sessionFirstName,
+	      displayName: 'Dig',
+	      senderImageUrl: null,
+	      text: this.state.newMessageValue,
+	      timeStamp: new Date(),
+	      senderId: sessionStorage.sessionUser,
+	      senderImageUrl: sessionStorage.sessionImageUrl
+	    });
+	    this.setState({
+	      newMessageValue: ""
+	    });
+	
+	    //Post to server
+	    this.props.dispatch((0, _api.postDialogMessage)(this.state.newMessageValue, this.state.currentDialog.sender, sessionStorage.sessionUser)).then(function (j) {
+	      var foo = 3;
+	    });
+	
+	    this.shouldScrollBottom = true;
+	  },
+	
 	  render: function render() {
+	    var _this2 = this;
+	
+	    var that = this;
+	
+	    var entries = this.state.currentDialog !== undefined ? this.state.currentDialog.entries.map(function (e, index) {
+	      return _react2.default.createElement(
+	        _card2.default,
+	        { style: {
+	            marginBottom: 16,
+	            marginLeft: e.senderId === sessionStorage.sessionUser ? 32 : 0,
+	            marginRight: e.senderId === sessionStorage.sessionUser ? 0 : 32 } },
+	        _react2.default.createElement(_cardHeader2.default, {
+	          title: e.displayName,
+	          subtitle: _react2.default.createElement(
+	            'span',
+	            null,
+	            e.timeStamp.toLocaleDateString(),
+	            ' - ',
+	            e.timeStamp.toLocaleTimeString().substring(0, 5)
+	          ),
+	          actAsExpander: false,
+	          showExpandableButton: false,
+	          avatar: _react2.default.createElement(
+	            _avatar2.default,
+	            { src: e.senderImageUrl },
+	            e.senderImageUrl === null ? e.senderName[0] : null
+	          )
+	        }),
+	        _react2.default.createElement(
+	          _cardText2.default,
+	          { style: { paddingTop: 4 } },
+	          e.text.split("\n").map(function (i, index) {
+	            return _react2.default.createElement(
+	              'span',
+	              null,
+	              i,
+	              ' ',
+	              index < e.text.split("\n").length - 1 ? _react2.default.createElement('br', null) : null
+	            );
+	          })
+	        )
+	      );
+	    }) : null;
+	
 	    return _react2.default.createElement(
 	      'div',
 	      { style: pageContainerStyle },
@@ -70679,11 +71134,6 @@
 	                    { style: title },
 	                    'Dine samtaler'
 	                  ),
-	                  _react2.default.createElement(
-	                    'h3',
-	                    { style: sloganStyle },
-	                    'Vælg en person og skriv'
-	                  ),
 	                  _react2.default.createElement('hr', null)
 	                )
 	              ),
@@ -70696,35 +71146,34 @@
 	                  _react2.default.createElement(
 	                    _list2.default,
 	                    { subheader: 'Seneste samtaler', style: { marginTop: 16 } },
-	                    _react2.default.createElement(_listItem2.default, {
-	                      primaryText: 'Tine',
-	                      secondaryText: _react2.default.createElement(
-	                        'p',
-	                        null,
-	                        _react2.default.createElement(
-	                          'span',
-	                          { style: { color: _colors2.default.darkBlack } },
-	                          'Din coach'
+	                    this.state.isLoadingDialog ? _react2.default.createElement(_circularProgress2.default, { size: 0.6, style: { marginTop: 16, width: '100%', textAlign: 'center' } }) : this.state.userDialogs.map(function (d, index) {
+	                      return _react2.default.createElement(_listItem2.default, {
+	                        primaryText: d.senderFullName,
+	                        onClick: _this2.selectDialog.bind(_this2, index),
+	                        style: { backgroundColor: that.state.currentDialog !== undefined && d.sender === that.state.currentDialog.sender ? _Theme2.default.palette.backgroundColor : _Theme2.default.palette.alternateTextColor },
+	                        secondaryText: _react2.default.createElement(
+	                          'p',
+	                          null,
+	                          d.senderDescripton === '' ? null : _react2.default.createElement(
+	                            'span',
+	                            { style: { color: _colors2.default.darkBlack } },
+	                            d.senderDescripton,
+	                            ' -- '
+	                          ),
+	                          d.latestEntry !== null ? d.latestEntry.text : null
 	                        ),
-	                        ' -- Hej Jørgen Jeg er din coach og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.'
-	                      ),
-	                      secondaryTextLines: 2,
-	                      leftAvatar: _react2.default.createElement(_avatar2.default, { src: 'assets/tine.jpg' })
-	                    }),
-	                    _react2.default.createElement(_listItem2.default, {
-	                      primaryText: 'Jens Jørgen',
-	                      secondaryText: _react2.default.createElement(
-	                        'p',
-	                        null,
-	                        _react2.default.createElement(
-	                          'span',
-	                          { style: { color: _colors2.default.darkBlack } },
-	                          'Din ven'
-	                        ),
-	                        ' -- Det var en fin præsentation, den kunne jeg godt lide.'
-	                      ),
-	                      secondaryTextLines: 2,
-	                      leftAvatar: _react2.default.createElement(_avatar2.default, { src: 'assets/jens.jpg' })
+	                        secondaryTextLines: 2,
+	                        rightIconButton: _this2.props.route.isCoachDialog ? _react2.default.createElement(
+	                          _iconButton2.default,
+	                          { onClick: _this2.openUserResults.bind(_this2, d.sender), iconStyle: { width: 20, height: 20 }, tooltip: 'Se brugers resultater' },
+	                          _react2.default.createElement(_openInNew2.default, { hoverColor: _colors2.default.grey800, color: _colors2.default.grey500 })
+	                        ) : null,
+	                        leftAvatar: _react2.default.createElement(
+	                          _avatar2.default,
+	                          { src: d.senderImageUrl },
+	                          d.senderImageUrl === null ? d.senderFirstName[0] : null
+	                        )
+	                      });
 	                    })
 	                  )
 	                ),
@@ -70733,38 +71182,23 @@
 	                  { xs: 12, sm: 12, md: 12, lg: 8 },
 	                  _react2.default.createElement(
 	                    'div',
-	                    { style: widgedStyle },
+	                    null,
+	                    _react2.default.createElement('hr', { style: { margin: 0, display: 'block', border: 0, borderTop: '1px solid #D0D0D0' } }),
 	                    _react2.default.createElement(
 	                      'div',
-	                      { style: { height: 500 } },
-	                      _react2.default.createElement(
-	                        _card2.default,
+	                      { style: widgedStyle, ref: 'dialogEntriesContainer' },
+	                      this.state.isLoadingDialog ? _react2.default.createElement(_circularProgress2.default, { size: 0.6, style: { marginTop: 16, width: '100%', textAlign: 'center' } }) : this.state.currentDialog === undefined || this.state.currentDialog === null ? _react2.default.createElement(
+	                        'p',
+	                        { style: { color: _Theme2.default.palette.disabledColor } },
+	                        'Vælg en samtale'
+	                      ) : _react2.default.createElement(
+	                        'div',
 	                        null,
-	                        _react2.default.createElement(_cardHeader2.default, {
-	                          title: 'Tine',
-	                          subtitle: 'Jan 28, 2016',
-	                          actAsExpander: false,
-	                          showExpandableButton: false,
-	
-	                          avatar: 'assets/tine.jpg'
-	                        }),
-	                        _react2.default.createElement(
-	                          _cardText2.default,
-	                          null,
-	                          'Hej Jørgen',
-	                          _react2.default.createElement('br', null),
-	                          'Jeg er din coach og er til rådighed her på chatten. Jeg glæder mig til at høre fra dig.'
-	                        ),
-	                        _react2.default.createElement(
-	                          _cardActions2.default,
-	                          { expandable: true },
-	                          _react2.default.createElement(_flatButton2.default, { label: 'Action1' }),
-	                          _react2.default.createElement(_flatButton2.default, { label: 'Action2' })
-	                        )
+	                        entries
 	                      )
 	                    ),
-	                    _react2.default.createElement(_divider2.default, null),
-	                    _react2.default.createElement(
+	                    _react2.default.createElement('hr', { style: { margin: 0, display: 'block', border: 0, borderTop: '1px solid #D0D0D0' } }),
+	                    this.state.currentDialog === undefined ? null : _react2.default.createElement(
 	                      'div',
 	                      null,
 	                      _react2.default.createElement(
@@ -70772,16 +71206,18 @@
 	                        { style: { display: 'flex' } },
 	                        _react2.default.createElement(_textField2.default, {
 	                          style: { width: '100%' },
-	                          floatingLabelText: 'Besked til Tine',
+	                          floatingLabelText: 'Skriv en ny besked',
 	                          multiLine: true,
 	                          rows: 1,
-	                          rowsMax: 4
+	                          rowsMax: 4,
+	                          value: this.state.newMessageValue,
+	                          onChange: this.handleNewMessageChange
 	                        }),
 	                        _react2.default.createElement(
 	                          'div',
 	                          { style: { width: 300, display: 'flex' } },
-	                          _react2.default.createElement(_raisedButton2.default, { label: 'Send', labelPosition: 'before', icon: _react2.default.createElement(_send2.default, null), style: { marginTop: 28, marginLeft: 16, width: 100 }, primary: true, onClick: this.navigateToActiveModule }),
-	                          _react2.default.createElement(_raisedButton2.default, { label: 'Vedhæft', labelPosition: 'before', icon: _react2.default.createElement(_attachFile2.default, null), style: { marginTop: 28, marginLeft: 16, width: 140 }, secondary: true, onClick: this.navigateToActiveModule })
+	                          _react2.default.createElement(_raisedButton2.default, { label: 'Send', labelPosition: 'before', onClick: this.handleSend, icon: _react2.default.createElement(_send2.default, null), style: { marginTop: 28, marginLeft: 16, width: 100 }, primary: true }),
+	                          _react2.default.createElement(_raisedButton2.default, { label: 'Vedhæft', labelPosition: 'before', icon: _react2.default.createElement(_attachFile2.default, null), style: { marginTop: 28, marginLeft: 16, width: 140 }, secondary: true })
 	                        )
 	                      )
 	                    )
@@ -70802,7 +71238,7 @@
 	exports.default = DialogModule;
 
 /***/ },
-/* 818 */
+/* 819 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70855,7 +71291,7 @@
 	exports.default = AddTodo;
 
 /***/ },
-/* 819 */
+/* 820 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70868,7 +71304,7 @@
 	
 	var _actions = __webpack_require__(711);
 	
-	var _TodoList = __webpack_require__(820);
+	var _TodoList = __webpack_require__(821);
 	
 	var _TodoList2 = _interopRequireDefault(_TodoList);
 	
@@ -70908,7 +71344,7 @@
 	exports.default = VisibleTodoList;
 
 /***/ },
-/* 820 */
+/* 821 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70925,7 +71361,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Todo = __webpack_require__(821);
+	var _Todo = __webpack_require__(822);
 	
 	var _Todo2 = _interopRequireDefault(_Todo);
 	
@@ -70961,7 +71397,7 @@
 	exports.default = TodoList;
 
 /***/ },
-/* 821 */
+/* 822 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71001,7 +71437,7 @@
 	exports.default = Todo;
 
 /***/ },
-/* 822 */
+/* 823 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71042,7 +71478,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 823 */
+/* 824 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71083,7 +71519,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 824 */
+/* 825 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71106,8 +71542,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var ActionAssignment = _react2.default.createClass({
-	  displayName: 'ActionAssignment',
+	var ActionOpenInNew = _react2.default.createClass({
+	  displayName: 'ActionOpenInNew',
 	
 	  mixins: [_reactAddonsPureRenderMixin2.default],
 	
@@ -71115,16 +71551,16 @@
 	    return _react2.default.createElement(
 	      _svgIcon2.default,
 	      this.props,
-	      _react2.default.createElement('path', { d: 'M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z' })
+	      _react2.default.createElement('path', { d: 'M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z' })
 	    );
 	  }
 	});
 	
-	exports.default = ActionAssignment;
+	exports.default = ActionOpenInNew;
 	module.exports = exports['default'];
 
 /***/ },
-/* 825 */
+/* 826 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71165,7 +71601,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 826 */
+/* 827 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71206,7 +71642,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 827 */
+/* 828 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71247,7 +71683,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 828 */
+/* 829 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71414,7 +71850,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 829 */
+/* 830 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71547,7 +71983,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 830 */
+/* 831 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71562,11 +71998,11 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _AddTodo = __webpack_require__(818);
+	var _AddTodo = __webpack_require__(819);
 	
 	var _AddTodo2 = _interopRequireDefault(_AddTodo);
 	
-	var _VisibleTodoList = __webpack_require__(819);
+	var _VisibleTodoList = __webpack_require__(820);
 	
 	var _VisibleTodoList2 = _interopRequireDefault(_VisibleTodoList);
 	
@@ -71590,7 +72026,7 @@
 	
 	var _listItem2 = _interopRequireDefault(_listItem);
 	
-	var _info = __webpack_require__(822);
+	var _info = __webpack_require__(823);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
@@ -71602,11 +72038,11 @@
 	
 	var _avatar2 = _interopRequireDefault(_avatar);
 	
-	var _folder = __webpack_require__(823);
+	var _folder = __webpack_require__(824);
 	
 	var _folder2 = _interopRequireDefault(_folder);
 	
-	var _assignment = __webpack_require__(824);
+	var _assignment = __webpack_require__(832);
 	
 	var _assignment2 = _interopRequireDefault(_assignment);
 	
@@ -71646,9 +72082,13 @@
 	
 	var _check2 = _interopRequireDefault(_check);
 	
-	var _ExerciseSelector = __webpack_require__(770);
+	var _ExerciseSelector = __webpack_require__(771);
 	
 	var _ExerciseSelector2 = _interopRequireDefault(_ExerciseSelector);
+	
+	var _Theme = __webpack_require__(713);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -71691,6 +72131,15 @@
 	  marginTop: '4px'
 	};
 	
+	var ModuleExercise = _react2.default.createClass({
+	  displayName: 'ModuleExercise',
+	
+	
+	  render: function render() {
+	    return this.props.ScoreCard.isCompleted ? _react2.default.createElement(_ExerciseSelector2.default, { scoreCard: this.props.ScoreCard, exerciseSelection: this.props.ScoreCard.exercise, liveExercise: false }) : null;
+	  }
+	});
+	
 	var ExerciseResultPage = _react2.default.createClass({
 	  displayName: 'ExerciseResultPage',
 	
@@ -71698,7 +72147,7 @@
 	    return {
 	      title: "",
 	      isLoading: false,
-	      exercises: []
+	      modules: []
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -71708,27 +72157,50 @@
 	      isLoading: true
 	    });
 	
-	    this.props.dispatch((0, _api.getModuleExercises)(this.props.params.moduleId)).then(function (json) {
+	    this.props.dispatch((0, _api.getUserResult)(this.props.params.userId)).then(function (json) {
 	      _this.setState({
 	        isLoading: false,
-	        title: json.exercises.title,
-	        exercises: json.exercises.exercises
+	        modules: json.results.moduleResults,
+	        user: json.results.user
 	      });
 	    });
 	  },
 	
 	  render: function render() {
 	
-	    var exercises = this.state.exercises.length > 0 ? this.state.exercises.map(function (element, i) {
-	      return element.elements;
-	    }).reduce(function (a, b) {
-	      var foo = 3;
-	      return a.concat(b);
-	    }).filter(function (element) {
-	      return element.className !== null;
-	    }).map(function (element, index) {
-	      return _react2.default.createElement(_ExerciseSelector2.default, { exerciseSelection: element });
+	    var modules = this.state.modules.length > 0 ? this.state.modules.map(function (element, i) {
+	      var isActiveOrComplete = element.moduleResults.some(function (e) {
+	        return e.isCompleted;
+	      });
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h2',
+	          { style: { color: isActiveOrComplete ? _Theme2.default.palette.textColor : _Theme2.default.palette.disabledColor } },
+	          i + 1,
+	          '. ',
+	          element.module.name
+	        ),
+	        isActiveOrComplete ? _react2.default.createElement(
+	          'div',
+	          null,
+	          element.moduleResults.map(function (element, index) {
+	            return _react2.default.createElement(
+	              'div',
+	              { style: { marginTop: index > 0 ? 16 : 0 } },
+	              _react2.default.createElement(ModuleExercise, { ScoreCard: element })
+	            );
+	          })
+	        ) : _react2.default.createElement(
+	          'p',
+	          { style: { color: _Theme2.default.palette.disabledColor, marginLeft: 16 } },
+	          'Dette modul er ikke påbegyndt'
+	        )
+	      );
 	    }) : null;
+	
 	    return _react2.default.createElement(
 	      'div',
 	      { style: pageContainerStyle },
@@ -71751,11 +72223,14 @@
 	                _react2.default.createElement(
 	                  Col,
 	                  { xs: 12, sm: 12, md: 12, lg: 12 },
-	                  _react2.default.createElement(
+	                  this.state.user !== undefined ? _react2.default.createElement(
 	                    'h1',
 	                    { style: title },
-	                    this.state.title
-	                  ),
+	                    'Resultater for ',
+	                    this.state.user.firstName,
+	                    ' ',
+	                    this.state.user.lastName
+	                  ) : null,
 	                  _react2.default.createElement('hr', null),
 	                  this.state.isLoading ? _react2.default.createElement(
 	                    'div',
@@ -71764,7 +72239,7 @@
 	                    _react2.default.createElement(_circularProgress2.default, { size: 0.4, style: { marginTop: '6px' } }),
 	                    ' '
 	                  ) : null,
-	                  exercises
+	                  modules
 	                )
 	              )
 	            )
@@ -71781,7 +72256,48 @@
 	exports.default = ExerciseResultPage;
 
 /***/ },
-/* 831 */
+/* 832 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAddonsPureRenderMixin = __webpack_require__(634);
+	
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+	
+	var _svgIcon = __webpack_require__(666);
+	
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ActionAssignment = _react2.default.createClass({
+	  displayName: 'ActionAssignment',
+	
+	  mixins: [_reactAddonsPureRenderMixin2.default],
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      _svgIcon2.default,
+	      this.props,
+	      _react2.default.createElement('path', { d: 'M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z' })
+	    );
+	  }
+	});
+	
+	exports.default = ActionAssignment;
+	module.exports = exports['default'];
+
+/***/ },
+/* 833 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71800,7 +72316,7 @@
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _textField = __webpack_require__(777);
+	var _textField = __webpack_require__(778);
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
@@ -71873,8 +72389,7 @@
 	  componentDidMount: function componentDidMount() {
 	    if (sessionStorage.getItem('isLoggedIn') === "true") {
 	      //We are logged in
-	
-	      window.location.assign("/#/dashboard");
+	      if (sessionStorage.sessionUserRoles.split(",").indexOf("Admin") >= 0) window.location.assign("/#/administration");else if (sessionStorage.sessionUserRoles.split(",").indexOf("Coach") >= 0) window.location.assign("/#/coachDialogOverview");else window.location.assign("/#/dashboard");
 	    }
 	  },
 	
@@ -71882,7 +72397,7 @@
 	    var that = this;
 	    this.props.dispatch((0, _authentication.loginUser)({ userId: this.state.userId, password: this.state.password })).then(function (json) {
 	      //We are logged in
-	      if (json.user.role === "Admin") window.location.assign("/#/administration");else window.location.assign("/#/dashboard");
+	      if (json.user.hasRole("Admin")) window.location.assign("/#/administration");else if (json.user.hasRole("Coach")) window.location.assign("/#/coachDialogOverview");else window.location.assign("/#/dashboard");
 	
 	      if (that.props.route.loginState.isLoggedIn !== undefined) that.props.route.loginState.isLoggedIn(true);
 	    }).catch(function (err) {

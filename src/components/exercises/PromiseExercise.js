@@ -12,6 +12,7 @@ import TextField from 'material-ui/lib/text-field';
 import CircularProgress from 'material-ui/lib/circular-progress';
 
 import { putModulePromiseResultById, getExerciseResult } from '../../actions/api'
+import Theme from '../Theme';
 
 const styles = {
   radioButton: {
@@ -64,29 +65,34 @@ let PromiseExercise = React.createClass({
 
   componentDidMount: function(){
     //Update server
-    if (this.props.liveExercise){
+    if (this.props.liveExercise && this.props.scoreCard === undefined){
       this.setState({isLoading: true});
       this.props.dispatch(getExerciseResult(this.props.exerciseId)).then(
         json => {
-
-          var resultItems = json.result.responses !== null ? this.state.resultItems.map(function(i,index){
-            i.score = json.result.responses[index].score;
-            return i;
-          }) : this.state.resultItems;
-
-          this.setState({
-            isLoading: false,
-            phase: json.result.isCompleted ? 1 : this.state.phase,
-            promiseText: json.result.promiseText,
-            exerciseGoalText:json.result.exerciseGoalText,
-            resultItems: resultItems
-          });
+          this.setScoreCard(json.result);
 
           this.props.exercisesStatusChanged(json.result.isCompleted, this.props.exercise);
         }
       );
     }
+    else if (this.props.scoreCard !== undefined)
+      this.setScoreCard(this.props.scoreCard);
 
+  },
+
+  setScoreCard: function(scoreCard){
+    var resultItems = scoreCard.responses !== null ? this.state.resultItems.map(function(i,index){
+      i.score = scoreCard.responses[index].score;
+      return i;
+    }) : this.state.resultItems;
+
+    this.setState({
+      isLoading: false,
+      phase: scoreCard.isCompleted ? 1 : this.state.phase,
+      promiseText: scoreCard.promiseText,
+      exerciseGoalText:scoreCard.exerciseGoalText,
+      resultItems: resultItems
+    });
   },
 
   componentWillReceiveProps: function(nextProps){
@@ -225,7 +231,7 @@ let PromiseExercise = React.createClass({
       <div style={{marginTop:40}}>
         <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
         <TextField style={{width: 400}}
-          hintText="Dit mål.." value={this.state.promiseText} onChange={this.onPromiseTextChanged}
+          hintText="Det vil jeg gøre..." value={this.state.promiseText} onChange={this.onPromiseTextChanged}
         />
         <RaisedButton primary={true} style={{marginLeft:16}}
           label="Ok" icon={<Done />} onClick={this.onFinished}></RaisedButton>
@@ -242,7 +248,7 @@ let PromiseExercise = React.createClass({
       return <CircularProgress size={0.4} style={{marginTop: '6px'}} />;
     else
       return (
-        <div>
+        <div style={{background:Theme.palette.backgroundColor, padding:'32px'}}>
           <p style={{marginBottom:0}}><span style={{color:'#777777', marginBottom:8, fontSize:'small'}}>Dit mål for øvelsen var:</span><br/><span>{this.state.exerciseGoalText}</span></p>
           {questions}
           {mainContent}

@@ -79,6 +79,8 @@ export function getAllCourseModules(courseId){
   }
 }
 
+
+
 //Get module
 export const REQUEST_API_MODULE = 'REQUEST_API_MODULE'
 function requestApiModule(moduleId) {
@@ -349,25 +351,27 @@ export function getCurrentUser() {
       )
       .catch(response => {
         console.log(response);
+        throw response;
       });
 
   }
 }
 
 //Current user result
-export const REQUEST_GET_CURRENT_USER_RESULT = 'REQUEST_GET_CURRENT_USER_RESULT'
-function requestCurrentUserResult() {
+export const REQUEST_GET_USER_RESULT = 'REQUEST_GET_USER_RESULT'
+function requestUserResult(userId) {
   return {
-    type: REQUEST_GET_CURRENT_USER_RESULT
+    type: REQUEST_GET_USER_RESULT
   }
 }
 
-export const RECEIVE_GET_CURRENT_USER_RESULT = 'RECEIVE_GET_CURRENT_USER_RESULT'
+export const RECEIVE_GET_USER_RESULT = 'RECEIVE_GET_USER_RESULT'
 
-export function receiveCurrentUserResult(json) {
+export function receiveUserResult(userId, json) {
   return {
-    type: RECEIVE_GET_CURRENT_USER_RESULT,
-    results: json,//json.data.children.map(child => child.data),
+    type: RECEIVE_GET_USER_RESULT,
+    results: json,
+    userId,
     receivedAt: Date.now()
   }
 }
@@ -377,26 +381,26 @@ export function receiveCurrentUserResult(json) {
 // Though its insides are different, you would use it just like any other action creator:
 // store.dispatch(fetchPosts('reactjs'))
 
-export function getCurrentUserResult() {
-
-  // Thunk middleware knows how to handle functions.
-  // It passes the dispatch method as an argument to the function,
-  // thus making it able to dispatch actions itself.
+export function getUserResult(userId) {
 
   return function (dispatch) {
 
     // First dispatch: the app state is updated to inform
     // that the API call is starting.
-    dispatch(requestCurrentUserResult())
+    dispatch(requestUserResult());
+
+    var url = apiUrl + '/user/currentUser/results';
+    if (userId !== undefined)
+      url = apiUrl + '/user/' + userId + '/results';
 
     // Secondly invoke the remote API and return a promise
-    return axios.get(apiUrl + '/user/currentUser/results')
+    return axios.get(url)
       .then(response => response.data)
       .then(json =>
 
         // Final dispatch: Here, we update the app state with the results of the API call.
         // NOTE: We can dispatch many times!
-        dispatch(receiveCurrentUserResult(json))
+        dispatch(receiveUserResult(userId, json))
       )
       .catch(response => {
         console.log(response);
@@ -524,6 +528,36 @@ export function putExerciseGoalResultById(exerciseId, result){
   }
 };
 
+export const PUT_API_EXERCISE_VIDEO_RESULT = 'PUT_API_EXERCISE_VIDEO_RESULT'
+function putExerciseVideoResult(exerciseId, result) {
+  return {
+    type: PUT_API_EXERCISE_VIDEO_RESULT,
+    exerciseId,
+    result
+  }
+}
+
+export function putExerciseVideoResultById(exerciseId, result){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(putExerciseVideoResult(exerciseId, result))
+
+    return axios.put(apiUrl + '/user/currentUser/videoexercise/'+ exerciseId + '/result/', result)
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveApiUpdatedResourceId(exerciseId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+};
+//putExerciseVideoResultById
+
 export const PUT_API_MODULE_PROMISE_RESULT = 'PUT_API_MODULE_PROMISE_RESULT'
 function putModulePromiseResult(exerciseId, result) {
   return {
@@ -628,6 +662,86 @@ export function getModuleExercises(moduleId){
         // Final dispatch: Here, we update the app state with the results of the API call.
         // NOTE: We can dispatch many times!
         dispatch(receiveAllModuleExercises(moduleId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+}
+
+//User dialogs
+export const REQUEST_USER_DIALOGS = 'REQUEST_USER_DIALOGS'
+function requestUserDialogs() {
+  return {
+    type: REQUEST_USER_DIALOGS
+  }
+}
+
+export const RECEIVE_USER_DIALOGS = 'RECEIVE_USER_DIALOGS'
+export function receiveUserDialogs(json) {
+  return {
+    type: RECEIVE_USER_DIALOGS,
+    dialogs: json,
+    receivedAt: Date.now()
+  }
+}
+
+export function getUserDialogs(){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(requestUserDialogs())
+
+    return axios.get(apiUrl + '/user/currentUser/dialogs/')
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveUserDialogs(json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+}
+
+
+//Post dialog message
+export const REQUEST_POST_DIALOG_MESSAGE = 'REQUEST_POST_DIALOG_MESSAGE'
+function requestPostDialogMessage(message, receiverUserId, senderUserId) {
+  return {
+    type: REQUEST_POST_DIALOG_MESSAGE,
+    message,
+    receiverUserId,
+    senderUserId
+  }
+}
+
+export const RECEIVE_POST_DIALOG_MESSAGE = 'RECEIVE_POST_DIALOG_MESSAGE'
+export function receivePostDialogMessage(json) {
+  return {
+    type: RECEIVE_POST_DIALOG_MESSAGE,
+    dialogEntry: json,
+    receivedAt: Date.now()
+  }
+}
+
+export function postDialogMessage(message, receiverUserId, senderUserId){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(requestPostDialogMessage(message, receiverUserId, senderUserId))
+
+    return axios.post(apiUrl + '/dialog/',
+      {message, receiverUserId, senderUserId}
+    )
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receivePostDialogMessage(json))
       )
       .catch(response => {
         console.log(response);

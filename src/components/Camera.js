@@ -36,7 +36,7 @@ var Camera = React.createClass({
 
   shouldComponentUpdate: function() {
     // Let's just never update this component again.
-    return true;
+    return false;
   },
 
   render: function() {
