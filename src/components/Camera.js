@@ -8,12 +8,10 @@ var Camera = React.createClass({
   componentDidMount: function() {
     console.log("componentDidMount");
 
-    $(this.refs.placeholder).append($('<camera id="VideoPresentationCamera" data-app-id="a-d90a5c50-c1dc-0133-453d-0a121b885d5b"></camera>'));
-
     console.log(CameraTag);
 
     var ctx = this;
-
+    CameraTag.setup();
     CameraTag.observe("VideoPresentationCamera", "initialized", function(){
       console.log("Camera initialized");
     });
@@ -42,7 +40,13 @@ var Camera = React.createClass({
   render: function() {
     console.log("render");
 
-    return <div ref="placeholder"/>;
+    return <camera
+      style={{width:460, height:340}}
+      id="VideoPresentationCamera"
+      data-app-id="a-d90a5c50-c1dc-0133-453d-0a121b885d5b"
+      data-maxlength='300'
+      data-txt-message='Tryk her <<url>> for at optage video'
+      data-default-sms-country='dk'></camera>;
   }
 });
 

@@ -17,7 +17,8 @@ const items = [
   <MenuItem key={2} value={'VideoExercise'} primaryText="Videoøvelse"/>,
   <MenuItem key={3} value={'KPExplorerQuestionnaire'} primaryText="KP explorer"/>,
   <MenuItem key={4} value={'Promise'} primaryText="Reflektion" />,
-  <MenuItem key={5} value={'Goal'} primaryText="Mål for øvelse" />
+  <MenuItem key={5} value={'Goal'} primaryText="Mål for øvelse" />,
+  <MenuItem key={6} value={'QuestionAnswer'} primaryText="Spærgsmål og fritekstsvar" />
 ];
 
 var ConfigureExerciseDialog = React.createClass({
@@ -246,30 +247,53 @@ var ConfigureExerciseDialog = React.createClass({
                     onClick={this.openEditText.bind(this, 1)}
                     />
 
-                    <Divider />
-                    <h5 style={{marginBottom:0}}>Afsluttende tekst</h5>
+                  <Divider />
+                  <h5 style={{marginBottom:0}}>Disclaimer</h5>
 
-                    <div dangerouslySetInnerHTML={this.getHtmlText(2)}/>
+                  <div dangerouslySetInnerHTML={this.getHtmlText(2)}/>
+                  <FlatButton
+                    label="Redigér"
+                    secondary={true}
+                    style={{marginBottom:21}}
+                    onClick={this.openEditText.bind(this, 2)}
+                    />
+
+                  <Divider />
+                  <h5 style={{marginBottom:0}}>Afsluttende tekst</h5>
+
+                  <div dangerouslySetInnerHTML={this.getHtmlText(3)}/>
+                  <FlatButton
+                    label="Redigér"
+                    secondary={true}
+                    style={{marginBottom:21}}
+                    onClick={this.openEditText.bind(this, 3)}
+                    />
+
+                    <Divider />
+                    <h5 style={{marginBottom:0}}>Venter på svar</h5>
+
+                    <div dangerouslySetInnerHTML={this.getHtmlText(4)}/>
                     <FlatButton
                       label="Redigér"
                       secondary={true}
                       style={{marginBottom:21}}
-                      onClick={this.openEditText.bind(this, 2)}
+                      onClick={this.openEditText.bind(this, 4)}
                       />
+
+                      <Divider />
+                      <h5 style={{marginBottom:0}}>Afslut</h5>
+
+                      <div dangerouslySetInnerHTML={this.getHtmlText(5)}/>
+                      <FlatButton
+                        label="Redigér"
+                        secondary={true}
+                        style={{marginBottom:21}}
+                        onClick={this.openEditText.bind(this, 5)}
+                        />
                 </div>,
               'KPExplorerQuestionnaire':
                 <div>
-                  <h4 style={{marginBottom:0}}>Indtast spørgsmål</h4>
-                  <TextField
-                    hintText="Indtast spørgsmål adskildt med semikolon ';'"
-                    multiLine={true}
-                    fullWidth={true}
-                    rowsMax={4}
-                    value={this.state.configuration}
-                    onChange={this.configurationChanged}
-                  />
 
-                  <h4 style={{marginBottom:0}}>Opgavetekser:</h4>
                   <h5 style={{marginBottom:0}}>Indledende opgavetekst</h5>
 
                   <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
@@ -301,6 +325,29 @@ var ConfigureExerciseDialog = React.createClass({
                     style={{marginBottom:21}}
                     onClick={this.openEditText.bind(this, 0)}
                     />
+                </div>,
+              'QuestionAnswer':
+                <div>
+                <h5 style={{marginBottom:0}}>Spørgsmål</h5>
+
+                  <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
+                  <FlatButton
+                    label="Redigér"
+                    secondary={true}
+                    style={{marginBottom:21}}
+                    onClick={this.openEditText.bind(this, 0)}
+                    />
+
+                <Divider />
+                <h5 style={{marginBottom:0}}>Hjælpetekst</h5>
+
+                <div dangerouslySetInnerHTML={this.getHtmlText(1)}/>
+                <FlatButton
+                  label="Redigér"
+                  secondary={true}
+                  style={{marginBottom:21}}
+                  onClick={this.openEditText.bind(this, 1)}
+                  />
                 </div>,
               'Promise':
               <div>

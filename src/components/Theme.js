@@ -11,7 +11,7 @@ export default {
     primary1Color: '#6597AF',//Colors.cyan500,
     primary2Color: '#AAC3Cf', //'#A8B3B8',
     primary3Color: Colors.lightBlack,
-    backgroundColor: '#EFEFEF',
+    backgroundColor: '#F1F1F1',
     accent1Color: '#EC9D5B',
     accent2Color: '#ECBF64',
     widgetGreen: '#5A984B',

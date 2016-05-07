@@ -181,7 +181,7 @@ let SortPhase = React.createClass({
         };
 
         const itemContainerStyle = {
-          maxWidth: 300,
+          maxWidth: 360,
           display: 'block',
           marginTop: '8px',
         };
@@ -371,7 +371,7 @@ let SortaAndEvaluateExercise = React.createClass({
           <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
           <RaisedButton
             labelPosition="before" primary={true}
-            label={'Start øvelse'} onClick={this.onStart}
+            label={'Start'} onClick={this.onStart}
             style={{marginTop:'16px'}}
             icon={<Play />}></RaisedButton>
         </div>
@@ -411,13 +411,10 @@ let SortaAndEvaluateExercise = React.createClass({
                   <div>
                     <h4>{index + 1}. {i.title}</h4>
 
-                    <h5 style={{marginBottom:0}}>Fortæl historien</h5>
                     <p>{i.description}</p>
 
-                    <h5 style={{marginBottom:0}}>Hvad har oplevelsen betydet for dig?</h5>
                     <p>{i.meaning}</p>
 
-                    <h5 style={{marginBottom:0}}>Hvilken positiv virkning har den haft på dig?</h5>
                     <p>{i.effect}</p>
                     <br/>
                   </div>

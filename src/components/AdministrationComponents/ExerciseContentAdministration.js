@@ -105,6 +105,15 @@ const ExerciseElement = React.createClass({
     });
   },
 
+  moveUp: function(){
+    this.props.onMoveUp(this.props.model);
+  },
+
+  moveDown: function(){
+    this.props.onMoveDown(this.props.model);
+  },
+
+
   render: function(){
     var editText = this.state.isEditing ? (this.state.isTextDirty ? "Afslut uden at gemme" : "Afslut redigering") : "Redigér indhold";
     return (
@@ -127,10 +136,11 @@ const ExerciseElement = React.createClass({
 
             {this.props.isEditEnabled ?
             <div>
-              <div>
-                <span style={{color:'#666666'}}>Foretag ændringer: </span>
+              <div style={{marginTop:16}}>
                 <FlatButton onClick={this.toggleEditing} style={{padding:'0'}} secondary={true} label="Redigér opgavetekst"></FlatButton>
                 <FlatButton onClick={this.openExerciseDialog} secondary={true} style={{marginLeft:'8px', padding:'0'}} label="Vælg opgavetype"></FlatButton>
+                {!this.props.firstElement ? <FlatButton onClick={this.moveUp} secondary={true} style={{marginLeft:'8px', padding:'0'}} label="Flyt op"></FlatButton> : null}
+                <FlatButton onClick={this.moveDown} secondary={true} style={{marginLeft:'8px', padding:'0'}} label="Flyt ned"></FlatButton>
                 <ExerciseDialog selected={this.state.exerciseSelection} open={this.state.isExerciseDialogOpen} onCancel={this.cancelExerciseDialog} onSubmit={this.submitExerciseDialog} />
                 {!this.props.firstElement ? <FlatButton onClick={this.removeItem} secondary={true} style={{marginLeft:'8px', padding:'0'}} label="Fjern"></FlatButton> : null}
               </div>
@@ -259,6 +269,31 @@ let ExerciseContentAdministration = React.createClass({
 
   },
 
+  moveExerciseElementUp : function(element){
+    var index = this.state.exerciseElements.indexOf(element);
+    if (index > 0) {
+      this.move(index, index - 1);
+    }
+  },
+
+  moveExerciseElementDown:function(element){
+    var index = this.state.exerciseElements.indexOf(element);
+    if (index > -1 && index < this.state.exerciseElements.length -1) {
+      this.move(index, index + 1);
+    }
+  },
+
+  move: function(from, to){
+    this.state.exerciseElements.splice(to, 0, this.state.exerciseElements.splice(from, 1)[0]);
+
+    this.setState({
+      exerciseElements : this.state.exerciseElements.slice(0)
+    }, function(){
+      //The state change has taken effect
+      this.saveResource();
+    });
+  },
+
   toggleEditing : function(){
     this.setState({isEditing: !this.state.isEditing})
   },
@@ -268,7 +303,7 @@ let ExerciseContentAdministration = React.createClass({
     var editText = this.state.isEditing ? (this.state.isDirty ? "Afslut uden at gemme" : "Afslut redigering") : "Redigér indhold";
 
     var Elements = this.state.exerciseElements.map((i, index) => (
-      <ExerciseElement key={index} firstElement={index === 0} isEditEnabled={this.state.isEditing} removeItem={this.removeExerciseElement} model={i} initiateSave={this.saveResource} onDirtyFlagRaised={this.onDirtyFlagRaised} />
+      <ExerciseElement key={i.exerciseId} firstElement={index === 0} isEditEnabled={this.state.isEditing} removeItem={this.removeExerciseElement} onMoveUp={this.moveExerciseElementUp} onMoveDown={this.moveExerciseElementDown} model={i} initiateSave={this.saveResource} onDirtyFlagRaised={this.onDirtyFlagRaised} />
     ));
 
     var Editor = this.state.exerciseElements.length > 0 ?

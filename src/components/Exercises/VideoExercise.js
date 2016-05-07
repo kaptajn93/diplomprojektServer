@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/lib/raised-button';
 
 import Play from 'material-ui/lib/svg-icons/av/play-arrow';
+import Replay from 'material-ui/lib/svg-icons/av/replay';
+import Record from 'material-ui/lib/svg-icons/av/fiber-manual-record'
 import Forward from 'material-ui/lib/svg-icons/navigation/arrow-forward';
 import Done from 'material-ui/lib/svg-icons/action/done';
 
 import TextField from 'material-ui/lib/text-field';
 
 import CircularProgress from 'material-ui/lib/circular-progress';
-import Camera from '../Camera';
-import { shareVideo } from '../../actions/shareVideo';
+import Video from '../Video';
 
 import { putExerciseVideoResultById, getExerciseResult } from '../../actions/api'
 import Theme from '../Theme';
@@ -49,7 +50,17 @@ let VideoExercise = React.createClass({
   setScoreCard: function(scoreCard){
     this.setState({
       isLoading: false,
-      phase: scoreCard.isCompleted ? 1 : this.state.phase,
+      phase: scoreCard.phase,
+      firstName:scoreCard.firstName,
+      lastName:scoreCard.lastName,
+      email:scoreCard.email,
+      userMessage:scoreCard.userMessage,
+      messageHeading:"Besked til din ven",
+      videoUuid: scoreCard.videoUuid,
+      videoReply: scoreCard.videoReply,
+      reviewerFirstName: scoreCard.reviewerFirstName,
+      reviewerLastName: scoreCard.reviewerLastName,
+      reviewerEmail: scoreCard.reviewerEmail
     });
   },
 
@@ -66,15 +77,44 @@ let VideoExercise = React.createClass({
       this.refs.firstNameInput.focus()
     });
 
-    if (this.props.onFinished !== undefined)
-      this.props.onFinished(items);
+    /*if (this.props.onFinished !== undefined)
+      this.props.onFinished(items);*/
 
       //Update server
     if (this.props.liveExercise){
-      this.props.dispatch(putExerciseVideoResultById(this.props.exerciseId, {exerciseId:this.props.exerciseId, isCompleted:true}));
+      this.props.dispatch(putExerciseVideoResultById(this.props.exerciseId, {exerciseId:this.props.exerciseId, isCompleted:false, phase:1}));
       this.props.exercisesStatusChanged(true, this.props.exercise);
     }
 
+  },
+
+  onSubmitReviewUser: function(){
+    this.setState({
+      isSubmittingReviewUser:true
+    });
+
+      //Update server
+    if (this.props.liveExercise){
+      this.props.dispatch(putExerciseVideoResultById(this.props.exerciseId, {
+        exerciseId:this.props.exerciseId, isCompleted:false,
+        phase:2,
+        reviewerFirstName:this.state.firstName,
+        reviewerLastName:this.state.lastName,
+        reviewerEmail:this.state.email,
+        mesageToReviewer:this.state.userMessage,
+      })).then(json => {
+
+        this.setState({
+          phase: 2
+        });
+        window.location.assign('/#/videorecord/' + this.props.exerciseId);
+      });
+      this.props.exercisesStatusChanged(true, this.props.exercise);
+    }
+  },
+
+  navigateToRecord: function(){
+    window.location.assign('/#/videorecord/' + this.props.exerciseId);
   },
 
   getHtmlText: function(textIndex){
@@ -144,17 +184,52 @@ let VideoExercise = React.createClass({
           multiLine={true}
       rows={1}
       rowsMax={4}/><br/>
-        <RaisedButton primary={true} style={{marginTop:32}}
-          label="Fortsæt" icon={<Play />} onClick={this.onFinished}></RaisedButton>
+        <div dangerouslySetInnerHTML={this.getHtmlText(2)} style={{ marginTop:32}}></div>
+        <RaisedButton primary={true}
+          label="Fortsæt" icon={<Play />} onClick={this.onSubmitReviewUser}></RaisedButton>
       </div>
     }
 
     else if (this.state.phase === 2){
       mainContent =
         <div>
-          <div dangerouslySetInnerHTML={this.getHtmlText(2)}></div>
+          <div dangerouslySetInnerHTML={this.getHtmlText(3)}></div>
+          <p>Modtager: {this.state.reviewerFirstName} {this.state.reviewerLastName} ({this.state.reviewerEmail})</p>
+          <RaisedButton secondary={true}
+            label='Vælg en ande modtager' icon={<Replay />} onClick={this.onStart}></RaisedButton>
+          <RaisedButton primary={true}
+            label='Begynd at optage' icon={<Record />} style={{marginLeft:16}} onClick={this.navigateToRecord}></RaisedButton>
 
+        </div>
+    }
 
+    else if (this.state.phase === 3){
+      mainContent =
+        <div>
+          <div dangerouslySetInnerHTML={this.getHtmlText(4)}></div>
+          <div style={{padding:8, textAlign:'center', background:'#060606', marginTop:32}}>
+            <Video uuid={this.state.videoUuid}></Video>
+          </div>
+        </div>
+    }
+
+    else if (this.state.phase === 4){
+      mainContent =
+        <div>
+          <h3>Du har fået svar fra {this.state.reviewerFirstName}:</h3>
+          <div style={{background:Theme.palette.primary2Color, color:Theme.palette.alternateTextColor, padding:'8 24'}}>
+            <p><i>
+              {
+                this.state.videoReply.split("\n").map((i, index) => (
+                  <span>{i} { index < this.state.videoReply.split("\n").length - 1 ?  <br/> : null}</span>))
+              }
+            </i></p>
+          </div>
+
+          <div style={{padding:8, textAlign:'center', background:'#060606', marginTop:16}}>
+            <Video uuid={this.state.videoUuid}></Video>
+          </div>
+          <div style={{marginTop:32}} dangerouslySetInnerHTML={this.getHtmlText(5)}></div>
         </div>
     }
 

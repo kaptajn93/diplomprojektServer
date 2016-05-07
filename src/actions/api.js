@@ -376,11 +376,6 @@ export function receiveUserResult(userId, json) {
   }
 }
 
-
-// Meet our first thunk action creator!
-// Though its insides are different, you would use it just like any other action creator:
-// store.dispatch(fetchPosts('reactjs'))
-
 export function getUserResult(userId) {
 
   return function (dispatch) {
@@ -409,6 +404,51 @@ export function getUserResult(userId) {
   }
 }
 
+//Current user result
+export const REQUEST_GET_MODULE_RESULT = 'REQUEST_GET_MODULE_RESULT'
+function requestModuleResult(moduleId) {
+  return {
+    type: REQUEST_GET_MODULE_RESULT
+  }
+}
+
+export const RECEIVE_GET_MODULE_RESULT = 'RECEIVE_GET_MODULE_RESULT'
+
+export function receiveModuleResult(moduleId, json) {
+  return {
+    type: RECEIVE_GET_MODULE_RESULT,
+    results: json,
+    moduleId,
+    receivedAt: Date.now()
+  }
+}
+
+export function getModuleResults(moduleId) {
+
+  return function (dispatch) {
+
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(requestModuleResult());
+
+    var url = apiUrl + '/user/currentUser/module/' + moduleId + '/results';
+
+    // Secondly invoke the remote API and return a promise
+    return axios.get(url)
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveModuleResult(moduleId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+
+  }
+}
+
 //Update sort and eval exercise
 export const RESET_COURSE_ADMISSION = 'RESET_COURSE_ADMISSION'
 function requestResetCourseAdmission() {
@@ -417,13 +457,13 @@ function requestResetCourseAdmission() {
   }
 }
 
-export function resetCourseAdmission(){
+export function resetCourseAdmissionToModule(moduleIndex){
   return function (dispatch){
     // First dispatch: the app state is updated to inform
     // that the API call is starting.
     dispatch(requestResetCourseAdmission())
 
-    return axios.put(apiUrl + '/user/currentUser/resetCourseAdmission/')
+    return axios.put(apiUrl + '/user/currentUser/resetCourseAdmissionToModule/' + moduleIndex)
       .then(response => response.data)
       .then(json =>
 
@@ -528,6 +568,37 @@ export function putExerciseGoalResultById(exerciseId, result){
   }
 };
 
+
+export const PUT_API_QUESTION_ANSWER_RESULT = 'PUT_API_QUESTION_ANSWER_RESULT'
+function putQuestionAnswerResult(exerciseId, result) {
+  return {
+    type: PUT_API_EXERCISE_GOAL_RESULT,
+    exerciseId,
+    result
+  }
+}
+
+export function putQuestionAnswerResultById(exerciseId, result){
+  return function (dispatch){
+    // First dispatch: the app state is updated to inform
+    // that the API call is starting.
+    dispatch(putQuestionAnswerResult(exerciseId, result))
+
+    return axios.put(apiUrl + '/user/currentUser/questionAnswerExercise/'+ exerciseId + '/result/', result)
+      .then(response => response.data)
+      .then(json =>
+
+        // Final dispatch: Here, we update the app state with the results of the API call.
+        // NOTE: We can dispatch many times!
+        dispatch(receiveApiUpdatedResourceId(exerciseId, json))
+      )
+      .catch(response => {
+        console.log(response);
+      });
+  }
+};
+
+
 export const PUT_API_EXERCISE_VIDEO_RESULT = 'PUT_API_EXERCISE_VIDEO_RESULT'
 function putExerciseVideoResult(exerciseId, result) {
   return {
@@ -556,6 +627,8 @@ export function putExerciseVideoResultById(exerciseId, result){
       });
   }
 };
+
+
 //putExerciseVideoResultById
 
 export const PUT_API_MODULE_PROMISE_RESULT = 'PUT_API_MODULE_PROMISE_RESULT'

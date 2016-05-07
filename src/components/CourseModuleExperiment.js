@@ -20,6 +20,7 @@ let CourseModuleExperiment = React.createClass({
     return {
       exerciseElements : [],
       isLoadingResource:false,
+      currentIndex: -1
     };
   },
 
@@ -28,18 +29,44 @@ let CourseModuleExperiment = React.createClass({
       return;
 
     this.setState({isLoadingResource:true, exerciseElements:[]});
+
     this.props.dispatch(getExerciseResourceById(resourceId)).then(
       json => {
-      this.setState({
-        exerciseElements : json.resource.elements,
-        isLoadingResource:false
-      });
+
 
       //Set all elements not completed
-      for (var i = 0; i < json.resource.elements.length; i++) {
+      /*for (var i = 0; i < json.resource.elements.length; i++) {
         json.resource.elements[i].isComplete = false;
+      }*/
+
+      for (var i = 0; i < json.resource.elements.length; i++) {
+        json.resource.elements[i].scoreCard = this.props.results.filter(r => r.exerciseId === json.resource.elements[i].exerciseId)[0];
       }
 
+      //Set all elements status based their scoreCard
+      for (var i = 0; i < json.resource.elements.length; i++) {
+        json.resource.elements[i].isCompleted = json.resource.elements[i].scoreCard !== undefined ?
+          json.resource.elements[i].scoreCard.isCompleted: true;
+      }
+
+      var currentIndex = 0;
+      var incompleted = json.resource.elements.filter(e => !e.isCompleted );
+
+      if (incompleted.length > 0)
+      {
+        currentIndex = json.resource.elements.indexOf(incompleted[0]);
+      }
+      else if (this.props.isModuleActive)
+        currentIndex = json.resource.elements.length - 1;
+
+      if (incompleted.length === 0)
+        this.props.exercisesStatusChanged(true);
+
+      this.setState({
+        exerciseElements : json.resource.elements,
+        isLoadingResource:false,
+        currentIndex:currentIndex
+      });
       //this.props.exercisesStatusChanged(json.)
 
       this.currentResourceId = json.resource.id
@@ -57,33 +84,43 @@ let CourseModuleExperiment = React.createClass({
   },
 
   componentWillReceiveProps: function(nextProps){
-    if (nextProps.resourceId !== undefined)
-      this.getResource(nextProps.resourceId);
+    /*if (nextProps.resourceId !== undefined)
+      this.getResource(nextProps.resourceId);*/
 
     if (nextProps.isActive){
       this.setState({isActive:nextProps.isActive});
     }
   },
 
-  exerciseStatusChanged: function(isComplete, exercise){
-    exercise.isComplete = isComplete;
-    var numComplete = this.state.exerciseElements.filter(e => e.isComplete).length;
+  exerciseStatusChanged: function(isCompleted, exercise){
+    exercise.isCompleted = isCompleted;
+    var numComplete = this.state.exerciseElements.filter(e => e.isCompleted).length;
+
+    this.setState({
+      currentIndex: Math.min(numComplete, this.state.exerciseElements.length - 1)
+    });
 
     this.props.exercisesStatusChanged(numComplete === this.state.exerciseElements.length);
-    this.setState({numComplete: numComplete})
   },
 
   render : function() {
-    var firstIncomplete = this.state.exerciseElements.filter(e => !e.isComplete)[0];
-    var complete = this.state.exerciseElements.filter(e => e.isComplete);
+    //var firstIncomplete = this.state.exerciseElements.filter(e => !e.isComplete)[0];
+    //var complete = this.state.exerciseElements.filter(e => e.isComplete);
 
-    if (firstIncomplete !== undefined)
+    /*if (firstIncomplete !== undefined)
       complete.push(firstIncomplete);
+      */
 
-    var Elements = this.state.isActive ? complete.map((i, index) => (
+    var current = [this.state.exerciseElements[this.state.currentIndex]];
+    var Elements = this.state.isActive ? current.map((i, index) => (
       <div key={index}>
         <div dangerouslySetInnerHTML={{__html:i.content}} />
-        <ExerciseSelector onExerciseGoalUpdated={this.props.onExerciseGoalUpdated} exerciseGoalText={this.props.exerciseGoalText} exercisesStatusChanged={this.exerciseStatusChanged} exerciseSelection={i} liveExercise={true}></ExerciseSelector>
+        <ExerciseSelector
+          onExerciseGoalUpdated={this.props.onExerciseGoalUpdated}
+          exerciseGoalText={this.props.exerciseGoalText}
+          exercisesStatusChanged={this.exerciseStatusChanged}
+          exerciseSelection={i} liveExercise={true}
+          scoreCard={i.scoreCard}></ExerciseSelector>
       </div>
     )) :
     <div><h2 style={{textAlign:'center'}}>Du mangler at færdiggøre eksperimentet</h2></div>;
@@ -91,6 +128,7 @@ let CourseModuleExperiment = React.createClass({
 
     return (
       <div>
+        <div></div>
         {Elements}
       </div>
     );
@@ -99,26 +137,3 @@ let CourseModuleExperiment = React.createClass({
 CourseModuleExperiment = connect()(CourseModuleExperiment)
 
 export default CourseModuleExperiment;
-
-
-/*<h1>Opgave 1</h1>
-<h3>Hvad var godt ved dit gamle job?</h3>
-<p>Prøv at sortér begreberne herunder ift. hvad du bedst kunne lide ved dit gamle job</p>
-
-<SortableList/>
-
-<h1>Opgave 2</h1>
-<h3>Hvordan præsenterer du dig selv?</h3>
-<p>Film en præsentation af dig selv og del den med en ven</p>
-
-<Camera onPublish={videoUuid => {
-    console.log("onPublish invoked");
-    console.log(videoUuid);
-
-    dispatch(shareVideo(videoUuid));
-}}>
-</Camera>
-
-<div style={{textAlign: 'center', marginTop: 50}}>
-  <RaisedButton label="Færdig" primary={true} />
-</div>*/

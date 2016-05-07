@@ -71,7 +71,7 @@ let KPExplorerQuestionnaire = React.createClass({
   setScoreCard: function(scoreCard){
     this.setState({
       isLoading: false,
-      phase: scoreCard.isCompleted ? 2 : that.state.phase
+      phase: scoreCard.isCompleted ? 2 : this.state.phase
     });
   },
 

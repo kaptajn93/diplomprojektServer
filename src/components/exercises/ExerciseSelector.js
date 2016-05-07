@@ -4,6 +4,7 @@ import KPExplorerQuestionnaire from './KPExplorerQuestionnaire';
 import GoalExercise from './GoalExercise';
 import PromiseExercise from './PromiseExercise';
 import VideoExercise from './VideoExercise';
+import QuestionAnswerExercise from './QuestionAnswerExercise';
 
 var ExerciseSelector = React.createClass({
   getInitialState : function(){
@@ -37,6 +38,9 @@ var ExerciseSelector = React.createClass({
 
       else if (this.state.exerciseSelection.className === 'VideoExercise')
         return (<VideoExercise exercisesStatusChanged={this.props.exercisesStatusChanged} liveExercise={this.props.liveExercise} exerciseId={this.state.exerciseSelection.exerciseId} exercise={this.state.exerciseSelection} scoreCard={this.props.scoreCard}> </VideoExercise> );
+
+      else if (this.state.exerciseSelection.className === 'QuestionAnswer')
+        return (<QuestionAnswerExercise exercisesStatusChanged={this.props.exercisesStatusChanged} liveExercise={this.props.liveExercise} exerciseId={this.state.exerciseSelection.exerciseId} exercise={this.state.exerciseSelection} scoreCard={this.props.scoreCard}> </QuestionAnswerExercise> );
       return null;
   }
 });

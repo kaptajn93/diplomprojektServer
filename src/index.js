@@ -55,6 +55,7 @@ var loginState = {
 document.body.style.margin = "0px";
 document.body.style.padding = "0px";
 document.body.style.background = Theme.palette.backgroundColor;
+
 /*<IndexRoute component={LandingPage}/>*/
 ReactDOM.render(
   <Provider store={store}>
@@ -69,7 +70,7 @@ ReactDOM.render(
         <Route path="dialog" component={DialogModule} />
         <Route path="coachDialogOverview" isCoachDialog={true} component={DialogModule} />
         <Route path="exerciseResult/:userId" component={ExerciseResultPage} />
-        <Route path="videorecord" component={VideoRecord} />
+        <Route path="videorecord/:exerciseId" component={VideoRecord} />
       </Route>
     </Router>
   </Provider>,

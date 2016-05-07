@@ -1,14 +1,11 @@
 import React from 'react'
 
 var Video = React.createClass({
-  getInitialState: function() {
-    return {test: 'Weee'};
-  },
 
   componentDidMount: function() {
     console.log("componentDidMount");
 
-    $(this.refs.placeholder).append($('<video id="VideoToReviewPlayer" data-uuid="v-3a021256-a558-469c-8c4a-75743533e003"></video>'));
+    CameraTag.setup();
 
     console.log(CameraTag);
 
@@ -23,13 +20,16 @@ var Video = React.createClass({
 
   shouldComponentUpdate: function() {
     // Let's just never update this component again.
-    return true;
+    return false;
   },
 
   render: function() {
     console.log("render");
 
-    return <div ref="placeholder"/>;
+    return (
+      <div style={{marginLeft:'auto', marginRight:'auto', width:480}}>
+        <video  id="VideoToReviewPlayer" data-uuid={this.props.uuid}></video>
+      </div>);
   }
 });
 

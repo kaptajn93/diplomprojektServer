@@ -15,7 +15,6 @@ import TextField from 'material-ui/lib/text-field';
 
 import CourseModuleInfo from '../components/CourseModuleInfo';
 import CourseModuleExperiment from '../components/CourseModuleExperiment';
-import CourseModuleReflection from '../components/CourseModuleReflection';
 import DropDownMenu from 'material-ui/lib/DropDownMenu';
 
 import IntroductionContentAdministration from '../components/AdministrationComponents/IntroductionContentAdministration';

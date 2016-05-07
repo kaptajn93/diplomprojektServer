@@ -16,11 +16,10 @@ import Paper from 'material-ui/lib/paper';
 
 import CourseModuleInfo from '../components/CourseModuleInfo';
 import CourseModuleExperiment from '../components/CourseModuleExperiment';
-import CourseModuleReflection from '../components/CourseModuleReflection';
 
 import Theme from '../components/Theme';
 
-import { getModule } from '../actions/api';
+import { getModule, getModuleResults } from '../actions/api';
 
 const {Grid, Row, Col} = require('react-flexgrid');
 
@@ -86,6 +85,17 @@ let CourseModule = React.createClass({
         moduleIndex: json.module.moduleIndex
       });
     });
+
+    //Load results
+    this.props.dispatch(getModuleResults(this.props.params.moduleId)).then(
+      json => {
+        this.setState({
+          moduleResults:json.results.moduleResults,
+          isModuleActive:json.results.isActive,
+          isModuleCompleted:json.results.isCompleted,
+          activeScoreCard:json.results.activeScoreCard
+        })
+      });
   },
 
   onExerciseGoalUpdated:function(exerciseGoalText){
@@ -141,17 +151,25 @@ let CourseModule = React.createClass({
                       </div>
                     </Tab>
                     <Tab style={styles.tab[1]}
-                      icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">pan_tool</FontIcon>}
+                      icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">directions_walk</FontIcon>}
                       label="EKSPERIMENT">
                       <div style={paddingStyle} >
-                        <CourseModuleExperiment onExerciseGoalUpdated={this.onExerciseGoalUpdated} exerciseGoalText={this.state.exerciseGoalText} exercisesStatusChanged={this.exercisesStatusChanged} resourceId={this.state.exercise}/>
+                        {
+                          this.state.moduleResults !== undefined ?
+                            <CourseModuleExperiment isModuleActive={this.state.isModuleActive} isModuleCompleted={this.state.isModuleActive} results={this.state.moduleResults} onExerciseGoalUpdated={this.onExerciseGoalUpdated} exerciseGoalText={this.state.exerciseGoalText} isActive={this.state.isModuleActive || this.state.isModuleCompleted} exercisesStatusChanged={this.exercisesStatusChanged} resourceId={this.state.exercise}/>
+                            : null
+                        }
                       </div>
                     </Tab>
                     <Tab style={styles.tab[2]}
                       icon={<FontIcon color={Theme.palette.disabledColor} className="material-icons">cloud</FontIcon>}
                       label="REFLEKTION">
                       <div style={paddingStyle} >
-                        <CourseModuleExperiment exerciseGoalText={this.state.exerciseGoalText} exercisesStatusChanged={this.exercisesStatusChanged} isActive={this.state.isExerciseCompleted} resourceId={this.state.reflection} />
+                        {
+                          this.state.moduleResults !== undefined ?
+                            <CourseModuleExperiment  isModuleActive={this.state.isModuleActive} isModuleCompleted={this.state.isModuleCompleted} results={this.state.moduleResults} exerciseGoalText={this.state.exerciseGoalText} exercisesStatusChanged={this.exercisesStatusChanged} isActive={this.state.isExerciseCompleted} resourceId={this.state.reflection} />
+                            : null
+                        }
                       </div>
                     </Tab>
                   </Tabs>
