@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Requests
 {
@@ -6,5 +7,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Request
     {
         [JsonProperty(PropertyName = "videoUuid")]
         public string Uuid { get; set; }
+
+        [JsonProperty(PropertyName = "exerciseId")]
+        public Guid ExerciseId { get; set; }
     }
 }

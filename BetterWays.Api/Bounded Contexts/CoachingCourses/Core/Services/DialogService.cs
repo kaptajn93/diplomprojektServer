@@ -77,5 +77,10 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Services
         {
             return _dialogRepository.GetUserReceivedDialogs(userId);
         }
+
+        public UserDialog GetOpositDialog(UserDialog dialog)
+        {
+            return _dialogRepository.GetOppositeDialog(dialog);
+        }
     }
 }

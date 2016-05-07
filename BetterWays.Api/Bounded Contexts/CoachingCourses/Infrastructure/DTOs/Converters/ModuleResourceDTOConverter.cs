@@ -58,13 +58,16 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
                     exercise = new VideoExercise(moduleReference);
                     break;
                 case "KPExplorerQuestionnaire":
-                    exercise = new KPExplorerQuestionnaire(dto.Configuration.Split(';').ToList(), moduleReference);
+                    exercise = new KPExplorerQuestionnaire(moduleReference);
                     break;
                 case "Promise":
                     exercise = new PromiseExercise(dto.Configuration.Split(';').ToList(), moduleReference);
                     break;
                 case "Goal":
                     exercise = new GoalExercise(moduleReference);
+                    break;
+                case "QuestionAnswer":
+                    exercise = new QuestionAnswerExercise(moduleReference);
                     break;
                 default:
                     break;

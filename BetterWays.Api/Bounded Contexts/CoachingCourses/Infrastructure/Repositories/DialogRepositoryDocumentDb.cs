@@ -16,6 +16,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Reposit
                 (d.OwnerId == userA && d.ReceiverId == userB) ||
                 (d.OwnerId == userB && d.ReceiverId == userA));
         }
+        
 
         public IEnumerable<UserDialog> GetUserReceivedDialogs(Guid userId)
         {
@@ -26,5 +27,16 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Reposit
         {
             SaveItem(dialog);
         }
+
+        public void DeleteDialog(UserDialog dialog)
+        {
+            base.DeleteItem(dialog);
+        }
+
+        public UserDialog GetOppositeDialog(UserDialog dialog)
+        {
+            return GetItems(d => d.OwnerId == dialog.ReceiverId && d.ReceiverId == dialog.OwnerId).Single();
+        }
+
     }
 }

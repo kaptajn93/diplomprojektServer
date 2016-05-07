@@ -12,5 +12,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Repositories
         IEnumerable<UserDialog> GetDialogFromUsers(Guid userA, Guid userB);
         IEnumerable<UserDialog> GetUserReceivedDialogs(Guid userId);
         void SaveDialog(UserDialog dialog);
+        void DeleteDialog(UserDialog dialog);
+        UserDialog GetOppositeDialog(UserDialog dialog);
     }
 }

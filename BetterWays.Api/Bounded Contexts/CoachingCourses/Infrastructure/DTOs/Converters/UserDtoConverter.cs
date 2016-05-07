@@ -54,6 +54,10 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
                 return ConvertScoreCardDto(entity as GoalScoreCard);
             else if (entity is PromiseScoreCard)
                 return ConvertScoreCardDto(entity as PromiseScoreCard);
+            else if (entity is VideoExerciseScoreCard)
+                return ConvertScoreCardDto(entity as VideoExerciseScoreCard);
+            else if (entity is QuestionAnswerScoreCard)
+                return ConvertScoreCardDto(entity as QuestionAnswerScoreCard);
             else
                 return new ScoreCardDto
                 {
@@ -137,6 +141,18 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
             };
         }
 
+        public static QuestionAnswerScoreCardDto ConvertScoreCardDto(QuestionAnswerScoreCard entity)
+        {
+            return new QuestionAnswerScoreCardDto()
+            {
+                ExerciseDescription = entity.ExerciseDescription,
+                ExerciseId = entity.ExerciseId,
+                IsCompleted = entity.IsCompleted,
+                ModuleId = entity.Module != null ? new Guid?(entity.Module.ModuleReferenceId) : null,
+                Answer = entity.Answer
+            };
+        }
+
         public static PromiseScoreCardDto ConvertScoreCardDto(PromiseScoreCard entity)
         {
             return new PromiseScoreCardDto()
@@ -148,6 +164,24 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
                 PromiseText = entity.PromiseText,
                 ExerciseGoalText = entity.ExerciseGoalText,
                 Responses = entity.Responses != null ? entity.Responses.Select(ConvertKpExplorerQuestionaireResultToDto).ToList() : null
+            };
+        }
+
+        public static VideoExerciseScoreCardDto ConvertScoreCardDto(VideoExerciseScoreCard entity)
+        {
+            return new VideoExerciseScoreCardDto()
+            {
+                ExerciseDescription = entity.ExerciseDescription,
+                ExerciseId = entity.ExerciseId,
+                IsCompleted = entity.IsCompleted,
+                ModuleId = entity.Module != null ? new Guid?(entity.Module.ModuleReferenceId) : null,
+                MesageToReviewer = entity.MesageToReviewer,
+                Phase = entity.Phase,
+                ReviewerEmail = entity.ReviewerEmail,
+                ReviewerLastName = entity.ReviewerLastName,
+                ReviewerFirstName = entity.ReviewerFirstName,
+                VideoUuid = entity.VideoUuid,
+                VideoReply = entity.VideoReply
             };
         }
     }

@@ -174,5 +174,13 @@ namespace BetterWays.Api.BoundedContexts.Shared.Infrastructure
             document.Wait();
             return document.Result;
         }
+
+        public Document DeleteItem(T item)
+        {
+            var doc = Client.CreateDocumentQuery(Collection.DocumentsLink).Where(i => i.Id == item.Id.ToString()).AsEnumerable().Single();
+            Client.DeleteDocumentAsync(doc.SelfLink);
+            
+            return doc;
+        }
     }
 }

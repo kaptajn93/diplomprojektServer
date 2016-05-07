@@ -47,7 +47,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             var userA = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
             
             var dialogs = dialogRepo.GetUserReceivedDialogs((Guid)HttpContext.Current.Items["UserId"]).ToList();
-            dialogs = dialogs.OrderBy(d => d.Entries.OrderBy(e => e.TimeStamp).Last().TimeStamp).ToList();
+            dialogs = dialogs.OrderByDescending(d => d.Entries.OrderByDescending(e => e.TimeStamp).Last().TimeStamp).ToList();
 
             var orderedDialogEntries = dialogs.Where(d => d.ReceiverId == userA.Id).SelectMany(d => d.Entries)
                     .OrderBy(e => e.TimeStamp);
@@ -74,9 +74,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             return ret;
         }
 
-        [Route("api/user/currentUser/resetCourseAdmission")]
+        [Route("api/user/currentUser/resetCourseAdmissionToModule/{moduleIndex}")]
         [AcceptVerbs("Put")]
-        public void ResetCourseAdmission()
+        public void ResetCourseAdmission(int moduleIndex)
         {
             var coachingCourseService = new CoachingCourseService(
                 new CoachingCourseRepositoryDocumentDB(),
@@ -88,7 +88,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             var userRepo = new UserRepositoryDocumentDB();
             //var usr = userRepo.GetAllItems().Last();
             var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
-            coachingCourseService.ResetCourse(usr, usr.CourseAdmissions.Single());
+            coachingCourseService.ResetCourse(usr, usr.CourseAdmissions.Single(), moduleIndex);
         }
 
         [Route("api/user/{userId}/results")]
@@ -105,17 +105,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
 
             var results = UserResults(usr);
 
-            var completedScoreCards = results.ModuleResults.SelectMany(m => m.ModuleResults.Where(r => r.IsCompleted));
-            var exerciseIds = completedScoreCards.Select(e => e.ExerciseId).ToList();
-            
-            var exerciseRepository = new CoachnigModuleExerciseResourceRepositoryDocumentDB();
-            var exercises = exerciseRepository.GetItemsAsQueryable().SelectMany(er => er.Elements)
-                .Where(el => exerciseIds.Contains(el.Exercise.Id)).AsEnumerable().ToList();
-
-            foreach (var scoreCard in completedScoreCards)
-            {
-                scoreCard.Exercise = ModuleResourceDTOConverter.ConvertToDTO(exercises.Single(e => e.Exercise.Id == scoreCard.ExerciseId));
-            }
+            //Load the exercises. External users will see results without loading the modules 
+            LoadCompletedScoreCardExercises(results);
 
             return results;
         }
@@ -129,6 +120,38 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
 
             return UserResults(usr);
+        }
+
+        [Route("api/user/currentUser/module/{moduleId}/results")]
+        [AcceptVerbs("GET")]
+        public GetModuleResultsResponse UserModuleResults(Guid moduleId)
+        {
+            var userRepo = new UserRepositoryDocumentDB();
+            var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
+
+            var coachingModuleRepository = new CoachingModuleRepositoryDocumentDB();
+            var module = coachingModuleRepository.GetModuleById(moduleId);
+            var moduleResults = usr.CourseAdmissions.Single().Results.Where(r =>
+                            r.Module.ModuleReferenceId == module.Id
+                        ).ToList();
+            var moduleResult = new GetModuleResultsResponse()
+            {
+                ModuleResults = moduleResults.Select(mr =>
+                    UserDtoConverter.ConvertScoreCardDto(mr)).ToList(),
+                IsCompleted = moduleResults.All(mr => mr.IsCompleted)
+            };
+            
+            var activeModule = moduleResults.FirstOrDefault(mr => !mr.IsCompleted).Module;
+
+            if (activeModule != null)
+            {
+                moduleResult.IsActive = true;
+                moduleResult.ActiveScoreCard = moduleResult.ModuleResults.First(mr => !mr.IsCompleted);
+            }
+            else
+                moduleResult.IsActive = false;
+
+            return moduleResult;
         }
 
         private GetUserResultsResponse UserResults(User usr)
@@ -161,11 +184,25 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
                 User = UserDtoConverter.ConvertUserToBaseDto(usr)
             };
 
-            userResults.ActiveModule = userResults.ModuleResults.First(mr => mr.ModuleResults.Any(r => !r.IsCompleted)).Module;
+            userResults.ActiveModule = userResults.ModuleResults.FirstOrDefault(mr => mr.ModuleResults.Any(r => !r.IsCompleted)).Module;
             userResults.ActiveModuleIndex = modules.IndexOf(modules.Single(m => m.Id == userResults.ActiveModule.Id));
-
-
+            
             return userResults;
+        }
+
+        private void LoadCompletedScoreCardExercises(GetUserResultsResponse response)
+        {
+            var completedScoreCards = response.ModuleResults.SelectMany(m => m.ModuleResults.Where(r => r.IsCompleted));
+            var exerciseIds = completedScoreCards.Select(e => e.ExerciseId).ToList();
+
+            var exerciseRepository = new CoachnigModuleExerciseResourceRepositoryDocumentDB();
+            var exercises = exerciseRepository.GetItemsAsQueryable().SelectMany(er => er.Elements)
+                .Where(el => exerciseIds.Contains(el.Exercise.Id)).AsEnumerable().ToList();
+
+            foreach (var scoreCard in completedScoreCards)
+            {
+                scoreCard.Exercise = ModuleResourceDTOConverter.ConvertToDTO(exercises.Single(e => e.Exercise.Id == scoreCard.ExerciseId));
+            }
         }
 
         [Route("api/user/currentUser/sortandevalexercise/{exerciseId}/result/")]
@@ -221,6 +258,12 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
                 {
                     //Update the score card
                     excistingScoreCard.IsCompleted = scoreCard.IsCompleted;
+
+                    excistingScoreCard.MesageToReviewer = scoreCard.MesageToReviewer;
+                    excistingScoreCard.Phase = scoreCard.Phase;
+                    excistingScoreCard.ReviewerEmail = scoreCard.ReviewerEmail;
+                    excistingScoreCard.ReviewerFirstName = scoreCard.ReviewerFirstName;
+                    excistingScoreCard.ReviewerLastName = scoreCard.ReviewerLastName;
                 }
             }
 
@@ -290,6 +333,33 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
             userRepo.SaveUser(usr);
         }
 
+        [Route("api/user/currentUser/questionAnswerExercise/{exerciseId}/result/")]
+        [AcceptVerbs("PUT")]
+        public void UpdateQuestionAnswerRsult(Guid exerciseId, QuestionAnswerScoreCardDto scoreCard)
+        {
+            if (exerciseId != scoreCard.ExerciseId)
+                throw new Exception("Scorecard ids does not match");
+
+            var userRepo = new UserRepositoryDocumentDB();
+            //var usr = userRepo.GetAllItems().Last();
+            var usr = userRepo.GetUserById((Guid)HttpContext.Current.Items["UserId"]);
+
+            foreach (var admission in usr.CourseAdmissions)
+            {
+                var excistingScoreCard = admission.Results.SingleOrDefault(r => r.ExerciseId == exerciseId) as QuestionAnswerScoreCard;
+
+                if (excistingScoreCard != null)
+                {
+                    //Update the score card
+                    excistingScoreCard.IsCompleted = scoreCard.IsCompleted;
+                    excistingScoreCard.Answer = scoreCard.Answer;
+                }
+            }
+            
+            //Save user
+            userRepo.SaveUser(usr);
+        }
+
         [Route("api/user/currentUser/modulePromise/{exerciseId}/result/")]
         [AcceptVerbs("PUT")]
         public void UpdateModulePromiseResult(Guid exerciseId, PromiseScoreCardDto scoreCard)
@@ -323,7 +393,9 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
                     if (nextModuleIndex < course.Modules.Count)
                     {
                         var nextModule = course.Modules[nextModuleIndex];
-                        (admission.Results.Single(r => r is GoalScoreCard && r.Module.ModuleReferenceId == nextModule.ModuleReferenceId) as GoalScoreCard).PreviousModulePromiseText = scoreCard.PromiseText;
+                        var nextGoalScorecard = (admission.Results.SingleOrDefault(r => r is GoalScoreCard && r.Module.ModuleReferenceId == nextModule.ModuleReferenceId) as GoalScoreCard);
+                        if (nextGoalScorecard != null)
+                            nextGoalScorecard.PreviousModulePromiseText = scoreCard.PromiseText;
                     }
                 }
             }

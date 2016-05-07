@@ -2,6 +2,8 @@
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.User;
 using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Repositories;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Services;
+using BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Repositories;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models;
 using BetterWays.Api.BoundedContexts.CoachingCourses.Core.Repositories;
 using System;
@@ -164,7 +166,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
             
         }
 
-        public void ResetCourse(User user, UserCourseAdmission courseAdmission)
+        public void ResetCourse(User user, UserCourseAdmission courseAdmission, int startingModule)
         {
             user.CourseAdmissions.Remove(courseAdmission);
 
@@ -190,6 +192,44 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
                 Results = freshScoreCards.ToList()
             });
 
+            for (int i = 0; i < startingModule; i++)
+            {
+                var module = modules[i];
+                var results = user.CourseAdmissions.Last().Results.Where(r => r.Module.ModuleReferenceId == module.Id);
+
+                foreach (var result in results)
+                {
+                    result.IsCompleted = true;
+                }
+
+            }
+
+            //Remove dialogs for this user
+            var dialogRepo = new DialogRepositoryDocumentDb();
+            var dialogService = new DialogService(dialogRepo);
+
+            var dialogs = dialogService.GetUserDialogs(user.Id);
+
+            foreach (var dialog in dialogs)
+            {
+                //Get the opposit dialog
+                var oppositeDialog = dialogService.GetOpositDialog(dialog);
+
+                if (dialog.OwnerId == user.CoachId)
+                {
+                    //Delete all except the first
+                    dialog.Entries = new List<DialogEntry> { dialog.Entries.OrderBy(d => d.TimeStamp).First() };
+                    oppositeDialog.Entries = new List<DialogEntry> { oppositeDialog.Entries.OrderBy(d => d.TimeStamp).First() };
+
+                    dialogRepo.SaveDialog(dialog);
+                    dialogRepo.SaveDialog(oppositeDialog);
+                }
+                else
+                {
+                    dialogRepo.DeleteDialog(dialog);
+                    dialogRepo.DeleteDialog(oppositeDialog);
+                }
+            }
             //Save user
             _userRepository.SaveUser(user);
         }

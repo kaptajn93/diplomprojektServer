@@ -182,6 +182,8 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\KPExplorerQuestionnaireScoreCard.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\PromiseExercise.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\PromiseScoreCard.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\QuestionAnswerExercise.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\QuestionAnswerScoreCard.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\ReflectionExercise.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\ReflectionScoreCard.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\SortAndEvaluateExercise.cs" />
@@ -208,7 +210,7 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\UserService.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\AuthenticationController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\DialogController.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ExerciseController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\VideoExerciseController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\CourseController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ExerciseResourceController.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ModuleController.cs" />
@@ -228,6 +230,7 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\UserDialogDto.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\DialogRepositoryDocumentDb.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\ModuleGroupRepositoryDocumentDB.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\GetVideoExerciseRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\LoginRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleExerciseResourceDTO.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleResourceDTO.cs" />
@@ -241,13 +244,16 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\UserRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\InitiateDialogRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\PostDialogRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\PostVideoReplyRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\ShareVideoRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\CreateModuleInCourseRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleExerciseRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleRequest.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleResourceRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetModuleResultsResponse.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetUserDialogsResponse.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetUserResultsResponse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetUserVideoResultResponse.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\UpdateModuleResourceResponse.cs" />
     <Compile Include="Bounded Contexts\Notifications\Application\NotificationsApplicationService.cs" />
     <Compile Include="Bounded Contexts\Notifications\Infrastructure\Controllers\NotificationsController.cs" />

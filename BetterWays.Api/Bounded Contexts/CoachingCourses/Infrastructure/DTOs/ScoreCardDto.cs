@@ -44,7 +44,23 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs
 
     public class VideoExerciseScoreCardDto : ScoreCardDto
     {
+        [JsonProperty(PropertyName = "reviewerFirstName")]
+        public string ReviewerFirstName { get; set; }
+        [JsonProperty(PropertyName = "reviewerLastName")]
+        public string ReviewerLastName { get; set; }
+        [JsonProperty(PropertyName = "reviewerEmail")]
+        public string ReviewerEmail { get; set; }
+        [JsonProperty(PropertyName = "mesageToReviewer")]
+        public string MesageToReviewer { get; set; }
 
+        [JsonProperty(PropertyName = "phase")]
+        public int Phase { get; set; }
+
+        [JsonProperty(PropertyName = "videoUuid")]
+        public string VideoUuid { get; set; }
+
+        [JsonProperty(PropertyName = "videoReply")]
+        public string VideoReply { get; set; }
     }
 
     public class QuestionResponseDto
@@ -88,5 +104,11 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs
 
         [JsonProperty(PropertyName = "previousModulePromiseText")]
         public string PreviousModulePromiseText { get; set; }
+    }
+
+    public class QuestionAnswerScoreCardDto : ScoreCardDto
+    {
+        [JsonProperty(PropertyName = "answer")]
+        public string Answer { get; set; }
     }
 }
