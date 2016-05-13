@@ -102,7 +102,7 @@ let QuestionAnswerExercise = React.createClass({
     else if (this.state.phase === 1){
       mainContent =
       <div style={{marginTop:4}}>
-        <div style={{color:'#777777', marginBottom:8, fontSize:'small'}} dangerouslySetInnerHTML={this.getHtmlText(0)}></div>
+        <div style={{color:Theme.palette.disabledColor, marginBottom:8}} dangerouslySetInnerHTML={this.getHtmlText(0)}></div>
         <p style={{marginTop:-10}}>{this.state.answerText}</p>
       </div>
     }

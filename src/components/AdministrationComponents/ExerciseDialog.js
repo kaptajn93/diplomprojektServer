@@ -325,6 +325,17 @@ var ConfigureExerciseDialog = React.createClass({
                     style={{marginBottom:21}}
                     onClick={this.openEditText.bind(this, 0)}
                     />
+
+                    <Divider />
+                    <h5 style={{marginBottom:0}}>Tekst sidste øvelses løfte</h5>
+
+                    <div dangerouslySetInnerHTML={this.getHtmlText(1)}/>
+                    <FlatButton
+                      label="Redigér"
+                      secondary={true}
+                      style={{marginBottom:21}}
+                      onClick={this.openEditText.bind(this, 1)}
+                      />
                 </div>,
               'QuestionAnswer':
                 <div>
@@ -364,13 +375,24 @@ var ConfigureExerciseDialog = React.createClass({
 
                 <h5 style={{marginBottom:0}}>Informationstekst til løfte</h5>
 
-                  <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
-                  <FlatButton
-                    label="Redigér"
-                    secondary={true}
-                    style={{marginBottom:21}}
-                    onClick={this.openEditText.bind(this, 0)}
-                    />
+                <div dangerouslySetInnerHTML={this.getHtmlText(0)}/>
+                <FlatButton
+                  label="Redigér"
+                  secondary={true}
+                  style={{marginBottom:21}}
+                  onClick={this.openEditText.bind(this, 0)}
+                  />
+
+                <Divider />
+                <h5 style={{marginBottom:0}}>Tekst til øvelses mål</h5>
+
+                <div dangerouslySetInnerHTML={this.getHtmlText(1)}/>
+                <FlatButton
+                  label="Redigér"
+                  secondary={true}
+                  style={{marginBottom:21}}
+                  onClick={this.openEditText.bind(this, 1)}
+                  />
               </div>,
               'none':
                 null

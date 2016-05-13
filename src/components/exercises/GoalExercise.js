@@ -66,6 +66,8 @@ let GoalExercise = React.createClass({
       phase: 1
     });
 
+
+
     if (this.props.onFinished !== undefined)
       this.props.onFinished(items);
 
@@ -105,16 +107,21 @@ let GoalExercise = React.createClass({
     }
     else if (this.state.phase === 1){
       mainContent =
-        <div>
-          <p><span style={{color:'#777777', marginBottom:8, fontSize:'small'}}>Dit mål for øvelsen:</span><br/>{this.state.goalText}</p>
-        </div>
+      <div style={{marginTop:4}}>
+        <div style={{color:Theme.palette.disabledColor, marginBottom:8}} dangerouslySetInnerHTML={this.getHtmlText(0)}></div>
+        <p style={{marginTop:-10}}>{this.state.goalText}</p>
+      </div>
     }
 
     return (
       <div style={{background:Theme.palette.backgroundColor, padding:'32px'}}>
         {
           this.state.previousModulePromiseText !== undefined && this.state.previousModulePromiseText !== "" ?
-          <p><span style={{color:'#777777', marginBottom:8, fontSize:'small'}}>I sidste modul, lovede du dig selv:</span><br/><span>{this.state.previousModulePromiseText}</span></p>
+          <div style={{marginTop:4, marginBottom:32}}>
+            <div style={{color:Theme.palette.disabledColor, marginBottom:8}} dangerouslySetInnerHTML={this.getHtmlText(1)}></div>
+            <p style={{marginTop:-10}}>{this.state.previousModulePromiseText}</p>
+          </div>
+
           :null
         }
         {mainContent}

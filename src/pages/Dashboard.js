@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 
 import Paper from 'material-ui/lib/paper';
 import List from 'material-ui/lib/lists/list';
+import TextField from 'material-ui/lib/text-field';
 import ListItem from 'material-ui/lib/lists/list-item';
 import Divider from 'material-ui/lib/divider';
 import Avatar from 'material-ui/lib/avatar';
@@ -12,6 +13,7 @@ import Colors from 'material-ui/lib/styles/colors';
 import EditorInsertChart from 'material-ui/lib/svg-icons/editor/insert-chart';
 import Comment from 'material-ui/lib/svg-icons/communication/comment';
 import Forward from 'material-ui/lib/svg-icons/av/play-arrow';
+
 import Search from 'material-ui/lib/svg-icons/action/search';
 import { Link, browserHistory } from 'react-router';
 import { getUserResult, getUserDialogs } from '../actions/api';
@@ -25,6 +27,7 @@ import Place from 'material-ui/lib/svg-icons/maps/place';
 import Person from 'material-ui/lib/svg-icons/social/person-outline';
 import Expand from 'material-ui/lib/svg-icons/navigation/expand-more';
 import Event from 'material-ui/lib/svg-icons/action/event';
+import School from 'material-ui/lib/svg-icons/social/school';
 import ExpandLess from 'material-ui/lib/svg-icons/navigation/expand-less';
 import Theme from '../components/Theme';
 
@@ -445,6 +448,81 @@ let Dashboard = React.createClass({
                   <div style={{padding:'16 16'}}>
                     <div dangerouslySetInnerHTML={{__html:'<div data-oembed-url="https://vimeo.com/164063014"> <div> <div style="left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;"><iframe allowfullscreen="true" frameborder="0" mozallowfullscreen="true" src="//player.vimeo.com/video/164063014?byline=0&amp;badge=0&amp;portrait=0&amp;title=0" style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;" webkitallowfullscreen="true"></iframe></div> </div> </div>' }}></div>
 
+                  </div>
+                </Paper>
+
+                <Paper style={{marginTop:32}}>
+                  <div style={{
+                    backgroundColor: Theme.palette.backgroundColor,
+                    display:'flex', padding:'8 16'}}>
+                    <School style={{height: '29px', width: '29px'}} color={Colors.grey500} />
+                    <h4 style={{
+                      fontWeight: 'normal',
+                      margin:0,
+                      marginLeft: 20,
+                      marginTop: 5
+                    }}>Viden</h4>
+
+                  </div>
+                  <div style={{padding:16}}>
+                    <div style={{display:'flex'}}>
+                      <Search style={{marginTop:12, marginRight:8}} />
+                      <TextField style={{width:'100%'}}
+                        hintText="Søg efter indslag, artikler"
+                      />
+                    </div>
+                    <List subheader="Udvalgte indslag" style={{marginTop:16}}>
+                      <ListItem
+                        leftAvatar={<Avatar src="assets/amycuddy.jpg" />}
+                        primaryText="Dit Kropssprog former hvem du er"
+                        secondaryText={
+                          <p>
+                            <span style={{color: Colors.darkBlack}}>Amy Cuddy</span> --
+                            Kropssproget har en betynding for hvordan andre opfatter os, men det kan også ændre hvordan vi opfatter os selv. Social psykolog Amy Cuddy viser #power position# – at stå med selvtillid, selv når du ikke føler det. Det påvirker dine hormoner og hjerneaktivitet og – har en indvirken på dine chancer for succes.
+                          </p>
+                        }
+                        secondaryTextLines={2}
+                      />
+                      <Divider inset={true} />
+                      <ListItem
+                        leftAvatar={<Avatar src="assets/juliantreasure.jpg" />}
+                        primaryText="Sådan får du andre til at lytte når du taler"
+                        secondaryText={
+                          <p>
+                            <span style={{color: Colors.darkBlack}}>Julian Treasure</span> --
+                            Har du oplevet at ingen lytter når du taler? Her er Julians Treasures hjælp til dig. Lydeksperten viser dig hvordan man taler med empathi. En lyd der får verden til at lyde smukkere.
+                          </p>
+                        }
+                        secondaryTextLines={2}
+                      />
+                      <Divider inset={true} />
+                      <ListItem
+                        leftAvatar={<Avatar src="assets/shawnachor.jpg" />}
+                        primaryText="Den bedste nyhed til et bedre arbejde"
+                        secondaryText={
+                          <p>
+                            <span style={{color: Colors.darkBlack}}>Grace Ng</span> --
+                            Mange tror at vi skal arbejde hårdere for at blive lykkelige, men hvad vil der ske hvis vi tænker det lige omvendt? I denne hurtige og morsomme talk, argumenterer Shawn Achor for at lige netop at lykke gør os mere produktive.
+
+                          </p>
+                        }
+                        secondaryTextLines={2}
+                      />
+                      <Divider inset={true} />
+                      <ListItem
+                        leftAvatar={<Avatar src="assets/elizabethgilbert.jpg" />}
+                        primaryText="Sæt dit talent fri"
+                        secondaryText={
+                          <p>
+                            <span style={{color: Colors.darkBlack}}>Elisabeth Gilbert</span> --
+                            Elisabeth Gilbert runder de umulige ting vi forventer af artister og genier – og foreslår en radikal idé: at i stedet for at være  et talent  – kan man tale med om at have talent. Det er en morsom, tankevækkende og overraskende bevægende talk.
+                          </p>
+                        }
+                        secondaryTextLines={2}
+                      />
+
+                    </List>
+                    <FlatButton secondary={true} label='Find flere artikler'></FlatButton>
                   </div>
                 </Paper>
               </Col>

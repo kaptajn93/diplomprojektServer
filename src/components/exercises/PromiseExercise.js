@@ -36,6 +36,7 @@ let PromiseExercise = React.createClass({
         phase: 0,
         resultItems: this.mapItems(items),
         instrunctionContent: this.props.exercise.instrunctionContent,
+        exerciseGoalText: this.props.exerciseGoalText
     };
   },
 
@@ -64,7 +65,7 @@ let PromiseExercise = React.createClass({
   },
 
   componentDidMount: function(){
-    //Update server
+    //Update from server
     if (this.props.liveExercise && this.props.scoreCard === undefined){
       this.setState({isLoading: true});
       this.props.dispatch(getExerciseResult(this.props.exerciseId)).then(
@@ -90,7 +91,7 @@ let PromiseExercise = React.createClass({
       isLoading: false,
       phase: scoreCard.isCompleted ? 1 : this.state.phase,
       promiseText: scoreCard.promiseText,
-      exerciseGoalText:scoreCard.exerciseGoalText,
+      exerciseGoalText:scoreCard.exerciseGoalText !== '' ? scoreCard.exerciseGoalText : this.state.exerciseGoalText,
       resultItems: resultItems
     });
   },
@@ -100,7 +101,8 @@ let PromiseExercise = React.createClass({
       this.setState({
         items: items,
         resultItems: this.mapItems(items),
-        instrunctionContent: nextProps.exercise.instrunctionContent
+        instrunctionContent: nextProps.exercise.instrunctionContent,
+        exerciseGoalText: nextProps.exerciseGoalText !== '' ? nextProps.exerciseGoalText : this.state.exerciseGoalText
       });
   },
 
@@ -148,8 +150,8 @@ let PromiseExercise = React.createClass({
             <div style={{display:'table-cell'}}>
 
               { that.state.phase === 0 ?
-                <div>
-                  <h4 style={{marginTop:32}}>{
+                <div style={{background:'#FAFAFA', padding:24, marginTop:16}}>
+                  <h4 style={{marginTop:0}}>{
                     i.question
                   }</h4>
                   <div style={{display:'table'}}>
@@ -208,7 +210,7 @@ let PromiseExercise = React.createClass({
                   </div>
                 </div>
                 :
-                <div style={{marginTop:40}}>
+                <div style={{background:'#FAFAFA', padding:'4 20', marginTop:16}}>
                   <p><span style={{color:'#777777', marginBottom:8, fontSize:'small'}}>{i.question} </span><br/>
                   {{
                     '1' : <span>Fuldstændig forkert</span>,
@@ -240,7 +242,10 @@ let PromiseExercise = React.createClass({
     else if (this.state.phase === 1){
       mainContent =
         <div style={{marginTop:40}}>
-          <p><span style={{color:'#777777', marginBottom:8, fontSize:'small'}}>Jeg lover mig selv:</span><br/> {this.state.promiseText}</p>
+          <div >
+            <div style={{color:Theme.palette.disabledColor, marginBottom:8}} dangerouslySetInnerHTML={this.getHtmlText(0)}></div>
+            <p style={{marginTop:-10}}>{this.state.promiseText}</p>
+          </div>
         </div>
     }
 
@@ -249,7 +254,11 @@ let PromiseExercise = React.createClass({
     else
       return (
         <div style={{background:Theme.palette.backgroundColor, padding:'32px'}}>
-          <p style={{marginBottom:0}}><span style={{color:'#777777', marginBottom:8, fontSize:'small'}}>Dit mål for øvelsen var:</span><br/><span>{this.state.exerciseGoalText}</span></p>
+          <div style={{marginTop:4}}>
+            <div style={{color:Theme.palette.disabledColor, marginBottom:8}} dangerouslySetInnerHTML={this.getHtmlText(1)}></div>
+            <p style={{marginTop:-10}}>{this.state.exerciseGoalText}</p>
+          </div>
+
           {questions}
           {mainContent}
         </div> );

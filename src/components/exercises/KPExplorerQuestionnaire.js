@@ -66,12 +66,65 @@ let KPExplorerQuestionnaire = React.createClass({
 
     else if (this.props.scoreCard !== undefined)
       this.setScoreCard(this.props.scoreCard);
+
+
+  },
+
+  renderPdf:function(){
+    if (this.refs.pdfcanvas === undefined)
+      return;
+
+    var that = this;
+
+    //Init pdfjs
+    PDFJS.workerSrc = './thrid-party/pdfjs-dist/build/pdf.worker.js';
+    var url = './assets/KP%20Explorer%20demo.pdf'
+
+   var currentPage = 1;
+   var pages = [];
+
+   PDFJS.getDocument(url).then(function(pdf) {
+           pdf.getPage(currentPage).then(renderPage);
+
+   function renderPage(page) {
+       var height = 1200;
+       var viewport = page.getViewport(1);
+       var scale = height / viewport.height;
+       var scaledViewport = page.getViewport(scale);
+
+       var canvas = document.createElement('canvas');
+       canvas.style.display = "block";
+       var context = canvas.getContext('2d');
+       canvas.height = scaledViewport.height;
+       canvas.width = scaledViewport.width;
+
+       var renderContext = {
+           canvasContext: context,
+           viewport: scaledViewport
+       };
+       page.render(renderContext).then(function () {
+           if(currentPage < pdf.numPages) {
+               pages[currentPage] = canvas;
+               currentPage++;
+               pdf.getPage(currentPage).then(renderPage);
+           } else {
+               for (var i = 1; i < pages.length; i++) {
+                   that.refs.pdfcanvas.appendChild(pages[i]);
+               }
+           }
+       });
+   }
+
+   });
+
   },
 
   setScoreCard: function(scoreCard){
     this.setState({
       isLoading: false,
       phase: scoreCard.isCompleted ? 2 : this.state.phase
+    }, function(){
+      this.renderPdf();
     });
   },
 
@@ -128,6 +181,8 @@ let KPExplorerQuestionnaire = React.createClass({
   onFinished: function(){
     this.setState({
       phase: 2
+    }, function(){
+      this.renderPdf();
     });
 
     if (this.props.onFinished !== undefined)
@@ -141,6 +196,7 @@ let KPExplorerQuestionnaire = React.createClass({
       //Signal that exercise has ended
       this.props.exercisesStatusChanged(true, this.props.exercise, this.props.exercise );
     }
+
   },
 
   getHtmlText: function(textIndex){
@@ -264,6 +320,7 @@ let KPExplorerQuestionnaire = React.createClass({
       mainContent =
         <div>
           <div dangerouslySetInnerHTML={this.getHtmlText(1)}/>
+          <div ref='pdfcanvas'></div>
         </div>
     }
 

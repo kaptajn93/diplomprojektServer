@@ -129,7 +129,7 @@ let VideoExercise = React.createClass({
       firstName: event.target.value,
       messageHeading: "Besked til " + event.target.value,
       userMessage: this.hasChangedUserMaessage ? this.state.userMessage :
-        "Hej " + event.target.value + ", jeg håber at du vil hjælpe mig ved at anmelde min profilvideo, hvis du har tid. Det vil jeg sætte stor pris på!"
+        "Hej " + event.target.value + ", jeg håber at du vil hjælpe mig feedback. Fortæl mig hvad du synes, og hvad jeg kan ændre."
     });
   },
 

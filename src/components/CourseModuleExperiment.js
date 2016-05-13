@@ -9,7 +9,9 @@ import Camera from './Camera'
 
 import FlatButton from 'material-ui/lib/flat-button';
 import RaisedButton from 'material-ui/lib/raised-button';
+import IconButton from 'material-ui/lib/icon-button';
 import Paper from 'material-ui/lib/paper';
+import Theme from './Theme';
 
 import { shareVideo } from '../actions/shareVideo'
 
@@ -20,7 +22,8 @@ let CourseModuleExperiment = React.createClass({
     return {
       exerciseElements : [],
       isLoadingResource:false,
-      currentIndex: -1
+      currentIndex: -1,
+      activeIndex: -1
     };
   },
 
@@ -65,7 +68,8 @@ let CourseModuleExperiment = React.createClass({
       this.setState({
         exerciseElements : json.resource.elements,
         isLoadingResource:false,
-        currentIndex:currentIndex
+        currentIndex:currentIndex,
+        activeIndex:currentIndex
       });
       //this.props.exercisesStatusChanged(json.)
 
@@ -97,10 +101,23 @@ let CourseModuleExperiment = React.createClass({
     var numComplete = this.state.exerciseElements.filter(e => e.isCompleted).length;
 
     this.setState({
-      currentIndex: Math.min(numComplete, this.state.exerciseElements.length - 1)
+      currentIndex: Math.min(numComplete, this.state.exerciseElements.length - 1),
+      activeIndex: Math.min(numComplete, this.state.exerciseElements.length - 1)
     });
 
     this.props.exercisesStatusChanged(numComplete === this.state.exerciseElements.length);
+  },
+
+  showPrevExercise: function(){
+    this.setState({
+      currentIndex: Math.max(0, this.state.currentIndex - 1)
+    });
+  },
+
+  showNextExercise: function(){
+    this.setState({
+      currentIndex: Math.min(this.state.exerciseElements.length - 1, this.state.currentIndex + 1)
+    });
   },
 
   render : function() {
@@ -111,10 +128,14 @@ let CourseModuleExperiment = React.createClass({
       complete.push(firstIncomplete);
       */
 
+    var nextEnabled = this.state.currentIndex < this.state.activeIndex;
+    var prevEnabled = this.state.currentIndex > 0;
+
     var current = [this.state.exerciseElements[this.state.currentIndex]];
-    var Elements = this.state.isActive ? current.map((i, index) => (
-      <div key={index}>
+    var Elements = this.state.isActive ? this.state.exerciseElements.map((i, index) => (
+      <div key={index} style={{display: index === this.state.currentIndex ? '' : 'none' }}>
         <div dangerouslySetInnerHTML={{__html:i.content}} />
+        <div style={{height:20}}></div>
         <ExerciseSelector
           onExerciseGoalUpdated={this.props.onExerciseGoalUpdated}
           exerciseGoalText={this.props.exerciseGoalText}
@@ -128,7 +149,31 @@ let CourseModuleExperiment = React.createClass({
 
     return (
       <div>
-        <div></div>
+        <div style={{display:'flex', marginBottom:-20}}>
+          <h1 style={{color:Theme.palette.textColorMuted, fontWeight:100, marginRight: 6}}>Eksperiment </h1>
+          {
+            prevEnabled ?
+              <IconButton
+                style={{padding:0, width:'24', height:'24', marginTop:30}}
+                iconClassName="material-icons"
+                tooltip="Forrige" onClick={this.showPrevExercise}>
+                keyboard_arrow_left
+              </IconButton> : null}
+          <h1 style={{color:Theme.palette.textColorMuted, fontWeight:400}}>
+            {this.state.currentIndex + 1}</h1>
+          <h1 style={{color:Theme.palette.textColorMuted, fontWeight:100}}>
+            /{this.state.exerciseElements.length}</h1>
+          {
+            nextEnabled ?
+              <IconButton
+                onClick={this.showNextExercise}
+                style={{padding:0, width:'24', height:'24', marginTop:30}}
+                iconClassName="material-icons"
+                tooltip="Næste">
+                keyboard_arrow_right
+              </IconButton> : null}
+
+        </div>
         {Elements}
       </div>
     );

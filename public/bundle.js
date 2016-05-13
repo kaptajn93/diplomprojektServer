@@ -12614,31 +12614,31 @@
 	
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 	
-	var _CourseModule = __webpack_require__(775);
+	var _CourseModule = __webpack_require__(776);
 	
 	var _CourseModule2 = _interopRequireDefault(_CourseModule);
 	
-	var _AdministrationModule = __webpack_require__(815);
+	var _AdministrationModule = __webpack_require__(813);
 	
 	var _AdministrationModule2 = _interopRequireDefault(_AdministrationModule);
 	
-	var _VideoReview = __webpack_require__(821);
+	var _VideoReview = __webpack_require__(819);
 	
 	var _VideoReview2 = _interopRequireDefault(_VideoReview);
 	
-	var _DialogModule = __webpack_require__(822);
+	var _DialogModule = __webpack_require__(820);
 	
 	var _DialogModule2 = _interopRequireDefault(_DialogModule);
 	
-	var _ExerciseResultPage = __webpack_require__(835);
+	var _ExerciseResultPage = __webpack_require__(833);
 	
 	var _ExerciseResultPage2 = _interopRequireDefault(_ExerciseResultPage);
 	
-	var _LoginPage = __webpack_require__(837);
+	var _LoginPage = __webpack_require__(835);
 	
 	var _LoginPage2 = _interopRequireDefault(_LoginPage);
 	
-	var _VideoRecord = __webpack_require__(838);
+	var _VideoRecord = __webpack_require__(836);
 	
 	var _VideoRecord2 = _interopRequireDefault(_VideoRecord);
 	
@@ -40051,7 +40051,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.RECEIVE_POST_DIALOG_MESSAGE = exports.REQUEST_POST_DIALOG_MESSAGE = exports.RECEIVE_USER_DIALOGS = exports.REQUEST_USER_DIALOGS = exports.RECEIVE_ALL_MODULE_EXERCISES = exports.REQUEST_ALL_MODULE_EXERCISES = exports.RECEIVE_EXERCISE_RESULT = exports.REQUEST_EXERCISE_RESULT = exports.PUT_API_MODULE_PROMISE_RESULT = exports.PUT_API_EXERCISE_VIDEO_RESULT = exports.PUT_API_QUESTION_ANSWER_RESULT = exports.PUT_API_EXERCISE_GOAL_RESULT = exports.PUT_API_KP_EXPLORER_RESULT = exports.PUT_API_SORT_AND_EVAL_RESULT = exports.RESET_COURSE_ADMISSION = exports.RECEIVE_GET_USER_RESULT = exports.REQUEST_GET_USER_RESULT = exports.RECEIVE_GET_CURRENT_USER = exports.REQUEST_GET_CURRENT_USER = exports.PUT_API_EXERCISE_RESOUCE = exports.RECEIVE_API_UPDATED_RESOUCE_ID = exports.PUT_API_RESOUCE = exports.PUT_API_MODULE_DESCRIPTION = exports.RECEIVE_API_EXERCISE_RESOUCE_BY_ID = exports.REQUEST_API_EXERCISE_RESOUCE_BY_ID = exports.RECEIVE_API_RESOUCE_BY_ID = exports.REQUEST_API_RESOUCE_BY_ID = exports.RECEIVE_API_MODULE = exports.REQUEST_API_MODULE = exports.RECEIVE_API_ALL_COURSE_MODULES = exports.REQUEST_API_ALL_COURSE_MODULES = exports.RECEIVE_API_ALL_COURSES = exports.REQUEST_API_ALL_COURSES = undefined;
+	exports.RECEIVE_POST_DIALOG_MESSAGE = exports.REQUEST_POST_DIALOG_MESSAGE = exports.RECEIVE_USER_DIALOGS = exports.REQUEST_USER_DIALOGS = exports.RECEIVE_ALL_MODULE_EXERCISES = exports.REQUEST_ALL_MODULE_EXERCISES = exports.RECEIVE_EXERCISE_RESULT = exports.REQUEST_EXERCISE_RESULT = exports.PUT_API_MODULE_PROMISE_RESULT = exports.PUT_API_EXERCISE_VIDEO_RESULT = exports.PUT_API_QUESTION_ANSWER_RESULT = exports.PUT_API_EXERCISE_GOAL_RESULT = exports.PUT_API_KP_EXPLORER_RESULT = exports.PUT_API_SORT_AND_EVAL_RESULT = exports.RESET_COURSE_ADMISSION = exports.RECEIVE_GET_MODULE_RESULT = exports.REQUEST_GET_MODULE_RESULT = exports.RECEIVE_GET_USER_RESULT = exports.REQUEST_GET_USER_RESULT = exports.RECEIVE_GET_CURRENT_USER = exports.REQUEST_GET_CURRENT_USER = exports.PUT_API_EXERCISE_RESOUCE = exports.RECEIVE_API_UPDATED_RESOUCE_ID = exports.PUT_API_RESOUCE = exports.PUT_API_MODULE_DESCRIPTION = exports.RECEIVE_API_EXERCISE_RESOUCE_BY_ID = exports.REQUEST_API_EXERCISE_RESOUCE_BY_ID = exports.RECEIVE_API_RESOUCE_BY_ID = exports.REQUEST_API_RESOUCE_BY_ID = exports.RECEIVE_API_MODULE = exports.REQUEST_API_MODULE = exports.RECEIVE_API_ALL_COURSE_MODULES = exports.REQUEST_API_ALL_COURSE_MODULES = exports.RECEIVE_API_ALL_COURSES = exports.REQUEST_API_ALL_COURSES = undefined;
 	exports.receiveApiAllCourses = receiveApiAllCourses;
 	exports.getAllCourses = getAllCourses;
 	exports.receiveApiAllCourseModules = receiveApiAllCourseModules;
@@ -40070,6 +40070,8 @@
 	exports.getCurrentUser = getCurrentUser;
 	exports.receiveUserResult = receiveUserResult;
 	exports.getUserResult = getUserResult;
+	exports.receiveModuleResult = receiveModuleResult;
+	exports.getModuleResults = getModuleResults;
 	exports.resetCourseAdmissionToModule = resetCourseAdmissionToModule;
 	exports.putSortAndEvalResultById = putSortAndEvalResultById;
 	exports.putKpExplorerResultById = putKpExplorerResultById;
@@ -40470,10 +40472,6 @@
 	  };
 	}
 	
-	// Meet our first thunk action creator!
-	// Though its insides are different, you would use it just like any other action creator:
-	// store.dispatch(fetchPosts('reactjs'))
-	
 	function getUserResult(userId) {
 	
 	  return function (dispatch) {
@@ -40494,6 +40492,51 @@
 	        // Final dispatch: Here, we update the app state with the results of the API call.
 	        // NOTE: We can dispatch many times!
 	        dispatch(receiveUserResult(userId, json))
+	      );
+	    }).catch(function (response) {
+	      console.log(response);
+	    });
+	  };
+	}
+	
+	//Current user result
+	var REQUEST_GET_MODULE_RESULT = exports.REQUEST_GET_MODULE_RESULT = 'REQUEST_GET_MODULE_RESULT';
+	function requestModuleResult(moduleId) {
+	  return {
+	    type: REQUEST_GET_MODULE_RESULT
+	  };
+	}
+	
+	var RECEIVE_GET_MODULE_RESULT = exports.RECEIVE_GET_MODULE_RESULT = 'RECEIVE_GET_MODULE_RESULT';
+	
+	function receiveModuleResult(moduleId, json) {
+	  return {
+	    type: RECEIVE_GET_MODULE_RESULT,
+	    results: json,
+	    moduleId: moduleId,
+	    receivedAt: Date.now()
+	  };
+	}
+	
+	function getModuleResults(moduleId) {
+	
+	  return function (dispatch) {
+	
+	    // First dispatch: the app state is updated to inform
+	    // that the API call is starting.
+	    dispatch(requestModuleResult());
+	
+	    var url = apiUrl + '/user/currentUser/module/' + moduleId + '/results';
+	
+	    // Secondly invoke the remote API and return a promise
+	    return _axios2.default.get(url).then(function (response) {
+	      return response.data;
+	    }).then(function (json) {
+	      return(
+	
+	        // Final dispatch: Here, we update the app state with the results of the API call.
+	        // NOTE: We can dispatch many times!
+	        dispatch(receiveModuleResult(moduleId, json))
 	      );
 	    }).catch(function (response) {
 	      console.log(response);
@@ -61096,6 +61139,10 @@
 	
 	var _list2 = _interopRequireDefault(_list);
 	
+	var _textField = __webpack_require__(674);
+	
+	var _textField2 = _interopRequireDefault(_textField);
+	
 	var _listItem = __webpack_require__(667);
 	
 	var _listItem2 = _interopRequireDefault(_listItem);
@@ -61172,7 +61219,11 @@
 	
 	var _event2 = _interopRequireDefault(_event);
 	
-	var _expandLess = __webpack_require__(772);
+	var _school = __webpack_require__(772);
+	
+	var _school2 = _interopRequireDefault(_school);
+	
+	var _expandLess = __webpack_require__(773);
 	
 	var _expandLess2 = _interopRequireDefault(_expandLess);
 	
@@ -61180,11 +61231,11 @@
 	
 	var _Theme2 = _interopRequireDefault(_Theme);
 	
-	var _badge = __webpack_require__(773);
+	var _badge = __webpack_require__(774);
 	
 	var _badge2 = _interopRequireDefault(_badge);
 	
-	var _ProgressWheel = __webpack_require__(774);
+	var _ProgressWheel = __webpack_require__(775);
 	
 	var _ProgressWheel2 = _interopRequireDefault(_ProgressWheel);
 	
@@ -61754,6 +61805,107 @@
 	                  'div',
 	                  { style: { padding: '16 16' } },
 	                  _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: '<div data-oembed-url="https://vimeo.com/164063014"> <div> <div style="left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;"><iframe allowfullscreen="true" frameborder="0" mozallowfullscreen="true" src="//player.vimeo.com/video/164063014?byline=0&amp;badge=0&amp;portrait=0&amp;title=0" style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;" webkitallowfullscreen="true"></iframe></div> </div> </div>' } })
+	                )
+	              ),
+	              _react2.default.createElement(
+	                _paper2.default,
+	                { style: { marginTop: 32 } },
+	                _react2.default.createElement(
+	                  'div',
+	                  { style: {
+	                      backgroundColor: _Theme2.default.palette.backgroundColor,
+	                      display: 'flex', padding: '8 16' } },
+	                  _react2.default.createElement(_school2.default, { style: { height: '29px', width: '29px' }, color: _colors2.default.grey500 }),
+	                  _react2.default.createElement(
+	                    'h4',
+	                    { style: {
+	                        fontWeight: 'normal',
+	                        margin: 0,
+	                        marginLeft: 20,
+	                        marginTop: 5
+	                      } },
+	                    'Viden'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'div',
+	                  { style: { padding: 16 } },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { style: { display: 'flex' } },
+	                    _react2.default.createElement(_search2.default, { style: { marginTop: 12, marginRight: 8 } }),
+	                    _react2.default.createElement(_textField2.default, { style: { width: '100%' },
+	                      hintText: 'Søg efter indslag, artikler'
+	                    })
+	                  ),
+	                  _react2.default.createElement(
+	                    _list2.default,
+	                    { subheader: 'Udvalgte indslag', style: { marginTop: 16 } },
+	                    _react2.default.createElement(_listItem2.default, {
+	                      leftAvatar: _react2.default.createElement(_avatar2.default, { src: 'assets/amycuddy.jpg' }),
+	                      primaryText: 'Dit Kropssprog former hvem du er',
+	                      secondaryText: _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        _react2.default.createElement(
+	                          'span',
+	                          { style: { color: _colors2.default.darkBlack } },
+	                          'Amy Cuddy'
+	                        ),
+	                        ' -- Kropssproget har en betynding for hvordan andre opfatter os, men det kan også ændre hvordan vi opfatter os selv. Social psykolog Amy Cuddy viser #power position# – at stå med selvtillid, selv når du ikke føler det. Det påvirker dine hormoner og hjerneaktivitet og – har en indvirken på dine chancer for succes.'
+	                      ),
+	                      secondaryTextLines: 2
+	                    }),
+	                    _react2.default.createElement(_divider2.default, { inset: true }),
+	                    _react2.default.createElement(_listItem2.default, {
+	                      leftAvatar: _react2.default.createElement(_avatar2.default, { src: 'assets/juliantreasure.jpg' }),
+	                      primaryText: 'Sådan får du andre til at lytte når du taler',
+	                      secondaryText: _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        _react2.default.createElement(
+	                          'span',
+	                          { style: { color: _colors2.default.darkBlack } },
+	                          'Julian Treasure'
+	                        ),
+	                        ' -- Har du oplevet at ingen lytter når du taler? Her er Julians Treasures hjælp til dig. Lydeksperten viser dig hvordan man taler med empathi. En lyd der får verden til at lyde smukkere.'
+	                      ),
+	                      secondaryTextLines: 2
+	                    }),
+	                    _react2.default.createElement(_divider2.default, { inset: true }),
+	                    _react2.default.createElement(_listItem2.default, {
+	                      leftAvatar: _react2.default.createElement(_avatar2.default, { src: 'assets/shawnachor.jpg' }),
+	                      primaryText: 'Den bedste nyhed til et bedre arbejde',
+	                      secondaryText: _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        _react2.default.createElement(
+	                          'span',
+	                          { style: { color: _colors2.default.darkBlack } },
+	                          'Grace Ng'
+	                        ),
+	                        ' -- Mange tror at vi skal arbejde hårdere for at blive lykkelige, men hvad vil der ske hvis vi tænker det lige omvendt? I denne hurtige og morsomme talk, argumenterer Shawn Achor for at lige netop at lykke gør os mere produktive.'
+	                      ),
+	                      secondaryTextLines: 2
+	                    }),
+	                    _react2.default.createElement(_divider2.default, { inset: true }),
+	                    _react2.default.createElement(_listItem2.default, {
+	                      leftAvatar: _react2.default.createElement(_avatar2.default, { src: 'assets/elizabethgilbert.jpg' }),
+	                      primaryText: 'Sæt dit talent fri',
+	                      secondaryText: _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        _react2.default.createElement(
+	                          'span',
+	                          { style: { color: _colors2.default.darkBlack } },
+	                          'Elisabeth Gilbert'
+	                        ),
+	                        ' -- Elisabeth Gilbert runder de umulige ting vi forventer af artister og genier – og foreslår en radikal idé: at i stedet for at være  et talent  – kan man tale med om at have talent. Det er en morsom, tankevækkende og overraskende bevægende talk.'
+	                      ),
+	                      secondaryTextLines: 2
+	                    })
+	                  ),
+	                  _react2.default.createElement(_flatButton2.default, { secondary: true, label: 'Find flere artikler' })
 	                )
 	              )
 	            )
@@ -62607,6 +62759,47 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var SocialSchool = _react2.default.createClass({
+	  displayName: 'SocialSchool',
+	
+	  mixins: [_reactAddonsPureRenderMixin2.default],
+	
+	  render: function render() {
+	    return _react2.default.createElement(
+	      _svgIcon2.default,
+	      this.props,
+	      _react2.default.createElement('path', { d: 'M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z' })
+	    );
+	  }
+	});
+	
+	exports.default = SocialSchool;
+	module.exports = exports['default'];
+
+/***/ },
+/* 773 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(264);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAddonsPureRenderMixin = __webpack_require__(634);
+	
+	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
+	
+	var _svgIcon = __webpack_require__(666);
+	
+	var _svgIcon2 = _interopRequireDefault(_svgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var NavigationExpandLess = _react2.default.createClass({
 	  displayName: 'NavigationExpandLess',
 	
@@ -62625,7 +62818,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 773 */
+/* 774 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62790,7 +62983,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 774 */
+/* 775 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62894,7 +63087,7 @@
 	exports.default = ProgressWheel;
 
 /***/ },
-/* 775 */
+/* 776 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -62909,11 +63102,11 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _tabs = __webpack_require__(776);
+	var _tabs = __webpack_require__(777);
 	
 	var _tabs2 = _interopRequireDefault(_tabs);
 	
-	var _tab = __webpack_require__(779);
+	var _tab = __webpack_require__(780);
 	
 	var _tab2 = _interopRequireDefault(_tab);
 	
@@ -62921,19 +63114,19 @@
 	
 	var _fontIcon2 = _interopRequireDefault(_fontIcon);
 	
-	var _flightTakeoff = __webpack_require__(780);
+	var _flightTakeoff = __webpack_require__(781);
 	
 	var _flightTakeoff2 = _interopRequireDefault(_flightTakeoff);
 	
-	var _card = __webpack_require__(781);
+	var _card = __webpack_require__(782);
 	
 	var _card2 = _interopRequireDefault(_card);
 	
-	var _cardActions = __webpack_require__(785);
+	var _cardActions = __webpack_require__(786);
 	
 	var _cardActions2 = _interopRequireDefault(_cardActions);
 	
-	var _cardHeader = __webpack_require__(786);
+	var _cardHeader = __webpack_require__(787);
 	
 	var _cardHeader2 = _interopRequireDefault(_cardHeader);
 	
@@ -62941,7 +63134,7 @@
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
 	
-	var _cardText = __webpack_require__(787);
+	var _cardText = __webpack_require__(788);
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
 	
@@ -62949,17 +63142,13 @@
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _CourseModuleInfo = __webpack_require__(788);
+	var _CourseModuleInfo = __webpack_require__(789);
 	
 	var _CourseModuleInfo2 = _interopRequireDefault(_CourseModuleInfo);
 	
-	var _CourseModuleExperiment = __webpack_require__(789);
+	var _CourseModuleExperiment = __webpack_require__(790);
 	
 	var _CourseModuleExperiment2 = _interopRequireDefault(_CourseModuleExperiment);
-	
-	var _CourseModuleReflection = __webpack_require__(812);
-	
-	var _CourseModuleReflection2 = _interopRequireDefault(_CourseModuleReflection);
 	
 	var _Theme = __webpack_require__(732);
 	
@@ -63039,6 +63228,16 @@
 	        reflection: json.module.reflection,
 	        moduleName: json.module.name,
 	        moduleIndex: json.module.moduleIndex
+	      });
+	    });
+	
+	    //Load results
+	    this.props.dispatch((0, _api.getModuleResults)(this.props.params.moduleId)).then(function (json) {
+	      _this.setState({
+	        moduleResults: json.results.moduleResults,
+	        isModuleActive: json.results.isActive,
+	        isModuleCompleted: json.results.isCompleted,
+	        activeScoreCard: json.results.activeScoreCard
 	      });
 	    });
 	  },
@@ -63153,7 +63352,7 @@
 	                    _react2.default.createElement(
 	                      'div',
 	                      { style: paddingStyle },
-	                      _react2.default.createElement(_CourseModuleExperiment2.default, { onExerciseGoalUpdated: this.onExerciseGoalUpdated, exerciseGoalText: this.state.exerciseGoalText, exercisesStatusChanged: this.exercisesStatusChanged, resourceId: this.state.exercise })
+	                      this.state.moduleResults !== undefined ? _react2.default.createElement(_CourseModuleExperiment2.default, { isModuleActive: this.state.isModuleActive, isModuleCompleted: this.state.isModuleActive, results: this.state.moduleResults, onExerciseGoalUpdated: this.onExerciseGoalUpdated, exerciseGoalText: this.state.exerciseGoalText, isActive: this.state.isModuleActive || this.state.isModuleCompleted, exercisesStatusChanged: this.exercisesStatusChanged, resourceId: this.state.exercise }) : null
 	                    )
 	                  ),
 	                  _react2.default.createElement(
@@ -63168,7 +63367,7 @@
 	                    _react2.default.createElement(
 	                      'div',
 	                      { style: paddingStyle },
-	                      _react2.default.createElement(_CourseModuleExperiment2.default, { exerciseGoalText: this.state.exerciseGoalText, exercisesStatusChanged: this.exercisesStatusChanged, isActive: this.state.isExerciseCompleted, resourceId: this.state.reflection })
+	                      this.state.moduleResults !== undefined ? _react2.default.createElement(_CourseModuleExperiment2.default, { isModuleActive: this.state.isModuleActive, isModuleCompleted: this.state.isModuleCompleted, results: this.state.moduleResults, exerciseGoalText: this.state.exerciseGoalText, exercisesStatusChanged: this.exercisesStatusChanged, isActive: this.state.isExerciseCompleted, resourceId: this.state.reflection }) : null
 	                    )
 	                  )
 	                )
@@ -63187,7 +63386,7 @@
 	exports.default = CourseModule;
 
 /***/ },
-/* 776 */
+/* 777 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -63206,11 +63405,11 @@
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _tabTemplate = __webpack_require__(777);
+	var _tabTemplate = __webpack_require__(778);
 	
 	var _tabTemplate2 = _interopRequireDefault(_tabTemplate);
 	
-	var _inkBar = __webpack_require__(778);
+	var _inkBar = __webpack_require__(779);
 	
 	var _inkBar2 = _interopRequireDefault(_inkBar);
 	
@@ -63468,7 +63667,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 777 */
+/* 778 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63535,7 +63734,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 778 */
+/* 779 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63640,7 +63839,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 779 */
+/* 780 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63824,7 +64023,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 780 */
+/* 781 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63865,7 +64064,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 781 */
+/* 782 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63888,7 +64087,7 @@
 	
 	var _stylePropable2 = _interopRequireDefault(_stylePropable);
 	
-	var _cardExpandable = __webpack_require__(782);
+	var _cardExpandable = __webpack_require__(783);
 	
 	var _cardExpandable2 = _interopRequireDefault(_cardExpandable);
 	
@@ -64016,7 +64215,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 782 */
+/* 783 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64029,11 +64228,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _keyboardArrowUp = __webpack_require__(783);
+	var _keyboardArrowUp = __webpack_require__(784);
 	
 	var _keyboardArrowUp2 = _interopRequireDefault(_keyboardArrowUp);
 	
-	var _keyboardArrowDown = __webpack_require__(784);
+	var _keyboardArrowDown = __webpack_require__(785);
 	
 	var _keyboardArrowDown2 = _interopRequireDefault(_keyboardArrowDown);
 	
@@ -64150,7 +64349,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 783 */
+/* 784 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64191,7 +64390,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 784 */
+/* 785 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64232,7 +64431,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 785 */
+/* 786 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64331,7 +64530,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 786 */
+/* 787 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64492,7 +64691,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 787 */
+/* 788 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64586,7 +64785,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 788 */
+/* 789 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64669,7 +64868,7 @@
 	exports.default = CourseModuleInfo;
 
 /***/ },
-/* 789 */
+/* 790 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64684,13 +64883,13 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _ExerciseSelector = __webpack_require__(790);
+	var _ExerciseSelector = __webpack_require__(791);
 	
 	var _ExerciseSelector2 = _interopRequireDefault(_ExerciseSelector);
 	
 	var _api = __webpack_require__(552);
 	
-	var _Camera = __webpack_require__(810);
+	var _Camera = __webpack_require__(811);
 	
 	var _Camera2 = _interopRequireDefault(_Camera);
 	
@@ -64702,11 +64901,19 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
+	var _iconButton = __webpack_require__(661);
+	
+	var _iconButton2 = _interopRequireDefault(_iconButton);
+	
 	var _paper = __webpack_require__(654);
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _shareVideo = __webpack_require__(811);
+	var _Theme = __webpack_require__(732);
+	
+	var _Theme2 = _interopRequireDefault(_Theme);
+	
+	var _shareVideo = __webpack_require__(812);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -64716,7 +64923,9 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      exerciseElements: [],
-	      isLoadingResource: false
+	      isLoadingResource: false,
+	      currentIndex: -1,
+	      activeIndex: -1
 	    };
 	  },
 	
@@ -64726,17 +64935,42 @@
 	    if (resourceId === undefined || resourceId === null) return;
 	
 	    this.setState({ isLoadingResource: true, exerciseElements: [] });
+	
 	    this.props.dispatch((0, _api.getExerciseResourceById)(resourceId)).then(function (json) {
-	      _this.setState({
-	        exerciseElements: json.resource.elements,
-	        isLoadingResource: false
-	      });
 	
 	      //Set all elements not completed
-	      for (var i = 0; i < json.resource.elements.length; i++) {
+	      /*for (var i = 0; i < json.resource.elements.length; i++) {
 	        json.resource.elements[i].isComplete = false;
+	      }*/
+	
+	      for (var i = 0; i < json.resource.elements.length; i++) {
+	        json.resource.elements[i].scoreCard = _this.props.results.filter(function (r) {
+	          return r.exerciseId === json.resource.elements[i].exerciseId;
+	        })[0];
 	      }
 	
+	      //Set all elements status based their scoreCard
+	      for (var i = 0; i < json.resource.elements.length; i++) {
+	        json.resource.elements[i].isCompleted = json.resource.elements[i].scoreCard !== undefined ? json.resource.elements[i].scoreCard.isCompleted : true;
+	      }
+	
+	      var currentIndex = 0;
+	      var incompleted = json.resource.elements.filter(function (e) {
+	        return !e.isCompleted;
+	      });
+	
+	      if (incompleted.length > 0) {
+	        currentIndex = json.resource.elements.indexOf(incompleted[0]);
+	      } else if (_this.props.isModuleActive) currentIndex = json.resource.elements.length - 1;
+	
+	      if (incompleted.length === 0) _this.props.exercisesStatusChanged(true);
+	
+	      _this.setState({
+	        exerciseElements: json.resource.elements,
+	        isLoadingResource: false,
+	        currentIndex: currentIndex,
+	        activeIndex: currentIndex
+	      });
 	      //this.props.exercisesStatusChanged(json.)
 	
 	      _this.currentResourceId = json.resource.id;
@@ -64753,41 +64987,66 @@
 	  },
 	
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (nextProps.resourceId !== undefined) this.getResource(nextProps.resourceId);
+	    /*if (nextProps.resourceId !== undefined)
+	      this.getResource(nextProps.resourceId);*/
 	
 	    if (nextProps.isActive) {
 	      this.setState({ isActive: nextProps.isActive });
 	    }
 	  },
 	
-	  exerciseStatusChanged: function exerciseStatusChanged(isComplete, exercise) {
-	    exercise.isComplete = isComplete;
+	  exerciseStatusChanged: function exerciseStatusChanged(isCompleted, exercise) {
+	    exercise.isCompleted = isCompleted;
 	    var numComplete = this.state.exerciseElements.filter(function (e) {
-	      return e.isComplete;
+	      return e.isCompleted;
 	    }).length;
 	
+	    this.setState({
+	      currentIndex: Math.min(numComplete, this.state.exerciseElements.length - 1),
+	      activeIndex: Math.min(numComplete, this.state.exerciseElements.length - 1)
+	    });
+	
 	    this.props.exercisesStatusChanged(numComplete === this.state.exerciseElements.length);
-	    this.setState({ numComplete: numComplete });
+	  },
+	
+	  showPrevExercise: function showPrevExercise() {
+	    this.setState({
+	      currentIndex: Math.max(0, this.state.currentIndex - 1)
+	    });
+	  },
+	
+	  showNextExercise: function showNextExercise() {
+	    this.setState({
+	      currentIndex: Math.min(this.state.exerciseElements.length - 1, this.state.currentIndex + 1)
+	    });
 	  },
 	
 	  render: function render() {
 	    var _this2 = this;
 	
-	    var firstIncomplete = this.state.exerciseElements.filter(function (e) {
-	      return !e.isComplete;
-	    })[0];
-	    var complete = this.state.exerciseElements.filter(function (e) {
-	      return e.isComplete;
-	    });
+	    //var firstIncomplete = this.state.exerciseElements.filter(e => !e.isComplete)[0];
+	    //var complete = this.state.exerciseElements.filter(e => e.isComplete);
 	
-	    if (firstIncomplete !== undefined) complete.push(firstIncomplete);
+	    /*if (firstIncomplete !== undefined)
+	      complete.push(firstIncomplete);
+	      */
 	
-	    var Elements = this.state.isActive ? complete.map(function (i, index) {
+	    var nextEnabled = this.state.currentIndex < this.state.activeIndex;
+	    var prevEnabled = this.state.currentIndex > 0;
+	
+	    var current = [this.state.exerciseElements[this.state.currentIndex]];
+	    var Elements = this.state.isActive ? this.state.exerciseElements.map(function (i, index) {
 	      return _react2.default.createElement(
 	        'div',
-	        { key: index },
+	        { key: index, style: { display: index === _this2.state.currentIndex ? '' : 'none' } },
 	        _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: i.content } }),
-	        _react2.default.createElement(_ExerciseSelector2.default, { onExerciseGoalUpdated: _this2.props.onExerciseGoalUpdated, exerciseGoalText: _this2.props.exerciseGoalText, exercisesStatusChanged: _this2.exerciseStatusChanged, exerciseSelection: i, liveExercise: true })
+	        _react2.default.createElement('div', { style: { height: 20 } }),
+	        _react2.default.createElement(_ExerciseSelector2.default, {
+	          onExerciseGoalUpdated: _this2.props.onExerciseGoalUpdated,
+	          exerciseGoalText: _this2.props.exerciseGoalText,
+	          exercisesStatusChanged: _this2.exerciseStatusChanged,
+	          exerciseSelection: i, liveExercise: true,
+	          scoreCard: i.scoreCard })
 	      );
 	    }) : _react2.default.createElement(
 	      'div',
@@ -64802,6 +65061,43 @@
 	    return _react2.default.createElement(
 	      'div',
 	      null,
+	      _react2.default.createElement(
+	        'div',
+	        { style: { display: 'flex', marginBottom: -20 } },
+	        _react2.default.createElement(
+	          'h1',
+	          { style: { color: _Theme2.default.palette.textColorMuted, fontWeight: 100, marginRight: 6 } },
+	          'Eksperiment '
+	        ),
+	        prevEnabled ? _react2.default.createElement(
+	          _iconButton2.default,
+	          {
+	            style: { padding: 0, width: '24', height: '24', marginTop: 30 },
+	            iconClassName: 'material-icons',
+	            tooltip: 'Forrige', onClick: this.showPrevExercise },
+	          'keyboard_arrow_left'
+	        ) : null,
+	        _react2.default.createElement(
+	          'h1',
+	          { style: { color: _Theme2.default.palette.textColorMuted, fontWeight: 400 } },
+	          this.state.currentIndex + 1
+	        ),
+	        _react2.default.createElement(
+	          'h1',
+	          { style: { color: _Theme2.default.palette.textColorMuted, fontWeight: 100 } },
+	          '/',
+	          this.state.exerciseElements.length
+	        ),
+	        nextEnabled ? _react2.default.createElement(
+	          _iconButton2.default,
+	          {
+	            onClick: this.showNextExercise,
+	            style: { padding: 0, width: '24', height: '24', marginTop: 30 },
+	            iconClassName: 'material-icons',
+	            tooltip: 'Næste' },
+	          'keyboard_arrow_right'
+	        ) : null
+	      ),
 	      Elements
 	    );
 	  }
@@ -64809,31 +65105,9 @@
 	CourseModuleExperiment = (0, _reactRedux.connect)()(CourseModuleExperiment);
 	
 	exports.default = CourseModuleExperiment;
-	
-	/*<h1>Opgave 1</h1>
-	<h3>Hvad var godt ved dit gamle job?</h3>
-	<p>Prøv at sortér begreberne herunder ift. hvad du bedst kunne lide ved dit gamle job</p>
-
-	<SortableList/>
-
-	<h1>Opgave 2</h1>
-	<h3>Hvordan præsenterer du dig selv?</h3>
-	<p>Film en præsentation af dig selv og del den med en ven</p>
-
-	<Camera onPublish={videoUuid => {
-	    console.log("onPublish invoked");
-	    console.log(videoUuid);
-
-	    dispatch(shareVideo(videoUuid));
-	}}>
-	</Camera>
-
-	<div style={{textAlign: 'center', marginTop: 50}}>
-	  <RaisedButton label="Færdig" primary={true} />
-	</div>*/
 
 /***/ },
-/* 790 */
+/* 791 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64846,27 +65120,27 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _SortAndEvaluateExercise = __webpack_require__(791);
+	var _SortAndEvaluateExercise = __webpack_require__(792);
 	
 	var _SortAndEvaluateExercise2 = _interopRequireDefault(_SortAndEvaluateExercise);
 	
-	var _KPExplorerQuestionnaire = __webpack_require__(797);
+	var _KPExplorerQuestionnaire = __webpack_require__(798);
 	
 	var _KPExplorerQuestionnaire2 = _interopRequireDefault(_KPExplorerQuestionnaire);
 	
-	var _GoalExercise = __webpack_require__(803);
+	var _GoalExercise = __webpack_require__(804);
 	
 	var _GoalExercise2 = _interopRequireDefault(_GoalExercise);
 	
-	var _PromiseExercise = __webpack_require__(804);
+	var _PromiseExercise = __webpack_require__(805);
 	
 	var _PromiseExercise2 = _interopRequireDefault(_PromiseExercise);
 	
-	var _VideoExercise = __webpack_require__(805);
+	var _VideoExercise = __webpack_require__(806);
 	
 	var _VideoExercise2 = _interopRequireDefault(_VideoExercise);
 	
-	var _QuestionAnswerExercise = __webpack_require__(809);
+	var _QuestionAnswerExercise = __webpack_require__(810);
 	
 	var _QuestionAnswerExercise2 = _interopRequireDefault(_QuestionAnswerExercise);
 	
@@ -64922,7 +65196,7 @@
 	exports.default = ExerciseSelector;
 
 /***/ },
-/* 791 */
+/* 792 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64937,7 +65211,7 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _reactSortableMixin = __webpack_require__(792);
+	var _reactSortableMixin = __webpack_require__(793);
 	
 	var _reactSortableMixin2 = _interopRequireDefault(_reactSortableMixin);
 	
@@ -64953,15 +65227,15 @@
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _done = __webpack_require__(794);
+	var _done = __webpack_require__(795);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
-	var _arrowForward = __webpack_require__(795);
+	var _arrowForward = __webpack_require__(796);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _arrowBack = __webpack_require__(796);
+	var _arrowBack = __webpack_require__(797);
 	
 	var _arrowBack2 = _interopRequireDefault(_arrowBack);
 	
@@ -65171,8 +65445,8 @@
 	      'listStyleType': 'none',
 	      'cursor': 'ns-resize',
 	      padding: 0,
-	      marginTop: '24px',
-	      marginBottom: '24px'
+	      marginTop: '0',
+	      marginBottom: '0'
 	    };
 	
 	    var sortIndexIndicator = {
@@ -65183,7 +65457,7 @@
 	    };
 	
 	    var itemContainerStyle = {
-	      maxWidth: 360,
+	      maxWidth: '100%',
 	      display: 'block',
 	      marginTop: '8px'
 	    };
@@ -65330,6 +65604,11 @@
 	    //Update server
 	    if (this.props.liveExercise) {
 	      this.props.dispatch((0, _api.putSortAndEvalResultById)(this.props.exerciseId, { evaluations: items, exerciseId: this.props.exerciseId, isCompleted: true }));
+	    }
+	  },
+	
+	  onContinueToNextExercise: function onContinueToNextExercise() {
+	    if (this.props.liveExercise) {
 	      this.props.exercisesStatusChanged(true, this.props.exercise);
 	    }
 	  },
@@ -65393,7 +65672,11 @@
 	        'div',
 	        null,
 	        _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(1) }),
-	        _react2.default.createElement(SortPhase, { items: this.state.items, onSort: this.handleSort }),
+	        _react2.default.createElement(
+	          'div',
+	          { style: { margin: '32 0', padding: 16, paddingTop: 8, background: '#FAFAFA', width: 400 } },
+	          _react2.default.createElement(SortPhase, { items: this.state.items, onSort: this.handleSort })
+	        ),
 	        _react2.default.createElement(_raisedButton2.default, { labelPosition: 'before', primary: true,
 	          label: 'Færdig', icon: _react2.default.createElement(_done2.default, null), onClick: this.onFinishSort })
 	      );
@@ -65444,7 +65727,9 @@
 	            ),
 	            _react2.default.createElement('br', null)
 	          );
-	        })
+	        }),
+	        _react2.default.createElement(_raisedButton2.default, { labelPosition: 'before', primary: true,
+	          label: 'Videre', icon: _react2.default.createElement(_done2.default, null), onClick: this.onContinueToNextExercise })
 	      );
 	    }
 	
@@ -65461,7 +65746,7 @@
 	exports.default = SortaAndEvaluateExercise;
 
 /***/ },
-/* 792 */
+/* 793 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -65473,10 +65758,10 @@
 		'use strict';
 	
 		if (typeof module != 'undefined' && typeof module.exports != 'undefined') {
-			module.exports = factory(__webpack_require__(793));
+			module.exports = factory(__webpack_require__(794));
 		}
 		else if (true) {
-			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(793)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(794)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 		}
 		else {
 			/* jshint sub:true */
@@ -65632,7 +65917,7 @@
 
 
 /***/ },
-/* 793 */
+/* 794 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -66887,7 +67172,7 @@
 
 
 /***/ },
-/* 794 */
+/* 795 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66928,7 +67213,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 795 */
+/* 796 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66969,7 +67254,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 796 */
+/* 797 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -67010,7 +67295,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 797 */
+/* 798 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -67033,7 +67318,7 @@
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
 	
-	var _radioButton = __webpack_require__(798);
+	var _radioButton = __webpack_require__(799);
 	
 	var _radioButton2 = _interopRequireDefault(_radioButton);
 	
@@ -67045,15 +67330,15 @@
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _arrowForward = __webpack_require__(795);
+	var _arrowForward = __webpack_require__(796);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _done = __webpack_require__(794);
+	var _done = __webpack_require__(795);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
-	var _timer = __webpack_require__(802);
+	var _timer = __webpack_require__(803);
 	
 	var _timer2 = _interopRequireDefault(_timer);
 	
@@ -67120,10 +67405,58 @@
 	    } else if (this.props.scoreCard !== undefined) this.setScoreCard(this.props.scoreCard);
 	  },
 	
+	  renderPdf: function renderPdf() {
+	    if (this.refs.pdfcanvas === undefined) return;
+	
+	    var that = this;
+	
+	    //Init pdfjs
+	    PDFJS.workerSrc = './thrid-party/pdfjs-dist/build/pdf.worker.js';
+	    var url = './assets/KP%20Explorer%20demo.pdf';
+	
+	    var currentPage = 1;
+	    var pages = [];
+	
+	    PDFJS.getDocument(url).then(function (pdf) {
+	      pdf.getPage(currentPage).then(renderPage);
+	
+	      function renderPage(page) {
+	        var height = 1200;
+	        var viewport = page.getViewport(1);
+	        var scale = height / viewport.height;
+	        var scaledViewport = page.getViewport(scale);
+	
+	        var canvas = document.createElement('canvas');
+	        canvas.style.display = "block";
+	        var context = canvas.getContext('2d');
+	        canvas.height = scaledViewport.height;
+	        canvas.width = scaledViewport.width;
+	
+	        var renderContext = {
+	          canvasContext: context,
+	          viewport: scaledViewport
+	        };
+	        page.render(renderContext).then(function () {
+	          if (currentPage < pdf.numPages) {
+	            pages[currentPage] = canvas;
+	            currentPage++;
+	            pdf.getPage(currentPage).then(renderPage);
+	          } else {
+	            for (var i = 1; i < pages.length; i++) {
+	              that.refs.pdfcanvas.appendChild(pages[i]);
+	            }
+	          }
+	        });
+	      }
+	    });
+	  },
+	
 	  setScoreCard: function setScoreCard(scoreCard) {
 	    this.setState({
 	      isLoading: false,
 	      phase: scoreCard.isCompleted ? 2 : this.state.phase
+	    }, function () {
+	      this.renderPdf();
 	    });
 	  },
 	
@@ -67177,6 +67510,8 @@
 	  onFinished: function onFinished() {
 	    this.setState({
 	      phase: 2
+	    }, function () {
+	      this.renderPdf();
 	    });
 	
 	    if (this.props.onFinished !== undefined) this.props.onFinished(items);
@@ -67387,7 +67722,8 @@
 	      mainContent = _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(1) })
+	        _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(1) }),
+	        _react2.default.createElement('div', { ref: 'pdfcanvas' })
 	      );
 	    }
 	
@@ -67426,7 +67762,7 @@
 	exports.default = KPExplorerQuestionnaire;
 
 /***/ },
-/* 798 */
+/* 799 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -67449,15 +67785,15 @@
 	
 	var _transitions2 = _interopRequireDefault(_transitions);
 	
-	var _enhancedSwitch = __webpack_require__(799);
+	var _enhancedSwitch = __webpack_require__(800);
 	
 	var _enhancedSwitch2 = _interopRequireDefault(_enhancedSwitch);
 	
-	var _radioButtonUnchecked = __webpack_require__(800);
+	var _radioButtonUnchecked = __webpack_require__(801);
 	
 	var _radioButtonUnchecked2 = _interopRequireDefault(_radioButtonUnchecked);
 	
-	var _radioButtonChecked = __webpack_require__(801);
+	var _radioButtonChecked = __webpack_require__(802);
 	
 	var _radioButtonChecked2 = _interopRequireDefault(_radioButtonChecked);
 	
@@ -67658,7 +67994,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 799 */
+/* 800 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -68138,7 +68474,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(190)))
 
 /***/ },
-/* 800 */
+/* 801 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68179,7 +68515,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 801 */
+/* 802 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68220,7 +68556,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 802 */
+/* 803 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68261,7 +68597,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 803 */
+/* 804 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68284,11 +68620,11 @@
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _arrowForward = __webpack_require__(795);
+	var _arrowForward = __webpack_require__(796);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _done = __webpack_require__(794);
+	var _done = __webpack_require__(795);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
@@ -68393,16 +68729,11 @@
 	    } else if (this.state.phase === 1) {
 	      mainContent = _react2.default.createElement(
 	        'div',
-	        null,
+	        { style: { marginTop: 4 } },
+	        _react2.default.createElement('div', { style: { color: _Theme2.default.palette.disabledColor, marginBottom: 8 }, dangerouslySetInnerHTML: this.getHtmlText(0) }),
 	        _react2.default.createElement(
 	          'p',
-	          null,
-	          _react2.default.createElement(
-	            'span',
-	            { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
-	            'Dit mål for øvelsen:'
-	          ),
-	          _react2.default.createElement('br', null),
+	          { style: { marginTop: -10 } },
 	          this.state.goalText
 	        )
 	      );
@@ -68412,17 +68743,12 @@
 	      'div',
 	      { style: { background: _Theme2.default.palette.backgroundColor, padding: '32px' } },
 	      this.state.previousModulePromiseText !== undefined && this.state.previousModulePromiseText !== "" ? _react2.default.createElement(
-	        'p',
-	        null,
+	        'div',
+	        { style: { marginTop: 4, marginBottom: 32 } },
+	        _react2.default.createElement('div', { style: { color: _Theme2.default.palette.disabledColor, marginBottom: 8 }, dangerouslySetInnerHTML: this.getHtmlText(1) }),
 	        _react2.default.createElement(
-	          'span',
-	          { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
-	          'I sidste modul, lovede du dig selv:'
-	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(
-	          'span',
-	          null,
+	          'p',
+	          { style: { marginTop: -10 } },
 	          this.state.previousModulePromiseText
 	        )
 	      ) : null,
@@ -68436,7 +68762,7 @@
 	exports.default = GoalExercise;
 
 /***/ },
-/* 804 */
+/* 805 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68455,7 +68781,7 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
-	var _radioButton = __webpack_require__(798);
+	var _radioButton = __webpack_require__(799);
 	
 	var _radioButton2 = _interopRequireDefault(_radioButton);
 	
@@ -68463,11 +68789,11 @@
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _arrowForward = __webpack_require__(795);
+	var _arrowForward = __webpack_require__(796);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _done = __webpack_require__(794);
+	var _done = __webpack_require__(795);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
@@ -68510,7 +68836,8 @@
 	      items: items,
 	      phase: 0,
 	      resultItems: this.mapItems(items),
-	      instrunctionContent: this.props.exercise.instrunctionContent
+	      instrunctionContent: this.props.exercise.instrunctionContent,
+	      exerciseGoalText: this.props.exerciseGoalText
 	    };
 	  },
 	
@@ -68536,7 +68863,7 @@
 	  componentDidMount: function componentDidMount() {
 	    var _this = this;
 	
-	    //Update server
+	    //Update from server
 	    if (this.props.liveExercise && this.props.scoreCard === undefined) {
 	      this.setState({ isLoading: true });
 	      this.props.dispatch((0, _api.getExerciseResult)(this.props.exerciseId)).then(function (json) {
@@ -68557,7 +68884,7 @@
 	      isLoading: false,
 	      phase: scoreCard.isCompleted ? 1 : this.state.phase,
 	      promiseText: scoreCard.promiseText,
-	      exerciseGoalText: scoreCard.exerciseGoalText,
+	      exerciseGoalText: scoreCard.exerciseGoalText !== '' ? scoreCard.exerciseGoalText : this.state.exerciseGoalText,
 	      resultItems: resultItems
 	    });
 	  },
@@ -68567,7 +68894,8 @@
 	    this.setState({
 	      items: items,
 	      resultItems: this.mapItems(items),
-	      instrunctionContent: nextProps.exercise.instrunctionContent
+	      instrunctionContent: nextProps.exercise.instrunctionContent,
+	      exerciseGoalText: nextProps.exerciseGoalText !== '' ? nextProps.exerciseGoalText : this.state.exerciseGoalText
 	    });
 	  },
 	
@@ -68615,10 +68943,10 @@
 	            { style: { display: 'table-cell' } },
 	            that.state.phase === 0 ? _react2.default.createElement(
 	              'div',
-	              null,
+	              { style: { background: '#FAFAFA', padding: 24, marginTop: 16 } },
 	              _react2.default.createElement(
 	                'h4',
-	                { style: { marginTop: 32 } },
+	                { style: { marginTop: 0 } },
 	                i.question
 	              ),
 	              _react2.default.createElement(
@@ -68731,7 +69059,7 @@
 	              )
 	            ) : _react2.default.createElement(
 	              'div',
-	              { style: { marginTop: 40 } },
+	              { style: { background: '#FAFAFA', padding: '4 20', marginTop: 16 } },
 	              _react2.default.createElement(
 	                'p',
 	                null,
@@ -68793,16 +69121,14 @@
 	        'div',
 	        { style: { marginTop: 40 } },
 	        _react2.default.createElement(
-	          'p',
+	          'div',
 	          null,
+	          _react2.default.createElement('div', { style: { color: _Theme2.default.palette.disabledColor, marginBottom: 8 }, dangerouslySetInnerHTML: this.getHtmlText(0) }),
 	          _react2.default.createElement(
-	            'span',
-	            { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
-	            'Jeg lover mig selv:'
-	          ),
-	          _react2.default.createElement('br', null),
-	          ' ',
-	          this.state.promiseText
+	            'p',
+	            { style: { marginTop: -10 } },
+	            this.state.promiseText
+	          )
 	        )
 	      );
 	    }
@@ -68811,17 +69137,12 @@
 	      'div',
 	      { style: { background: _Theme2.default.palette.backgroundColor, padding: '32px' } },
 	      _react2.default.createElement(
-	        'p',
-	        { style: { marginBottom: 0 } },
+	        'div',
+	        { style: { marginTop: 4 } },
+	        _react2.default.createElement('div', { style: { color: _Theme2.default.palette.disabledColor, marginBottom: 8 }, dangerouslySetInnerHTML: this.getHtmlText(1) }),
 	        _react2.default.createElement(
-	          'span',
-	          { style: { color: '#777777', marginBottom: 8, fontSize: 'small' } },
-	          'Dit mål for øvelsen var:'
-	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(
-	          'span',
-	          null,
+	          'p',
+	          { style: { marginTop: -10 } },
 	          this.state.exerciseGoalText
 	        )
 	      ),
@@ -68836,7 +69157,7 @@
 	exports.default = PromiseExercise;
 
 /***/ },
-/* 805 */
+/* 806 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -68859,19 +69180,19 @@
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _replay = __webpack_require__(806);
+	var _replay = __webpack_require__(807);
 	
 	var _replay2 = _interopRequireDefault(_replay);
 	
-	var _fiberManualRecord = __webpack_require__(807);
+	var _fiberManualRecord = __webpack_require__(808);
 	
 	var _fiberManualRecord2 = _interopRequireDefault(_fiberManualRecord);
 	
-	var _arrowForward = __webpack_require__(795);
+	var _arrowForward = __webpack_require__(796);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _done = __webpack_require__(794);
+	var _done = __webpack_require__(795);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
@@ -68883,7 +69204,7 @@
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
-	var _Video = __webpack_require__(808);
+	var _Video = __webpack_require__(809);
 	
 	var _Video2 = _interopRequireDefault(_Video);
 	
@@ -69007,7 +69328,7 @@
 	    this.setState({
 	      firstName: event.target.value,
 	      messageHeading: "Besked til " + event.target.value,
-	      userMessage: this.hasChangedUserMaessage ? this.state.userMessage : "Hej " + event.target.value + ", jeg håber at du vil hjælpe mig ved at anmelde min profilvideo, hvis du har tid. Det vil jeg sætte stor pris på!"
+	      userMessage: this.hasChangedUserMaessage ? this.state.userMessage : "Hej " + event.target.value + ", jeg håber at du vil hjælpe mig feedback. Fortæl mig hvad du synes, og hvad jeg kan ændre."
 	    });
 	  },
 	
@@ -69156,7 +69477,7 @@
 	exports.default = VideoExercise;
 
 /***/ },
-/* 806 */
+/* 807 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69197,7 +69518,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 807 */
+/* 808 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69238,7 +69559,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 808 */
+/* 809 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -69292,7 +69613,7 @@
 	exports.default = Video;
 
 /***/ },
-/* 809 */
+/* 810 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69315,11 +69636,11 @@
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
-	var _arrowForward = __webpack_require__(795);
+	var _arrowForward = __webpack_require__(796);
 	
 	var _arrowForward2 = _interopRequireDefault(_arrowForward);
 	
-	var _done = __webpack_require__(794);
+	var _done = __webpack_require__(795);
 	
 	var _done2 = _interopRequireDefault(_done);
 	
@@ -69413,7 +69734,7 @@
 	        null,
 	        _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(0) }),
 	        _react2.default.createElement(_textField2.default, { style: { width: 400 },
-	          hintText: 'Skriv..', value: this.state.answerText, onChange: this.onAnswerTextChanged
+	          hintText: 'Skriv..', value: this.state.answerText, onChange: this.onAnswerTextChanged, multiLine: true
 	        }),
 	        _react2.default.createElement(_raisedButton2.default, { primary: true, style: { marginLeft: 16 },
 	          label: 'Ok', icon: _react2.default.createElement(_done2.default, null), onClick: this.onFinished })
@@ -69422,7 +69743,7 @@
 	      mainContent = _react2.default.createElement(
 	        'div',
 	        { style: { marginTop: 4 } },
-	        _react2.default.createElement('div', { style: { color: '#777777', marginBottom: 8, fontSize: 'small' }, dangerouslySetInnerHTML: this.getHtmlText(0) }),
+	        _react2.default.createElement('div', { style: { color: _Theme2.default.palette.disabledColor, marginBottom: 8 }, dangerouslySetInnerHTML: this.getHtmlText(0) }),
 	        _react2.default.createElement(
 	          'p',
 	          { style: { marginTop: -10 } },
@@ -69444,7 +69765,7 @@
 	exports.default = QuestionAnswerExercise;
 
 /***/ },
-/* 810 */
+/* 811 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69514,7 +69835,7 @@
 	exports.default = Camera;
 
 /***/ },
-/* 811 */
+/* 812 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69684,180 +70005,7 @@
 	}
 
 /***/ },
-/* 812 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(483);
-	
-	var _sendSms = __webpack_require__(813);
-	
-	var _raisedButton = __webpack_require__(690);
-	
-	var _raisedButton2 = _interopRequireDefault(_raisedButton);
-	
-	var _fontIcon = __webpack_require__(662);
-	
-	var _fontIcon2 = _interopRequireDefault(_fontIcon);
-	
-	var _textsms = __webpack_require__(814);
-	
-	var _textsms2 = _interopRequireDefault(_textsms);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var CourseModuleReflection = function CourseModuleReflection(_ref) {
-	  var dispatch = _ref.dispatch;
-	
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h1',
-	      null,
-	      'Reflektion'
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ultrices commodo commodo. Suspendisse egestas, erat vel rutrum porta, sapien eros posuere nulla, id blandit metus odio a nibh.'
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { style: { textAlign: 'center' } },
-	      _react2.default.createElement(_raisedButton2.default, {
-	        label: 'Send SMS',
-	        labelPosition: 'after',
-	        primary: true,
-	        icon: _react2.default.createElement(_textsms2.default, null),
-	        onClick: function onClick(e) {
-	          e.preventDefault();
-	          dispatch((0, _sendSms.sendSms)(3));
-	        }
-	      })
-	    )
-	  );
-	};
-	CourseModuleReflection = (0, _reactRedux.connect)()(CourseModuleReflection);
-	
-	exports.default = CourseModuleReflection;
-
-/***/ },
 /* 813 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.RECEIVE_SEND_SMS = exports.REQUEST_SEND_SMS = undefined;
-	exports.sendSms = sendSms;
-	
-	var _axios = __webpack_require__(553);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var REQUEST_SEND_SMS = exports.REQUEST_SEND_SMS = 'REQUEST_SEND_SMS';
-	function requestSendSms(id) {
-	  return {
-	    type: REQUEST_SEND_SMS,
-	    id: id
-	  };
-	}
-	
-	var RECEIVE_SEND_SMS = exports.RECEIVE_SEND_SMS = 'RECEIVE_SEND_SMS';
-	function receiveSendSms(id, json) {
-	  return {
-	    type: RECEIVE_SEND_SMS,
-	    id: id,
-	    posts: json, //json.data.children.map(child => child.data),
-	    receivedAt: Date.now()
-	  };
-	}
-	
-	function sendSms(id) {
-	
-	  // Thunk middleware knows how to handle functions.
-	  // It passes the dispatch method as an argument to the function,
-	  // thus making it able to dispatch actions itself.
-	
-	  return function (dispatch) {
-	
-	    // First dispatch: the app state is updated to inform
-	    // that the API call is starting.
-	    dispatch(requestSendSms(id));
-	
-	    // Secondly invoke the remote API and return a promise
-	    return _axios2.default.get('http://betterways-api.azurewebsites.net/api/Notifications/' + id).then(function (response) {
-	      return response.data;
-	    }).then(function (json) {
-	      return(
-	
-	        // Final dispatch: Here, we update the app state with the results of the API call.
-	        // NOTE: We can dispatch many times!
-	        dispatch(receiveSendSms(id, json))
-	      );
-	    }).catch(function (response) {
-	      console.log(response);
-	    });
-	  };
-	}
-
-/***/ },
-/* 814 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(264);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactAddonsPureRenderMixin = __webpack_require__(634);
-	
-	var _reactAddonsPureRenderMixin2 = _interopRequireDefault(_reactAddonsPureRenderMixin);
-	
-	var _svgIcon = __webpack_require__(666);
-	
-	var _svgIcon2 = _interopRequireDefault(_svgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var CommunicationTextsms = _react2.default.createClass({
-	  displayName: 'CommunicationTextsms',
-	
-	  mixins: [_reactAddonsPureRenderMixin2.default],
-	
-	  render: function render() {
-	    return _react2.default.createElement(
-	      _svgIcon2.default,
-	      this.props,
-	      _react2.default.createElement('path', { d: 'M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z' })
-	    );
-	  }
-	});
-	
-	exports.default = CommunicationTextsms;
-	module.exports = exports['default'];
-
-/***/ },
-/* 815 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69892,7 +70040,7 @@
 	
 	var _raisedButton2 = _interopRequireDefault(_raisedButton);
 	
-	var _cardText = __webpack_require__(787);
+	var _cardText = __webpack_require__(788);
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
 	
@@ -69908,27 +70056,23 @@
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
-	var _CourseModuleInfo = __webpack_require__(788);
+	var _CourseModuleInfo = __webpack_require__(789);
 	
 	var _CourseModuleInfo2 = _interopRequireDefault(_CourseModuleInfo);
 	
-	var _CourseModuleExperiment = __webpack_require__(789);
+	var _CourseModuleExperiment = __webpack_require__(790);
 	
 	var _CourseModuleExperiment2 = _interopRequireDefault(_CourseModuleExperiment);
-	
-	var _CourseModuleReflection = __webpack_require__(812);
-	
-	var _CourseModuleReflection2 = _interopRequireDefault(_CourseModuleReflection);
 	
 	var _DropDownMenu = __webpack_require__(682);
 	
 	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 	
-	var _IntroductionContentAdministration = __webpack_require__(816);
+	var _IntroductionContentAdministration = __webpack_require__(814);
 	
 	var _IntroductionContentAdministration2 = _interopRequireDefault(_IntroductionContentAdministration);
 	
-	var _ExerciseContentAdministration = __webpack_require__(819);
+	var _ExerciseContentAdministration = __webpack_require__(817);
 	
 	var _ExerciseContentAdministration2 = _interopRequireDefault(_ExerciseContentAdministration);
 	
@@ -70183,7 +70327,7 @@
 	exports.default = AdministrationModule;
 
 /***/ },
-/* 816 */
+/* 814 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70210,7 +70354,7 @@
 	
 	var _toolbarSeparator2 = _interopRequireDefault(_toolbarSeparator);
 	
-	var _toolbarTitle = __webpack_require__(817);
+	var _toolbarTitle = __webpack_require__(815);
 	
 	var _toolbarTitle2 = _interopRequireDefault(_toolbarTitle);
 	
@@ -70236,7 +70380,7 @@
 	
 	var _api = __webpack_require__(552);
 	
-	var _CKEditor = __webpack_require__(818);
+	var _CKEditor = __webpack_require__(816);
 	
 	var _CKEditor2 = _interopRequireDefault(_CKEditor);
 	
@@ -70408,7 +70552,7 @@
 	exports.default = IntroductionContentAdministration;
 
 /***/ },
-/* 817 */
+/* 815 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70522,7 +70666,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 818 */
+/* 816 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70611,7 +70755,7 @@
 	exports.default = CKEditor;
 
 /***/ },
-/* 819 */
+/* 817 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70638,7 +70782,7 @@
 	
 	var _toolbarSeparator2 = _interopRequireDefault(_toolbarSeparator);
 	
-	var _toolbarTitle = __webpack_require__(817);
+	var _toolbarTitle = __webpack_require__(815);
 	
 	var _toolbarTitle2 = _interopRequireDefault(_toolbarTitle);
 	
@@ -70664,7 +70808,7 @@
 	
 	var _api = __webpack_require__(552);
 	
-	var _CKEditor = __webpack_require__(818);
+	var _CKEditor = __webpack_require__(816);
 	
 	var _CKEditor2 = _interopRequireDefault(_CKEditor);
 	
@@ -70672,11 +70816,11 @@
 	
 	var _circularProgress2 = _interopRequireDefault(_circularProgress);
 	
-	var _ExerciseDialog = __webpack_require__(820);
+	var _ExerciseDialog = __webpack_require__(818);
 	
 	var _ExerciseDialog2 = _interopRequireDefault(_ExerciseDialog);
 	
-	var _ExerciseSelector = __webpack_require__(790);
+	var _ExerciseSelector = __webpack_require__(791);
 	
 	var _ExerciseSelector2 = _interopRequireDefault(_ExerciseSelector);
 	
@@ -71015,7 +71159,7 @@
 	exports.default = ExerciseContentAdministration;
 
 /***/ },
-/* 820 */
+/* 818 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71052,7 +71196,7 @@
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
-	var _CKEditor = __webpack_require__(818);
+	var _CKEditor = __webpack_require__(816);
 	
 	var _CKEditor2 = _interopRequireDefault(_CKEditor);
 	
@@ -71415,6 +71559,19 @@
 	              secondary: true,
 	              style: { marginBottom: 21 },
 	              onClick: this.openEditText.bind(this, 0)
+	            }),
+	            _react2.default.createElement(_divider2.default, null),
+	            _react2.default.createElement(
+	              'h5',
+	              { style: { marginBottom: 0 } },
+	              'Tekst sidste øvelses løfte'
+	            ),
+	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(1) }),
+	            _react2.default.createElement(_flatButton2.default, {
+	              label: 'Redigér',
+	              secondary: true,
+	              style: { marginBottom: 21 },
+	              onClick: this.openEditText.bind(this, 1)
 	            })
 	          ),
 	          'QuestionAnswer': _react2.default.createElement(
@@ -71473,6 +71630,19 @@
 	              secondary: true,
 	              style: { marginBottom: 21 },
 	              onClick: this.openEditText.bind(this, 0)
+	            }),
+	            _react2.default.createElement(_divider2.default, null),
+	            _react2.default.createElement(
+	              'h5',
+	              { style: { marginBottom: 0 } },
+	              'Tekst til øvelses mål'
+	            ),
+	            _react2.default.createElement('div', { dangerouslySetInnerHTML: this.getHtmlText(1) }),
+	            _react2.default.createElement(_flatButton2.default, {
+	              label: 'Redigér',
+	              secondary: true,
+	              style: { marginBottom: 21 },
+	              onClick: this.openEditText.bind(this, 1)
 	            })
 	          ),
 	          'none': null
@@ -71495,7 +71665,7 @@
 	exports.default = ConfigureExerciseDialog;
 
 /***/ },
-/* 821 */
+/* 819 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71510,11 +71680,11 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _tabs = __webpack_require__(776);
+	var _tabs = __webpack_require__(777);
 	
 	var _tabs2 = _interopRequireDefault(_tabs);
 	
-	var _tab = __webpack_require__(779);
+	var _tab = __webpack_require__(780);
 	
 	var _tab2 = _interopRequireDefault(_tab);
 	
@@ -71522,19 +71692,19 @@
 	
 	var _fontIcon2 = _interopRequireDefault(_fontIcon);
 	
-	var _flightTakeoff = __webpack_require__(780);
+	var _flightTakeoff = __webpack_require__(781);
 	
 	var _flightTakeoff2 = _interopRequireDefault(_flightTakeoff);
 	
-	var _card = __webpack_require__(781);
+	var _card = __webpack_require__(782);
 	
 	var _card2 = _interopRequireDefault(_card);
 	
-	var _cardActions = __webpack_require__(785);
+	var _cardActions = __webpack_require__(786);
 	
 	var _cardActions2 = _interopRequireDefault(_cardActions);
 	
-	var _cardHeader = __webpack_require__(786);
+	var _cardHeader = __webpack_require__(787);
 	
 	var _cardHeader2 = _interopRequireDefault(_cardHeader);
 	
@@ -71542,7 +71712,7 @@
 	
 	var _flatButton2 = _interopRequireDefault(_flatButton);
 	
-	var _cardText = __webpack_require__(787);
+	var _cardText = __webpack_require__(788);
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
 	
@@ -71562,15 +71732,15 @@
 	
 	var _paper2 = _interopRequireDefault(_paper);
 	
-	var _CourseModuleInfo = __webpack_require__(788);
+	var _CourseModuleInfo = __webpack_require__(789);
 	
 	var _CourseModuleInfo2 = _interopRequireDefault(_CourseModuleInfo);
 	
-	var _CourseModuleExperiment = __webpack_require__(789);
+	var _CourseModuleExperiment = __webpack_require__(790);
 	
 	var _CourseModuleExperiment2 = _interopRequireDefault(_CourseModuleExperiment);
 	
-	var _Video = __webpack_require__(808);
+	var _Video = __webpack_require__(809);
 	
 	var _Video2 = _interopRequireDefault(_Video);
 	
@@ -71578,7 +71748,7 @@
 	
 	var _Theme2 = _interopRequireDefault(_Theme);
 	
-	var _shareVideo = __webpack_require__(811);
+	var _shareVideo = __webpack_require__(812);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -71822,7 +71992,7 @@
 	exports.default = VideoReview;
 
 /***/ },
-/* 822 */
+/* 820 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71837,11 +72007,11 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _AddTodo = __webpack_require__(823);
+	var _AddTodo = __webpack_require__(821);
 	
 	var _AddTodo2 = _interopRequireDefault(_AddTodo);
 	
-	var _VisibleTodoList = __webpack_require__(824);
+	var _VisibleTodoList = __webpack_require__(822);
 	
 	var _VisibleTodoList2 = _interopRequireDefault(_VisibleTodoList);
 	
@@ -71869,7 +72039,7 @@
 	
 	var _listItem2 = _interopRequireDefault(_listItem);
 	
-	var _info = __webpack_require__(827);
+	var _info = __webpack_require__(825);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
@@ -71881,11 +72051,11 @@
 	
 	var _avatar2 = _interopRequireDefault(_avatar);
 	
-	var _folder = __webpack_require__(828);
+	var _folder = __webpack_require__(826);
 	
 	var _folder2 = _interopRequireDefault(_folder);
 	
-	var _openInNew = __webpack_require__(829);
+	var _openInNew = __webpack_require__(827);
 	
 	var _openInNew2 = _interopRequireDefault(_openInNew);
 	
@@ -71921,15 +72091,15 @@
 	
 	var _check2 = _interopRequireDefault(_check);
 	
-	var _send = __webpack_require__(830);
+	var _send = __webpack_require__(828);
 	
 	var _send2 = _interopRequireDefault(_send);
 	
-	var _attachFile = __webpack_require__(831);
+	var _attachFile = __webpack_require__(829);
 	
 	var _attachFile2 = _interopRequireDefault(_attachFile);
 	
-	var _chatBubble = __webpack_require__(832);
+	var _chatBubble = __webpack_require__(830);
 	
 	var _chatBubble2 = _interopRequireDefault(_chatBubble);
 	
@@ -71937,27 +72107,27 @@
 	
 	var _textField2 = _interopRequireDefault(_textField);
 	
-	var _card = __webpack_require__(781);
+	var _card = __webpack_require__(782);
 	
 	var _card2 = _interopRequireDefault(_card);
 	
-	var _cardActions = __webpack_require__(785);
+	var _cardActions = __webpack_require__(786);
 	
 	var _cardActions2 = _interopRequireDefault(_cardActions);
 	
-	var _cardHeader = __webpack_require__(786);
+	var _cardHeader = __webpack_require__(787);
 	
 	var _cardHeader2 = _interopRequireDefault(_cardHeader);
 	
-	var _cardMedia = __webpack_require__(833);
+	var _cardMedia = __webpack_require__(831);
 	
 	var _cardMedia2 = _interopRequireDefault(_cardMedia);
 	
-	var _cardTitle = __webpack_require__(834);
+	var _cardTitle = __webpack_require__(832);
 	
 	var _cardTitle2 = _interopRequireDefault(_cardTitle);
 	
-	var _cardText = __webpack_require__(787);
+	var _cardText = __webpack_require__(788);
 	
 	var _cardText2 = _interopRequireDefault(_cardText);
 	
@@ -72313,7 +72483,7 @@
 	exports.default = DialogModule;
 
 /***/ },
-/* 823 */
+/* 821 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72366,7 +72536,7 @@
 	exports.default = AddTodo;
 
 /***/ },
-/* 824 */
+/* 822 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72379,7 +72549,7 @@
 	
 	var _actions = __webpack_require__(730);
 	
-	var _TodoList = __webpack_require__(825);
+	var _TodoList = __webpack_require__(823);
 	
 	var _TodoList2 = _interopRequireDefault(_TodoList);
 	
@@ -72419,7 +72589,7 @@
 	exports.default = VisibleTodoList;
 
 /***/ },
-/* 825 */
+/* 823 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72436,7 +72606,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Todo = __webpack_require__(826);
+	var _Todo = __webpack_require__(824);
 	
 	var _Todo2 = _interopRequireDefault(_Todo);
 	
@@ -72472,7 +72642,7 @@
 	exports.default = TodoList;
 
 /***/ },
-/* 826 */
+/* 824 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72512,7 +72682,7 @@
 	exports.default = Todo;
 
 /***/ },
-/* 827 */
+/* 825 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72553,7 +72723,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 828 */
+/* 826 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72594,7 +72764,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 829 */
+/* 827 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72635,7 +72805,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 830 */
+/* 828 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72676,7 +72846,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 831 */
+/* 829 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72717,7 +72887,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 832 */
+/* 830 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72758,7 +72928,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 833 */
+/* 831 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72925,7 +73095,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 834 */
+/* 832 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73058,7 +73228,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 835 */
+/* 833 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73073,11 +73243,11 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _AddTodo = __webpack_require__(823);
+	var _AddTodo = __webpack_require__(821);
 	
 	var _AddTodo2 = _interopRequireDefault(_AddTodo);
 	
-	var _VisibleTodoList = __webpack_require__(824);
+	var _VisibleTodoList = __webpack_require__(822);
 	
 	var _VisibleTodoList2 = _interopRequireDefault(_VisibleTodoList);
 	
@@ -73101,7 +73271,7 @@
 	
 	var _listItem2 = _interopRequireDefault(_listItem);
 	
-	var _info = __webpack_require__(827);
+	var _info = __webpack_require__(825);
 	
 	var _info2 = _interopRequireDefault(_info);
 	
@@ -73113,11 +73283,11 @@
 	
 	var _avatar2 = _interopRequireDefault(_avatar);
 	
-	var _folder = __webpack_require__(828);
+	var _folder = __webpack_require__(826);
 	
 	var _folder2 = _interopRequireDefault(_folder);
 	
-	var _assignment = __webpack_require__(836);
+	var _assignment = __webpack_require__(834);
 	
 	var _assignment2 = _interopRequireDefault(_assignment);
 	
@@ -73157,7 +73327,7 @@
 	
 	var _check2 = _interopRequireDefault(_check);
 	
-	var _ExerciseSelector = __webpack_require__(790);
+	var _ExerciseSelector = __webpack_require__(791);
 	
 	var _ExerciseSelector2 = _interopRequireDefault(_ExerciseSelector);
 	
@@ -73331,7 +73501,7 @@
 	exports.default = ExerciseResultPage;
 
 /***/ },
-/* 836 */
+/* 834 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73372,7 +73542,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 837 */
+/* 835 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73570,7 +73740,7 @@
 	exports.default = LoginPage;
 
 /***/ },
-/* 838 */
+/* 836 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73585,7 +73755,9 @@
 	
 	var _reactRedux = __webpack_require__(483);
 	
-	var _Camera = __webpack_require__(810);
+	var _reactRouter = __webpack_require__(426);
+	
+	var _Camera = __webpack_require__(811);
 	
 	var _Camera2 = _interopRequireDefault(_Camera);
 	
@@ -73605,9 +73777,9 @@
 	
 	var _divider2 = _interopRequireDefault(_divider);
 	
-	var _shareVideo = __webpack_require__(811);
+	var _shareVideo = __webpack_require__(812);
 	
-	var _arrowBack = __webpack_require__(796);
+	var _arrowBack = __webpack_require__(797);
 	
 	var _arrowBack2 = _interopRequireDefault(_arrowBack);
 	
@@ -73672,6 +73844,10 @@
 	    });
 	  },
 	
+	  returnToModule: function returnToModule() {
+	    _reactRouter.browserHistory.goBack();
+	  },
+	
 	  render: function render() {
 	    var that = this;
 	    return this.state.isLoading ? _react2.default.createElement(
@@ -73732,8 +73908,9 @@
 	                    _react2.default.createElement(_Camera2.default, { onPublish: function onPublish(videoUuid) {
 	                        console.log("onPublish invoked");
 	                        console.log(videoUuid);
-	                        if (that.state.phase === 2) that.props.dispatch((0, _shareVideo.shareVideo)(videoUuid, that.props.params.exerciseId));
-	
+	                        if (that.state.phase === 2) that.props.dispatch((0, _shareVideo.shareVideo)(videoUuid, that.props.params.exerciseId)).then(function (j) {
+	                          that.returnToModule();
+	                        });
 	                        that.setState({ phase: 3 });
 	                      } })
 	                  )
@@ -73815,7 +73992,7 @@
 	                  _react2.default.createElement(
 	                    'div',
 	                    { style: { marginTop: 32 } },
-	                    _react2.default.createElement(_raisedButton2.default, { label: 'Tilbage til modulet', secondary: true })
+	                    _react2.default.createElement(_raisedButton2.default, { label: 'Tilbage til modulet', onClick: this.returnToModule, secondary: true })
 	                  )
 	                )
 	              )
@@ -73869,7 +74046,7 @@
 	                _react2.default.createElement(
 	                  'div',
 	                  { style: { padding: '48 48' } },
-	                  _react2.default.createElement(_raisedButton2.default, { label: 'Tilbage til modulet', secondary: true })
+	                  _react2.default.createElement(_raisedButton2.default, { label: 'Tilbage til modulet', onClick: this.returnToModule, secondary: true })
 	                )
 	              )
 	            )

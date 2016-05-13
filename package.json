@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.9.1",
     "flexboxgrid": "^6.3.0",
+    "pdfjs-dist": "^1.5.236",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.0",

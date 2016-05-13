@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 import Camera from '../components/Camera'
 
@@ -57,6 +58,10 @@ let VideoRecord = React.createClass({
     );
   },
 
+  returnToModule: function(){
+    browserHistory.goBack();
+  },
+
   render : function() {
     var that = this;
     return (
@@ -91,8 +96,9 @@ let VideoRecord = React.createClass({
                             console.log("onPublish invoked");
                             console.log(videoUuid);
                             if (that.state.phase === 2)
-                              that.props.dispatch(shareVideo(videoUuid, that.props.params.exerciseId));
-
+                              that.props.dispatch(shareVideo(videoUuid, that.props.params.exerciseId)).then(j => {
+                                that.returnToModule();
+                              });
                             that.setState({phase:3});
                         }}>
                         </Camera>
@@ -118,7 +124,7 @@ let VideoRecord = React.createClass({
 
 
                       <div style={{marginTop: 32}}>
-                        <RaisedButton label="Tilbage til modulet" secondary={true} />
+                        <RaisedButton label="Tilbage til modulet" onClick={this.returnToModule} secondary={true} />
                       </div>
                     </div>
                   </Paper>
@@ -150,7 +156,7 @@ let VideoRecord = React.createClass({
                 <Col xs={12} sm={12} md={12} lg={12}>
                   <Paper style={courseContainerStyle}>
                     <div style={{padding:'48 48'}}>
-                      <RaisedButton label="Tilbage til modulet" secondary={true} />
+                      <RaisedButton label="Tilbage til modulet" onClick={this.returnToModule} secondary={true} />
                     </div>
                   </Paper>
                 </Col>

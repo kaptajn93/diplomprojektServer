@@ -169,8 +169,8 @@ let SortPhase = React.createClass({
           'listStyleType': 'none',
           'cursor':'ns-resize',
           padding:0,
-          marginTop: '24px',
-          marginBottom: '24px'
+          marginTop: '0',
+          marginBottom: '0'
         };
 
         const sortIndexIndicator = {
@@ -181,7 +181,7 @@ let SortPhase = React.createClass({
         };
 
         const itemContainerStyle = {
-          maxWidth: 360,
+          maxWidth: '100%',
           display: 'block',
           marginTop: '8px',
         };
@@ -310,6 +310,11 @@ let SortaAndEvaluateExercise = React.createClass({
       //Update server
       if (this.props.liveExercise){
         this.props.dispatch(putSortAndEvalResultById(this.props.exerciseId, {evaluations:items, exerciseId:this.props.exerciseId, isCompleted:true}));
+      }
+    },
+
+    onContinueToNextExercise: function(){
+      if (this.props.liveExercise){
         this.props.exercisesStatusChanged(true, this.props.exercise);
       }
     },
@@ -380,7 +385,9 @@ let SortaAndEvaluateExercise = React.createClass({
       mainContent = (
         <div>
           <div dangerouslySetInnerHTML={this.getHtmlText(1)}/>
-          <SortPhase items={this.state.items} onSort={this.handleSort} />
+          <div style={{margin:'32 0', padding:16, paddingTop:8, background:'#FAFAFA', width:400}}>
+            <SortPhase items={this.state.items} onSort={this.handleSort} />
+          </div>
           <RaisedButton labelPosition="before" primary={true}
             label="Færdig" icon={<Done />} onClick={this.onFinishSort}></RaisedButton>
         </div>);
@@ -421,6 +428,8 @@ let SortaAndEvaluateExercise = React.createClass({
                 )
               })
             }
+            <RaisedButton labelPosition="before" primary={true}
+              label="Videre" icon={<Done />} onClick={this.onContinueToNextExercise}></RaisedButton>
 
           </div>
       }
