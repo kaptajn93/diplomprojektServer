@@ -141,7 +141,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
                 IsCompleted = moduleResults.All(mr => mr.IsCompleted)
             };
             
-            var activeModule = moduleResults.FirstOrDefault(mr => !mr.IsCompleted).Module;
+            var activeModule = moduleResults.FirstOrDefault(mr => !mr.IsCompleted);
 
             if (activeModule != null)
             {
