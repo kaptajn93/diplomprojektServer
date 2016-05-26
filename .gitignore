@@ -1,0 +1,7 @@
+TestResults
+BetterWays.Api.Tests/bin
+BetterWays.Api.Tests/obj
+BetterWays.Api/bin
+BetterWays.Api/obj
+*.suo
+*.csproj.user

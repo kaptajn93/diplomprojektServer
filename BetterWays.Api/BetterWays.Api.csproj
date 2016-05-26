@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion />
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7A356E6B-FFF8-43D4-8636-E9EB2BF8C3CB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BetterWays.Api</RootNamespace>
+    <AssemblyName>BetterWays.Api</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DeployEncryptKey>Encryption password is used only if any deployment setting is marked as secure</DeployEncryptKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JWT, Version=1.3.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\JWT.1.3.4\lib\3.5\JWT.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Documents.Client, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.DocumentDB.1.5.3\lib\net40\Microsoft.Azure.Documents.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.4\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.4\lib\net40\Microsoft.Data.OData.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=6.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.6.2.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Plivo, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Plivo.3.0.2\lib\net40\Plivo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=100.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharpSigned.105.1.0\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SendWithUs.Client, Version=0.4.1.18095, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendWithUs.Client.0.4.1\lib\portable-net45+win+wp80\SendWithUs.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Swashbuckle.Core.5.3.1\lib\net40\Swashbuckle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.2.206221351\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Bounded Contexts\Notifications\Core\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthHandler.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\CourseModuleApplicationService.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Bootstrap.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingCourse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleBaseResource.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModule.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleExerciseResource.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleReference.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleResource.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleResourceReference.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\CoachingModuleResourceRevisionHistory.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\BaseExercise.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\BaseScoreCard.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\GoalExercise.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\GoalScoreCard.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\KPExplorerQuestionnaire.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\KPExplorerQuestionnaireScoreCard.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\PromiseExercise.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\PromiseScoreCard.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\QuestionAnswerExercise.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\QuestionAnswerScoreCard.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\ReflectionExercise.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\ReflectionScoreCard.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\SortAndEvaluateExercise.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\SortAndEvaluateScoreCard.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\VideoExercise.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\VideoExerciseScoreCard.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\ModuleGroup.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\ResourseRevisionHistoryReference.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\DialogEntry.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\User.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\UserCourseAdmission.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\UserDialog.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachigModuleExerciseResourceRepository.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingCourseRepository.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingModuleRepository.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\ICoachingModuleResourceRepository.cs" />
+    <Compile Include="App_Start\SwaggerConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\IDialogRepository.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\IModuleGroupRepository.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Repositories\IUserRepository.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\CoachingCourseService.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\DialogService.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\UserService.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\AuthenticationController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\DialogController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\VideoExerciseController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\CourseController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ExerciseResourceController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ModuleController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ResourceController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\UserController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\BaseUserDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CoachingCourseDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CoachingModuleDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\CoachingCourseDTOConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\CoachingModuleDTOConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\ModuleResourceDTOConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\UserDialogDTOConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\UserDtoConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CourseAdmissionDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\DialogEntryDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleGroupDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\UserDialogDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\DialogRepositoryDocumentDb.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\ModuleGroupRepositoryDocumentDB.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\GetVideoExerciseRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\LoginRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleExerciseResourceDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleResourceDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleResultsDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ScoreCardDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\UserDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachnigModuleExerciseResourceRepositoryDocumentDB.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingCourseRepositoryDocumentDB.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleRepositoryDocumentDB.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleResourceRepositoryDocumentDb.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\UserRepositoryDocumentDB.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\InitiateDialogRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\PostDialogRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\PostVideoReplyRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\ShareVideoRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\CreateModuleInCourseRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleExerciseRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleResourceRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetModuleResultsResponse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetUserDialogsResponse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetUserResultsResponse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetUserVideoResultResponse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\UpdateModuleResourceResponse.cs" />
+    <Compile Include="Bounded Contexts\Notifications\Application\NotificationsApplicationService.cs" />
+    <Compile Include="Bounded Contexts\Notifications\Infrastructure\Controllers\NotificationsController.cs" />
+    <Compile Include="Bounded Contexts\Shared\Application\IDocumentStore.cs" />
+    <Compile Include="Bounded Contexts\Shared\Application\IEmailSender.cs" />
+    <Compile Include="Bounded Contexts\Shared\Domain\AggregateRoot.cs" />
+    <Compile Include="Bounded Contexts\Shared\Application\ISmsSender.cs" />
+    <Compile Include="Bounded Contexts\Shared\Domain\Entity.cs" />
+    <Compile Include="Bounded Contexts\Shared\Domain\ValueObject.cs" />
+    <Compile Include="Bounded Contexts\Shared\Infrastructure\DocumentDBRepository.cs" />
+    <Compile Include="Bounded Contexts\Shared\Infrastructure\DocumentStoreAzureBlob.cs" />
+    <Compile Include="Bounded Contexts\Shared\Infrastructure\EmailSenderSendWithUs.cs" />
+    <Compile Include="Bounded Contexts\Shared\Infrastructure\SmsSenderPlivo.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\betterways-api - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\betterways-api - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\betterways-test.pubxml" />
+    <None Include="Properties\PublishProfiles\BetterWaysApi20160222124157.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58982</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:58982/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
