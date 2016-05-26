@@ -193,7 +193,7 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\Exercises\VideoExerciseScoreCard.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\ModuleGroup.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\ResourseRevisionHistoryReference.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\DialogEntry.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\UserDialogEntry.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\User.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\UserCourseAdmission.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Models\User\UserDialog.cs" />

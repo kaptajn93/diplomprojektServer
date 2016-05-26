@@ -8,7 +8,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
 {
     public static class UserDialogDTOConverter
     {
-        public static DialogEntryDTO ConvertToDTO(DialogEntry entity, User userA, User userB, UserDialog dialog)
+        public static DialogEntryDTO ConvertToDTO(UserDialogEntry entity, User userA, User userB, UserDialog dialog)
         {
             User sender  = entity.SenderId == userA.Id ? userA : entity.SenderId == userB.Id ? userB : null;
             

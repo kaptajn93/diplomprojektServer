@@ -218,8 +218,8 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
                 if (dialog.OwnerId == user.CoachId)
                 {
                     //Delete all except the first
-                    dialog.Entries = new List<DialogEntry> { dialog.Entries.OrderBy(d => d.TimeStamp).First() };
-                    oppositeDialog.Entries = new List<DialogEntry> { oppositeDialog.Entries.OrderBy(d => d.TimeStamp).First() };
+                    dialog.Entries = new List<UserDialogEntry> { dialog.Entries.OrderBy(d => d.TimeStamp).First() };
+                    oppositeDialog.Entries = new List<UserDialogEntry> { oppositeDialog.Entries.OrderBy(d => d.TimeStamp).First() };
 
                     dialogRepo.SaveDialog(dialog);
                     dialogRepo.SaveDialog(oppositeDialog);

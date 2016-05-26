@@ -22,8 +22,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Services
             if (_dialogRepository.GetDialogFromUsers(userA, userB).Any())
                 throw new Exception(String.Format("Dialog with users {0} and {1} already exists", userA, userB));
 
-            var dialogA = new UserDialog() { OwnerId = userA, ReceiverId = userB, SenderDescription = userADescription, Entries = new List<DialogEntry>() };
-            var dialogB = new UserDialog() { OwnerId = userB, ReceiverId = userA, SenderDescription = userBDescription, Entries = new List<DialogEntry>() };
+            var dialogA = new UserDialog() { OwnerId = userA, ReceiverId = userB, SenderDescription = userADescription, Entries = new List<UserDialogEntry>() };
+            var dialogB = new UserDialog() { OwnerId = userB, ReceiverId = userA, SenderDescription = userBDescription, Entries = new List<UserDialogEntry>() };
 
             //Persist dialog
             _dialogRepository.SaveDialog(dialogA);
@@ -32,7 +32,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Services
             return dialogA;
         }
 
-        public DialogEntry Post(Guid senderUserId, Guid receiverUserId, string message)
+        public UserDialogEntry Post(Guid senderUserId, Guid receiverUserId, string message)
         {
             //Get user and dialogs
             var dialogs = _dialogRepository.GetDialogFromUsers(senderUserId, receiverUserId);
@@ -45,7 +45,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Services
 
             var dateTime = DateTime.Now;
 
-            var entrySender = new DialogEntry
+            var entrySender = new UserDialogEntry
             {
                 TimeStamp = dateTime,
                 Text = message,
@@ -53,7 +53,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Services
                 IsRead = false
             };
 
-            var entryReceiver = new DialogEntry
+            var entryReceiver = new UserDialogEntry
             {
                 TimeStamp = dateTime,
                 Text = message,

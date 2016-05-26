@@ -13,7 +13,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.User
         public string SenderDescription { get; set; }
 
         [JsonProperty(PropertyName = "entries")]
-        public List<DialogEntry> Entries { get; set; }
+        public List<UserDialogEntry> Entries { get; set; }
 
         [JsonProperty(PropertyName = "ownerId")]
         public Guid OwnerId { get; set; }

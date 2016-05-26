@@ -10,6 +10,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.Exercises
     {
         [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
+
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
         [JsonProperty(PropertyName = "meaning")]

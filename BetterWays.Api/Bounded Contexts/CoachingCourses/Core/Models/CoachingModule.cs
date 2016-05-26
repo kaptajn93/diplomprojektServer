@@ -47,18 +47,19 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
         [JsonProperty(PropertyName = "exercise")]
         public CoachingModuleResourceReference Exercise { get; set; }
 
-        /// <summary>
-        /// The group of modules, that this module belongs to
-        /// </summary>
-        [JsonProperty(PropertyName = "groupId")]
-        public Guid GroupId { get; set; }
-        /// <summary>
 
         /// Reflection part of module
         /// </summary>
         [JsonProperty(PropertyName = "reflection")]
         public CoachingModuleResourceReference Reflection { get; set; }
 
+        /// <summary>
+        /// The group of modules, that this module belongs to
+        /// </summary>
+        [JsonProperty(PropertyName = "groupId")]
+        public Guid GroupId { get; set; }
+        /// <summary>
+        
         public CoachingModule()
         {
 

@@ -7,7 +7,7 @@ using System.Web;
 
 namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models.User
 {
-    public class DialogEntry : ValueObject
+    public class UserDialogEntry : ValueObject
     {
         [JsonProperty(PropertyName = "userId")]
         public Guid SenderId { get; set; }
