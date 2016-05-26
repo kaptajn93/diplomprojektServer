@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-//const apiUrl = 'http://localhost:58982/api'
-const apiUrl = 'http://betterways-test.azurewebsites.net/api'
+const apiUrl = 'http://localhost:58982/api'
+//const apiUrl = 'http://betterways-test.azurewebsites.net/api'
 
 export const REQUEST_SHARE_VIDEO = 'REQUEST_SHARE_VIDEO'
 function requestShareVideo(videoUuid) {

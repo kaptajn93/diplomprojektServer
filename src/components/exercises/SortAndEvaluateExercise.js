@@ -100,7 +100,6 @@ let EvalPhase = React.createClass({
           <h3>{this.state.currentItem.title}</h3>
           <div style={{display:'flex'}}>
             <div dangerouslySetInnerHTML={this.props.instructionText}></div>
-            <div><p>&nbsp;<i>{this.state.currentItem.title.toLowerCase()}</i></p></div>
           </div>
 
           <h5 style={{marginBottom:0}}>Fortæl historien</h5>
@@ -388,6 +387,7 @@ let SortaAndEvaluateExercise = React.createClass({
           <div style={{margin:'32 0', padding:16, paddingTop:8, background:'#FAFAFA', width:400}}>
             <SortPhase items={this.state.items} onSort={this.handleSort} />
           </div>
+          <p>Når du er klar, klik 'Færdig'</p>
           <RaisedButton labelPosition="before" primary={true}
             label="Færdig" icon={<Done />} onClick={this.onFinishSort}></RaisedButton>
         </div>);

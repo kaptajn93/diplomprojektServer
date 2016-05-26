@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-//const apiUrl = 'http://localhost:58982/api'
-const apiUrl = 'http://betterways-test.azurewebsites.net/api'
+const apiUrl = 'http://localhost:58982/api'
+//const apiUrl = 'http://betterways-test.azurewebsites.net/api'
 
 export const REQUEST_API_ALL_COURSES = 'REQUEST_API_ALL_COURSES'
 function requestApiAllCourses() {

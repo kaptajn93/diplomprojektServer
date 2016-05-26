@@ -46,7 +46,8 @@ var Camera = React.createClass({
       data-app-id="a-d90a5c50-c1dc-0133-453d-0a121b885d5b"
       data-maxlength='300'
       data-txt-message='Tryk her <<url>> for at optage video'
-      data-default-sms-country='dk'></camera>;
+      data-sources='record, sms'
+       data-default-sms-country='es'></camera>;
   }
 });
 

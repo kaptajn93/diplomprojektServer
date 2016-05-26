@@ -61761,7 +61761,7 @@
 	                      _react2.default.createElement(
 	                        'p',
 	                        { style: { marginTop: 'auto', marginBottom: 'auto', padding: 0, color: _Theme2.default.palette.alternateTextColor } },
-	                        'april'
+	                        'maj'
 	                      )
 	                    )
 	                  ),
@@ -61798,7 +61798,7 @@
 	                        marginLeft: 20,
 	                        marginTop: 5
 	                      } },
-	                    'Dit better ways'
+	                    'Intro til betterways'
 	                  )
 	                ),
 	                _react2.default.createElement(
@@ -65354,21 +65354,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { style: { display: 'flex' } },
-	          _react2.default.createElement('div', { dangerouslySetInnerHTML: this.props.instructionText }),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              ' ',
-	              _react2.default.createElement(
-	                'i',
-	                null,
-	                this.state.currentItem.title.toLowerCase()
-	              )
-	            )
-	          )
+	          _react2.default.createElement('div', { dangerouslySetInnerHTML: this.props.instructionText })
 	        ),
 	        _react2.default.createElement(
 	          'h5',
@@ -65676,6 +65662,11 @@
 	          'div',
 	          { style: { margin: '32 0', padding: 16, paddingTop: 8, background: '#FAFAFA', width: 400 } },
 	          _react2.default.createElement(SortPhase, { items: this.state.items, onSort: this.handleSort })
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'Når du er klar, klik \'Færdig\''
 	        ),
 	        _react2.default.createElement(_raisedButton2.default, { labelPosition: 'before', primary: true,
 	          label: 'Færdig', icon: _react2.default.createElement(_done2.default, null), onClick: this.onFinishSort })
@@ -69828,7 +69819,8 @@
 	      'data-app-id': 'a-d90a5c50-c1dc-0133-453d-0a121b885d5b',
 	      'data-maxlength': '300',
 	      'data-txt-message': 'Tryk her <<url>> for at optage video',
-	      'data-default-sms-country': 'dk' });
+	      'data-sources': 'record, sms',
+	      'data-default-sms-country': 'es' });
 	  }
 	});
 	

@@ -421,7 +421,7 @@ let Dashboard = React.createClass({
                     <div style={{width:64, height:64, background: Theme.palette.primary2Color}}>
                       <div style={{marginTop: 0, marginBottom: 0, textAlign: 'center', padding: 8}}>
                         <h2 style={{marginTop:'auto', marginBottom:'auto', padding:0, color:Theme.palette.alternateTextColor}}>27</h2>
-                        <p style={{marginTop:'auto', marginBottom:'auto', padding:0, color:Theme.palette.alternateTextColor}}>april</p>
+                        <p style={{marginTop:'auto', marginBottom:'auto', padding:0, color:Theme.palette.alternateTextColor}}>maj</p>
                       </div>
                     </div>
 
@@ -442,7 +442,7 @@ let Dashboard = React.createClass({
                       margin:0,
                       marginLeft: 20,
                       marginTop: 5
-                    }}>Dit better ways</h4>
+                    }}>Intro til betterways</h4>
 
                   </div>
                   <div style={{padding:'16 16'}}>
