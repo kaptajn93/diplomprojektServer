@@ -69,8 +69,8 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=6.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.Storage.6.2.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.7.0.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -78,7 +78,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Plivo, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Plivo.3.0.2\lib\net40\Plivo.dll</HintPath>
+      <HintPath>..\packages\Plivo.3.0.4\lib\net40\Plivo.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=100.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
@@ -127,12 +127,12 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -209,53 +209,53 @@
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\CoachingCourseService.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\DialogService.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Core\Services\UserService.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\AuthenticationController.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\DialogController.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\VideoExerciseController.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\CourseController.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ExerciseResourceController.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ModuleController.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\ResourceController.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Controllers\UserController.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\BaseUserDto.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CoachingCourseDTO.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CoachingModuleDTO.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\CoachingCourseDTOConverter.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\CoachingModuleDTOConverter.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\ModuleResourceDTOConverter.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\UserDialogDTOConverter.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\Converters\UserDtoConverter.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\CourseAdmissionDto.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\DialogEntryDTO.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleGroupDTO.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\UserDialogDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Controllers\AuthenticationController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Controllers\DialogController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Controllers\VideoExerciseController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Controllers\CourseController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Controllers\ExerciseResourceController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Controllers\ModuleController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Controllers\ResourceController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Controllers\UserController.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\BaseUserDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\CoachingCourseDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\CoachingModuleDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\Converters\CoachingCourseDTOConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\Converters\CoachingModuleDTOConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\Converters\ModuleResourceDTOConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\Converters\UserDialogDTOConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\Converters\UserDtoConverter.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\CourseAdmissionDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\DialogEntryDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\ModuleGroupDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\UserDialogDto.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\DialogRepositoryDocumentDb.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\ModuleGroupRepositoryDocumentDB.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\GetVideoExerciseRequest.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\LoginRequest.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleExerciseResourceDTO.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleResourceDTO.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ModuleResultsDto.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\ScoreCardDto.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\DTOs\UserDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Requests\GetVideoExerciseRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Requests\LoginRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\ModuleExerciseResourceDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\ModuleResourceDTO.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\ModuleResultsDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\ScoreCardDto.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\DTOs\UserDto.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachnigModuleExerciseResourceRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingCourseRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleRepositoryDocumentDB.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\CoachingModuleResourceRepositoryDocumentDb.cs" />
     <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Repositories\UserRepositoryDocumentDB.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\InitiateDialogRequest.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\PostDialogRequest.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\PostVideoReplyRequest.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\ShareVideoRequest.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\CreateModuleInCourseRequest.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleExerciseRequest.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleRequest.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Requests\UpdateModuleResourceRequest.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetModuleResultsResponse.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetUserDialogsResponse.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetUserResultsResponse.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\GetUserVideoResultResponse.cs" />
-    <Compile Include="Bounded Contexts\CoachingCourses\Infrastructure\Responses\UpdateModuleResourceResponse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Requests\InitiateDialogRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Requests\PostDialogRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Requests\PostVideoReplyRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Requests\ShareVideoRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Requests\CreateModuleInCourseRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Requests\UpdateModuleExerciseRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Requests\UpdateModuleRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Requests\UpdateModuleResourceRequest.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Responses\GetModuleResultsResponse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Responses\GetUserDialogsResponse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Responses\GetUserResultsResponse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Responses\GetUserVideoResultResponse.cs" />
+    <Compile Include="Bounded Contexts\CoachingCourses\Application\Responses\UpdateModuleResourceResponse.cs" />
     <Compile Include="Bounded Contexts\Notifications\Application\NotificationsApplicationService.cs" />
     <Compile Include="Bounded Contexts\Notifications\Infrastructure\Controllers\NotificationsController.cs" />
     <Compile Include="Bounded Contexts\Shared\Application\IDocumentStore.cs" />
