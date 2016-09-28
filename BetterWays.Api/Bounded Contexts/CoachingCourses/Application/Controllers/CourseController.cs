@@ -15,6 +15,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
     public class CourseController : ApiController
     {
         // GET api/values
+        //[AllowAnonymous]
         public IEnumerable<CoachingCourseDTO> Get()
         {
             //TODO: Find user 
