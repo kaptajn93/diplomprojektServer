@@ -73,8 +73,8 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
                 introduction, exercise, reflection);
             module.ModuleIndex = index;
 
-            exercise.Elements[0].Exercise = new GoalExercise(new CoachingModuleReference(module.Id));
-            reflection.Elements[0].Exercise = new PromiseExercise(new List<string>() { "Resultatet af øvelsen levede op til mine forventinger" }, new CoachingModuleReference(module.Id)) { };
+            exercise.Elements[0].Exercise = new GoalExercise(new CoachingModuleReference(module.Id, module.Priority));
+            reflection.Elements[0].Exercise = new PromiseExercise(new List<string>() { "Resultatet af øvelsen levede op til mine forventinger" }, new CoachingModuleReference(module.Id, module.Priority)) { };
 
             //Save resources
             _resourceRepository.CreateModuleResource(introduction);
@@ -149,7 +149,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
                     e.Exercise.GetEmptyScoreCard() : 
                     new BaseScoreCard(
                         new CoachingModuleReference( modules.Single(m => 
-                        m.Exercise.ResourceReferenceId == er.Id).Id), Guid.NewGuid(), "")));
+                        m.Exercise.ResourceReferenceId == er.Id).Id, priority: 0), Guid.NewGuid(), "")));
 
             //Add course admission to user
             if (user.CourseAdmissions == null)
@@ -180,7 +180,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
                     e.Exercise.GetEmptyScoreCard() :
                     new BaseScoreCard(
                         new CoachingModuleReference(modules.Single(m =>
-                       m.Exercise.ResourceReferenceId == er.Id).Id), Guid.NewGuid(), "")));
+                       m.Exercise.ResourceReferenceId == er.Id).Id, priority: 0), Guid.NewGuid(), "")));
 
             //Add course admission to user
             if (user.CourseAdmissions == null)

@@ -70,12 +70,12 @@ namespace BetterWays.Api.Tests.Courses
                 mod1,
                 new CoachingModuleExerciseResource() { Elements = new List<ResourceExerciseElement>(){
                     new ResourceExerciseElement("") {
-                        Exercise = new GoalExercise(new CoachingModuleReference(mod1.Id))
+                        Exercise = new GoalExercise(new CoachingModuleReference(mod1.Id, mod1.Priority))
                     },
                     new ResourceExerciseElement("<h1>Glæden i dit seneste arbejde</h1>  <p>Jeg vil bede dig om at se tilbage på dit seneste arbejde og arbejdsplads: Hvad der betød mest for dig?</p> ") {
                         Exercise = new SortAndEvaluateExercise(
                             new List<string>() { "Mening", "Chef", "Indfldelse", "Resultater", "Kollegaer", "Balance" },
-                            new CoachingModuleReference(mod1.Id)) {
+                            new CoachingModuleReference(mod1.Id, mod1.Priority)) {
                                 Description = "Find det positive",
                                 InstrunctionContent = new List<string> {
                                     "<p>Når du er klar skal du trykke, 'Start øvelse':</p>",
@@ -97,13 +97,13 @@ namespace BetterWays.Api.Tests.Courses
                 {
                     Elements = new List<ResourceExerciseElement>(){
                     new ResourceExerciseElement("") {
-                        Exercise = new GoalExercise(new CoachingModuleReference(mod2.Id))
+                        Exercise = new GoalExercise(new CoachingModuleReference(mod2.Id, mod2.Priority))
                         
                     },
                     new ResourceExerciseElement("<h1>Personlighedstest fra KP explorer</h1> <p>Denne øvelse skal give dig et overblik over din personlige profil. </p> <h3>Guide</h3> <p>Prøv at læse de præsenterede udsagn, således at du besvarer dem så spontant som muligt. Følg så vidt muligt din første indskydelse.<br/>Brug maksimalt 40 minutter på hele besvarelsen, og undgå så vidt muligt at holde pauser.</p> ") {
                         Exercise = new KPExplorerQuestionnaire(
                             
-                            new CoachingModuleReference(mod2.Id)) {
+                            new CoachingModuleReference(mod2.Id, mod2.Priority)) {
                                 Description = "Find din personlige profil",
                                 InstrunctionContent = new List<string>() {
                                     "<p>Når du er klar skal du trykke, 'Start øvelse':</p>",

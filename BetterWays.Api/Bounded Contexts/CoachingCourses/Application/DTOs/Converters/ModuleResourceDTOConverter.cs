@@ -48,7 +48,7 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
         public static ResourceExerciseElement ConvertFromDTO(ModuleExerciseElementDTO dto, CoachingModule module)
         {
             BaseExercise exercise = null;
-            var moduleReference = new CoachingModuleReference(module.Id) ;
+            var moduleReference = new CoachingModuleReference(module.Id, module.Priority) ;
             switch (dto.ClassName)
             {
                 case "SortAndEvaluate":

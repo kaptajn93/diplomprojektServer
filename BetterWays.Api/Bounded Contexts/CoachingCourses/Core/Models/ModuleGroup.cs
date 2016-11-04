@@ -14,5 +14,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models
 
         [JsonProperty(PropertyName = "groupDescription")]
         public string GroupDescription { get; set; }
+
+        [JsonProperty(PropertyName = "groupPriority")]
+        public int GroupPriority { get; set; }
     }
 }

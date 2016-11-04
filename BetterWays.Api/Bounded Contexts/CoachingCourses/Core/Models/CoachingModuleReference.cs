@@ -14,9 +14,13 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Core.Models
         [JsonProperty(PropertyName = "moduleReferenceId")]
         public Guid ModuleReferenceId { get; private set; }
 
-        public CoachingModuleReference(Guid moduleId)
+        [JsonProperty(PropertyName = "modulePriority")]
+        public int ModulePriority { get;  set; }
+
+        public CoachingModuleReference(Guid moduleId, int priority)
         {
             ModuleReferenceId = moduleId;
+            ModulePriority = priority;
         }
     }
 }
