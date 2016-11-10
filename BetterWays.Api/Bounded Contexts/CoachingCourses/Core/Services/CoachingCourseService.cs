@@ -173,6 +173,12 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
             var course = _coachingCourseRepository.GetCourseById(courseAdmission.CourseId);
             //Find all exercises and get a fresh scorecard
             var modules = _moduleRepository.GetModulesWithIds(course.Modules.Select(m => m.ModuleReferenceId)).ToList();
+
+//lidt mere slamkode her
+           // var temp = modules[11];
+           //modules.RemoveAt(11);
+           //modules.Insert(0, temp);
+
             var exercises = _exerciseRepository.GetExercisesWithIds(modules.SelectMany(m => new[] { m.Exercise.ResourceReferenceId, m.Reflection.ResourceReferenceId })).ToList();
 
             var freshScoreCards = exercises.SelectMany(er => er.Elements.Select(e =>
