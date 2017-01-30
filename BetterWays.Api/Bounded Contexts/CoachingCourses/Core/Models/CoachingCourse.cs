@@ -42,7 +42,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
             CoachingModule module)
         {
             //Add to collection
-            Modules.Add(new CoachingModuleReference (module.Id, module.Priority) );
+            Modules.Add(new CoachingModuleReference (module.Id) );
         }
         
         

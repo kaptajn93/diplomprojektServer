@@ -163,16 +163,10 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
 
             //TODO: Support multiple course admissions
             var course = coachingCourseRepository.GetCourseById(usr.CourseAdmissions.Single().CourseId);
-            var modules = coachingModuleRepository.GetModulesWithIds(course.Modules.Select(m => m.ModuleReferenceId)).ToList();
-            var moduleGroups = moduleGroupRepository.GetItemsWithIds(course.ModuleGroups);
+            var modules = coachingModuleRepository.GetModulesWithIds(course.Modules.Select(m => m.ModuleReferenceId)).OrderBy(m => m.ModuleIndex).ToList();
+            var moduleGroups = moduleGroupRepository.GetItemsWithIds(course.ModuleGroups).OrderBy( o => o.GroupPriority);
 
-            var hej = moduleGroups.ToList();
-            var hej1 = hej[1];
-
-            var temp = modules[11];
-            modules.RemoveAt(11);
-            modules.Insert(0, temp);
-
+           
             var userResults = new GetUserResultsResponse()
             {
                 ModuleResults = modules.Select(m => {
@@ -187,13 +181,10 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.Control
                             UserDtoConverter.ConvertScoreCardDto(mr)).ToList()
                     };
                 }).ToList(),
-                Groups = moduleGroups.Select(CoachingModuleDTOConverter.ConvertToDTO),
-                User = UserDtoConverter.ConvertUserToBaseDto(usr) 
                 
-
+                Groups = moduleGroups.Select(CoachingModuleDTOConverter.ConvertToDTO).OrderBy(o => o.GroupPriority).ToList(),
+                User = UserDtoConverter.ConvertUserToBaseDto(usr), 
             };
-           
-
             userResults.ActiveModule = userResults.ModuleResults.FirstOrDefault(mr => mr.ModuleResults.Any(r => !r.IsCompleted)).Module;
             userResults.ActiveModuleIndex = modules.IndexOf(modules.Single(m => m.Id == userResults.ActiveModule.Id));
             

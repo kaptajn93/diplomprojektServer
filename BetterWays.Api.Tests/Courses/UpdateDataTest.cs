@@ -98,7 +98,8 @@ namespace BetterWays.Api.Tests.Courses
 
             //Find modules
             var allModules = moduleRep.GetAllItems();
-            Assert.AreEqual(allModules.Count(), 12);
+            var allModulesCount = allModules.Count();
+            Assert.AreEqual(allModulesCount, 12);
 
             var course = courseRep.GetAllItems().Single();
 
@@ -106,25 +107,30 @@ namespace BetterWays.Api.Tests.Courses
             //Create groups
             var grp1 = new ModuleGroup() {
                 GroupName = "Læg en plan og hold den",
-                GroupDescription = "Få overblik over din situation og få redskaber til at komme videre. Dette er en fase, og vi hjælper dig til at se på tingene i et ny lys."
+                GroupDescription = "Få overblik over din situation og få redskaber til at komme videre. Dette er en fase, og vi hjælper dig til at se på tingene i et ny lys.",
+                GroupPriority = 0
+                
             };
 
             var grp2 = new ModuleGroup()
             {
                 GroupName = "Dit talent og din profil",
-                GroupDescription = "Hvad er egentligt din profil? Hvad brænder du for? Måske er det tid til at skifte retning. Få klarhed og opdag nye sider af dit talent."
+                GroupDescription = "Hvad er egentligt din profil? Hvad brænder du for? Måske er det tid til at skifte retning. Få klarhed og opdag nye sider af dit talent.",
+                GroupPriority = 1
             };
 
             var grp3 = new ModuleGroup()
             {
                 GroupName = "Gør dig synlig",
-                GroupDescription = "Du har en unik og attraktiv profil, men får virksomhederne øje på dig? Lær at synliggøre de egenskaber der er værdifulde for din fremtidige arbejdsgiver."
+                GroupDescription = "Du har en unik og attraktiv profil, men får virksomhederne øje på dig? Lær at synliggøre de egenskaber der er værdifulde for din fremtidige arbejdsgiver.",
+                GroupPriority = 2
             };
 
             var grp4 = new ModuleGroup()
             {
                 GroupName = "Nå dit mål",
-                GroupDescription = "Det kræver en stor indsats at finde det rette job. Det er ikke sikkert at det vil lykkedes i første hug. Lær at strukturere søgningen og få noget positivt ud af afslagene."
+                GroupDescription = "Det kræver en stor indsats at finde det rette job. Det er ikke sikkert at det vil lykkedes i første hug. Lær at strukturere søgningen og få noget positivt ud af afslagene.",
+                GroupPriority = 3
             };
 
             course.ModuleGroups = new List<Guid>() { grp1.Id, grp2.Id, grp3.Id, grp4.Id };

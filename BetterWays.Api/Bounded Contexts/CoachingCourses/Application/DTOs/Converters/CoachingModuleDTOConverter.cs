@@ -31,7 +31,8 @@ namespace BetterWays.Api.Bounded_Contexts.CoachingCourses.Infrastructure.DTOs.Co
             {
                 GroupDescription = group.GroupDescription,
                 GroupName = group.GroupName,
-                GroupId = group.Id
+                GroupId = group.Id,
+                GroupPriority = group.GroupPriority
             };
         }
     }

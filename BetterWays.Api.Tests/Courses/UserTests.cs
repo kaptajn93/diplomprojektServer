@@ -44,13 +44,13 @@ namespace BetterWays.Api.Tests.Courses
         public void CreateUser()
         {
             var usr = _userService.CreateUser(
-                "ler@miracle.dk", 
-                "Lasse", 
-                "Eriksen", 
+                "hsm@miracle.dk", 
+                "Henrik", 
+                "Smith", 
                 "1234",
-                "ler@miracle.dk", 
+                "hsm@miracle.dk", 
                 new List<string>() { "Demo" }, 
-                new Guid("c970b221-abe4-412e-b592-dc025cd27945")
+                new Guid()
                 );
             _testUserId = usr.Id;
             

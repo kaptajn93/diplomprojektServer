@@ -73,8 +73,8 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
                 introduction, exercise, reflection);
             module.ModuleIndex = index;
 
-            exercise.Elements[0].Exercise = new GoalExercise(new CoachingModuleReference(module.Id, module.Priority));
-            reflection.Elements[0].Exercise = new PromiseExercise(new List<string>() { "Resultatet af øvelsen levede op til mine forventinger" }, new CoachingModuleReference(module.Id, module.Priority)) { };
+            exercise.Elements[0].Exercise = new GoalExercise(new CoachingModuleReference(module.Id));
+            reflection.Elements[0].Exercise = new PromiseExercise(new List<string>() { "Resultatet af øvelsen levede op til mine forventinger" }, new CoachingModuleReference(module.Id)) { };
 
             //Save resources
             _resourceRepository.CreateModuleResource(introduction);
@@ -149,7 +149,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
                     e.Exercise.GetEmptyScoreCard() : 
                     new BaseScoreCard(
                         new CoachingModuleReference( modules.Single(m => 
-                        m.Exercise.ResourceReferenceId == er.Id).Id, priority: 0), Guid.NewGuid(), "")));
+                        m.Exercise.ResourceReferenceId == er.Id).Id), Guid.NewGuid(), "")));
 
             //Add course admission to user
             if (user.CourseAdmissions == null)
@@ -172,12 +172,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
 
             var course = _coachingCourseRepository.GetCourseById(courseAdmission.CourseId);
             //Find all exercises and get a fresh scorecard
-            var modules = _moduleRepository.GetModulesWithIds(course.Modules.Select(m => m.ModuleReferenceId)).ToList();
-
-//lidt mere slamkode her
-           // var temp = modules[11];
-           //modules.RemoveAt(11);
-           //modules.Insert(0, temp);
+            var modules = _moduleRepository.GetModulesWithIds(course.Modules.Select(m => m.ModuleReferenceId)).OrderBy(m => m.ModuleIndex).ToList();
 
             var exercises = _exerciseRepository.GetExercisesWithIds(modules.SelectMany(m => new[] { m.Exercise.ResourceReferenceId, m.Reflection.ResourceReferenceId })).ToList();
 
@@ -186,7 +181,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Services
                     e.Exercise.GetEmptyScoreCard() :
                     new BaseScoreCard(
                         new CoachingModuleReference(modules.Single(m =>
-                       m.Exercise.ResourceReferenceId == er.Id).Id, priority: 0), Guid.NewGuid(), "")));
+                       m.Exercise.ResourceReferenceId == er.Id).Id), Guid.NewGuid(), "")));
 
             //Add course admission to user
             if (user.CourseAdmissions == null)

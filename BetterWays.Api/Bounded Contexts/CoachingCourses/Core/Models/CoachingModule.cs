@@ -11,12 +11,7 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
 {
     public class CoachingModule : AggregateRoot
     {
-        /// <summary>
-        /// priority on dashboard
-        /// </summary>
-        [JsonProperty(PropertyName = "priority")]
-        public int Priority;
-
+        
         /// <summary>
         /// Name and headline of module
         /// </summary>
@@ -77,7 +72,6 @@ namespace BetterWays.Api.BoundedContexts.CoachingCourses.Core.Models
             CoachingModuleExerciseResource exercise,
             CoachingModuleExerciseResource reflection)
         {
-            Priority = 0;
             Name = name;
             Description = "";
             Peptalk = "";

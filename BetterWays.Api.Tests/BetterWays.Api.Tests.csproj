@@ -73,6 +73,7 @@
     <Compile Include="Courses\DialogTest.cs" />
     <Compile Include="Courses\InitializeCourseWithModules.cs" />
     <Compile Include="Courses\TestInitializer.cs" />
+    <Compile Include="Courses\UpdateDoc.cs" />
     <Compile Include="Courses\UpdateDataTest.cs" />
     <Compile Include="Courses\UserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
